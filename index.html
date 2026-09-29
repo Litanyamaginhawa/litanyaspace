@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#c982a5">
 <meta name="litanya-build" content="FIXED-AUTH-2026-09-29">
+<link rel="preconnect" href="https://gmjtpvxwymevjsicbwlh.supabase.co" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <title>Litanya Safespace</title>
 <!-- Cloudflare static site entry: this file must be named index.html. -->
 <style>
@@ -195,10 +197,10 @@ window.addEventListener("unhandledrejection",e=>showFatal(e.reason?.message||e.r
 // ---- Supabase configuration -------------------------------------------
 const SUPABASE_URL='https://gmjtpvxwymevjsicbwlh.supabase.co';
 const SUPABASE_KEY='sb_publishable_1kBhcictacKY7udPWDlZ6A_5vorzbDi';
-// Internal-only identifier domain. Users never see it. If Supabase ever says
-// "email address is invalid", change this to a domain you own (with MX records)
-// BUT note that existing accounts were created with the old domain.
-const AUTH_EMAIL_DOMAIN='litanya.local';
+// Internal-only login identifiers. Users never see them (they only type a username).
+// Supabase rejects fake TLDs like ".local", so these use real TLDs. No email is ever sent
+// (Confirm email is OFF). Signup uses the first domain Supabase accepts; sign-in tries them in order.
+const AUTH_EMAIL_DOMAINS=['litanya-safespace.com','litanya.app','litanya-app.net'];
 
 let client=null, session=null, me=null;
 let activeChat=null, chatChannel=null, liveChannels=[];
@@ -229,17 +231,41 @@ window.go=id=>{
 document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest(".navbtn");if(b)go(b.dataset.page)});
 
 // ---- Init --------------------------------------------------------------
+let supabaseLoading=null;
+function loadScriptOnce(src){
+  return new Promise((resolve,reject)=>{
+    const x=document.createElement("script");x.src=src;x.async=true;
+    const t=setTimeout(()=>{x.remove();reject(new Error("timeout: "+src))},12000);
+    x.onload=()=>{clearTimeout(t);resolve(true)};
+    x.onerror=()=>{clearTimeout(t);x.remove();reject(new Error("blocked/failed: "+src))};
+    document.head.appendChild(x);
+  });
+}
+async function loadSupabaseLibrary(){
+  if(window.supabase && typeof window.supabase.createClient==="function")return;
+  const urls=[
+    "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2",
+    "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js",
+    "https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.js",
+    "https://cdnjs.cloudflare.com/ajax/libs/supabase-js/2.39.3/umd/supabase.min.js"
+  ];
+  const errs=[];
+  for(const u of urls){
+    try{await loadScriptOnce(u);if(window.supabase&&typeof window.supabase.createClient==="function")return}
+    catch(e){errs.push(e.message);log("Supabase load failed",e.message)}
+  }
+  throw new Error("Could not load the Supabase library from any CDN ("+errs.join(" | ")+"). Check your internet/ad-blocker/VPN and try again.");
+}
 async function initSupabase(){
-  if(client) return true;
-  const loadScript=(src)=>new Promise((resolve,reject)=>{const x=document.createElement("script");x.src=src;x.async=true;const t=setTimeout(()=>reject(new Error("Supabase library took too long to load.")),10000);x.onload=()=>{clearTimeout(t);resolve(true)};x.onerror=()=>{clearTimeout(t);reject(new Error("Could not load the Supabase JavaScript library."))};document.head.appendChild(x)});
-  try{
-    if(!window.supabase || typeof window.supabase.createClient!=="function"){
-      try{await loadScript("https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.76.0")}catch(_){await loadScript("https://unpkg.com/@supabase/supabase-js@2.76.0")}
-    }
-    if(!window.supabase || typeof window.supabase.createClient!=="function") throw new Error("Supabase library could not be loaded. Check your internet connection or browser extensions.");
-    client=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:false}});
-    return true;
-  }catch(e){log("Supabase initialization failed:",e);client=null;toast(e?.message||"Could not connect to the database.","error",9000);return false}
+  if(client)return true;
+  if(!supabaseLoading){
+    supabaseLoading=(async()=>{
+      await loadSupabaseLibrary();
+      client=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:false}});
+    })().finally(()=>{supabaseLoading=null});
+  }
+  try{await supabaseLoading;return !!client}
+  catch(e){log("Supabase init failed",e);client=null;toast(e?.message||"Could not connect to the database.","error",10000);return false}
 }
 
 async function refreshSession(){
@@ -294,21 +320,31 @@ $("openSignup").onclick=e=>{e.preventDefault();openSignupScreen()};
 $("openLogin").onclick=e=>{e.preventDefault();openLoginScreen()};
 
 // ---- Auth (username + password, no email shown to the user) ------------
-function authEmailForUsername(username){return `${username.toLowerCase()}@${AUTH_EMAIL_DOMAIN}`}
+function authEmailFor(username,domain){return `${username.toLowerCase()}@${domain}`}
+const isInvalidEmailErr=e=>/email.*(invalid|not valid)|invalid.*email|email_address_invalid/i.test(String(e?.message||e?.code||""));
 const USERNAME_RE=/^[A-Za-z0-9_.-]{3,30}$/;
 const USERNAME_MSG="Username must be 3–30 characters using letters, numbers, _, ., or -.";
 
 async function ensureProfileAfterAuth(user,username){
-  // The DB trigger normally creates the profile. Wait briefly, then fall back to upsert.
-  me=null;
-  for(let i=0;i<8 && !me;i++){await loadMe();if(!me)await new Promise(r=>setTimeout(r,250))}
-  if(!me){
-    const {error}=await client.from("profiles").upsert({id:user.id,username:username.toLowerCase(),display_name:username,bio:"",avatar_url:null},{onConflict:"id"});
-    if(error)throw error;
-    await loadMe();
-  }
-  if(!me)throw new Error("Your account was created but your profile could not be loaded. Please sign in again.");
+  // The DB trigger creates the profile inside the signup transaction, so it already exists.
+  // Use it immediately (no waiting), then verify/create it in the background.
+  me={id:user.id,username:username.toLowerCase(),display_name:username,bio:"",avatar_url:null};
+  cache.profiles.set(me.id,me);
+  (async()=>{
+    try{
+      const {data}=await client.from("profiles").select("*").eq("id",user.id).maybeSingle();
+      if(data){me=data;cache.profiles.set(me.id,me);applyProfileUI();return}
+      const {error}=await client.from("profiles").upsert({id:user.id,username:username.toLowerCase(),display_name:username,bio:"",avatar_url:null},{onConflict:"id"});
+      if(error)toast("Profile could not be saved: "+error.message,"error",7000);
+    }catch(e){log("profile verify failed",e)}
+  })();
 }
+// Remember which internal domain worked so the next signup/login needs only one request.
+function orderedDomains(){
+  let c=null;try{c=localStorage.getItem("litanya_dom")}catch(_){}
+  return c&&AUTH_EMAIL_DOMAINS.includes(c)?[c,...AUTH_EMAIL_DOMAINS.filter(d=>d!==c)]:AUTH_EMAIL_DOMAINS;
+}
+function rememberDomain(d){try{localStorage.setItem("litanya_dom",d)}catch(_){}}
 
 function friendlyAuthError(err){
   const msg=String(err?.message||err||"");
@@ -316,7 +352,7 @@ function friendlyAuthError(err){
   if(/already registered|already exists/i.test(msg))return "That username is already taken. Please choose another one or sign in.";
   if(/Database error saving new user/i.test(msg))return "That username is already taken. Please choose another one.";
   if(/invalid login credentials/i.test(msg))return "Wrong username or password.";
-  if(/email.*(invalid|not valid)|invalid.*email/i.test(msg))return "The auth server rejected the internal login address. Owner: change AUTH_EMAIL_DOMAIN in index.html to a domain you own.";
+  if(/email.*(invalid|not valid)|invalid.*email/i.test(msg))return "The auth server rejected every internal login address. Owner: edit AUTH_EMAIL_DOMAINS in index.html and use a domain you own.";
   if(/email not confirmed/i.test(msg))return "Owner: turn OFF 'Confirm email' in Supabase → Authentication → Providers → Email.";
   return msg||"Something went wrong. Please try again.";
 }
@@ -324,13 +360,15 @@ function friendlyAuthError(err){
 async function finishNewAccount(username,pass){
   if(!client && !(await initSupabase()))throw new Error("Not connected to the database yet. Please try again.");
 
-  const existing=await client.from("profiles").select("id").eq("username",username).maybeSingle();
-  if(existing.error)throw existing.error;
-  if(existing.data)throw new Error("That username is already taken. Please choose another one.");
-
-  const authEmail=authEmailForUsername(username);
-  const r=await client.auth.signUp({email:authEmail,password:pass,options:{data:{username,display_name:username}}});
-
+  // No separate "is the username taken?" request: the unique index + signUp already tell us.
+  let r=null,authEmail=null,usedDom=null;
+  for(const dom of orderedDomains()){
+    authEmail=authEmailFor(username,dom);usedDom=dom;
+    r=await client.auth.signUp({email:authEmail,password:pass,options:{data:{username,display_name:username}}});
+    if(r.error && isInvalidEmailErr(r.error))continue; // domain rejected, try the next one
+    break;
+  }
+  if(!r.error)rememberDomain(usedDom);
   if(r.error){
     // If a previous attempt already created this user, just sign in.
     const s=await client.auth.signInWithPassword({email:authEmail,password:pass});
@@ -359,14 +397,19 @@ async function finishNewAccount(username,pass){
 
 $("loginForm").onsubmit=async e=>{
   e.preventDefault();
-  const btn=$("loginSubmit");btn.disabled=true;
+  const btn=$("loginSubmit");btn.disabled=true;btn.textContent="Signing in…";
   try{
     if(!client && !(await initSupabase()))throw new Error("Not connected to the database yet. Please try again.");
     const username=$("loginUsername").value.trim().toLowerCase();
     const pass=$("loginPassword").value;
     if(!USERNAME_RE.test(username))throw new Error(USERNAME_MSG);
     if(pass.length<8)throw new Error("Password must be at least 8 characters.");
-    const r=await client.auth.signInWithPassword({email:authEmailForUsername(username),password:pass});
+    let r=null;
+    for(const dom of orderedDomains()){
+      r=await client.auth.signInWithPassword({email:authEmailFor(username,dom),password:pass});
+      if(!r.error){rememberDomain(dom);break}
+      if(!/invalid login credentials/i.test(r.error.message||"") && !isInvalidEmailErr(r.error))break;
+    }
     if(r.error)throw r.error;
     session=r.data.session;
     await loadMe();
@@ -375,12 +418,12 @@ $("loginForm").onsubmit=async e=>{
     toast("Welcome back.","success");
     afterLogin();
   }catch(err){toast(friendlyAuthError(err),"error",6000)}
-  finally{btn.disabled=false}
+  finally{btn.disabled=false;btn.textContent="Sign in"}
 };
 
 $("signupForm").onsubmit=async e=>{
   e.preventDefault();
-  const btn=$("signupSubmit");btn.disabled=true;
+  const btn=$("signupSubmit");btn.disabled=true;btn.textContent="Creating account…";
   try{
     const username=$("signupUsername").value.trim().toLowerCase();
     const pass=$("signupPassword").value;
@@ -390,7 +433,7 @@ $("signupForm").onsubmit=async e=>{
     if(pass!==confirm)throw new Error("Passwords do not match.");
     await finishNewAccount(username,pass);
   }catch(err){toast(friendlyAuthError(err),"error",7000)}
-  finally{btn.disabled=false}
+  finally{btn.disabled=false;btn.textContent="Create an account"}
 };
 
 function requireLogin(){if(!uid()){setPage("authPage");toast("Please sign in first.","error");return false}return true}
@@ -431,22 +474,24 @@ function moderation(text){
 async function insert(table,row){return client.from(table).insert(row).select().single()}
 
 // ---- Feeds -------------------------------------------------------------
+// One request returns posts + their likes + comments (PostgREST embedded relations).
+const POST_SELECT="*,post_reactions(post_id,user_id,reaction),comments(*)";
+function normPost(p){
+  p._likes=p.post_reactions||[];
+  p._comments=(p.comments||[]).filter(c=>!c.is_hidden).sort((x,y)=>new Date(x.created_at)-new Date(y.created_at));
+  p._liked=p._likes.some(x=>x.user_id===uid());
+  cache.posts.set(p.id,p);return p
+}
 async function loadFeed(kind){
   if(!client)return;
   const box=kind==="wall"?$("wallFeed"):$("realFeed"),search=(kind==="wall"?$("wallSearch"):$("realSearch")).value.toLowerCase().trim(),sort=(kind==="wall"?$("wallSort"):$("realSort")).value;
-  box.innerHTML='<div class="loader">Loading...</div>';
-  const {data,error}=await client.from("posts").select("*").eq("kind",kind).eq("is_hidden",false).order("created_at",{ascending:sort==="oldest"}).limit(100);
+  if(!box.children.length||box.querySelector(".loader"))box.innerHTML='<div class="loader">Loading...</div>';
+  const postsReq=client.from("posts").select(POST_SELECT).eq("kind",kind).eq("is_hidden",false).order("created_at",{ascending:sort==="oldest"}).limit(60);
+  const blocksReq=uid()?client.from("blocks").select("blocked_id").eq("blocker_id",uid()):Promise.resolve({data:[]});
+  const [{data,error},b]=await Promise.all([postsReq,blocksReq]);
   if(error){box.innerHTML=`<div class="card" style="padding:15px;color:#8b4053">${esc(error.message)}</div>`;return}
-  let rows=data||[];
-  let blocked=new Set();
-  if(uid()){const b=await client.from("blocks").select("blocked_id").eq("blocker_id",uid());blocked=new Set((b.data||[]).map(x=>x.blocked_id))}
-  rows=rows.filter(p=>!blocked.has(p.user_id));
-  const ids=rows.map(x=>x.id);let likes=[],comments=[];
-  if(ids.length){
-    const a=await client.from("post_reactions").select("post_id,user_id,reaction").in("post_id",ids);likes=a.data||[];
-    const b=await client.from("comments").select("*").in("post_id",ids).eq("is_hidden",false).order("created_at",{ascending:true});comments=b.data||[];
-  }
-  rows.forEach(p=>{p._likes=likes.filter(x=>x.post_id===p.id);p._comments=comments.filter(x=>x.post_id===p.id);p._liked=p._likes.some(x=>x.user_id===uid());cache.posts.set(p.id,p)});
+  const blocked=new Set((b.data||[]).map(x=>x.blocked_id));
+  let rows=(data||[]).filter(p=>!blocked.has(p.user_id)).map(normPost);
   rows=rows.filter(p=>!search||String(p.content).toLowerCase().includes(search)||String(p.display_name).toLowerCase().includes(search));
   if(sort==="liked")rows.sort((a,b)=>b._likes.length-a._likes.length);
   if(sort==="commented")rows.sort((a,b)=>b._comments.length-a._comments.length);
@@ -492,19 +537,30 @@ function bindPostEvents(box){
     let input=f.querySelector("input"),v=input.value.trim();if(!v)return;
     if(moderation(v)){toast("That comment contains words that are not allowed.","error");return}
     let r=await insert("comments",{post_id:f.dataset.post,user_id:uid(),display_name:me.display_name||me.username,content:v});
-    if(r.error)toast(r.error.message,"error");else{input.value="";refreshCurrentView()}
+    if(r.error)toast(r.error.message,"error");else{input.value="";reloadPost(f.dataset.post)}
   });
   box.querySelectorAll(".report-comment").forEach(x=>x.onclick=()=>report("comment",x.dataset.comment));
   box.querySelectorAll(".postbody").forEach(x=>x.onclick=()=>openSinglePost(x.closest(".post").dataset.post));
 }
 document.addEventListener("click",e=>{if(!e.target.closest(".postmenu"))document.querySelectorAll(".postmenu.open").forEach(z=>z.classList.remove("open"))});
 function currentFeed(){return $("realizations").classList.contains("active")?"realization":"wall"}
+function rerenderPost(id){
+  const p=cache.posts.get(id);if(!p)return;
+  document.querySelectorAll(`.post[data-post="${CSS.escape(String(id))}"]`).forEach(el=>{
+    const w=document.createElement("div");w.innerHTML=postCard(p);const n=w.firstElementChild;
+    el.replaceWith(n);bindPostEvents(n.parentElement||n)
+  })
+}
+async function reloadPost(id){
+  const r=await client.from("posts").select(POST_SELECT).eq("id",id).maybeSingle();
+  if(r.data){normPost(r.data);rerenderPost(id)}else refreshCurrentView()
+}
 async function toggleLike(id){
   if(!requireLogin())return;
-  const existing=await client.from("post_reactions").select("post_id").eq("post_id",id).eq("user_id",uid()).maybeSingle();
-  const r=existing.data?await client.from("post_reactions").delete().eq("post_id",id).eq("user_id",uid()):await client.from("post_reactions").insert({post_id:id,user_id:uid(),reaction:"like"});
-  if(r.error)toast(r.error.message,"error");
-  refreshCurrentView()
+  const p=cache.posts.get(id);const was=!!(p&&p._liked);
+  if(p){p._liked=!was;p._likes=was?p._likes.filter(x=>x.user_id!==uid()):[...p._likes,{post_id:id,user_id:uid(),reaction:"like"}];rerenderPost(id)} // instant UI
+  const r=was?await client.from("post_reactions").delete().eq("post_id",id).eq("user_id",uid()):await client.from("post_reactions").insert({post_id:id,user_id:uid(),reaction:"like"});
+  if(r.error){toast(r.error.message,"error");reloadPost(id)}
 }
 async function toggleSave(id){
   if(!requireLogin())return;
@@ -546,14 +602,13 @@ $("realForm").onsubmit=async e=>{
   const r=await insert("posts",{user_id:uid(),kind:"realization",content:v,display_name:anon?"Anonymous":$("realDisplay").value.trim()||me.display_name||me.username,avatar_url:anon?null:me.avatar_url||null,is_anonymous:anon});
   if(r.error)toast(r.error.message,"error");else{$("realContent").value="";toast("Realization shared.","success");await loadFeed("realization")}
 };
-$("wallSearch").oninput=()=>loadFeed("wall");$("wallSort").onchange=()=>loadFeed("wall");$("realSearch").oninput=()=>loadFeed("realization");$("realSort").onchange=()=>loadFeed("realization");
+const debounce=(fn,ms=300)=>{let t;return(...a)=>{clearTimeout(t);t=setTimeout(()=>fn(...a),ms)}};
+$("wallSearch").oninput=debounce(()=>loadFeed("wall"));$("wallSort").onchange=()=>loadFeed("wall");$("realSearch").oninput=debounce(()=>loadFeed("realization"));$("realSort").onchange=()=>loadFeed("realization");
 
 async function openSinglePost(id,stay){
-  let r=await client.from("posts").select("*").eq("id",id).maybeSingle();let p=r.data;
+  const r=await client.from("posts").select(POST_SELECT).eq("id",id).maybeSingle();const p=r.data;
   if(!p){toast("Post not found.","error");return}
-  cache.posts.set(id,p);
-  const c=await client.from("comments").select("*").eq("post_id",id).eq("is_hidden",false).order("created_at");p._comments=c.data||[];
-  const l=await client.from("post_reactions").select("*").eq("post_id",id);p._likes=l.data||[];p._liked=p._likes.some(x=>x.user_id===uid());
+  normPost(p);
   $("singlePostBox").innerHTML=postCard(p);bindPostEvents($("singlePostBox"));
   if(!stay){setPage("singlePost");safeHist("pushState",{page:"singlePost"},"","#post/"+encodeURIComponent(id))}
 }
@@ -572,29 +627,26 @@ async function openPublicProfile(id){
     openPublicProfile(id)
   };
   $("messageUser").onclick=()=>startDM(id);
-  const posts=await client.from("posts").select("*").eq("user_id",id).eq("is_hidden",false).eq("is_anonymous",false).order("created_at",{ascending:false}).limit(50);
+  const posts=await client.from("posts").select(POST_SELECT).eq("user_id",id).eq("is_hidden",false).eq("is_anonymous",false).order("created_at",{ascending:false}).limit(50);
   const rows=posts.data||[];
   await attachCounts(rows);
   $("publicPosts").innerHTML=rows.length?rows.map(postCard).join(""):'<div class="empty">No public posts yet.</div>';
   bindPostEvents($("publicPosts"));setPage("publicProfile");safeHist("pushState",{page:"publicProfile"},"","#user/"+encodeURIComponent(id))
 }
-async function attachCounts(rows){
-  const ids=rows.map(x=>x.id);if(!ids.length)return;
-  const l=await client.from("post_reactions").select("post_id,user_id,reaction").in("post_id",ids);
-  const c=await client.from("comments").select("*").in("post_id",ids).eq("is_hidden",false).order("created_at");
-  rows.forEach(x=>{x._likes=(l.data||[]).filter(z=>z.post_id===x.id);x._comments=(c.data||[]).filter(z=>z.post_id===x.id);x._liked=x._likes.some(z=>z.user_id===uid());cache.posts.set(x.id,x)})
-}
+async function attachCounts(rows){rows.forEach(normPost)}
 $("publicBack").onclick=()=>history.back();
 async function isFollowing(id){if(!uid())return false;const r=await client.from("follows").select("follower_id").eq("follower_id",uid()).eq("following_id",id).maybeSingle();return !!r.data}
 
 async function loadMyProfile(){
   if(!requireLogin()||!(await ensureProfile()))return;applyProfileUI();
-  const p=await client.from("posts").select("*").eq("user_id",uid()).order("created_at",{ascending:false});const rows=p.data||[];
-  await attachCounts(rows);
+  const [p,f,g]=await Promise.all([
+    client.from("posts").select(POST_SELECT).eq("user_id",uid()).order("created_at",{ascending:false}).limit(60),
+    client.from("follows").select("follower_id",{count:"exact",head:true}).eq("following_id",uid()),
+    client.from("follows").select("following_id",{count:"exact",head:true}).eq("follower_id",uid())
+  ]);
+  const rows=(p.data||[]).map(normPost);
   $("statPosts").textContent=rows.length;
-  const f=await client.from("follows").select("follower_id").eq("following_id",uid());
-  const g=await client.from("follows").select("following_id").eq("follower_id",uid());
-  $("statFollowers").textContent=(f.data||[]).length;$("statFollowing").textContent=(g.data||[]).length;
+  $("statFollowers").textContent=f.count||0;$("statFollowing").textContent=g.count||0;
   $("profileFeed").innerHTML=rows.length?rows.map(postCard).join(""):'<div class="empty">No posts yet.</div>';bindPostEvents($("profileFeed"))
 }
 
