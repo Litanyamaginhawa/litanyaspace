@@ -95,23 +95,13 @@ textarea{resize:vertical;min-height:100px}.empty{text-align:center;padding:38px;
 
 <section class="page" id="authPage">
  <div class="auth"><div class="card authbox">
-  <h1 id="authTitle">Welcome back</h1><p class="muted" id="authSub">Sign in to use your profile, posts, and Messenger.</p>
+  <h1 id="authTitle">Welcome back</h1><p class="muted" id="authSub">Sign in with your username and password.</p>
   <form id="authForm">
-   <div class="formrow" id="nameRow"><label class="small">Username</label><input id="authUsername" class="input" maxlength="30" placeholder="your_username"></div>
-   <div class="formrow"><label class="small">Email</label><input id="authEmail" class="input" type="email" required autocomplete="email"></div>
+   <div class="formrow"><label class="small">Username</label><input id="authUsername" class="input" maxlength="30" placeholder="your_username" autocomplete="username" required></div>
    <div class="formrow"><label class="small">Password</label><input id="authPassword" class="input" type="password" required minlength="8" autocomplete="current-password"></div>
    <button class="btn primary" style="width:100%" id="authSubmit">Sign in</button>
   </form>
   <div class="switch"><span id="authSwitchText">New here?</span> <span class="link" id="authSwitch">Create an account</span></div>
-  <div id="verifyBox" class="hidden" style="margin-top:18px">
-   <div class="card" style="padding:18px;background:#fff8fb">
-    <h3 style="margin:0 0 6px">Check your email</h3>
-    <p class="muted small" id="verifyText">We sent a confirmation link to your email. Open it to activate your Litanya account.</p>
-    <button class="btn primary" id="resendBtn" type="button" style="width:100%;margin-top:10px">Resend confirmation email</button>
-    <button class="btn secondary" id="changeEmailBtn" type="button" style="width:100%;margin-top:8px">Back to sign in</button>
-   </div>
-  </div>
-
  </div></div>
 </section>
 
@@ -248,33 +238,16 @@ $("authBtn").onclick=async()=>{if(session){await client.auth.signOut();toast("Si
 $("authSwitch").onclick=()=>{authMode=authMode==="login"?"signup":"login";renderAuth()}
 function renderAuth(){
  const sign=authMode==="signup";$("authTitle").textContent=sign?"Create your safe-space account":"Welcome back";
- $("authSub").textContent=sign?"Your email is used for login; your username is your public identity.":"Sign in to use your profile, posts, and Messenger.";
+ $("authSub").textContent=sign?"Use your username and password to enter Litanya.":"Sign in with your username and password.";
  $("nameRow").classList.toggle("hidden",!sign);$("authSubmit").textContent=sign?"Create account":"Sign in";
  $("authSwitchText").textContent=sign?"Already have an account?":"New here?";$("authSwitch").textContent=sign?"Sign in":"Create an account";
  $("authPassword").autocomplete=sign?"new-password":"current-password"
 }
-let pendingVerificationEmail="";
-let pendingSignupUsername="";
-
-function showVerifyBox(email){
-  pendingVerificationEmail=email;
-  $("verifyBox").classList.remove("hidden");
-  $("authForm").classList.add("hidden");
-  $("authSwitch").parentElement.classList.add("hidden");
-  $("verifyText").textContent=`We sent a confirmation link to ${email}. Open the email and click Confirm to activate your Litanya account. Check Spam/Junk too.`;
-}
-
-function hideVerifyBox(){
-  $("verifyBox").classList.add("hidden");
-  $("authForm").classList.remove("hidden");
-  $("authSwitch").parentElement.classList.remove("hidden");
-}
-
-async function finishVerifiedSignup(user,username){
+async function ensureProfileAfterAuth(user,username){
   session=(await client.auth.getSession()).data.session;
   me=null;
   for(let i=0;i<10 && !me;i++){
-    await new Promise(resolve=>setTimeout(resolve,250));
+    await new Promise(resolve=>setTimeout(resolve,200));
     await loadMe();
   }
   if(!me){
@@ -288,73 +261,66 @@ async function finishVerifiedSignup(user,username){
     if(error)throw error;
     await loadMe();
   }
-  pendingVerificationEmail="";
-  pendingSignupUsername="";
-  $("authForm").reset();
-  hideVerifyBox();
-  toast("Email confirmed! Welcome to Litanya.","success");
-  afterLogin();
+}
+
+function authEmailForUsername(username){
+  return `${username.toLowerCase()}@litanya.local`;
 }
 
 $("authForm").onsubmit=async e=>{
- e.preventDefault();if(!client)return showConfig();
- const email=$("authEmail").value.trim(),pass=$("authPassword").value,username=$("authUsername").value.trim().toLowerCase();
- $("authSubmit").disabled=true;
- try{
-  if(authMode==="login"){
-    let r=await client.auth.signInWithPassword({email,password:pass});
-    if(r.error)throw r.error;
-    toast("Welcome back.","success");
-  }else{
-    if(!/^[A-Za-z0-9_.-]{3,30}$/.test(username))throw new Error("Username must be 3–30 characters using letters, numbers, _, ., or -.");
-    if(pass.length < 8)throw new Error("Password must be at least 8 characters.");
+ e.preventDefault();
+ if(!client)return showConfig();
 
+ const username=$("authUsername").value.trim().toLowerCase();
+ const pass=$("authPassword").value;
+ $("authSubmit").disabled=true;
+
+ try{
+  if(!/^[A-Za-z0-9_.-]{3,30}$/.test(username)){
+    throw new Error("Username must be 3–30 characters using letters, numbers, _, ., or -.");
+  }
+  if(pass.length < 8)throw new Error("Password must be at least 8 characters.");
+
+  const authEmail=authEmailForUsername(username);
+
+  if(authMode==="login"){
+    const r=await client.auth.signInWithPassword({
+      email:authEmail,
+      password:pass
+    });
+    if(r.error)throw r.error;
+
+    await loadMe();
+    toast("Welcome back.","success");
+    afterLogin();
+  }else{
     const r=await client.auth.signUp({
-      email,
+      email:authEmail,
       password:pass,
       options:{
-        data:{username,display_name:username},
-        emailRedirectTo:'https://litanyaspace.litanya.workers.dev/'
+        data:{username,display_name:username}
       }
     });
     if(r.error)throw r.error;
+    if(!r.data.user)throw new Error("Account could not be created. Please try again.");
 
-    pendingSignupUsername=username;
-
-    if(r.data.session && r.data.user){
-      await finishVerifiedSignup(r.data.user,username);
-    }else if(r.data.user){
-      showVerifyBox(email);
-      toast("Check your email for the confirmation link.","success");
-    }else{
-      throw new Error("Supabase did not return a user. Please try again.");
+    if(!r.data.session){
+      throw new Error("Your Supabase Email confirmation is still enabled. Turn OFF 'Confirm email' in Authentication → Providers → Email, then try signing up again.");
     }
+
+    await ensureProfileAfterAuth(r.data.user,username);
+    $("authForm").reset();
+    toast("Account created! Welcome to Litanya.","success");
+    afterLogin();
   }
- }catch(err){toast(err.message||"Something went wrong.","error")}finally{$("authSubmit").disabled=false}
+ }catch(err){
+   toast(err.message||"Something went wrong.","error");
+ }finally{
+   $("authSubmit").disabled=false;
+ }
 };
 
-$("resendBtn").onclick=async()=>{
-  const email=pendingVerificationEmail.trim();
-  if(!email)return toast("No pending email found.","error");
-  $("resendBtn").disabled=true;
-  try{
-    const r=await client.auth.resend({
-      type:"signup",
-      email,
-      options:{emailRedirectTo:'https://litanyaspace.litanya.workers.dev/'}
-    });
-    if(r.error)throw r.error;
-    toast("A new confirmation email was sent.","success");
-  }catch(err){
-    toast(err.message||"Could not resend the confirmation email.","error");
-  }finally{
-    setTimeout(()=>$("resendBtn").disabled=false,3000);
-  }
-};
-
-$("changeEmailBtn").onclick=()=>{
- pendingVerificationEmail="";pendingSignupUsername="";hideVerifyBox();renderAuth();
-};
+$("changeEmailBtn")?.remove();
 
 function requireLogin(){if(!uid()){setPage("authPage");toast("Please sign in first.","error");return false}return true}
 async function ensureProfile(){if(me)return true;await loadMe();if(me)return true;showProfileEditor();return false}
