@@ -314,7 +314,7 @@ $("authForm").onsubmit=async e=>{
       password:pass,
       options:{
         data:{username,display_name:username},
-        emailRedirectTo:window.location.origin+window.location.pathname
+        emailRedirectTo:'https://litanyaspace.litanya.workers.dev/'
       }
     });
     if(r.error)throw r.error;
@@ -341,7 +341,7 @@ $("resendBtn").onclick=async()=>{
     const r=await client.auth.resend({
       type:"signup",
       email,
-      options:{emailRedirectTo:window.location.origin+window.location.pathname}
+      options:{emailRedirectTo:'https://litanyaspace.litanya.workers.dev/'}
     });
     if(r.error)throw r.error;
     toast("A new confirmation email was sent.","success");
