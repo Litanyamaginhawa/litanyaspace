@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#c982a5">
-<meta name="litanya-build" content="FIXED-AUTH-2026-09-29">
+<meta name="litanya-build" content="PUBLIC-CHAT-REALTIME-2026-09-29">
 <link rel="preconnect" href="https://gmjtpvxwymevjsicbwlh.supabase.co" crossorigin>
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <title>Litanya Safespace</title>
@@ -654,20 +654,33 @@ function chatName(c){
 }
 async function ensurePublicChat(){
   if(!requireLogin()) return null;
-  // The public chat is a normal group conversation named exactly "Public Chat".
-  // Existing conversations/data are preserved; we only create the room if it does not exist.
+
+  // There must be ONE shared Public Chat room for the whole community.
   let r=await client.from("conversations").select("id,type,name,created_at").eq("type","group").eq("name","Public Chat").order("created_at",{ascending:true}).limit(1).maybeSingle();
   if(r.error){toast("Could not load Public Chat: "+r.error.message,"error",6000);return null}
+
   let room=r.data;
   if(!room){
-    const c=await insert("conversations",{type:"group",name:"Public Chat",created_by:uid()});
-    if(c.error){toast("Could not create Public Chat: "+c.error.message,"error",6000);return null}
-    room=c.data;
+    const c=await client.from("conversations").insert({type:"group",name:"Public Chat",created_by:uid()}).select().single();
+    if(c.error){
+      // A different user may have created it at the same moment. Fetch it again.
+      if(/duplicate|unique/i.test(c.error.message||"")){
+        const again=await client.from("conversations").select("id,type,name,created_at").eq("type","group").eq("name","Public Chat").order("created_at",{ascending:true}).limit(1).maybeSingle();
+        if(again.error||!again.data){toast("Could not find Public Chat.","error",6000);return null}
+        room=again.data;
+      }else{
+        toast("Could not create Public Chat: "+c.error.message,"error",6000);return null;
+      }
+    }else room=c.data;
   }
-  // Make the current user a member. If already a member, ignore the duplicate.
-  const m=await client.from("conversation_members").insert({conversation_id:room.id,user_id:uid()});
-  if(m.error && !/duplicate|unique/i.test(m.error.message)){
-    toast("Could not join Public Chat: "+m.error.message,"error",6000);return null
+
+  // Every logged-in user joins this exact same room.
+  const m=await client.from("conversation_members").upsert(
+    {conversation_id:room.id,user_id:uid()},
+    {onConflict:"conversation_id,user_id",ignoreDuplicates:true}
+  );
+  if(m.error){
+    toast("Could not join Public Chat: "+m.error.message,"error",6000);return null;
   }
   return room;
 }
@@ -754,20 +767,46 @@ $("newGroupBtn").onclick=async()=>{
   await openChat(c.data.id)
 };
 async function openChat(id){
-  activeChat=id;await loadChats();
-  const c=await client.from("conversations").select("*").eq("id",id).single();if(c.error){toast(c.error.message,"error");return}
-  $("chatTitle").textContent=chatName(c.data);$("chatSubtitle").textContent=c.data.type==="group"?"Group conversation":"Private conversation";
+  activeChat=id;
+  await loadChats();
+
+  const c=await client.from("conversations").select("*").eq("id",id).single();
+  if(c.error){toast(c.error.message,"error");return}
+
+  const publicRoom=c.data.type==="group" && c.data.name==="Public Chat";
+  $("chatTitle").textContent=chatName(c.data);
+  $("chatSubtitle").textContent=publicRoom?"Everyone · Public community chat":c.data.type==="group"?"Group conversation":"Private conversation";
   $("chatAvatar").textContent=initials(chatName(c.data));
-  $("messageInput").disabled=false;$("sendBtn").disabled=false;
-  const r=await client.from("messages").select("*,profiles:sender_id(username,avatar_url)").eq("conversation_id",id).is("deleted_at",null).order("created_at",{ascending:true}).limit(300);
+  $("messageInput").disabled=false;
+  $("sendBtn").disabled=false;
+
+  const r=await client.from("messages")
+    .select("*,profiles:sender_id(username,avatar_url)")
+    .eq("conversation_id",id)
+    .is("deleted_at",null)
+    .order("created_at",{ascending:true})
+    .limit(500);
   if(r.error){toast(r.error.message,"error");return}
   renderMessages(r.data||[]);
-  if(chatChannel)client.removeChannel(chatChannel);
-  chatChannel=client.channel("chat-"+id).on("postgres_changes",{event:"INSERT",schema:"public",table:"messages",filter:"conversation_id=eq."+id},async payload=>{
-    if(String(payload.new.sender_id)===uid())return;
-    const p=await client.from("profiles").select("username,avatar_url").eq("id",payload.new.sender_id).maybeSingle();
-    appendMessage({...payload.new,profiles:p.data});
-  }).subscribe()
+
+  if(chatChannel){await client.removeChannel(chatChannel);chatChannel=null}
+
+  // One realtime stream for the entire shared room.
+  chatChannel=client.channel("litanya-chat-"+id)
+    .on("postgres_changes",{
+      event:"INSERT",schema:"public",table:"messages",
+      filter:"conversation_id=eq."+id
+    },async payload=>{
+      const senderId=String(payload.new.sender_id);
+      const p=await client.from("profiles")
+        .select("username,avatar_url")
+        .eq("id",senderId)
+        .maybeSingle();
+      appendMessage({...payload.new,profiles:p.data||null});
+    })
+    .subscribe(status=>{
+      if(status==="SUBSCRIBED")log("Realtime chat connected:",id);
+    });
 }
 function renderMessages(rows){$("chatMessages").innerHTML=rows.length?rows.map(messageHTML).join(""):'<div class="empty">No messages yet. Say hello.</div>';$("chatMessages").scrollTop=$("chatMessages").scrollHeight}
 function appendMessage(m){
@@ -777,11 +816,24 @@ function appendMessage(m){
 }
 function messageHTML(m){const mine=m.sender_id===uid();const name=m.profiles?.username||m.profiles?.display_name||"User";return `<div class="msgrow ${mine?'mine':''}" data-msg="${attr(m.id)}">${!mine?avatarHTML(name,m.profiles?.avatar_url):""}<div class="msg">${esc(m.content)}<time>${esc(ago(m.created_at))}</time></div></div>`}
 $("messageForm").onsubmit=async e=>{
-  e.preventDefault();if(!activeChat||!requireLogin())return;
-  const v=$("messageInput").value.trim();if(!v)return;
+  e.preventDefault();
+  if(!activeChat||!requireLogin())return;
+  const v=$("messageInput").value.trim();
+  if(!v)return;
   if(moderation(v)){toast("That message contains words that are not allowed.","error");return}
-  const r=await insert("messages",{conversation_id:activeChat,sender_id:uid(),content:v});
-  if(r.error)toast(r.error.message,"error");else{$("messageInput").value="";appendMessage({...r.data,profiles:me})}
+
+  const r=await client.from("messages")
+    .insert({conversation_id:activeChat,sender_id:uid(),content:v})
+    .select("*,profiles:sender_id(username,avatar_url)")
+    .single();
+
+  if(r.error){
+    toast(r.error.message,"error");
+  }else{
+    $("messageInput").value="";
+    // Do not append manually. Realtime delivers this same message to every
+    // connected member, including the sender, and appendMessage de-duplicates.
+  }
 };
 $("chatBack").onclick=()=>{$("messengerBox").classList.remove("chatopen");activeChat=null;loadChats()};
 $("chatInfo").onclick=()=>{if(activeChat)toast("Chat settings can be managed through the group/member controls in the next update.")};
