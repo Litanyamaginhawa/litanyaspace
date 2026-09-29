@@ -170,9 +170,11 @@ textarea{resize:vertical;min-height:100px}.empty{text-align:center;padding:38px;
    notifications, reports, blocks.
    ========================================================== */
 
-const CONFIG_KEY="litanya_v2_config";
-const DEFAULT_SUPABASE_URL='https://gmjtpvxwymevjsicbwlh.supabase.co';
-const DEFAULT_SUPABASE_KEY='sb_publishable_1kBhcictacKY7udPWDlZ6A_5vorzbDi';
+// Production Supabase configuration.
+// Users do not need to enter or connect these values manually.
+const SUPABASE_URL='https://gmjtpvxwymevjsicbwlh.supabase.co';
+const SUPABASE_KEY='sb_publishable_1kBhcictacKY7udPWDlZ6A_5vorzbDi';
+
 let client=null, session=null, me=null, authMode="login";
 let activeChat=null, chatChannel=null, liveChannels=[];
 const cache={posts:new Map(),profiles:new Map(),comments:new Map(),chats:new Map()};
@@ -189,30 +191,18 @@ function setPage(id){document.querySelectorAll(".page").forEach(x=>x.classList.t
 window.go=id=>{if(!uid() && ["wall","realizations","messenger","profile","notifications"].includes(id)){setPage("authPage");return}setPage(id);history.replaceState({page:id},"","#"+id);window.scrollTo(0,0)}
 document.querySelectorAll(".navbtn").forEach(b=>b.onclick=()=>go(b.dataset.page));
 
-function config(){
-  try{
-    const saved=JSON.parse(localStorage.getItem(CONFIG_KEY)||"null");
-    return saved && saved.url && saved.key
-      ? saved
-      : {url:DEFAULT_SUPABASE_URL,key:DEFAULT_SUPABASE_KEY};
-  }catch{
-    return {url:DEFAULT_SUPABASE_URL,key:DEFAULT_SUPABASE_KEY};
-  }
-}
-function saveConfig(c){localStorage.setItem(CONFIG_KEY,JSON.stringify(c))}
-function showConfig(){
- $("modalRoot").innerHTML=`<div class="modalback"><div class="modal"><h2>Connect your new Supabase</h2>
- <p class="muted small">Paste the URL and publishable/anon key of the <b>new</b> project. These values are safe to ship in a browser only when your database RLS policies are configured correctly.</p>
- <div class="formrow"><label class="small">Project URL</label><input id="cfgUrl" class="input" placeholder="https://xxxxx.supabase.co" value="${attr(config()?.url||"")}"></div>
- <div class="formrow"><label class="small">Publishable / anon key</label><input id="cfgKey" class="input" placeholder="sb_publishable_... or anon key" value="${attr(config()?.key||"")}"></div>
- <div class="modalfoot"><button class="btn secondary" id="cfgCancel">Cancel</button><button class="btn primary" id="cfgSave">Connect</button></div></div></div>`;
- $("cfgCancel").onclick=()=>$("modalRoot").innerHTML="";
- $("cfgSave").onclick=()=>{let u=$("cfgUrl").value.trim(),k=$("cfgKey").value.trim();if(!/^https:\/\/.+\.supabase\.co(m)?$/i.test(u)||!k){toast("Enter a valid Supabase URL and key.","error");return}saveConfig({url:u,key:k});location.reload()}
-}
 async function initSupabase(){
- const c=config();
- if(!c){showConfig();return false}
- try{client=window.supabase.createClient(c.url,c.key);return true}catch(e){showConfig();return false}
+  try{
+    if(!window.supabase || typeof window.supabase.createClient!=="function"){
+      throw new Error("Supabase library could not be loaded. Please refresh the page.");
+    }
+    client=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+    return true;
+  }catch(e){
+    console.error("Supabase initialization failed:",e);
+    toast(e?.message||"Could not connect to Litanya's database.","error",6000);
+    return false;
+  }
 }
 
 async function refreshSession(){
@@ -269,7 +259,7 @@ function authEmailForUsername(username){
 
 $("authForm").onsubmit=async e=>{
  e.preventDefault();
- if(!client)return showConfig();
+ if(!client){toast("Database connection is not ready. Please refresh the page.","error");return;}
 
  const username=$("authUsername").value.trim().toLowerCase();
  const pass=$("authPassword").value;
