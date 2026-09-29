@@ -75,7 +75,7 @@ textarea{resize:vertical;min-height:100px}.empty{text-align:center;padding:38px;
   </div>
   <div class="navright">
    <button class="icon" id="globalSearchBtn" title="Search">⌕</button>
-   <button class="icon" id="authBtn" title="Account">☻</button>
+   <button class="icon" id="authBtn" title="Account" style="display:none" aria-hidden="true">☻</button>
   </div>
  </div>
 </header>
@@ -86,7 +86,7 @@ textarea{resize:vertical;min-height:100px}.empty{text-align:center;padding:38px;
   <div class="eyebrow">a gentle corner for you</div>
   <h1>You deserve a safe space.</h1>
   <p>Share what you feel, meet people who listen, write realizations, and have conversations without turning the space into noise.</p>
-  <div id="heroAuth" style="margin-top:22px"><button class="btn primary" style="padding:13px 22px;font-size:16px" onclick="openAuth('signup')">Create an account</button> <button class="btn secondary" style="padding:13px 22px;font-size:16px" onclick="openAuth('login')">Sign in</button></div>
+  <div id="heroAuth" style="margin-top:22px"><button class="btn primary" style="padding:13px 22px;font-size:16px" onclick="openAuth('signup')">Create a username or nickname</button></div>
  </div>
  <div class="homegrid">
   <div class="card homecard"><div class="big">♡</div><h3>Freedom Wall</h3><p class="small">Post thoughts, react, comment, save, share, and follow conversations.</p><button class="btn primary" onclick="go('wall')">Open Wall</button></div>
@@ -100,11 +100,11 @@ textarea{resize:vertical;min-height:100px}.empty{text-align:center;padding:38px;
 
 <section class="page" id="authPage">
  <div class="auth">
-  <div class="card authbox" id="loginScreen">
+  <div class="card authbox hidden" id="loginScreen">
    <h1>Welcome back</h1>
    <p class="muted">Sign in with your username and password.</p>
    <form id="loginForm">
-    <div class="formrow"><label class="small">Username</label><input id="loginUsername" class="input" maxlength="30" placeholder="your_username" autocomplete="username" required></div>
+    <div class="formrow"><label class="small">Username or nickname</label><input id="loginUsername" class="input" maxlength="30" placeholder="your username or nickname" autocomplete="username" required></div>
     <div class="formrow"><label class="small">Password</label><input id="loginPassword" class="input" type="password" required minlength="8" autocomplete="current-password"></div>
     <button class="btn primary" style="width:100%" id="loginSubmit" type="submit">Sign in</button>
    </form>
@@ -113,14 +113,12 @@ textarea{resize:vertical;min-height:100px}.empty{text-align:center;padding:38px;
 
   <div class="card authbox hidden" id="signupScreen">
    <h1>Create your account</h1>
-   <p class="muted">Choose a username and password. Remember your password: there is no email, so it can't be recovered.</p>
+   <p class="muted">Choose the username or nickname you want to use across LitanyaSafespace. Remember your password: there is no email, so it can't be recovered.</p>
    <form id="signupForm">
-    <div class="formrow"><label class="small">Username</label><input id="signupUsername" class="input" maxlength="30" placeholder="your_username" autocomplete="username" required></div>
-    <div class="formrow"><label class="small">Password</label><input id="signupPassword" class="input" type="password" minlength="8" autocomplete="new-password" required></div>
-    <div class="formrow"><label class="small">Confirm password</label><input id="signupConfirm" class="input" type="password" minlength="8" autocomplete="new-password" required></div>
+    <div class="formrow"><label class="small">Username or nickname</label><input id="signupUsername" class="input" maxlength="30" placeholder="your username or nickname" autocomplete="username" required></div>
     <button class="btn primary" style="width:100%" id="signupSubmit" type="submit">Create an account</button>
    </form>
-   <div class="switch"><span>Already have an account?</span> <button type="button" class="linkbtn" id="openLogin">Sign in</button></div>
+   
   </div>
  </div>
 </section>
@@ -130,7 +128,7 @@ textarea{resize:vertical;min-height:100px}.empty{text-align:center;padding:38px;
  <div class="feed">
   <div class="toolbar"><input id="wallSearch" class="input search" placeholder="Search posts..."><select id="wallSort"><option value="latest">Latest</option><option value="oldest">Oldest</option><option value="liked">Most liked</option><option value="commented">Most commented</option></select></div>
   <div class="card composer">
-   <form id="postForm"><div class="composehead"><div class="avatar" id="postAvatar">?</div><input class="input" id="postDisplay" maxlength="40" placeholder="Display name"></div>
+   <form id="postForm"><div class="composehead"><div class="avatar" id="postAvatar">?</div><strong id="postUsername">Username</strong></div>
    <textarea id="postContent" maxlength="3000" required placeholder="What's on your mind?"></textarea>
    <div class="composefoot"><label class="small"><input type="checkbox" id="postAnon"> Post anonymously</label><button class="btn primary">Post</button></div></form>
   </div>
@@ -142,7 +140,7 @@ textarea{resize:vertical;min-height:100px}.empty{text-align:center;padding:38px;
  <div class="pagehead"><h2>Realizations</h2><p>Thoughts that changed something inside you.</p></div>
  <div class="feed">
   <div class="toolbar"><input id="realSearch" class="input search" placeholder="Search realizations..."><select id="realSort"><option value="latest">Latest</option><option value="oldest">Oldest</option><option value="liked">Most liked</option><option value="commented">Most commented</option></select></div>
-  <div class="card composer"><form id="realForm"><div class="composehead"><div class="avatar" id="realAvatar">?</div><input class="input" id="realDisplay" maxlength="40" placeholder="Display name"></div><textarea id="realContent" maxlength="3000" required placeholder="What did you finally realize?"></textarea><div class="composefoot"><label class="small"><input type="checkbox" id="realAnon"> Post anonymously</label><button class="btn primary">Share realization</button></div></form></div>
+  <div class="card composer"><form id="realForm"><div class="composehead"><div class="avatar" id="realAvatar">?</div><strong id="realUsername">Username</strong></div><textarea id="realContent" maxlength="3000" required placeholder="What did you finally realize?"></textarea><div class="composefoot"><label class="small"><input type="checkbox" id="realAnon"> Post anonymously</label><button class="btn primary">Share realization</button></div></form></div>
   <div id="realFeed"><div class="loader">Loading...</div></div>
  </div>
 </section>
@@ -151,7 +149,7 @@ textarea{resize:vertical;min-height:100px}.empty{text-align:center;padding:38px;
  <div class="pagehead"><h2>Messenger</h2><p>Private conversations and group chats.</p></div>
  <div class="card messenger" id="messengerBox">
   <aside class="chatlist">
-   <div class="chatlisthead"><input id="peopleSearch" class="input" placeholder="Search people..."><div style="display:flex;gap:6px;margin-top:8px"><button class="btn secondary" id="newGroupBtn">+ Group</button><button class="btn secondary" id="refreshChats">↻</button></div></div>
+   <div class="chatlisthead"><input id="peopleSearch" class="input" placeholder="Search people..."><div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap"><button class="btn primary" id="publicChatBtn" type="button">Public Chat</button><button class="btn secondary" id="newGroupBtn" type="button">+ Group</button><button class="btn secondary" id="refreshChats" type="button">↻</button></div></div>
    <div class="chatitems" id="chatItems"><div class="empty">No conversations yet.</div></div>
   </aside>
   <section class="chatmain">
@@ -281,8 +279,7 @@ async function refreshSession(){
   if(session){await loadMe();afterLogin()}else updateAuthUI();
 }
 function updateAuthUI(){
-  $("authBtn").textContent=session?"↪":"☻";
-  $("authBtn").title=session?"Sign out":"Sign in";
+  const b=$("authBtn");if(b)b.style.display="none";
   const ha=$("heroAuth");if(ha)ha.classList.toggle("hidden",!!session);
 }
 async function loadMe(){
@@ -298,13 +295,9 @@ function stopRealtime(){
   liveChannels.forEach(x=>client.removeChannel(x));liveChannels=[];
   if(chatChannel){client.removeChannel(chatChannel);chatChannel=null}
 }
-$("authBtn").onclick=async()=>{
-  if(session){
-    await client.auth.signOut();
-    stopRealtime();session=null;me=null;activeChat=null;updateAuthUI();
-    toast("Signed out.");try{location.hash="home"}catch(_){}setPage("home");
-  }else{setPage("authPage");openLoginScreen()}
-};
+// Account/sign-out control is intentionally removed from the top navigation.
+// The username-only session stays active in this browser.
+$("authBtn").onclick=null;
 function openLoginScreen(){
   $("loginScreen").classList.remove("hidden");
   $("signupScreen").classList.add("hidden");
@@ -315,9 +308,8 @@ function openSignupScreen(){
   $("signupScreen").classList.remove("hidden");
   setTimeout(()=>$("signupUsername")?.focus(),0);
 }
-window.openAuth=m=>{setPage("authPage");if(m==="signup")openSignupScreen();else openLoginScreen()};
-$("openSignup").onclick=e=>{e.preventDefault();openSignupScreen()};
-$("openLogin").onclick=e=>{e.preventDefault();openLoginScreen()};
+window.openAuth=m=>{setPage("authPage");openSignupScreen()};
+
 
 // ---- Auth (username + password, no email shown to the user) ------------
 function authEmailFor(username,domain){return `${username.toLowerCase()}@${domain}`}
@@ -423,17 +415,22 @@ $("loginForm").onsubmit=async e=>{
 
 $("signupForm").onsubmit=async e=>{
   e.preventDefault();
-  const btn=$("signupSubmit");btn.disabled=true;btn.textContent="Creating account…";
+  const btn=$("signupSubmit");btn.disabled=true;btn.textContent="Entering Litanya…";
   try{
-    const username=$("signupUsername").value.trim().toLowerCase();
-    const pass=$("signupPassword").value;
-    const confirm=$("signupConfirm").value;
+    if(!client && !(await initSupabase()))throw new Error("Not connected to the database yet. Please try again.");
+    const username=$("signupUsername").value.trim();
     if(!USERNAME_RE.test(username))throw new Error(USERNAME_MSG);
-    if(pass.length<8)throw new Error("Password must be at least 8 characters.");
-    if(pass!==confirm)throw new Error("Passwords do not match.");
-    await finishNewAccount(username,pass);
-  }catch(err){toast(friendlyAuthError(err),"error",7000)}
-  finally{btn.disabled=false;btn.textContent="Create an account"}
+    const name=username;
+    // No password/email is requested. Supabase Authentication must have Anonymous sign-in enabled.
+    const a=await client.auth.signInAnonymously({options:{data:{username:name,display_name:name}}});
+    if(a.error)throw a.error;
+    session=a.data.session;
+    await ensureProfileAfterAuth(session.user,name);
+    $("signupForm").reset();
+    toast("Welcome to Litanya!","success",3500);
+    afterLogin();
+  }catch(err){toast(String(err?.message||err||"Could not enter Litanya."),"error",7000)}
+  finally{btn.disabled=false;btn.textContent="Enter Litanya"}
 };
 
 function requireLogin(){if(!uid()){setPage("authPage");toast("Please sign in first.","error");return false}return true}
@@ -441,26 +438,25 @@ async function ensureProfile(){if(me)return true;await loadMe();if(me)return tru
 function showProfileEditor(){
   const p=me||{};
   $("modalRoot").innerHTML=`<div class="modalback"><div class="modal"><h2>${p.id?"Edit profile":"Complete your profile"}</h2>
-  <form id="profileForm"><div class="formrow"><label class="small">Username</label><input id="profileUsernameInput" class="input" required maxlength="30" value="${attr(p.username||"")}"></div>
-  <div class="formrow"><label class="small">Display name</label><input id="profileDisplayInput" class="input" maxlength="50" value="${attr(p.display_name||"")}"></div>
+  <form id="profileForm"><div class="formrow"><label class="small">Username</label><input id="profileUsernameInput" class="input" maxlength="30" value="${attr(p.username||"")}" readonly><div class="tiny">Your username is your identity across LitanyaSafespace.</div></div>
   <div class="formrow"><label class="small">Bio</label><textarea id="profileBioInput" maxlength="240">${esc(p.bio||"")}</textarea></div>
   <div class="formrow"><label class="small">Avatar URL (optional)</label><input id="profileAvatarInput" class="input" maxlength="500" value="${attr(p.avatar_url||"")}"></div>
   <div class="modalfoot"><button type="button" class="btn secondary" id="profileCancel">Cancel</button><button class="btn primary">Save</button></div></form></div></div>`;
   $("profileCancel").onclick=()=>$("modalRoot").innerHTML="";
   $("profileForm").onsubmit=async e=>{
     e.preventDefault();
-    const username=$("profileUsernameInput").value.trim().toLowerCase();
-    if(!USERNAME_RE.test(username)){toast("Invalid username.","error");return}
-    const row={id:uid(),username,display_name:$("profileDisplayInput").value.trim()||username,bio:$("profileBioInput").value.trim(),avatar_url:$("profileAvatarInput").value.trim()||null};
-    const {error}=await client.from("profiles").upsert(row,{onConflict:"id"});
+    const row={id:uid(),bio:$("profileBioInput").value.trim(),avatar_url:$("profileAvatarInput").value.trim()||null};
+    const {error}=await client.from("profiles").update(row).eq("id",uid());
     if(error){toast(/duplicate|unique/i.test(error.message)?"That username is already taken.":error.message,"error");return}
     await loadMe();$("modalRoot").innerHTML="";applyProfileUI();toast("Profile saved.","success")
   }
 }
 function applyProfileUI(){
-  if(!me)return;const name=me.display_name||me.username||"User";
+  if(!me)return;const name=me.username||"User";
   ["postAvatar","realAvatar"].forEach(id=>{$(id).innerHTML=me.avatar_url?`<img src="${attr(me.avatar_url)}" alt="">`:esc(initials(name))});
-  $("profileName").textContent="@"+me.username;$("profileBio").textContent=me.bio||"No bio yet.";
+  if($("postUsername"))$("postUsername").textContent="@"+name;
+  if($("realUsername"))$("realUsername").textContent="@"+name;
+  $("profileName").textContent="@"+name;$("profileBio").textContent=me.bio||"No bio yet.";
   $("profileAvatar").innerHTML=me.avatar_url?`<img src="${attr(me.avatar_url)}" alt="">`:esc(initials(name))
 }
 $("editProfile").onclick=()=>{if(requireLogin())showProfileEditor()};
@@ -475,7 +471,7 @@ async function insert(table,row){return client.from(table).insert(row).select().
 
 // ---- Feeds -------------------------------------------------------------
 // One request returns posts + their likes + comments (PostgREST embedded relations).
-const POST_SELECT="*,post_reactions(post_id,user_id,reaction),comments(*)";
+const POST_SELECT="*,profiles:user_id(username,avatar_url),post_reactions(post_id,user_id,reaction),comments(*,profiles:user_id(username,avatar_url))";
 function normPost(p){
   p._likes=p.post_reactions||[];
   p._comments=(p.comments||[]).filter(c=>!c.is_hidden).sort((x,y)=>new Date(x.created_at)-new Date(y.created_at));
@@ -492,13 +488,13 @@ async function loadFeed(kind){
   if(error){box.innerHTML=`<div class="card" style="padding:15px;color:#8b4053">${esc(error.message)}</div>`;return}
   const blocked=new Set((b.data||[]).map(x=>x.blocked_id));
   let rows=(data||[]).filter(p=>!blocked.has(p.user_id)).map(normPost);
-  rows=rows.filter(p=>!search||String(p.content).toLowerCase().includes(search)||String(p.display_name).toLowerCase().includes(search));
+  rows=rows.filter(p=>!search||String(p.content).toLowerCase().includes(search)||String(p.profiles?.username||p.display_name||"").toLowerCase().includes(search));
   if(sort==="liked")rows.sort((a,b)=>b._likes.length-a._likes.length);
   if(sort==="commented")rows.sort((a,b)=>b._comments.length-a._comments.length);
   box.innerHTML=rows.length?rows.map(postCard).join(""):'<div class="empty">No posts found.</div>';
   bindPostEvents(box)
 }
-function authorName(p){return p.is_anonymous?"Anonymous":p.display_name||"User"}
+function authorName(p){return p.is_anonymous?"Anonymous":p.profiles?.username||p.username||p.display_name||"User"}
 function avatarHTML(name,url,cls="avatar"){return `<div class="${cls}">${url?`<img src="${attr(url)}" alt="">`:esc(initials(name))}</div>`}
 function postCard(p){
   const own=p.user_id===uid(), name=authorName(p), liked=p._liked, comments=p._comments||[],likes=p._likes||[];
@@ -514,7 +510,7 @@ function postCard(p){
  </article>`
 }
 function commentHTML(c){
-  const name=c.display_name||"User";
+  const name=c.profiles?.username||c.username||c.display_name||"User";
   return `<div class="comment"><div class="avatar">${esc(initials(name))}</div><div><div class="bubble"><strong>${esc(name)}</strong><p>${esc(c.content)}</p></div><div class="commenttools"><span>${esc(ago(c.created_at))}</span><button type="button" class="link report-comment" data-comment="${attr(c.id)}">Report</button></div></div></div>`
 }
 function refreshCurrentView(){
@@ -536,7 +532,7 @@ function bindPostEvents(box){
     e.preventDefault();if(!requireLogin()||!(await ensureProfile()))return;
     let input=f.querySelector("input"),v=input.value.trim();if(!v)return;
     if(moderation(v)){toast("That comment contains words that are not allowed.","error");return}
-    let r=await insert("comments",{post_id:f.dataset.post,user_id:uid(),display_name:me.display_name||me.username,content:v});
+    let r=await insert("comments",{post_id:f.dataset.post,user_id:uid(),display_name:me.username,content:v});
     if(r.error)toast(r.error.message,"error");else{input.value="";reloadPost(f.dataset.post)}
   });
   box.querySelectorAll(".report-comment").forEach(x=>x.onclick=()=>report("comment",x.dataset.comment));
@@ -591,7 +587,7 @@ $("postForm").onsubmit=async e=>{
   const v=$("postContent").value.trim();if(!v)return;
   if(moderation(v)){toast("This post contains words that are not allowed.","error");return}
   const anon=$("postAnon").checked;
-  const r=await insert("posts",{user_id:uid(),kind:"wall",content:v,display_name:anon?"Anonymous":$("postDisplay").value.trim()||me.display_name||me.username,avatar_url:anon?null:me.avatar_url||null,is_anonymous:anon});
+  const r=await insert("posts",{user_id:uid(),kind:"wall",content:v,display_name:anon?"Anonymous":me.username,avatar_url:anon?null:me.avatar_url||null,is_anonymous:anon});
   if(r.error)toast(r.error.message,"error");else{$("postContent").value="";toast("Posted.","success");await loadFeed("wall")}
 };
 $("realForm").onsubmit=async e=>{
@@ -599,7 +595,7 @@ $("realForm").onsubmit=async e=>{
   const v=$("realContent").value.trim();if(!v)return;
   if(moderation(v)){toast("This post contains words that are not allowed.","error");return}
   const anon=$("realAnon").checked;
-  const r=await insert("posts",{user_id:uid(),kind:"realization",content:v,display_name:anon?"Anonymous":$("realDisplay").value.trim()||me.display_name||me.username,avatar_url:anon?null:me.avatar_url||null,is_anonymous:anon});
+  const r=await insert("posts",{user_id:uid(),kind:"realization",content:v,display_name:anon?"Anonymous":me.username,avatar_url:anon?null:me.avatar_url||null,is_anonymous:anon});
   if(r.error)toast(r.error.message,"error");else{$("realContent").value="";toast("Realization shared.","success");await loadFeed("realization")}
 };
 const debounce=(fn,ms=300)=>{let t;return(...a)=>{clearTimeout(t);t=setTimeout(()=>fn(...a),ms)}};
@@ -618,7 +614,7 @@ async function openPublicProfile(id){
   const r=await client.from("profiles").select("*").eq("id",id).maybeSingle();
   if(r.error||!r.data){toast("Profile not found.","error");return}
   const p=r.data;const following=await isFollowing(id);
-  $("publicProfileBox").innerHTML=`<div class="card"><div class="cover"></div><div class="profiletop">${avatarHTML(p.display_name||p.username,p.avatar_url,"bigavatar")}<h2>@${esc(p.username)}</h2><p class="muted">${esc(p.bio||"No bio yet.")}</p><button class="btn primary" id="followBtn">${following?"Following":"Follow"}</button><button class="btn secondary" id="messageUser" style="margin-left:6px">Message</button></div></div>`;
+  $("publicProfileBox").innerHTML=`<div class="card"><div class="cover"></div><div class="profiletop">${avatarHTML(p.username,p.avatar_url,"bigavatar")}<h2>@${esc(p.username)}</h2><p class="muted">${esc(p.bio||"No bio yet.")}</p><button class="btn primary" id="followBtn">${following?"Following":"Follow"}</button><button class="btn secondary" id="messageUser" style="margin-left:6px">Message</button></div></div>`;
   $("followBtn").onclick=async()=>{
     if(!requireLogin()||id===uid())return;
     const f=await isFollowing(id);
@@ -652,54 +648,109 @@ async function loadMyProfile(){
 
 // ---- Messenger ---------------------------------------------------------
 function chatName(c){
-  if(c.title)return c.title;
+  if(c.name)return c.name;
   const o=cache.chats.get(c.id);
-  return o?.display_name||o?.username||"Private chat";
+  return o?.username||o?.display_name||"Private chat";
 }
+async function ensurePublicChat(){
+  if(!requireLogin()) return null;
+  // The public chat is a normal group conversation named exactly "Public Chat".
+  // Existing conversations/data are preserved; we only create the room if it does not exist.
+  let r=await client.from("conversations").select("id,type,name,created_at").eq("type","group").eq("name","Public Chat").order("created_at",{ascending:true}).limit(1).maybeSingle();
+  if(r.error){toast("Could not load Public Chat: "+r.error.message,"error",6000);return null}
+  let room=r.data;
+  if(!room){
+    const c=await insert("conversations",{type:"group",name:"Public Chat",created_by:uid()});
+    if(c.error){toast("Could not create Public Chat: "+c.error.message,"error",6000);return null}
+    room=c.data;
+  }
+  // Make the current user a member. If already a member, ignore the duplicate.
+  const m=await client.from("conversation_members").insert({conversation_id:room.id,user_id:uid()});
+  if(m.error && !/duplicate|unique/i.test(m.error.message)){
+    toast("Could not join Public Chat: "+m.error.message,"error",6000);return null
+  }
+  return room;
+}
+
 async function loadChats(){
   if(!requireLogin())return;
-  const r=await client.from("conversation_members").select("conversation_id,conversations(id,type,title,created_at)").eq("user_id",uid()).order("joined_at",{ascending:false});
+  // Always make sure the community room exists and this user can see it.
+  await ensurePublicChat();
+  const r=await client.from("conversation_members").select("conversation_id,conversations(id,type,name,created_at)").eq("user_id",uid()).order("joined_at",{ascending:false});
   if(r.error){toast(r.error.message,"error");return}
   const rows=(r.data||[]).map(x=>x.conversations).filter(Boolean);
-  const dmIds=rows.filter(c=>c.type==="dm").map(c=>c.id);
+  const dmIds=rows.filter(c=>isDirectConversation(c)).map(c=>c.id);
   if(dmIds.length){
-    const o=await client.from("conversation_members").select("conversation_id,profiles:user_id(display_name,username,avatar_url)").in("conversation_id",dmIds).neq("user_id",uid());
+    const o=await client.from("conversation_members").select("conversation_id,profiles:user_id(username,avatar_url)").in("conversation_id",dmIds).neq("user_id",uid());
     (o.data||[]).forEach(x=>cache.chats.set(x.conversation_id,x.profiles));
   }
-  rows.forEach(c=>cache.chats.has(c.id)||0);
-  $("chatItems").innerHTML=rows.length?rows.map(c=>`<div class="chatitem ${activeChat===c.id?'active':''}" data-chat="${attr(c.id)}">${avatarHTML(chatName(c),cache.chats.get(c.id)?.avatar_url)}<div class="chattext"><strong>${esc(chatName(c))}</strong><span>${esc(c.type==="group"?"Group conversation":"Private conversation")}</span></div></div>`).join(""):'<div class="empty">No chats yet.<br><br><button class="btn primary" onclick="openPeople()">Find people</button></div>';
+  rows.sort((a,b)=>a.name==="Public Chat"?-1:b.name==="Public Chat"?1:0);
+  $("chatItems").innerHTML=rows.length?rows.map(c=>`<div class="chatitem ${activeChat===c.id?'active':''}" data-chat="${attr(c.id)}">${avatarHTML(chatName(c),cache.chats.get(c.id)?.avatar_url)}<div class="chattext"><strong>${esc(chatName(c))}</strong><span>${esc(c.name==="Public Chat"?"Everyone · Public community chat":isGroupConversation(c)?"Group conversation":"Private conversation")}</span></div></div>`).join(""):'<div class="empty">No chats yet.</div>';
   $("chatItems").querySelectorAll(".chatitem").forEach(x=>x.onclick=()=>openChat(x.dataset.chat));
   $("messengerBox").classList.toggle("chatopen",!!activeChat);
   $("chatBack").style.display=window.innerWidth<=850&&activeChat?"inline-block":"none";
 }
 window.openPeople=()=>{$("peopleSearch").focus()};
+function isGroupConversation(c){return String(c?.type||"").toLowerCase()==="group"}
+function isDirectConversation(c){return !!c && !isGroupConversation(c)}
+
+async function createDirectConversation(other){
+  const types=["dm","private","direct","one_to_one"];
+  let lastError=null;
+  for(const type of types){
+    const c=await insert("conversations",{type,name:null,created_by:uid()});
+    if(!c.error)return c;
+    lastError=c.error;
+    // Existing databases may use a different allowed value for one-to-one chats.
+    if(!/check constraint|violates.*type/i.test(c.error.message||""))break;
+  }
+  return {error:lastError||new Error("Could not create private conversation.")};
+}
+
 async function startDM(other){
   if(!requireLogin()||other===uid())return;
-  const existing=await client.from("conversation_members").select("conversation_id,conversations(id,type)").eq("user_id",uid());
+  const existing=await client.from("conversation_members").select("conversation_id,conversations(id,type,name)").eq("user_id",uid());
+  if(existing.error){toast(existing.error.message,"error");return}
   for(const x of (existing.data||[])){
-    if(x.conversations?.type!=="dm")continue;
+    if(!isDirectConversation(x.conversations))continue;
     const members=await client.from("conversation_members").select("user_id").eq("conversation_id",x.conversation_id);
-    if((members.data||[]).some(m=>m.user_id===other)){go("messenger");await openChat(x.conversation_id);return}
+    if((members.data||[]).some(m=>String(m.user_id)===String(other))){go("messenger");await openChat(x.conversation_id);return}
   }
-  const c=await insert("conversations",{type:"dm",title:null,created_by:uid()});
-  if(c.error){toast(c.error.message,"error");return}
-  const a=await client.from("conversation_members").insert({conversation_id:c.data.id,user_id:uid(),role:"member"});
-  if(a.error){toast(a.error.message,"error");return}
-  const b=await client.from("conversation_members").insert({conversation_id:c.data.id,user_id:other,role:"member"});
-  if(b.error){toast(b.error.message,"error");return}
+  const c=await createDirectConversation(other);
+  if(c.error){toast("Could not start conversation: "+c.error.message,"error",7000);return}
+  const members=[{conversation_id:c.data.id,user_id:uid()},{conversation_id:c.data.id,user_id:other}];
+  const m=await client.from("conversation_members").insert(members);
+  if(m.error){toast("Could not add the members: "+m.error.message,"error",7000);return}
   go("messenger");await openChat(c.data.id)
 }
+
+$("publicChatBtn").onclick=async()=>{
+  const room=await ensurePublicChat();
+  if(room){activeChat=null;go("messenger");await openChat(room.id)}
+};
+
 $("newGroupBtn").onclick=async()=>{
-  if(!requireLogin())return;const title=prompt("Group name?");if(!title)return;
-  const raw=prompt("Enter usernames separated by commas");if(!raw)return;
-  const users=await client.from("profiles").select("id,username").in("username",raw.split(",").map(x=>x.trim().toLowerCase()).filter(Boolean));
-  const ids=(users.data||[]).map(x=>x.id).filter(x=>x!==uid());
-  if(!ids.length){toast("No matching users found.","error");return}
-  const c=await insert("conversations",{type:"group",title:title.slice(0,80),created_by:uid()});
-  if(c.error){toast(c.error.message,"error");return}
-  const a=await client.from("conversation_members").insert({conversation_id:c.data.id,user_id:uid(),role:"admin"});
-  if(a.error){toast(a.error.message,"error");return}
-  for(const id of ids){const mr=await client.from("conversation_members").insert({conversation_id:c.data.id,user_id:id,role:"member"});if(mr.error)toast("Could not add one member: "+mr.error.message,"error")}
+  if(!requireLogin())return;
+  const title=(prompt("Group name")||"").trim();
+  if(!title)return;
+  const raw=(prompt("Enter the usernames of the people to add, separated by commas")||"").trim();
+  if(!raw){toast("Add at least one username to the group.","error");return}
+  const names=[...new Set(raw.split(",").map(x=>x.trim().toLowerCase()).filter(Boolean))];
+  const users=await client.from("profiles").select("id,username").in("username",names);
+  if(users.error){toast("Could not search users: "+users.error.message,"error",6000);return}
+  const found=users.data||[];
+  const foundNames=new Set(found.map(x=>String(x.username).toLowerCase()));
+  const missing=names.filter(n=>!foundNames.has(n));
+  const ids=found.map(x=>x.id).filter(x=>x!==uid());
+  if(missing.length){toast("Username not found: "+missing.join(", "),"error",6000);return}
+  if(!ids.length){toast("You need to add at least one other person.","error");return}
+  const c=await insert("conversations",{type:"group",name:title.slice(0,80),created_by:uid()});
+  if(c.error){toast("Could not create group: "+c.error.message,"error",6000);return}
+  const memberIds=[uid(),...ids.filter(x=>x!==uid())];
+  const members=[...new Set(memberIds)].map(user_id=>({conversation_id:c.data.id,user_id}));
+  const a=await client.from("conversation_members").insert(members);
+  if(a.error){toast("Group was created, but members could not be added: "+a.error.message,"error",7000);return}
+  toast("Group created successfully.","success",3500);
   await openChat(c.data.id)
 };
 async function openChat(id){
@@ -708,13 +759,13 @@ async function openChat(id){
   $("chatTitle").textContent=chatName(c.data);$("chatSubtitle").textContent=c.data.type==="group"?"Group conversation":"Private conversation";
   $("chatAvatar").textContent=initials(chatName(c.data));
   $("messageInput").disabled=false;$("sendBtn").disabled=false;
-  const r=await client.from("messages").select("*,profiles:sender_id(display_name,username,avatar_url)").eq("conversation_id",id).is("deleted_at",null).order("created_at",{ascending:true}).limit(300);
+  const r=await client.from("messages").select("*,profiles:sender_id(username,avatar_url)").eq("conversation_id",id).is("deleted_at",null).order("created_at",{ascending:true}).limit(300);
   if(r.error){toast(r.error.message,"error");return}
   renderMessages(r.data||[]);
   if(chatChannel)client.removeChannel(chatChannel);
   chatChannel=client.channel("chat-"+id).on("postgres_changes",{event:"INSERT",schema:"public",table:"messages",filter:"conversation_id=eq."+id},async payload=>{
     if(String(payload.new.sender_id)===uid())return;
-    const p=await client.from("profiles").select("display_name,username,avatar_url").eq("id",payload.new.sender_id).maybeSingle();
+    const p=await client.from("profiles").select("username,avatar_url").eq("id",payload.new.sender_id).maybeSingle();
     appendMessage({...payload.new,profiles:p.data});
   }).subscribe()
 }
@@ -724,7 +775,7 @@ function appendMessage(m){
   const emp=box.querySelector(".empty");if(emp)emp.remove();
   box.insertAdjacentHTML("beforeend",messageHTML(m));box.scrollTop=box.scrollHeight
 }
-function messageHTML(m){const mine=m.sender_id===uid();const name=m.profiles?.display_name||m.profiles?.username||"User";return `<div class="msgrow ${mine?'mine':''}" data-msg="${attr(m.id)}">${!mine?avatarHTML(name,m.profiles?.avatar_url):""}<div class="msg">${esc(m.content)}<time>${esc(ago(m.created_at))}</time></div></div>`}
+function messageHTML(m){const mine=m.sender_id===uid();const name=m.profiles?.username||m.profiles?.display_name||"User";return `<div class="msgrow ${mine?'mine':''}" data-msg="${attr(m.id)}">${!mine?avatarHTML(name,m.profiles?.avatar_url):""}<div class="msg">${esc(m.content)}<time>${esc(ago(m.created_at))}</time></div></div>`}
 $("messageForm").onsubmit=async e=>{
   e.preventDefault();if(!activeChat||!requireLogin())return;
   const v=$("messageInput").value.trim();if(!v)return;
@@ -752,11 +803,16 @@ $("refreshChats").onclick=loadChats;
 // ---- Notifications & realtime -----------------------------------------
 async function loadNotifications(){
   if(!uid()||!client)return;
-  const r=await client.from("notifications").select("*").eq("user_id",uid()).order("created_at",{ascending:false}).limit(100);
+  let r=await client.from("notifications").select("*").eq("user_id",uid()).order("created_at",{ascending:false}).limit(100);
+  // Compatibility fallback for older notifications tables that do not yet have title.
+  if(r.error && /notifications.*title|column.*title.*notifications/i.test(String(r.error.message||""))){
+    r=await client.from("notifications").select("id,user_id,type,body,is_read,created_at").eq("user_id",uid()).order("created_at",{ascending:false}).limit(100);
+  }
+  if(r.error){toast(r.error.message||"Could not load notifications.","error");return}
   const rows=r.data||[];const unread=rows.filter(x=>!x.is_read).length;
   $("notifBadge").textContent=unread;$("notifBadge").classList.toggle("hidden",!unread);
   $("notificationList").innerHTML=rows.length?rows.map(n=>`<div class="notice ${n.is_read?'':'unread'}" data-notif="${attr(n.id)}"><div class="avatar">${n.type==="message"?"✉":"•"}</div><div class="noticebody"><strong>${esc(n.title||"Notification")}</strong><p>${esc(n.body||"")}</p><span class="tiny">${esc(ago(n.created_at))}</span></div></div>`).join(""):'<div class="empty">No notifications.</div>';
-  $("notificationList").querySelectorAll(".notice").forEach(x=>x.onclick=async()=>{await client.from("notifications").update({is_read:true}).eq("id",x.dataset.notif);loadNotifications()})
+  $("notificationList").querySelectorAll(".notice").forEach(x=>x.onclick=async()=>{const u=await client.from("notifications").update({is_read:true}).eq("id",x.dataset.notif);if(u.error && !/title.*notifications|notifications.*title/i.test(u.error.message||""))toast(u.error.message,"error");loadNotifications()})
 }
 function startRealtime(){
   liveChannels.forEach(x=>client.removeChannel(x));liveChannels=[];
@@ -772,7 +828,7 @@ window.addEventListener("popstate",()=>{
 });
 $("globalSearchBtn").onclick=()=>{
   if(!requireLogin())return;
-  const q=prompt("Search usernames or display names");
+  const q=prompt("Search usernames");
   if(q){go("messenger");$("peopleSearch").value=q;$("peopleSearch").dispatchEvent(new Event("input"))}
 };
 $("modalRoot").addEventListener("click",e=>{if(e.target.classList.contains("modalback"))$("modalRoot").innerHTML=""});
@@ -780,7 +836,7 @@ window.addEventListener("beforeunload",()=>{if(client)stopRealtime()});
 
 // ---- Boot --------------------------------------------------------------
 (async()=>{
-  openLoginScreen();
+  openSignupScreen();
   if(await initSupabase()){
     await refreshSession();
     if(!session){
