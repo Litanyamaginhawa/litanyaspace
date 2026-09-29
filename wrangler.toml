@@ -1,4 +1,5 @@
 name = "litanya-safespace"
+compatibility_date = "2026-09-29"
 
 [assets]
-directory = "."
+directory = "./"
