@@ -4,9 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#c982a5">
-<meta name="litanya-build" content="PUBLIC-CHAT-REALTIME-2026-09-29">
-<link rel="preconnect" href="https://gmjtpvxwymevjsicbwlh.supabase.co" crossorigin>
-<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Litanya Safespace">
+<link rel="manifest" href="/manifest.json">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="litanya-build" content="PROFILE-VIEWS-PHOTOS-LIKES-2026-10-07">
+<link rel="preconnect" href="[https://gmjtpvxwymevjsicbwlh.supabase.co](https://gmjtpvxwymevjsicbwlh.supabase.co/)" crossorigin>
+<link rel="preconnect" href="[https://cdn.jsdelivr.net](https://cdn.jsdelivr.net/)" crossorigin>
 <title>Litanya Safespace</title>
 <!-- Cloudflare static site entry: this file must be named index.html. -->
 <style>
@@ -22,9 +27,12 @@ button,input,textarea,select{font:inherit}button{cursor:pointer}button:disabled{
 .topbar{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,.94);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
 .nav{max-width:1320px;margin:auto;min-height:68px;padding:9px 16px;display:flex;align-items:center;gap:12px}
 .logo{font-weight:900;font-size:20px;white-space:nowrap;color:#66495a}.logo span{color:var(--accent)}
-.navlinks{display:flex;gap:4px;overflow:auto;flex:1;scrollbar-width:none}.navlinks::-webkit-scrollbar{display:none}
+.navlinks{display:flex;gap:4px;overflow:visible;flex:1;scrollbar-width:none;min-width:0}.navlinks::-webkit-scrollbar{display:none}
 .navbtn{border:0;background:transparent;color:#625a60;padding:10px 12px;border-radius:999px;font-weight:750;white-space:nowrap}
 .navbtn:hover,.navbtn.active{background:var(--accent2);color:var(--accentDark)}
+.moreNav{position:relative}.moreNavBtn{display:inline-flex;align-items:center;gap:7px}.moreMenu{position:absolute;right:0;top:48px;width:220px;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);border-radius:15px;padding:6px;display:none;z-index:2000}.moreNav.open .moreMenu{display:block}.moreMenu .navbtn{width:100%;justify-content:flex-start;border-radius:10px}.moreMenu .navbtn:hover,.moreMenu .navbtn.active{background:var(--accent2)}
+.fb-upload{display:flex;align-items:center;gap:10px;padding:9px 11px;border:1px solid var(--line);border-radius:12px;background:#fff;cursor:pointer}.fb-upload>div:last-of-type{display:flex;flex-direction:column}.fb-upload strong{font-size:12px}.fb-upload span{font-size:10px;color:var(--muted)}.upload-circle{width:32px;height:32px;border-radius:50%;background:#f5edf1;display:grid;place-items:center;color:var(--accentDark)}.music-preview{margin-top:10px;padding:10px;border:1px solid var(--line);border-radius:13px;background:#fcf7fa;display:flex;align-items:center;gap:8px}.music-preview audio{width:100%}.ytmusic{margin-top:10px;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#000}.ytmusic iframe{display:block;width:100%;height:210px;border:0}.ytmusic .music-name{background:#fff;padding:7px 10px;margin:0}.postaudio{width:100%;margin-top:10px;border-radius:12px}.music-name{font-size:11px;color:var(--muted);margin-top:5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
 .navright{display:flex;gap:6px}.icon{width:42px;height:42px;border:0;border-radius:50%;background:#f5edf1;color:#654b59;position:relative}
 .badge{position:absolute;right:-2px;top:-2px;background:#d95872;color:white;min-width:17px;height:17px;border-radius:20px;font-size:10px;display:grid;place-items:center;padding:0 4px}
 .container{width:min(1320px,100%);margin:auto;padding:24px 16px 70px}.page{display:none}.page.active{display:block;animation:in .2s ease}
@@ -43,9 +51,24 @@ textarea{resize:vertical;min-height:100px}.empty{text-align:center;padding:38px;
 .composer textarea{margin-top:12px}.composefoot{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-top:9px}
 .post{padding:0;margin:13px 0;overflow:visible}.posthead{display:flex;gap:10px;align-items:center;padding:15px 16px 7px}.postmeta{min-width:0;flex:1}.postmeta strong{display:block}.postmeta .time{display:block;color:var(--muted);font-size:11px;margin-top:2px}
 .postmenu{position:relative}.more{border:0;background:transparent;font-size:22px;color:#777;border-radius:9px;padding:3px 8px}.menu{position:absolute;right:0;top:34px;z-index:50;width:180px;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);border-radius:13px;padding:6px;display:none}.postmenu.open .menu{display:block}.menu button{display:block;width:100%;text-align:left;border:0;background:#fff;padding:9px;border-radius:8px}.menu button:hover{background:#faf3f7}
-.postbody{padding:8px 16px 13px;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere;cursor:pointer}.postimg{width:100%;max-height:520px;object-fit:cover;border-radius:12px;margin-top:10px}
+.postbody{padding:8px 16px 13px;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere;cursor:pointer}
+.postimg{width:100%;max-height:560px;object-fit:cover;border-radius:14px;margin-top:10px;display:block;background:#faf6f8}
+.composer-tools{display:flex;gap:7px;align-items:center;flex-wrap:wrap}
+.iconbtn{width:42px;height:42px;border:0;border-radius:12px;background:#f5edf1;color:#654b59;display:inline-grid;place-items:center;transition:.18s}
+.iconbtn:hover{background:var(--accent2);color:var(--accentDark);transform:translateY(-1px)}
+.iconbtn svg,.navbtn svg,.btn svg,.actions svg,.more svg,.send svg{width:18px;height:18px;display:block}
+.navbtn{display:inline-flex;align-items:center;gap:7px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px}
+.actions button{display:inline-flex;align-items:center;justify-content:center;gap:6px}
+.upload-label{display:inline-flex;align-items:center;gap:7px;cursor:pointer}
+.upload-name{max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.image-preview{position:relative;margin-top:10px}
+.image-preview{border:1px solid var(--line);border-radius:16px;padding:6px;background:#faf7f9}.image-preview img{width:100%;max-height:420px;object-fit:cover;border-radius:12px;display:block}
+.image-preview .remove-image{position:absolute;right:8px;top:8px}
+.update-card{border-left:4px solid var(--accent)}
+
 .actions{display:flex;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.actions button{flex:1;border:0;background:#fff;padding:11px 5px;color:#686168;font-weight:750}.actions button:hover,.actions button.active{background:#fcf5f8;color:var(--accentDark)}
-.comments{padding:10px 16px 14px}.comment{display:flex;gap:8px;margin:9px 0}.comment .avatar{width:34px;height:34px;font-size:12px}.bubble{background:#f3f0f2;border-radius:15px;padding:8px 11px;min-width:0}.bubble strong{font-size:12px}.bubble p{margin:3px 0 0;font-size:13px;white-space:pre-wrap;overflow-wrap:anywhere}.commenttools{font-size:11px;color:#777;margin:3px 0 0 4px;display:flex;gap:10px}.commentform{display:flex;gap:6px;margin-top:8px}.commentform input{flex:1}
+.comments{padding:10px 16px 14px}.comment{display:flex;gap:8px;margin:9px 0}.comment .avatar{width:34px;height:34px;font-size:12px}.bubble{background:#f3f0f2;border-radius:15px;padding:8px 11px;min-width:0}.bubble strong{font-size:12px}.bubble p{margin:3px 0 0;font-size:13px;white-space:pre-wrap;overflow-wrap:anywhere}.commenttools{font-size:11px;color:#777;margin:3px 0 0 4px;display:flex;gap:10px}.commentform{display:flex;gap:6px;margin-top:8px}.commentform input{flex:1}.comment.reply{margin-left:42px}.replybox{margin:6px 0 0 4px;display:flex;gap:6px}.replybox input{flex:1;min-width:0}.reply-btn{border:0;background:transparent;color:var(--accentDark);font-size:11px;font-weight:800;padding:0}.notification-target{outline:3px solid #dca9bf;box-shadow:0 0 0 6px #f8e8ef;transition:.2s}
 .layout{display:grid;grid-template-columns:250px minmax(0,820px) 260px;gap:16px;max-width:1280px;margin:auto}.side{padding:16px;position:sticky;top:84px;height:max-content}.side h3{margin:0 0 10px}.sideitem{display:flex;gap:9px;align-items:center;padding:9px;border-radius:11px;cursor:pointer}.sideitem:hover{background:#faf3f7}
 .profilegrid{display:grid;grid-template-columns:300px 1fr;gap:16px;max-width:1050px;margin:auto}.profilecard{padding:24px;text-align:center}.bigavatar{width:100px;height:100px;border-radius:50%;background:var(--accent2);display:grid;place-items:center;margin:0 auto 12px;font-size:36px;font-weight:900;overflow:hidden}.bigavatar img{width:100%;height:100%;object-fit:cover}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:15px}.stat{background:#faf6f8;padding:9px;border-radius:10px}.stat strong{display:block}.stat span{font-size:10px;color:var(--muted)}
 .messenger{height:calc(100vh - 120px);min-height:600px;display:grid;grid-template-columns:300px 1fr;overflow:hidden}.chatlist{border-right:1px solid var(--line);display:flex;flex-direction:column;min-height:0}.chatlisthead{padding:15px;border-bottom:1px solid var(--line)}.chatitems{overflow:auto}.chatitem{display:flex;gap:9px;padding:11px 13px;cursor:pointer}.chatitem:hover,.chatitem.active{background:#faf3f7}.chattext{min-width:0;flex:1}.chattext strong,.chattext span{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.chattext span{font-size:11px;color:var(--muted);margin-top:2px}
@@ -59,6 +82,22 @@ textarea{resize:vertical;min-height:100px}.empty{text-align:center;padding:38px;
 @media(max-width:1050px){.layout{grid-template-columns:1fr}.side{display:none}.homegrid{grid-template-columns:1fr 1fr}}
 @media(max-width:850px){.nav{flex-wrap:wrap}.logo{width:100%;text-align:center}.navright{position:absolute;right:10px;top:12px}.navlinks{order:3;width:100%}.messenger{grid-template-columns:1fr}.chatlist{display:flex}.messenger.chatopen .chatlist{display:none}.profilegrid{grid-template-columns:1fr}}
 @media(max-width:560px){.container{padding:14px 9px 55px}.homegrid{grid-template-columns:1fr}.hero{padding:40px 5px 25px}.hero h1{font-size:43px}.toolbar{flex-wrap:wrap}.toolbar .search{min-width:100%}.toolbar select{flex:1}.composer{padding:13px}.posthead,.postbody,.comments{padding-left:12px;padding-right:12px}.actions button{font-size:12px}.messenger{height:calc(100vh - 105px);min-height:520px;border-radius:14px}.chatmsgs{padding:12px 9px}.msg{max-width:84%}.layout{display:block}}
+
+/* --- Social/profile enhancements --- */
+.fb-upload{display:flex;align-items:center;gap:12px;border:1px solid var(--line);background:#faf7f9;border-radius:14px;padding:10px 12px;cursor:pointer;transition:.18s}
+.fb-upload:hover{background:var(--accent2);border-color:#dfb4c7}
+.fb-upload .upload-circle{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:#ead8e2;color:var(--accentDark);font-weight:900}
+.fb-upload strong{display:block;font-size:13px}.fb-upload span{display:block;font-size:11px;color:var(--muted);margin-top:2px}
+.profile-actions{display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin-top:10px}
+.following-panel{margin-top:16px;text-align:left;border-top:1px solid var(--line);padding-top:14px}
+.following-panel h4{margin:0 0 8px}.person-row{display:flex;align-items:center;gap:9px;padding:8px;border-radius:11px;cursor:pointer}.person-row:hover{background:#faf3f7}
+.person-row .person-info{min-width:0;flex:1}.person-row strong{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.person-row span{font-size:11px;color:var(--muted)}
+.view-row{display:flex;align-items:center;gap:10px;padding:11px 4px;border-bottom:1px solid var(--line);cursor:pointer}.view-row:hover{background:#fff8fb}.view-row .view-info{flex:1;min-width:0}.view-row strong{display:block}.view-row span{font-size:11px;color:var(--muted)}
+.view-badge{background:#d95872;color:#fff;min-width:18px;height:18px;padding:0 5px;border-radius:20px;font-size:10px;display:inline-grid;place-items:center}
+.profile-view-empty{padding:30px;text-align:center;color:var(--muted)}
+.post .postimg{cursor:zoom-in}
+.actions button.active .svgicon{display:none}
+
 </style>
 </head>
 <body>
@@ -66,20 +105,26 @@ textarea{resize:vertical;min-height:100px}.empty{text-align:center;padding:38px;
  <div class="nav">
   <div class="logo">Litanya<span>Safespace</span></div>
   <div class="navlinks" id="navlinks">
-   <button class="navbtn active" data-page="home">Home</button>
-   <button class="navbtn" data-page="wall">Freedom Wall</button>
-   <button class="navbtn" data-page="realizations">Realizations</button>
-   <button class="navbtn" data-page="messenger">Messenger</button>
-   <button class="navbtn" data-page="notifications">Notifications <span class="badge hidden" id="notifBadge">0</span></button>
-   <button class="navbtn" data-page="profile">Profile</button>
+   <button class="navbtn active" data-page="home"><span class="svgicon" data-icon="home"></span>Home</button>
+   <button class="navbtn" data-page="wall"><span class="svgicon" data-icon="heart"></span>Freedom Wall</button>
+   <button class="navbtn" data-page="realizations"><span class="svgicon" data-icon="spark"></span>Realizations</button>
+   <button class="navbtn" data-page="messenger"><span class="svgicon" data-icon="message"></span>Messenger</button>
+   <div class="moreNav" id="moreNav">
+    <button class="navbtn moreNavBtn" id="moreNavBtn" type="button"><span class="svgicon" data-icon="more"></span>More</button>
+    <div class="moreMenu" id="moreMenu">
+     <button class="navbtn" data-page="updates"><span class="svgicon" data-icon="megaphone"></span>Updates</button>
+     <button class="navbtn" data-page="notifications"><span class="svgicon" data-icon="bell"></span>Notifications <span class="badge hidden" id="notifBadge">0</span></button>
+     <button class="navbtn" data-page="profileViews"><span class="svgicon" data-icon="user"></span>Profile Views <span class="badge hidden" id="profileViewBadge">0</span></button>
+     <button class="navbtn" data-page="profile"><span class="svgicon" data-icon="user"></span>Profile</button>
+    </div>
+   </div>
   </div>
   <div class="navright">
-   <button class="icon" id="globalSearchBtn" title="Search">⌕</button>
+   <button class="icon" id="globalSearchBtn" title="Search"><span class="svgicon" data-icon="search"></span></button>
    <button class="icon" id="authBtn" title="Account" style="display:none" aria-hidden="true">☻</button>
   </div>
  </div>
 </header>
-
 <main class="container">
 <section class="page active" id="home">
  <div class="hero">
@@ -89,15 +134,14 @@ textarea{resize:vertical;min-height:100px}.empty{text-align:center;padding:38px;
   <div id="heroAuth" style="margin-top:22px"><button class="btn primary" style="padding:13px 22px;font-size:16px" onclick="openAuth('signup')">Create a username or nickname</button></div>
  </div>
  <div class="homegrid">
-  <div class="card homecard"><div class="big">♡</div><h3>Freedom Wall</h3><p class="small">Post thoughts, react, comment, save, share, and follow conversations.</p><button class="btn primary" onclick="go('wall')">Open Wall</button></div>
-  <div class="card homecard"><div class="big">✦</div><h3>Realizations</h3><p class="small">A dedicated feed for lessons, clarity, changes, and things you finally understood.</p><button class="btn primary" onclick="go('realizations')">Open Realizations</button></div>
-  <div class="card homecard"><div class="big">◌</div><h3>Messenger</h3><p class="small">One-to-one and group conversations with realtime updates.</p><button class="btn primary" onclick="go('messenger')">Open Messenger</button></div>
+  <div class="card homecard"><div class="big">♡</div><h3>Freedom Wall</h3><p class="small">Post thoughts, react, comment, save, share, and follow conversations.</p><button class="btn primary" onclick="go('wall')"><span class="svgicon" data-icon="arrow"></span>Open Wall</button></div>
+  <div class="card homecard"><div class="big">✦</div><h3>Realizations</h3><p class="small">A dedicated feed for lessons, clarity, changes, and things you finally understood.</p><button class="btn primary" onclick="go('realizations')"><span class="svgicon" data-icon="arrow"></span>Open Realizations</button></div>
+  <div class="card homecard"><div class="big">◌</div><h3>Messenger</h3><p class="small">One-to-one and group conversations with realtime updates.</p><button class="btn primary" onclick="go('messenger')"><span class="svgicon" data-icon="message"></span>Open Messenger</button></div>
  </div>
  <div class="card" style="max-width:1050px;margin:18px auto;padding:22px;text-align:center">
   <h3>Built for people, not metrics.</h3><p class="small">Follow people you want to hear from, bookmark posts, report harmful content, block accounts, and control your own profile.</p>
  </div>
 </section>
-
 <section class="page" id="authPage">
  <div class="auth">
   <div class="card authbox hidden" id="loginScreen">
@@ -110,7 +154,6 @@ textarea{resize:vertical;min-height:100px}.empty{text-align:center;padding:38px;
    </form>
    <div class="switch"><span>New here?</span> <button type="button" class="linkbtn" id="openSignup">Create an account</button></div>
   </div>
-
   <div class="card authbox hidden" id="signupScreen">
    <h1>Create your account</h1>
    <p class="muted">Choose the username or nickname you want to use across LitanyaSafespace. Remember your password: there is no email, so it can't be recovered.</p>
@@ -118,11 +161,9 @@ textarea{resize:vertical;min-height:100px}.empty{text-align:center;padding:38px;
     <div class="formrow"><label class="small">Username or nickname</label><input id="signupUsername" class="input" maxlength="30" placeholder="your username or nickname" autocomplete="username" required></div>
     <button class="btn primary" style="width:100%" id="signupSubmit" type="submit">Create an account</button>
    </form>
-   
   </div>
  </div>
 </section>
-
 <section class="page" id="wall">
  <div class="pagehead"><h2>Freedom Wall</h2><p>Say something you want the room to hear.</p></div>
  <div class="feed">
@@ -130,21 +171,50 @@ textarea{resize:vertical;min-height:100px}.empty{text-align:center;padding:38px;
   <div class="card composer">
    <form id="postForm"><div class="composehead"><div class="avatar" id="postAvatar">?</div><strong id="postUsername">Username</strong></div>
    <textarea id="postContent" maxlength="3000" required placeholder="What's on your mind?"></textarea>
-   <div class="composefoot"><label class="small"><input type="checkbox" id="postAnon"> Post anonymously</label><button class="btn primary">Post</button></div></form>
+   <div class="image-preview hidden" id="postImagePreview"></div><div class="music-preview hidden" id="postMusicPreview"></div>
+   <div class="card hidden" id="youtubeMusicPanel" style="margin-top:10px;padding:12px;background:#fcf7fa">
+    <div style="display:flex;gap:7px;align-items:center"><input id="youtubeMusicUrl" class="input" placeholder="Paste a YouTube music URL"><button type="button" class="btn secondary" id="youtubeSearchBtn">Search</button></div>
+    <div class="tiny" style="margin-top:7px">Search opens YouTube. Use music you have permission to use. The clip plays from your chosen start to end time without downloading the song.</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:8px"><label class="small">Start (seconds)<input id="youtubeStart" class="input" type="number" min="0" step="1" value="0"></label><label class="small">End (seconds)<input id="youtubeEnd" class="input" type="number" min="1" step="1" placeholder="e.g. 15"></label></div>
+    <div class="modalfoot" style="margin-top:9px"><button type="button" class="btn secondary" id="youtubeCancel">Cancel</button><button type="button" class="btn primary" id="youtubeUse">Use this clip</button></div>
+   </div>
+   <div class="composefoot">
+    <div class="composer-tools">
+     <label class="fb-upload" title="Add a photo"><div class="upload-circle"><span class="svgicon" data-icon="image"></span></div><div><strong>Photo</strong><span>Add a photo to your post</span></div><input id="postImage" type="file" accept="image/*" hidden></label><label class="fb-upload" title="Add music file"><div class="upload-circle">♫</div><div><strong>Music file</strong><span>Upload royalty-free/open music</span></div><input id="postMusic" type="file" accept="audio/*,.mp3,.m4a,.wav,.ogg" hidden></label>
+     <button type="button" class="fb-upload" id="youtubeMusicBtn" title="Use a YouTube music clip"><div class="upload-circle">▶</div><div><strong>YouTube clip</strong><span>Search, choose, then set a short part</span></div></button>
+     <span class="upload-name tiny" id="postImageName"></span>
+     <label class="small"><input type="checkbox" id="postAnon"> Post anonymously</label>
+    </div>
+    <button class="btn primary" type="submit"><span class="svgicon" data-icon="send"></span>Post</button>
+   </div></form>
   </div>
   <div id="wallFeed"><div class="loader">Loading...</div></div>
  </div>
 </section>
-
 <section class="page" id="realizations">
  <div class="pagehead"><h2>Realizations</h2><p>Thoughts that changed something inside you.</p></div>
  <div class="feed">
   <div class="toolbar"><input id="realSearch" class="input search" placeholder="Search realizations..."><select id="realSort"><option value="latest">Latest</option><option value="oldest">Oldest</option><option value="liked">Most liked</option><option value="commented">Most commented</option></select></div>
-  <div class="card composer"><form id="realForm"><div class="composehead"><div class="avatar" id="realAvatar">?</div><strong id="realUsername">Username</strong></div><textarea id="realContent" maxlength="3000" required placeholder="What did you finally realize?"></textarea><div class="composefoot"><label class="small"><input type="checkbox" id="realAnon"> Post anonymously</label><button class="btn primary">Share realization</button></div></form></div>
+  <div class="card composer"><form id="realForm"><div class="composehead"><div class="avatar" id="realAvatar">?</div><strong id="realUsername">Username</strong></div><textarea id="realContent" maxlength="3000" required placeholder="What did you finally realize?"></textarea>
+   <div class="image-preview hidden" id="realImagePreview"></div><div class="music-preview hidden" id="realMusicPreview"></div>
+   <div class="composefoot"><div class="composer-tools"><label class="fb-upload" title="Add a photo"><div class="upload-circle"><span class="svgicon" data-icon="image"></span></div><div><strong>Photo</strong><span>Add a photo to your realization</span></div><input id="realImage" type="file" accept="image/*" hidden></label><label class="fb-upload" title="Add music"><div class="upload-circle">♫</div><div><strong>Music</strong><span>Add music to your realization</span></div><input id="realMusic" type="file" accept="audio/*,.mp3,.m4a,.wav,.ogg" hidden></label><span class="upload-name tiny" id="realImageName"></span><label class="small"><input type="checkbox" id="realAnon"> Post anonymously</label></div><button class="btn primary" type="submit"><span class="svgicon" data-icon="send"></span>Share realization</button></div></form></div>
   <div id="realFeed"><div class="loader">Loading...</div></div>
  </div>
 </section>
-
+<section class="page" id="updates">
+ <div class="pagehead"><h2>Updates</h2><p>Share announcements, news, reminders, or anything you want everyone in Litanya to see.</p></div>
+ <div class="feed">
+  <div class="toolbar"><input id="updateSearch" class="input search" placeholder="Search updates..."><select id="updateSort"><option value="latest">Latest</option><option value="oldest">Oldest</option><option value="liked">Most liked</option><option value="commented">Most commented</option></select></div>
+  <div class="card composer">
+   <form id="updateForm"><div class="composehead"><div class="avatar" id="updateAvatar">?</div><strong id="updateUsername">Username</strong></div>
+   <textarea id="updateContent" maxlength="3000" required placeholder="Write an update for the community..."></textarea>
+   <div class="image-preview hidden" id="updateImagePreview"></div><div class="music-preview hidden" id="updateMusicPreview"></div>
+   <div class="composefoot"><div class="composer-tools"><label class="fb-upload" title="Add a photo"><div class="upload-circle"><span class="svgicon" data-icon="image"></span></div><div><strong>Photo</strong><span>Add a photo to your update</span></div><input id="updateImage" type="file" accept="image/*" hidden></label><label class="fb-upload" title="Add music"><div class="upload-circle">♫</div><div><strong>Music</strong><span>Add music to your update</span></div><input id="updateMusic" type="file" accept="audio/*,.mp3,.m4a,.wav,.ogg" hidden></label><span class="upload-name tiny" id="updateImageName"></span></div><button class="btn primary" type="submit"><span class="svgicon" data-icon="send"></span>Post update</button></div>
+   </form>
+  </div>
+  <div id="updateFeed"><div class="loader">Loading...</div></div>
+ </div>
+</section>
 <section class="page" id="messenger">
  <div class="pagehead"><h2>Messenger</h2><p>Private conversations and group chats.</p></div>
  <div class="card messenger" id="messengerBox">
@@ -159,28 +229,50 @@ textarea{resize:vertical;min-height:100px}.empty{text-align:center;padding:38px;
   </section>
  </div>
 </section>
-
-<section class="page" id="notifications"><div style="max-width:800px;margin:auto"><div class="pagehead"><h2>Notifications</h2><p>Likes, comments, follows, and messages.</p></div><div class="card" style="padding:16px" id="notificationList"><div class="loader">Loading...</div></div></div></section>
-
+<section class="page" id="notifications">
+ <div style="max-width:800px;margin:auto">
+  <div class="pagehead"><h2>Notifications</h2><p>Likes, comments, follows, and messages.</p></div>
+  <div class="card" style="padding:14px;margin-bottom:12px;background:linear-gradient(135deg,#fff8fb,#f8f1f5)">
+   <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+    <div style="font-size:28px">🔔</div>
+    <div style="flex:1;min-width:220px"><strong>Phone notifications</strong><div class="tiny" id="pushStatus">Enable notifications to get alerts for new posts even when Litanya Safespace is not open.</div></div>
+    <button class="btn primary" id="enablePushBtn" type="button">Enable notifications</button>
+   </div>
+   <div class="tiny" id="pushHelp" style="margin-top:9px"></div>
+  </div>
+  <div class="card" style="padding:16px" id="notificationList"><div class="loader">Loading...</div></div>
+ </div>
+</section>
+<section class="page" id="profileViews">
+ <div style="max-width:800px;margin:auto">
+  <div class="pagehead"><h2>Profile Views</h2><p>Here are the users who viewed your profile.</p></div>
+  <div class="card" style="padding:16px" id="profileViewList"><div class="loader">Loading...</div></div>
+ </div>
+</section>
 <section class="page" id="profile">
  <div class="profilegrid">
-  <div class="card profilecard"><div class="bigavatar" id="profileAvatar">?</div><h2 id="profileName">@username</h2><p id="profileBio" class="muted">No bio yet.</p><button class="btn primary" id="editProfile">Edit profile</button><div class="stats"><div class="stat"><strong id="statPosts">0</strong><span>Posts</span></div><div class="stat"><strong id="statFollowers">0</strong><span>Followers</span></div><div class="stat"><strong id="statFollowing">0</strong><span>Following</span></div></div></div>
+  <div class="card profilecard"><div class="bigavatar" id="profileAvatar">?</div>
+  <label class="fb-upload" title="Upload a profile picture">
+   <div class="upload-circle"><span class="svgicon" data-icon="image"></span></div>
+   <div><strong>Choose profile picture</strong><span>Upload a custom photo from your device</span></div>
+   <input id="profileImage" type="file" accept="image/*" hidden>
+  </label>
+  <h2 id="profileName">@username</h2><p id="profileBio" class="muted">No bio yet.</p>
+  <div class="profile-actions"><button class="btn primary" id="editProfile"><span class="svgicon" data-icon="edit"></span>Edit profile</button></div>
+  <div class="stats"><div class="stat"><strong id="statPosts">0</strong><span>Posts</span></div><div class="stat"><strong id="statFollowers">0</strong><span>Followers</span></div><div class="stat"><strong id="statFollowing">0</strong><span>Following</span></div></div></div>
   <div><div class="pagehead"><h2>Your posts</h2><p>Everything you shared publicly on Litanya.</p></div><div id="profileFeed"></div></div>
  </div>
 </section>
-
 <section class="page" id="publicProfile"><div style="max-width:800px;margin:auto"><button class="btn secondary" id="publicBack">← Back</button><div id="publicProfileBox" style="margin-top:12px"></div><div id="publicPosts"></div></div></section>
 <section class="page" id="singlePost"><div style="max-width:800px;margin:auto"><button class="btn secondary" id="singleBack">← Back</button><div id="singlePostBox" style="margin-top:12px"></div></div></section>
 </main>
-
 <div id="modalRoot"></div><div class="toastwrap" id="toastWrap"></div>
-
 <script>
 (() => {
 "use strict";
 // Safe logger: some sandboxes/extensions replace `console` with an incomplete object.
 const log=(...a)=>{try{if(window.console&&typeof console.log==="function")console.log(...a)}catch(_){}};
-log("Litanya Safespace build: FIXED-AUTH-2026-09-29");
+log("Litanya Safespace build: PROFILE-VIEWS-PHOTOS-LIKES-2026-10-07");
 const safeHist=(fn,...a)=>{try{history[fn](...a)}catch(_){}};
 function showFatal(msg){
   try{
@@ -191,7 +283,6 @@ function showFatal(msg){
 }
 window.addEventListener("error",e=>showFatal(e.message||e.error));
 window.addEventListener("unhandledrejection",e=>showFatal(e.reason?.message||e.reason));
-
 // ---- Supabase configuration -------------------------------------------
 const SUPABASE_URL='https://gmjtpvxwymevjsicbwlh.supabase.co';
 const SUPABASE_KEY='sb_publishable_1kBhcictacKY7udPWDlZ6A_5vorzbDi';
@@ -199,12 +290,104 @@ const SUPABASE_KEY='sb_publishable_1kBhcictacKY7udPWDlZ6A_5vorzbDi';
 // Supabase rejects fake TLDs like ".local", so these use real TLDs. No email is ever sent
 // (Confirm email is OFF). Signup uses the first domain Supabase accepts; sign-in tries them in order.
 const AUTH_EMAIL_DOMAINS=['litanya-safespace.com','litanya.app','litanya-app.net'];
+// Web Push configuration. The public VAPID key is safe to ship to browsers.
+// The matching PRIVATE key stays only in Supabase Edge Function secrets.
+const VAPID_PUBLIC_KEY='BGJEZXi2F4sdybATBwPJTaTEIm0lLIKmlRER94k0hjKbD94FIkEhK4p0YuqektlaeXIThjyrvAgYOePYqvK5CxI';
+let pushRegistration=null;
+function base64ToUint8Array(base64){
+  const padding='='.repeat((4-base64.length%4)%4);
+  const b64=(base64+padding).replace(/-/g,'+').replace(/_/g,'/');
+  const raw=atob(b64);const out=new Uint8Array(raw.length);
+  for(let i=0;i<raw.length;i++)out[i]=raw.charCodeAt(i);return out;
+}
+function isIOS(){return /iphone|ipad|ipod/i.test(navigator.userAgent)||(/macintosh/i.test(navigator.userAgent)&&navigator.maxTouchPoints>1)}
+function isStandalone(){return window.matchMedia?.('(display-mode: standalone)').matches||window.navigator.standalone===true}
+async function registerPushServiceWorker(){
+  if(!('serviceWorker' in navigator)||!('PushManager' in window))return null;
+  try{pushRegistration=await navigator.serviceWorker.register('/sw.js',{scope:'/'});await navigator.serviceWorker.ready;return pushRegistration}
+  catch(e){log('Push service worker registration failed',e);return null}
+}
+async function savePushSubscription(sub){
+  const j=sub.toJSON();
+  if(!j.endpoint||!j.keys?.p256dh||!j.keys?.auth)throw new Error('Browser did not return a complete push subscription.');
+  const r=await client.from('push_subscriptions').upsert({user_id:uid(),endpoint:j.endpoint,p256dh:j.keys.p256dh,auth:j.keys.auth,user_agent:navigator.userAgent,updated_at:new Date().toISOString()},{onConflict:'endpoint'});
+  if(r.error)throw r.error;
+}
+async function enablePushNotifications(){
+  if(!uid()){toast('Please log in first.','error');return}
+  if(!window.isSecureContext){toast('Notifications require a secure HTTPS connection.','error',5000);return}
+  if(!('serviceWorker' in navigator)||!('PushManager' in window)||!('Notification' in window)){
+    toast('Push notifications are not supported by this browser.','error',5000);return
+  }
+  const btn=$('enablePushBtn'),status=$('pushStatus'),help=$('pushHelp');
+  if(btn)btn.disabled=true;
+  try{
+    if(isIOS()&&!isStandalone()){
+      if(help)help.textContent='On iPhone/iPad: add Litanya Safespace to your Home Screen first, open it from there, then tap Enable notifications.';
+      toast('For iPhone/iPad, add this site to your Home Screen first.','error',6000);
+      return;
+    }
+    const reg=await registerPushServiceWorker();
+    if(!reg)throw new Error('Could not register the notification service worker.');
+    let permission=Notification.permission;
+    if(permission==='default')permission=await Notification.requestPermission();
+    if(permission!=='granted'){
+      if(status)status.textContent='Notifications are blocked. Allow notifications in your browser/site settings, then try again.';
+      return;
+    }
+    let sub=await reg.pushManager.getSubscription();
+    if(!sub)sub=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:base64ToUint8Array(VAPID_PUBLIC_KEY)});
+    await savePushSubscription(sub);
+    if(status)status.textContent='Phone notifications are enabled on this device.';
+    if(help)help.textContent='This device will receive alerts for new Litanya posts while notifications are allowed.';
+    if(btn){btn.textContent='Notifications enabled';btn.disabled=true}
+    toast('Phone notifications enabled.','success');
+  }catch(e){
+    log('Push enable failed',e);
+    toast(e?.message||'Could not enable notifications.','error',6000);
+  }finally{if(btn&&!btn.textContent.includes('enabled'))btn.disabled=false}
+}
+async function refreshPushUI(){
+  const btn=$('enablePushBtn'),status=$('pushStatus'),help=$('pushHelp');
+  if(!btn||!status)return;
+  if(!uid()){btn.classList.add('hidden');return}
+  btn.classList.remove('hidden');
+  if(!('serviceWorker' in navigator)||!('PushManager' in window)||!('Notification' in window)){
+    btn.disabled=true;status.textContent='This browser does not support web push notifications.';return;
+  }
+  if(isIOS()&&!isStandalone())help.textContent='iPhone/iPad: add this website to your Home Screen before enabling notifications.';
+  try{
+    const reg=await registerPushServiceWorker();const sub=reg?await reg.pushManager.getSubscription():null;
+    if(sub){btn.textContent='Notifications enabled';btn.disabled=true;status.textContent='Phone notifications are enabled on this device.'}
+    else if(Notification.permission==='denied')status.textContent='Notifications are blocked. Allow them in browser/site settings to enable them again.';
+  }catch(_){ }
+}
 
 let client=null, session=null, me=null;
 let activeChat=null, chatChannel=null, liveChannels=[];
 const cache={posts:new Map(),profiles:new Map(),chats:new Map()};
-
 const $=id=>document.getElementById(id);
+const ICONS={
+ home:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M9 21v-6h6v6"/></svg>',
+ heart:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 8.6c0 5.5-8.8 11-8.8 11S3.2 14.1 3.2 8.6A4.6 4.6 0 0 1 12 6.3a4.6 4.6 0 0 1 8.8 2.3Z"/></svg>',
+ spark:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3Z"/><path d="m19 16 .8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8L19 16Z"/></svg>',
+ megaphone:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11v2a2 2 0 0 0 2 2h2l2 5h2l-1.8-5.1L20 18V6L9 9H5a2 2 0 0 0-2 2Z"/><path d="M20 10v4"/></svg>',
+ message:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11.5a7.5 7.5 0 0 1-7.8 7.5 8.2 8.2 0 0 1-3.3-.7L4 20l1.7-4.2A7.3 7.3 0 0 1 4 11.5 7.5 7.5 0 0 1 20 11.5Z"/></svg>',
+ bell:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></svg>',
+ user:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>',
+ more:'<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>',
+ search:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>',
+ image:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9" r="1.5"/><path d="m21 15-5-5L5 20"/></svg>',
+ send:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 18-8-8 18-2.8-7.2L3 11Z"/><path d="m10.2 13.8 4.2-4.2"/></svg>',
+ arrow:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg>',
+ edit:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m4 20 4.5-1 10-10a2.1 2.1 0 0 0-3-3l-10 10L4 20Z"/><path d="m13.5 7.5 3 3"/></svg>',
+ like:'<svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.5"><path d="M7 10v10H4V10h3Zm3 10h6.2c1.1 0 2-.8 2.2-1.9l1-6A2.1 2.1 0 0 0 17.3 9H14l.5-3.2A2.4 2.4 0 0 0 12.1 3L10 9.2V20Z"/></svg>',
+ comment:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11.5a7.5 7.5 0 0 1-7.8 7.5 8.2 8.2 0 0 1-3.3-.7L4 20l1.7-4.2A7.3 7.3 0 0 1 4 11.5 7.5 7.5 0 0 1 20 11.5Z"/></svg>',
+ close:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m6 6 12 12M18 6 6 18"/></svg>',
+ bookmark:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18l-6-3-6 3V4Z"/></svg>'
+};
+function paintIcons(root=document){root.querySelectorAll(".svgicon[data-icon]").forEach(el=>{const k=el.dataset.icon;if(ICONS[k])el.innerHTML=ICONS[k]});}
+
 const esc=v=>String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
 const attr=v=>esc(v).replace(/\r?\n/g,"&#10;");
 const uid=()=>session?.user?.id||null;
@@ -218,16 +401,21 @@ function setPage(id){
   if(!client)return;
   if(id==="wall")loadFeed("wall");
   if(id==="realizations")loadFeed("realization");
+  if(id==="updates")loadFeed("update");
   if(id==="profile")loadMyProfile();
-  if(id==="notifications")loadNotifications();
+  if(id==="notifications"){loadNotifications();refreshPushUI();}
+  if(id==="profileViews")loadProfileViews();
   if(id==="messenger")loadChats();
 }
 window.go=id=>{
-  if(!uid() && ["wall","realizations","messenger","profile","notifications"].includes(id)){setPage("authPage");return}
+  if(!uid() && ["wall","realizations","updates","messenger","profile","notifications","profileViews"].includes(id)){setPage("authPage");return}
   setPage(id);safeHist("replaceState",{page:id},"","#"+id);window.scrollTo(0,0)
 };
-document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest(".navbtn");if(b)go(b.dataset.page)});
-
+document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest(".navbtn");if(b&&b.dataset.page){document.getElementById("moreNav")?.classList.remove("open");go(b.dataset.page)}});
+$("moreNavBtn").onclick=e=>{e.preventDefault();e.stopPropagation();const n=$("moreNav");n.classList.toggle("open")};
+document.addEventListener("click",e=>{if(!e.target.closest("#moreNav"))$("moreNav")?.classList.remove("open")});
+paintIcons();
+if("serviceWorker" in navigator){window.addEventListener("load",()=>registerPushServiceWorker());}
 // ---- Init --------------------------------------------------------------
 let supabaseLoading=null;
 function loadScriptOnce(src){
@@ -265,7 +453,6 @@ async function initSupabase(){
   try{await supabaseLoading;return !!client}
   catch(e){log("Supabase init failed",e);client=null;toast(e?.message||"Could not connect to the database.","error",10000);return false}
 }
-
 async function refreshSession(){
   if(!client)return;
   const r=await client.auth.getSession();
@@ -289,7 +476,7 @@ async function loadMe(){
   me=data||null; if(me)cache.profiles.set(me.id,me); updateAuthUI(); return me
 }
 function afterLogin(){
-  updateAuthUI();applyProfileUI();go("home");loadNotifications();startRealtime();
+  updateAuthUI();applyProfileUI();go("home");loadNotifications();loadProfileViewBadge();startRealtime();registerPushServiceWorker();refreshPushUI();
 }
 function stopRealtime(){
   liveChannels.forEach(x=>client.removeChannel(x));liveChannels=[];
@@ -298,6 +485,8 @@ function stopRealtime(){
 // Account/sign-out control is intentionally removed from the top navigation.
 // The username-only session stays active in this browser.
 $("authBtn").onclick=null;
+$("enablePushBtn")?.addEventListener("click",enablePushNotifications);
+
 function openLoginScreen(){
   $("loginScreen").classList.remove("hidden");
   $("signupScreen").classList.add("hidden");
@@ -309,14 +498,11 @@ function openSignupScreen(){
   setTimeout(()=>$("signupUsername")?.focus(),0);
 }
 window.openAuth=m=>{setPage("authPage");openSignupScreen()};
-
-
 // ---- Auth (username + password, no email shown to the user) ------------
 function authEmailFor(username,domain){return `${username.toLowerCase()}@${domain}`}
 const isInvalidEmailErr=e=>/email.*(invalid|not valid)|invalid.*email|email_address_invalid/i.test(String(e?.message||e?.code||""));
 const USERNAME_RE=/^[A-Za-z0-9_.-]{3,30}$/;
 const USERNAME_MSG="Username must be 3–30 characters using letters, numbers, _, ., or -.";
-
 async function ensureProfileAfterAuth(user,username){
   // The DB trigger creates the profile inside the signup transaction, so it already exists.
   // Use it immediately (no waiting), then verify/create it in the background.
@@ -337,7 +523,6 @@ function orderedDomains(){
   return c&&AUTH_EMAIL_DOMAINS.includes(c)?[c,...AUTH_EMAIL_DOMAINS.filter(d=>d!==c)]:AUTH_EMAIL_DOMAINS;
 }
 function rememberDomain(d){try{localStorage.setItem("litanya_dom",d)}catch(_){}}
-
 function friendlyAuthError(err){
   const msg=String(err?.message||err||"");
   if(/rate limit|too many requests|over_.*_rate_limit/i.test(msg))return "Too many attempts right now. Please wait a few minutes and try again.";
@@ -348,10 +533,8 @@ function friendlyAuthError(err){
   if(/email not confirmed/i.test(msg))return "Owner: turn OFF 'Confirm email' in Supabase → Authentication → Providers → Email.";
   return msg||"Something went wrong. Please try again.";
 }
-
 async function finishNewAccount(username,pass){
   if(!client && !(await initSupabase()))throw new Error("Not connected to the database yet. Please try again.");
-
   // No separate "is the username taken?" request: the unique index + signUp already tell us.
   let r=null,authEmail=null,usedDom=null;
   for(const dom of orderedDomains()){
@@ -372,7 +555,6 @@ async function finishNewAccount(username,pass){
     throw r.error;
   }
   if(!r.data.user)throw new Error("Account could not be created. Please try again.");
-
   let sess=r.data.session;
   if(!sess){
     // "Confirm email" is ON, or signup returned no session: try signing in directly.
@@ -386,7 +568,6 @@ async function finishNewAccount(username,pass){
   toast("Account created! Welcome to Litanya.","success",3500);
   afterLogin();
 }
-
 $("loginForm").onsubmit=async e=>{
   e.preventDefault();
   const btn=$("loginSubmit");btn.disabled=true;btn.textContent="Signing in…";
@@ -412,7 +593,6 @@ $("loginForm").onsubmit=async e=>{
   }catch(err){toast(friendlyAuthError(err),"error",6000)}
   finally{btn.disabled=false;btn.textContent="Sign in"}
 };
-
 $("signupForm").onsubmit=async e=>{
   e.preventDefault();
   const btn=$("signupSubmit");btn.disabled=true;btn.textContent="Entering Litanya…";
@@ -432,7 +612,6 @@ $("signupForm").onsubmit=async e=>{
   }catch(err){toast(String(err?.message||err||"Could not enter Litanya."),"error",7000)}
   finally{btn.disabled=false;btn.textContent="Enter Litanya"}
 };
-
 function requireLogin(){if(!uid()){setPage("authPage");toast("Please sign in first.","error");return false}return true}
 async function ensureProfile(){if(me)return true;await loadMe();if(me)return true;showProfileEditor();return false}
 function showProfileEditor(){
@@ -459,7 +638,66 @@ function applyProfileUI(){
   $("profileName").textContent="@"+name;$("profileBio").textContent=me.bio||"No bio yet.";
   $("profileAvatar").innerHTML=me.avatar_url?`<img src="${attr(me.avatar_url)}" alt="">`:esc(initials(name))
 }
+
 $("editProfile").onclick=()=>{if(requireLogin())showProfileEditor()};
+
+async function uploadProfileImage(file){
+  if(!file) return null;
+  if(!file.type.startsWith("image/")) throw new Error("Please choose an image file.");
+  if(file.size>8*1024*1024) throw new Error("Profile picture is too large. Maximum is 8 MB.");
+  const ext=(file.name.split(".").pop()||"jpg").toLowerCase().replace(/[^a-z0-9]/g,"")||"jpg";
+  const path=`${uid()}/profile-${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
+  const up=await client.storage.from("profile-images").upload(path,file,{cacheControl:"3600",upsert:false,contentType:file.type});
+  if(up.error)throw up.error;
+  return client.storage.from("profile-images").getPublicUrl(path).data.publicUrl;
+}
+$("profileImage")?.addEventListener("change",async e=>{
+  const file=e.target.files?.[0]; if(!file||!requireLogin())return;
+  try{
+    const url=await uploadProfileImage(file);
+    const r=await client.from("profiles").update({avatar_url:url}).eq("id",uid());
+    if(r.error)throw r.error;
+    await loadMe();applyProfileUI();toast("Profile picture updated.","success");
+  }catch(err){toast("Profile picture upload failed: "+(err.message||err),"error",6000)}
+  finally{e.target.value=""}
+});
+
+async function recordProfileView(profileId){
+  if(!uid() || !profileId || profileId===uid()) return;
+  const r=await client.from("profile_views").insert({profile_id:profileId,viewer_id:uid()});
+  if(r.error && !/duplicate|unique/i.test(r.error.message||"")) log("profile view:",r.error.message);
+}
+async function loadProfileViews(){
+  if(!requireLogin())return;
+  const box=$("profileViewList"); if(!box)return;
+  const r=await client.from("profile_views")
+    .select("id,profile_id,viewer_id,viewed_at,profiles:viewer_id(id,username,avatar_url,bio)")
+    .eq("profile_id",uid()).order("viewed_at",{ascending:false}).limit(100);
+  if(r.error){box.innerHTML=`<div class="profile-view-empty">${esc(r.error.message)}</div>`;return}
+  const rows=r.data||[];
+  if(!rows.length){box.innerHTML='<div class="profile-view-empty">No one has viewed your profile yet.</div>';return}
+  const seen=new Set(),unique=[];
+  for(const row of rows){
+    if(seen.has(row.viewer_id))continue;
+    seen.add(row.viewer_id);unique.push(row);
+  }
+  box.innerHTML=unique.map(v=>{
+    const p=v.profiles||{}; const name=p.username||"User";
+    return `<div class="view-row" data-user="${attr(v.viewer_id)}">
+      ${avatarHTML(name,p.avatar_url,"avatar")}
+      <div class="view-info"><strong>@${esc(name)}</strong><span>Viewed your profile · ${esc(ago(v.viewed_at))}</span></div>
+    </div>`;
+  }).join("");
+  box.querySelectorAll(".view-row").forEach(x=>x.onclick=()=>openPublicProfile(x.dataset.user));
+  const badge=$("profileViewBadge"); if(badge){badge.classList.add("hidden");badge.textContent="0"}
+}
+async function loadProfileViewBadge(){
+  if(!uid())return;
+  const r=await client.from("profile_views").select("viewer_id").eq("profile_id",uid()).limit(1000);
+  const b=$("profileViewBadge"); if(!b)return;
+  const ids=[...new Set((r.data||[]).map(x=>x.viewer_id).filter(Boolean))];
+  const n=ids.length; b.textContent=n>99?"99+":String(n);b.classList.toggle("hidden",n===0);
+}
 
 // Whole-word matching so normal words (e.g. "reputation") are not blocked.
 function moderation(text){
@@ -468,7 +706,6 @@ function moderation(text){
   return bad.some(x=>t.includes(" "+x+" "))
 }
 async function insert(table,row){return client.from(table).insert(row).select().single()}
-
 // ---- Feeds -------------------------------------------------------------
 // One request returns posts + their likes + comments (PostgREST embedded relations).
 const POST_SELECT="*,profiles:user_id(username,avatar_url),post_reactions(post_id,user_id,reaction),comments(*,profiles:user_id(username,avatar_url))";
@@ -480,9 +717,17 @@ function normPost(p){
 }
 async function loadFeed(kind){
   if(!client)return;
-  const box=kind==="wall"?$("wallFeed"):$("realFeed"),search=(kind==="wall"?$("wallSearch"):$("realSearch")).value.toLowerCase().trim(),sort=(kind==="wall"?$("wallSort"):$("realSort")).value;
+  const cfg={
+   wall:{box:$("wallFeed"),search:$("wallSearch"),sort:$("wallSort")},
+   realization:{box:$("realFeed"),search:$("realSearch"),sort:$("realSort")},
+   update:{box:$("updateFeed"),search:$("updateSearch"),sort:$("updateSort")}
+  }[kind]||{box:$("wallFeed"),search:$("wallSearch"),sort:$("wallSort")};
+  const box=cfg.box,search=cfg.search.value.toLowerCase().trim(),sort=cfg.sort.value;
   if(!box.children.length||box.querySelector(".loader"))box.innerHTML='<div class="loader">Loading...</div>';
-  const postsReq=client.from("posts").select(POST_SELECT).eq("kind",kind).eq("is_hidden",false).order("created_at",{ascending:sort==="oldest"}).limit(60);
+  let postsReq=client.from("posts").select(POST_SELECT).eq("is_hidden",false).order("created_at",{ascending:sort==="oldest"}).limit(60);
+  if(kind==="realization")postsReq=postsReq.eq("kind","realization");
+  else if(kind==="update")postsReq=postsReq.eq("kind","wall");
+  else postsReq=postsReq.eq("kind","wall");
   const blocksReq=uid()?client.from("blocks").select("blocked_id").eq("blocker_id",uid()):Promise.resolve({data:[]});
   const [{data,error},b]=await Promise.all([postsReq,blocksReq]);
   if(error){box.innerHTML=`<div class="card" style="padding:15px;color:#8b4053">${esc(error.message)}</div>`;return}
@@ -492,26 +737,57 @@ async function loadFeed(kind){
   if(sort==="liked")rows.sort((a,b)=>b._likes.length-a._likes.length);
   if(sort==="commented")rows.sort((a,b)=>b._comments.length-a._comments.length);
   box.innerHTML=rows.length?rows.map(postCard).join(""):'<div class="empty">No posts found.</div>';
-  bindPostEvents(box)
+  paintIcons(box);bindPostEvents(box)
 }
 function authorName(p){return p.is_anonymous?"Anonymous":p.profiles?.username||p.username||p.display_name||"User"}
 function avatarHTML(name,url,cls="avatar"){return `<div class="${cls}">${url?`<img src="${attr(url)}" alt="">`:esc(initials(name))}</div>`}
+function youtubeId(url){
+  try{const u=new URL(url);if(u.hostname.includes("youtu.be"))return u.pathname.slice(1).split("/")[0];if(u.hostname.includes("youtube.com")){if(u.pathname==="/watch")return u.searchParams.get("v");if(u.pathname.startsWith("/shorts/"))return u.pathname.split("/")[2];if(u.pathname.startsWith("/embed/"))return u.pathname.split("/")[2]}}catch{}return null;
+}
+function musicHTML(p){
+  if(!p.music_url)return "";
+  if(p.music_source==="youtube"){
+    const id=youtubeId(p.music_url);if(!id)return "";
+    const st=Math.max(0,Number(p.music_start)||0),en=Math.max(0,Number(p.music_end)||0);
+    const q=new URLSearchParams({start:String(st),autoplay:"1",mute:"1",playsinline:"1"});if(en>st)q.set("end",String(en));
+    return `<div class="ytmusic"><iframe src="https://www.youtube.com/embed/${encodeURIComponent(id)}?${q.toString()}" title="Music clip" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe><div class="music-name">♫ ${esc(p.music_name||"YouTube music clip")} · ${st}s${en>st?"–"+en+"s":""}</div></div>`;
+  }
+  return `<audio class="postaudio" controls preload="metadata" data-auto-music><source src="${attr(p.music_url)}"></audio><div class="music-name">♫ ${esc(p.music_name||"Attached music")}</div>`;
+}
 function postCard(p){
   const own=p.user_id===uid(), name=authorName(p), liked=p._liked, comments=p._comments||[],likes=p._likes||[];
   const profileLink=p.is_anonymous?`<strong>${esc(name)}</strong>`:`<strong class="link profile-open" data-user="${attr(p.user_id)}">${esc(name)}</strong>`;
-  return `<article class="card post" data-post="${attr(p.id)}">
+  return `<article class="card post ${p.kind==="update"?"update-card":""}" data-post="${attr(p.id)}">
   <div class="posthead">${avatarHTML(name,p.is_anonymous?null:p.avatar_url)}<div class="postmeta">${profileLink}<span class="time">${esc(ago(p.created_at))} · ${esc(fmt(p.created_at))}</span></div>
-  <div class="postmenu"><button class="more" data-act="menu">⋯</button><div class="menu">
-   <button data-act="share">↗ Share / copy link</button><button data-act="save">☆ Save post</button>${own?'<button data-act="delete" class="danger">Delete post</button>':''}<button data-act="report">⚑ Report</button>${own?'':'<button data-act="block-author">⊘ Block author</button>'}
+  <div class="postmenu"><button class="more" data-act="menu" title="More"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg></button><div class="menu">
+   <button data-act="share"><span class="svgicon" data-icon="arrow"></span> Share / copy link</button><button data-act="save"><span class="svgicon" data-icon="bookmark"></span> Save post</button>${own?'<button data-act="delete" class="danger">Delete post</button>':''}<button data-act="report">Report</button>${own?'':'<button data-act="block-author">Block author</button>'}
   </div></div></div>
-  <div class="postbody">${esc(p.content)}</div>
-  <div class="actions"><button data-act="like" class="${liked?'active':''}">${liked?'♥':'♡'} Like ${likes.length||""}</button><button data-act="comment">💬 Comment ${comments.length||""}</button><button data-act="save">🔖 Save</button></div>
-  <div class="comments">${comments.slice(-20).map(commentHTML).join("")}<form class="commentform" data-post="${attr(p.id)}"><input maxlength="1000" placeholder="Write a comment..."><button class="btn secondary">Send</button></form></div>
+  <div class="postbody">${esc(p.content)}${p.image_url?`<img class="postimg" src="${attr(p.image_url)}" alt="Post image" loading="lazy">`:""}${musicHTML(p)}</div>
+  <div class="actions"><button data-act="like" class="${liked?'active':''}"><span class="svgicon" data-icon="like"></span> ${liked?'Liked':'Like'} ${likes.length||""}</button><button data-act="comment"><span class="svgicon" data-icon="comment"></span> Comment ${comments.length||""}</button><button data-act="save"><span class="svgicon" data-icon="bookmark"></span> Save</button></div>
+  <div class="comments">${comments.filter(c=>!c.parent_id).slice(-20).map(c=>commentHTML(c,comments)).join("")}<form class="commentform" data-post="${attr(p.id)}"><input maxlength="1000" placeholder="Write a comment..."><button class="btn secondary">Send</button></form></div>
  </article>`
 }
-function commentHTML(c){
+function commentHTML(c, allComments=[]){
   const name=c.profiles?.username||c.username||c.display_name||"User";
-  return `<div class="comment"><div class="avatar">${esc(initials(name))}</div><div><div class="bubble"><strong>${esc(name)}</strong><p>${esc(c.content)}</p></div><div class="commenttools"><span>${esc(ago(c.created_at))}</span><button type="button" class="link report-comment" data-comment="${attr(c.id)}">Report</button></div></div></div>`
+  const replies=(allComments||[]).filter(x=>String(x.parent_id||"")===String(c.id));
+  const own=c.user_id===uid();
+  return `<div class="comment ${c.parent_id?'reply':''}" data-comment="${attr(c.id)}">
+    <div class="avatar">${esc(initials(name))}</div>
+    <div style="min-width:0;flex:1">
+      <div class="bubble"><strong>${esc(name)}</strong><p>${esc(c.content)}</p></div>
+      <div class="commenttools">
+        <span>${esc(ago(c.created_at))}</span>
+        <button type="button" class="reply-btn" data-reply="${attr(c.id)}">Reply</button>
+        <button type="button" class="link report-comment" data-comment="${attr(c.id)}">Report</button>
+        ${own?`<button type="button" class="link delete-comment" data-comment="${attr(c.id)}">Delete</button>`:""}
+      </div>
+      ${replies.map(r=>commentHTML(r,allComments)).join("")}
+      <div class="replybox" data-replybox="${attr(c.id)}" hidden>
+        <input maxlength="1000" placeholder="Reply to ${attr(name)}...">
+        <button type="button" class="btn secondary reply-send">Send</button>
+      </div>
+    </div>
+  </div>`
 }
 function refreshCurrentView(){
   if($("singlePost").classList.contains("active")){const el=$("singlePostBox").querySelector(".post");if(el)openSinglePost(el.dataset.post,true);return}
@@ -532,14 +808,44 @@ function bindPostEvents(box){
     e.preventDefault();if(!requireLogin()||!(await ensureProfile()))return;
     let input=f.querySelector("input"),v=input.value.trim();if(!v)return;
     if(moderation(v)){toast("That comment contains words that are not allowed.","error");return}
-    let r=await insert("comments",{post_id:f.dataset.post,user_id:uid(),display_name:me.username,content:v});
-    if(r.error)toast(r.error.message,"error");else{input.value="";reloadPost(f.dataset.post)}
+    const r=await insert("comments",{post_id:f.dataset.post,user_id:uid(),display_name:me.username,content:v,parent_id:null});
+    if(r.error)toast(r.error.message,"error");else{input.value="";await reloadPost(f.dataset.post)}
+  });
+  box.querySelectorAll("[data-reply]").forEach(btn=>btn.onclick=e=>{
+    e.stopPropagation();
+    const b=btn.closest(".comment")?.querySelector(`[data-replybox="${CSS.escape(String(btn.dataset.reply))}"]`);
+    if(b){b.hidden=!b.hidden;if(!b.hidden)b.querySelector("input")?.focus()}
+  });
+  box.querySelectorAll(".replybox").forEach(b=>{
+    b.querySelector(".reply-send")?.addEventListener("click",async()=>{
+      if(!requireLogin()||!(await ensureProfile()))return;
+      const input=b.querySelector("input"),v=input.value.trim();
+      if(!v)return;
+      if(moderation(v)){toast("That reply contains words that are not allowed.","error");return}
+      const commentId=b.dataset.replybox;
+      const post=b.closest(".post");
+      if(!post)return;
+      const r=await insert("comments",{post_id:post.dataset.post,user_id:uid(),display_name:me.username,content:v,parent_id:commentId});
+      if(r.error)toast(r.error.message,"error");else{input.value="";b.hidden=true;await reloadPost(post.dataset.post)}
+    });
+  });
+  box.querySelectorAll(".delete-comment").forEach(x=>x.onclick=async()=>{
+    if(!confirm("Delete this comment and its replies?"))return;
+    const r=await client.from("comments").delete().eq("id",x.dataset.comment).eq("user_id",uid());
+    if(r.error)toast(r.error.message,"error");else{
+      const post=x.closest(".post")?.dataset.post;
+      if(post)await reloadPost(post);
+    }
   });
   box.querySelectorAll(".report-comment").forEach(x=>x.onclick=()=>report("comment",x.dataset.comment));
   box.querySelectorAll(".postbody").forEach(x=>x.onclick=()=>openSinglePost(x.closest(".post").dataset.post));
 }
 document.addEventListener("click",e=>{if(!e.target.closest(".postmenu"))document.querySelectorAll(".postmenu.open").forEach(z=>z.classList.remove("open"))});
-function currentFeed(){return $("realizations").classList.contains("active")?"realization":"wall"}
+function currentFeed(){
+  if($("updates")?.classList.contains("active"))return "update";
+  if($("realizations")?.classList.contains("active"))return "realization";
+  return "wall";
+}
 function rerenderPost(id){
   const p=cache.posts.get(id);if(!p)return;
   document.querySelectorAll(`.post[data-post="${CSS.escape(String(id))}"]`).forEach(el=>{
@@ -582,39 +888,130 @@ async function blockUser(id){
   if(r.error)toast(r.error.message,"error");else{toast("User blocked.","success");refreshCurrentView()}
 }
 
+const uploadState={post:null,real:null,update:null,postMusic:null,realMusic:null,updateMusic:null,youtubeMusic:null};
+function setupImagePicker(inputId,previewId,nameId,stateKey){
+  const input=$(inputId),preview=$(previewId),name=$(nameId);if(!input)return;
+  input.onchange=()=>{
+    const file=input.files?.[0];uploadState[stateKey]=file||null;
+    if(!file){preview.innerHTML="";preview.classList.add("hidden");name.textContent="";return}
+    if(!file.type.startsWith("image/")){toast("Please choose an image file.","error");input.value="";uploadState[stateKey]=null;return}
+    if(file.size>8*1024*1024){toast("Image is too large. Maximum is 8 MB.","error");input.value="";uploadState[stateKey]=null;return}
+    name.textContent=file.name;
+    const url=URL.createObjectURL(file);
+    preview.innerHTML=`<img src="${url}" alt="Preview"><button type="button" class="iconbtn remove-image" title="Remove picture"><span class="svgicon" data-icon="close"></span></button>`;
+    preview.classList.remove("hidden");paintIcons(preview);
+    preview.querySelector(".remove-image").onclick=()=>{input.value="";uploadState[stateKey]=null;preview.innerHTML="";preview.classList.add("hidden");name.textContent=""};
+  };
+}
+function setupMusicPicker(inputId,previewId,stateKey){
+  const input=$(inputId),preview=$(previewId);if(!input||!preview)return;
+  input.onchange=()=>{
+    const file=input.files?.[0];uploadState[stateKey]=file||null;
+    if(!file){preview.innerHTML="";preview.classList.add("hidden");return}
+    if(!file.type.startsWith("audio/")&&!/\.(mp3|m4a|wav|ogg)$/i.test(file.name)){toast("Please choose an audio file.","error");input.value="";uploadState[stateKey]=null;return}
+    if(file.size>15*1024*1024){toast("Music file is too large. Maximum is 15 MB.","error");input.value="";uploadState[stateKey]=null;return}
+    const url=URL.createObjectURL(file);
+    preview.innerHTML=`<audio controls src="${url}"></audio><button type="button" class="iconbtn remove-music" title="Remove music"><span class="svgicon" data-icon="close"></span></button>`;
+    preview.classList.remove("hidden");paintIcons(preview);
+    preview.querySelector(".remove-music").onclick=()=>{input.value="";uploadState[stateKey]=null;preview.innerHTML="";preview.classList.add("hidden")};
+  };
+}
+async function uploadPostMusic(file){
+  if(!file)return null;
+  const ext=(file.name.split(".").pop()||"mp3").toLowerCase().replace(/[^a-z0-9]/g,"")||"mp3";
+  const path=`${uid()}/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
+  const up=await client.storage.from("post-music").upload(path,file,{cacheControl:"3600",upsert:false,contentType:file.type||"audio/mpeg"});
+  if(up.error)throw up.error;
+  const pub=client.storage.from("post-music").getPublicUrl(path);
+  return pub.data.publicUrl;
+}
+async function uploadPostImage(file){
+  if(!file)return null;
+  const ext=(file.name.split(".").pop()||"jpg").toLowerCase().replace(/[^a-z0-9]/g,"")||"jpg";
+  const path=`${uid()}/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
+  const up=await client.storage.from("post-images").upload(path,file,{cacheControl:"3600",upsert:false,contentType:file.type});
+  if(up.error)throw up.error;
+  const pub=client.storage.from("post-images").getPublicUrl(path);
+  return pub.data.publicUrl;
+}
+setupImagePicker("postImage","postImagePreview","postImageName","post");
+setupImagePicker("realImage","realImagePreview","realImageName","real");
+setupImagePicker("updateImage","updateImagePreview","updateImageName","update");
+setupMusicPicker("postMusic","postMusicPreview","postMusic");
+setupMusicPicker("realMusic","realMusicPreview","realMusic");
+setupMusicPicker("updateMusic","updateMusicPreview","updateMusic");
+
+function openYouTubeSearch(){
+  const q=prompt("What music do you want to search for on YouTube?");
+  if(q&&q.trim())window.open("https://www.youtube.com/results?search_query="+encodeURIComponent(q.trim()),"_blank","noopener,noreferrer");
+}
+function setYouTubeMusic(url){
+  const id=youtubeId(url);if(!id){toast("Please paste a valid YouTube video or Shorts link.","error");return false}
+  const start=Math.max(0,Number($("youtubeStart").value)||0),end=Math.max(0,Number($("youtubeEnd").value)||0);
+  if(end&&end<=start){toast("End time must be later than start time.","error");return false}
+  uploadState.youtubeMusic={url,id,start,end,name:"YouTube music clip"};
+  $("youtubeMusicPanel").classList.add("hidden");
+  $("postMusicPreview").innerHTML=`<div style="flex:1"><strong>♫ YouTube clip selected</strong><div class="tiny">${esc(start)}s${end?"–"+esc(end)+"s":" onward"}</div></div><button type="button" class="iconbtn" id="removeYoutubeMusic"><span class="svgicon" data-icon="close"></span></button>`;
+  $("postMusicPreview").classList.remove("hidden");paintIcons($("postMusicPreview"));
+  $("removeYoutubeMusic").onclick=()=>{uploadState.youtubeMusic=null;$("postMusicPreview").innerHTML="";$("postMusicPreview").classList.add("hidden")};
+  return true;
+}
+$("youtubeMusicBtn").onclick=()=>{$("youtubeMusicPanel").classList.toggle("hidden")};
+$("youtubeSearchBtn").onclick=openYouTubeSearch;
+$("youtubeCancel").onclick=()=>$("youtubeMusicPanel").classList.add("hidden");
+$("youtubeUse").onclick=()=>setYouTubeMusic($("youtubeMusicUrl").value.trim());
 $("postForm").onsubmit=async e=>{
   e.preventDefault();if(!requireLogin()||!(await ensureProfile()))return;
   const v=$("postContent").value.trim();if(!v)return;
   if(moderation(v)){toast("This post contains words that are not allowed.","error");return}
   const anon=$("postAnon").checked;
-  const r=await insert("posts",{user_id:uid(),kind:"wall",content:v,display_name:anon?"Anonymous":me.username,avatar_url:anon?null:me.avatar_url||null,is_anonymous:anon});
-  if(r.error)toast(r.error.message,"error");else{$("postContent").value="";toast("Posted.","success");await loadFeed("wall")}
+  let imageUrl=null,musicUrl=null,musicSource=null,musicStart=null,musicEnd=null,musicName=null;try{imageUrl=await uploadPostImage(uploadState.post);if(uploadState.youtubeMusic){musicUrl=uploadState.youtubeMusic.url;musicSource="youtube";musicStart=uploadState.youtubeMusic.start;musicEnd=uploadState.youtubeMusic.end;musicName="YouTube music clip"}else if(uploadState.postMusic){musicUrl=await uploadPostMusic(uploadState.postMusic);musicSource="upload";musicName=uploadState.postMusic.name}}catch(err){toast("Upload failed: "+err.message,"error");return}
+  const r=await insert("posts",{user_id:uid(),kind:"wall",content:v,display_name:anon?"Anonymous":me.username,avatar_url:anon?null:me.avatar_url||null,is_anonymous:anon,image_url:imageUrl,music_url:musicUrl,music_source:musicSource,music_start:musicStart,music_end:musicEnd,music_name:musicName});
+  if(r.error)toast(r.error.message,"error");else{$("postContent").value="";$("postImage").value="";$("postMusic").value="";uploadState.post=null;uploadState.postMusic=null;uploadState.youtubeMusic=null;$("postImagePreview").innerHTML="";$("postImagePreview").classList.add("hidden");$("postMusicPreview").innerHTML="";$("postMusicPreview").classList.add("hidden");$("youtubeMusicUrl").value="";$("youtubeMusicPanel").classList.add("hidden");$("postImageName").textContent="";toast("Posted.","success");await loadFeed("wall")}
 };
 $("realForm").onsubmit=async e=>{
   e.preventDefault();if(!requireLogin()||!(await ensureProfile()))return;
   const v=$("realContent").value.trim();if(!v)return;
   if(moderation(v)){toast("This post contains words that are not allowed.","error");return}
   const anon=$("realAnon").checked;
-  const r=await insert("posts",{user_id:uid(),kind:"realization",content:v,display_name:anon?"Anonymous":me.username,avatar_url:anon?null:me.avatar_url||null,is_anonymous:anon});
-  if(r.error)toast(r.error.message,"error");else{$("realContent").value="";toast("Realization shared.","success");await loadFeed("realization")}
+  let imageUrl=null,musicUrl=null;try{imageUrl=await uploadPostImage(uploadState.real);musicUrl=await uploadPostMusic(uploadState.realMusic)}catch(err){toast("Upload failed: "+err.message,"error");return}
+  const r=await insert("posts",{user_id:uid(),kind:"realization",content:v,display_name:anon?"Anonymous":me.username,avatar_url:anon?null:me.avatar_url||null,is_anonymous:anon,image_url:imageUrl,music_url:musicUrl,music_name:uploadState.realMusic?.name||null});
+  if(r.error)toast(r.error.message,"error");else{$("realContent").value="";$("realImage").value="";$("realMusic").value="";uploadState.real=null;uploadState.realMusic=null;$("realImagePreview").innerHTML="";$("realImagePreview").classList.add("hidden");$("realMusicPreview").innerHTML="";$("realMusicPreview").classList.add("hidden");$("realImageName").textContent="";toast("Realization shared.","success");await loadFeed("realization")}
+};
+
+$("updateForm").onsubmit=async e=>{
+  e.preventDefault();if(!requireLogin()||!(await ensureProfile()))return;
+  const v=$("updateContent").value.trim();if(!v)return;
+  if(moderation(v)){toast("This update contains words that are not allowed.","error");return}
+  let imageUrl=null,musicUrl=null;try{imageUrl=await uploadPostImage(uploadState.update);musicUrl=await uploadPostMusic(uploadState.updateMusic)}catch(err){toast("Upload failed: "+err.message,"error");return}
+  const r=await insert("posts",{user_id:uid(),kind:"wall",content:v,display_name:me.username,avatar_url:me.avatar_url||null,is_anonymous:false,image_url:imageUrl,music_url:musicUrl,music_name:uploadState.updateMusic?.name||null});
+  if(r.error)toast(r.error.message,"error");else{$("updateContent").value="";$("updateImage").value="";$("updateMusic").value="";uploadState.update=null;uploadState.updateMusic=null;$("updateImagePreview").innerHTML="";$("updateImagePreview").classList.add("hidden");$("updateMusicPreview").innerHTML="";$("updateMusicPreview").classList.add("hidden");$("updateImageName").textContent="";toast("Update posted.","success");await loadFeed("update")}
 };
 const debounce=(fn,ms=300)=>{let t;return(...a)=>{clearTimeout(t);t=setTimeout(()=>fn(...a),ms)}};
-$("wallSearch").oninput=debounce(()=>loadFeed("wall"));$("wallSort").onchange=()=>loadFeed("wall");$("realSearch").oninput=debounce(()=>loadFeed("realization"));$("realSort").onchange=()=>loadFeed("realization");
-
+$("wallSearch").oninput=debounce(()=>loadFeed("wall"));$("wallSort").onchange=()=>loadFeed("wall");
+$("realSearch").oninput=debounce(()=>loadFeed("realization"));$("realSort").onchange=()=>loadFeed("realization");
+$("updateSearch").oninput=debounce(()=>loadFeed("update"));$("updateSort").onchange=()=>loadFeed("update");
 async function openSinglePost(id,stay){
   const r=await client.from("posts").select(POST_SELECT).eq("id",id).maybeSingle();const p=r.data;
   if(!p){toast("Post not found.","error");return}
   normPost(p);
-  $("singlePostBox").innerHTML=postCard(p);bindPostEvents($("singlePostBox"));
+  $("singlePostBox").innerHTML=postCard(p);paintIcons($("singlePostBox"));bindPostEvents($("singlePostBox"));
   if(!stay){setPage("singlePost");safeHist("pushState",{page:"singlePost"},"","#post/"+encodeURIComponent(id))}
 }
 $("singleBack").onclick=()=>history.back();
-
 async function openPublicProfile(id){
   const r=await client.from("profiles").select("*").eq("id",id).maybeSingle();
   if(r.error||!r.data){toast("Profile not found.","error");return}
   const p=r.data;const following=await isFollowing(id);
-  $("publicProfileBox").innerHTML=`<div class="card"><div class="cover"></div><div class="profiletop">${avatarHTML(p.username,p.avatar_url,"bigavatar")}<h2>@${esc(p.username)}</h2><p class="muted">${esc(p.bio||"No bio yet.")}</p><button class="btn primary" id="followBtn">${following?"Following":"Follow"}</button><button class="btn secondary" id="messageUser" style="margin-left:6px">Message</button></div></div>`;
+  if(id!==uid()) { await recordProfileView(id); }
+  const [fc,gc]=await Promise.all([
+    client.from("follows").select("follower_id",{count:"exact",head:true}).eq("following_id",id),
+    client.from("follows").select("following_id",{count:"exact",head:true}).eq("follower_id",id)
+  ]);
+  $("publicProfileBox").innerHTML=`<div class="card"><div class="cover"></div><div class="profiletop">${avatarHTML(p.username,p.avatar_url,"bigavatar")}<h2>@${esc(p.username)}</h2><p class="muted">${esc(p.bio||"No bio yet.")}</p>
+  <div class="stats"><div class="stat"><strong>${fc.count||0}</strong><span>Followers</span></div><div class="stat"><strong>${gc.count||0}</strong><span>Following</span></div></div>
+  <div class="profile-actions"><button class="btn primary" id="followBtn">${following?"Following":"Follow"}</button><button class="btn secondary" id="messageUser">Message</button></div>
+  </div></div>`;
   $("followBtn").onclick=async()=>{
     if(!requireLogin()||id===uid())return;
     const f=await isFollowing(id);
@@ -632,7 +1029,6 @@ async function openPublicProfile(id){
 async function attachCounts(rows){rows.forEach(normPost)}
 $("publicBack").onclick=()=>history.back();
 async function isFollowing(id){if(!uid())return false;const r=await client.from("follows").select("follower_id").eq("follower_id",uid()).eq("following_id",id).maybeSingle();return !!r.data}
-
 async function loadMyProfile(){
   if(!requireLogin()||!(await ensureProfile()))return;applyProfileUI();
   const [p,f,g]=await Promise.all([
@@ -643,9 +1039,22 @@ async function loadMyProfile(){
   const rows=(p.data||[]).map(normPost);
   $("statPosts").textContent=rows.length;
   $("statFollowers").textContent=f.count||0;$("statFollowing").textContent=g.count||0;
-  $("profileFeed").innerHTML=rows.length?rows.map(postCard).join(""):'<div class="empty">No posts yet.</div>';bindPostEvents($("profileFeed"))
+  $("profileFeed").innerHTML=rows.length?rows.map(postCard).join(""):'<div class="empty">No posts yet.</div>';bindPostEvents($("profileFeed"));
+  await renderFollowingList();
 }
-
+async function renderFollowingList(){
+  const card=$("profileAvatar")?.closest(".profilecard"); if(!card)return;
+  let panel=card.querySelector("#followingPanel");
+  if(!panel){panel=document.createElement("div");panel.id="followingPanel";panel.className="following-panel";card.appendChild(panel)}
+  const r=await client.from("follows").select("following_id,profiles:following_id(id,username,avatar_url,bio)").eq("follower_id",uid()).order("created_at",{ascending:false}).limit(50);
+  if(r.error){panel.innerHTML=`<h4>Following</h4><div class="tiny">${esc(r.error.message)}</div>`;return}
+  const rows=r.data||[];
+  panel.innerHTML=`<h4>Following <span class="tiny">(${rows.length})</span></h4>`+(rows.length?rows.map(x=>{
+    const p=x.profiles||{};const n=p.username||"User";
+    return `<div class="person-row" data-user="${attr(x.following_id)}">${avatarHTML(n,p.avatar_url,"avatar")}<div class="person-info"><strong>@${esc(n)}</strong><span>${esc(p.bio||"Litanya user")}</span></div></div>`
+  }).join(""):'<div class="tiny">You are not following anyone yet.</div>');
+  panel.querySelectorAll(".person-row").forEach(x=>x.onclick=()=>openPublicProfile(x.dataset.user));
+}
 // ---- Messenger ---------------------------------------------------------
 function chatName(c){
   if(c.name)return c.name;
@@ -654,11 +1063,9 @@ function chatName(c){
 }
 async function ensurePublicChat(){
   if(!requireLogin()) return null;
-
   // There must be ONE shared Public Chat room for the whole community.
   let r=await client.from("conversations").select("id,type,name,created_at").eq("type","group").eq("name","Public Chat").order("created_at",{ascending:true}).limit(1).maybeSingle();
   if(r.error){toast("Could not load Public Chat: "+r.error.message,"error",6000);return null}
-
   let room=r.data;
   if(!room){
     const c=await client.from("conversations").insert({type:"group",name:"Public Chat",created_by:uid()}).select().single();
@@ -673,7 +1080,6 @@ async function ensurePublicChat(){
       }
     }else room=c.data;
   }
-
   // Every logged-in user joins this exact same room.
   const m=await client.from("conversation_members").upsert(
     {conversation_id:room.id,user_id:uid()},
@@ -684,7 +1090,6 @@ async function ensurePublicChat(){
   }
   return room;
 }
-
 async function loadChats(){
   if(!requireLogin())return;
   // Always make sure the community room exists and this user can see it.
@@ -706,7 +1111,6 @@ async function loadChats(){
 window.openPeople=()=>{$("peopleSearch").focus()};
 function isGroupConversation(c){return String(c?.type||"").toLowerCase()==="group"}
 function isDirectConversation(c){return !!c && !isGroupConversation(c)}
-
 async function createDirectConversation(other){
   const types=["dm","private","direct","one_to_one"];
   let lastError=null;
@@ -719,7 +1123,6 @@ async function createDirectConversation(other){
   }
   return {error:lastError||new Error("Could not create private conversation.")};
 }
-
 async function startDM(other){
   if(!requireLogin()||other===uid())return;
   const existing=await client.from("conversation_members").select("conversation_id,conversations(id,type,name)").eq("user_id",uid());
@@ -736,12 +1139,10 @@ async function startDM(other){
   if(m.error){toast("Could not add the members: "+m.error.message,"error",7000);return}
   go("messenger");await openChat(c.data.id)
 }
-
 $("publicChatBtn").onclick=async()=>{
   const room=await ensurePublicChat();
   if(room){activeChat=null;go("messenger");await openChat(room.id)}
 };
-
 $("newGroupBtn").onclick=async()=>{
   if(!requireLogin())return;
   const title=(prompt("Group name")||"").trim();
@@ -769,17 +1170,14 @@ $("newGroupBtn").onclick=async()=>{
 async function openChat(id){
   activeChat=id;
   await loadChats();
-
   const c=await client.from("conversations").select("*").eq("id",id).single();
   if(c.error){toast(c.error.message,"error");return}
-
   const publicRoom=c.data.type==="group" && c.data.name==="Public Chat";
   $("chatTitle").textContent=chatName(c.data);
   $("chatSubtitle").textContent=publicRoom?"Everyone · Public community chat":c.data.type==="group"?"Group conversation":"Private conversation";
   $("chatAvatar").textContent=initials(chatName(c.data));
   $("messageInput").disabled=false;
   $("sendBtn").disabled=false;
-
   const r=await client.from("messages")
     .select("*,profiles:sender_id(username,avatar_url)")
     .eq("conversation_id",id)
@@ -788,9 +1186,7 @@ async function openChat(id){
     .limit(500);
   if(r.error){toast(r.error.message,"error");return}
   renderMessages(r.data||[]);
-
   if(chatChannel){await client.removeChannel(chatChannel);chatChannel=null}
-
   // One realtime stream for the entire shared room.
   chatChannel=client.channel("litanya-chat-"+id)
     .on("postgres_changes",{
@@ -821,12 +1217,10 @@ $("messageForm").onsubmit=async e=>{
   const v=$("messageInput").value.trim();
   if(!v)return;
   if(moderation(v)){toast("That message contains words that are not allowed.","error");return}
-
   const r=await client.from("messages")
     .insert({conversation_id:activeChat,sender_id:uid(),content:v})
     .select("*,profiles:sender_id(username,avatar_url)")
     .single();
-
   if(r.error){
     toast(r.error.message,"error");
   }else{
@@ -837,7 +1231,6 @@ $("messageForm").onsubmit=async e=>{
 };
 $("chatBack").onclick=()=>{$("messengerBox").classList.remove("chatopen");activeChat=null;loadChats()};
 $("chatInfo").onclick=()=>{if(activeChat)toast("Chat settings can be managed through the group/member controls in the next update.")};
-
 let peopleTimer=null;
 $("peopleSearch").oninput=e=>{
   clearTimeout(peopleTimer);
@@ -851,27 +1244,67 @@ $("peopleSearch").oninput=e=>{
   },250)
 };
 $("refreshChats").onclick=loadChats;
-
 // ---- Notifications & realtime -----------------------------------------
 async function loadNotifications(){
   if(!uid()||!client)return;
   let r=await client.from("notifications").select("*").eq("user_id",uid()).order("created_at",{ascending:false}).limit(100);
-  // Compatibility fallback for older notifications tables that do not yet have title.
-  if(r.error && /notifications.*title|column.*title.*notifications/i.test(String(r.error.message||""))){
-    r=await client.from("notifications").select("id,user_id,type,body,is_read,created_at").eq("user_id",uid()).order("created_at",{ascending:false}).limit(100);
-  }
   if(r.error){toast(r.error.message||"Could not load notifications.","error");return}
-  const rows=r.data||[];const unread=rows.filter(x=>!x.is_read).length;
-  $("notifBadge").textContent=unread;$("notifBadge").classList.toggle("hidden",!unread);
-  $("notificationList").innerHTML=rows.length?rows.map(n=>`<div class="notice ${n.is_read?'':'unread'}" data-notif="${attr(n.id)}"><div class="avatar">${n.type==="message"?"✉":"•"}</div><div class="noticebody"><strong>${esc(n.title||"Notification")}</strong><p>${esc(n.body||"")}</p><span class="tiny">${esc(ago(n.created_at))}</span></div></div>`).join(""):'<div class="empty">No notifications.</div>';
-  $("notificationList").querySelectorAll(".notice").forEach(x=>x.onclick=async()=>{const u=await client.from("notifications").update({is_read:true}).eq("id",x.dataset.notif);if(u.error && !/title.*notifications|notifications.*title/i.test(u.error.message||""))toast(u.error.message,"error");loadNotifications()})
+  const rows=r.data||[];
+  const unread=rows.filter(x=>!x.is_read).length;
+  $("notifBadge").textContent=unread;
+  $("notifBadge").classList.toggle("hidden",!unread);
+  $("notificationList").innerHTML=rows.length?rows.map(n=>`<div class="notice ${n.is_read?'':'unread'}" data-notif="${attr(n.id)}">
+    <div class="avatar">${n.type==="message"?"✉":n.type==="comment"||n.type==="comment_reply"?"💬":"•"}</div>
+    <div class="noticebody"><strong>${esc(n.title||"Notification")}</strong><p>${esc(n.body||"")}</p><span class="tiny">${esc(ago(n.created_at))}</span></div>
+  </div>`).join(""):'<div class="empty">No notifications.</div>';
+  $("notificationList").querySelectorAll(".notice").forEach(x=>x.onclick=()=>openNotification(rows.find(n=>String(n.id)===String(x.dataset.notif))));
+}
+async function openNotification(n){
+  if(!n)return;
+  const u=await client.from("notifications").update({is_read:true}).eq("id",n.id);
+  if(u.error)toast(u.error.message,"error");
+  await loadNotifications();
+  if(n.post_id){
+    await openSinglePost(n.post_id);
+    setTimeout(()=>{
+      const root=$("singlePostBox");
+      const target=n.comment_id?root.querySelector(`[data-comment="${CSS.escape(String(n.comment_id))}"]`):root.querySelector(`.post[data-post="${CSS.escape(String(n.post_id))}"]`);
+      if(target){
+        target.scrollIntoView({behavior:"smooth",block:"center"});
+        target.classList.add("notification-target");
+        setTimeout(()=>target.classList.remove("notification-target"),3000);
+      }
+    },250);
+  }else if(n.type==="message"){
+    go("messenger");
+  }
 }
 function startRealtime(){
   liveChannels.forEach(x=>client.removeChannel(x));liveChannels=[];
   const postChannel=client.channel("litanya-posts").on("postgres_changes",{event:"INSERT",schema:"public",table:"posts"},()=>{if($("wall").classList.contains("active"))loadFeed("wall");if($("realizations").classList.contains("active"))loadFeed("realization")}).subscribe();
-  const notif=client.channel("litanya-notifs").on("postgres_changes",{event:"INSERT",schema:"public",table:"notifications",filter:"user_id=eq."+uid()},()=>{loadNotifications();toast("New notification.","success")}).subscribe();
-  liveChannels=[postChannel,notif]
+  const commentChannel=client.channel("litanya-comments").on("postgres_changes",{event:"INSERT",schema:"public",table:"comments"},payload=>{
+    const c=payload.new;
+    loadNotifications();
+    if(c.user_id!==uid())toast("New comment or reply.","success");
+    if($("wall").classList.contains("active")||$("realizations").classList.contains("active"))reloadPost(c.post_id);
+    if($("singlePost").classList.contains("active"))reloadPost(c.post_id);
+  }).subscribe();
+  const profileViewsChannel=client.channel("litanya-profile-views").on("postgres_changes",{event:"INSERT",schema:"public",table:"profile_views",filter:"profile_id=eq."+uid()},payload=>{
+    loadProfileViewBadge();
+    if($("profileViews").classList.contains("active"))loadProfileViews();
+    toast("Someone viewed your profile.","success");
+  }).subscribe();
+  const notif=client.channel("litanya-notifs").on("postgres_changes",{event:"INSERT",schema:"public",table:"notifications",filter:"user_id=eq."+uid()},payload=>{
+    loadNotifications();
+    const n=payload.new;
+    toast(n.title||"New notification.","success");
+  }).subscribe();
+  liveChannels=[postChannel,commentChannel,profileViewsChannel,notif];
 }
+const musicObserver=new IntersectionObserver(entries=>{entries.forEach(entry=>{const a=entry.target;if(entry.isIntersecting&&entry.intersectionRatio>=0.65){document.querySelectorAll("audio[data-auto-music]").forEach(x=>{if(x!==a&&!x.paused)x.pause()});a.play().catch(()=>{});}})},{threshold:[0.65]});
+function observePostMusic(root=document){root.querySelectorAll("audio[data-auto-music]").forEach(a=>musicObserver.observe(a))}
+const oldBindPostEvents=bindPostEvents;
+bindPostEvents=function(box){oldBindPostEvents(box);observePostMusic(box)};
 window.addEventListener("popstate",()=>{
   const h=location.hash.slice(1);
   if(h.startsWith("post/"))openSinglePost(decodeURIComponent(h.slice(5)),true).then(()=>setPage("singlePost"));
@@ -885,7 +1318,6 @@ $("globalSearchBtn").onclick=()=>{
 };
 $("modalRoot").addEventListener("click",e=>{if(e.target.classList.contains("modalback"))$("modalRoot").innerHTML=""});
 window.addEventListener("beforeunload",()=>{if(client)stopRealtime()});
-
 // ---- Boot --------------------------------------------------------------
 (async()=>{
   openSignupScreen();
