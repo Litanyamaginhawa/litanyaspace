@@ -294,6 +294,7 @@ const AUTH_EMAIL_DOMAINS=['litanya-safespace.com','litanya.app','litanya-app.net
 // The matching PRIVATE key stays only in Supabase Edge Function secrets.
 const VAPID_PUBLIC_KEY='BGJEZXi2F4sdybATBwPJTaTEIm0lLIKmlRER94k0hjKbD94FIkEhK4p0YuqektlaeXIThjyrvAgYOePYqvK5CxI';
 let pushRegistration=null;
+let pushRegistrationError=null;
 function base64ToUint8Array(base64){
   const padding='='.repeat((4-base64.length%4)%4);
   const b64=(base64+padding).replace(/-/g,'+').replace(/_/g,'/');
@@ -303,9 +304,23 @@ function base64ToUint8Array(base64){
 function isIOS(){return /iphone|ipad|ipod/i.test(navigator.userAgent)||(/macintosh/i.test(navigator.userAgent)&&navigator.maxTouchPoints>1)}
 function isStandalone(){return window.matchMedia?.('(display-mode: standalone)').matches||window.navigator.standalone===true}
 async function registerPushServiceWorker(){
-  if(!('serviceWorker' in navigator)||!('PushManager' in window))return null;
-  try{pushRegistration=await navigator.serviceWorker.register('/sw.js',{scope:'/'});await navigator.serviceWorker.ready;return pushRegistration}
-  catch(e){log('Push service worker registration failed',e);return null}
+  pushRegistrationError=null;
+  if(!('serviceWorker' in navigator)||!('PushManager' in window)){
+    pushRegistrationError=new Error('This browser does not support Service Worker or PushManager.');
+    return null;
+  }
+  try{
+    pushRegistration=await navigator.serviceWorker.register('/sw.js',{scope:'/'});
+    await navigator.serviceWorker.ready;
+    return pushRegistration;
+  }catch(e){
+    pushRegistrationError=e;
+    log('Push service worker registration failed', {
+      name:e?.name||'UnknownError',
+      message:e?.message||String(e)
+    });
+    return null;
+  }
 }
 async function savePushSubscription(sub){
   const j=sub.toJSON();
@@ -328,7 +343,11 @@ async function enablePushNotifications(){
       return;
     }
     const reg=await registerPushServiceWorker();
-    if(!reg)throw new Error('Could not register the notification service worker.');
+    if(!reg){
+      const cause=pushRegistrationError;
+      const detail=cause ? `${cause.name||'Error'}: ${cause.message||String(cause)}` : 'No additional browser error was provided.';
+      throw new Error(`Could not register the notification service worker. ${detail}`);
+    }
     let permission=Notification.permission;
     if(permission==='default')permission=await Notification.requestPermission();
     if(permission!=='granted'){
@@ -343,8 +362,12 @@ async function enablePushNotifications(){
     if(btn){btn.textContent='Notifications enabled';btn.disabled=true}
     toast('Phone notifications enabled.','success');
   }catch(e){
-    log('Push enable failed',e);
-    toast(e?.message||'Could not enable notifications.','error',6000);
+    const errorName=e?.name||'UnknownError';
+    const errorMessage=e?.message||String(e)||'No error message available.';
+    // Show actionable diagnostics without logging keys, endpoints, or subscription data.
+    log('Push enable failed', {name:errorName,message:errorMessage});
+    if(status)status.textContent=`Push registration failed (${errorName}): ${errorMessage}`;
+    toast(`Push registration failed (${errorName}): ${errorMessage}`,'error',10000);
   }finally{if(btn&&!btn.textContent.includes('enabled'))btn.disabled=false}
 }
 async function refreshPushUI(){
