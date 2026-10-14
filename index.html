@@ -9,7 +9,7 @@
 <meta name="apple-mobile-web-app-title" content="Litanya Safespace">
 <link rel="manifest" href="/manifest.json">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<meta name="litanya-build" content="PROFILE-VIEWS-PHOTOS-LIKES-2026-10-07">
+<meta name="litanya-build" content="LITANYASPACE-PROFILE-MESSENGER-NOTIFICATIONS-POLISH-2026-10-11">
 <link rel="preconnect" href="https://gmjtpvxwymevjsicbwlh.supabase.co" crossorigin>
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <title>Litanya Safespace</title>
@@ -63,7 +63,7 @@ textarea{resize:vertical;min-height:100px}.empty{text-align:center;padding:38px;
 .upload-label{display:inline-flex;align-items:center;gap:7px;cursor:pointer}
 .upload-name{max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .image-preview{position:relative;margin-top:10px}
-.image-preview{border:1px solid var(--line);border-radius:16px;padding:6px;background:#faf7f9}.image-preview img{width:100%;max-height:420px;object-fit:cover;border-radius:12px;display:block}
+.image-preview{position:relative;border:1px solid #dfe3e8;border-radius:14px;padding:8px;background:#f0f2f5;overflow:hidden}.image-preview img{width:100%;max-height:520px;object-fit:contain;border-radius:9px;display:block;background:#e7e9ed}.image-preview .image-meta{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 2px 1px;color:#606770;font-size:12px}.image-preview .image-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:7px}.image-preview .image-actions button{font-size:12px}.composer textarea{width:100%;resize:vertical;min-height:82px;border:0;background:transparent;font:inherit;outline:none;padding:12px 2px}.composer textarea:focus{box-shadow:none}.composer .composefoot{border-top:1px solid #e4e6eb;padding-top:12px;margin-top:10px}.composer .fb-upload{border-radius:10px;background:#f0f2f5;border-color:transparent}.composer .fb-upload:hover{background:#e4e6eb}.music-search-modal{width:min(680px,100%)}.music-result{align-items:center}
 .image-preview .remove-image{position:absolute;right:8px;top:8px}
 .update-card{border-left:4px solid var(--accent)}
 
@@ -98,9 +98,116 @@ textarea{resize:vertical;min-height:100px}.empty{text-align:center;padding:38px;
 .post .postimg{cursor:zoom-in}
 .actions button.active .svgicon{display:none}
 
+
+/* LitanyaSpace responsive/mobile and interaction fixes */
+html,body{width:100%;max-width:100%;overflow-x:clip}body{min-width:0}.nav,.navlinks,.container,.page,.card{min-width:0;max-width:100%}.moreMenu{max-width:calc(100vw - 20px);max-height:min(70dvh,520px);overflow-y:auto;overscroll-behavior:contain}.moreNav.open{z-index:3000}.navlinks{flex-wrap:wrap;align-items:center}.chatmsgs{overscroll-behavior:contain;overflow-y:auto;min-height:0}.messenger,.chatmain,.chatlist{min-width:0;max-width:100%}.msg{overflow-wrap:anywhere;word-break:break-word}.post img,.post video{max-width:100%}.comment .avatar img{width:100%;height:100%;object-fit:cover}.online-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#38a169;margin-right:5px;box-shadow:0 0 0 2px #e8f7ed}.offline-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#a8a1a7;margin-right:5px}.uploading-screen{position:fixed;inset:0;z-index:99999;background:rgba(34,24,31,.48);backdrop-filter:blur(5px);display:none;align-items:center;justify-content:center;padding:20px}.uploading-screen.show{display:flex}.uploading-card{width:min(360px,100%);background:#fff;border-radius:22px;padding:28px 24px;text-align:center;box-shadow:0 20px 70px rgba(0,0,0,.22)}.uploading-spinner{width:42px;height:42px;border:4px solid #f2dce6;border-top-color:#c982a5;border-radius:50%;animation:uploadspin .8s linear infinite;margin:0 auto 14px}@keyframes uploadspin{to{transform:rotate(360deg)}}.uploading-card p{margin:7px 0 0;color:#777078;font-size:13px}.navlinks .moreNav{flex:none}.chatitem .chattext span{overflow-wrap:anywhere}
+@media(max-width:850px){.nav{display:flex;flex-wrap:nowrap;gap:7px;min-height:60px;padding:8px 9px;align-items:center}.logo{width:auto;flex:0 0 auto;text-align:left;font-size:17px}.navright{position:static;margin-left:auto;flex:0 0 auto}.navlinks{order:3;width:100%;flex:1 0 100%;display:flex;flex-wrap:nowrap;overflow:visible;gap:3px;padding:0 0 2px}.navlinks>.navbtn{padding:8px 10px;font-size:12px}.navlinks .moreMenu{position:fixed;top:auto;right:8px;left:auto;margin-top:0;width:min(260px,calc(100vw - 16px));max-height:65dvh}.topbar{overflow:visible}.messenger{grid-template-columns:1fr}.chatlist{min-width:0}.messenger.chatopen .chatlist{display:none}.messenger.chatopen .chatmain{display:flex}.chatmain{min-height:0}.chatmsgs{flex:1;min-height:0}.chatcompose{padding-bottom:max(10px,env(safe-area-inset-bottom))}}
+@media(max-width:560px){.nav{padding-left:8px;padding-right:8px}.navlinks{overflow-x:auto;overflow-y:visible;scrollbar-width:none;white-space:nowrap;max-width:100%;flex-wrap:nowrap}.navlinks::-webkit-scrollbar{display:none}.navlinks>.navbtn{flex:0 0 auto}.moreNav{position:static}.moreMenu{position:fixed!important;right:8px!important;top:112px!important;left:auto!important;width:min(260px,calc(100vw - 16px));max-height:65dvh;overflow-y:auto}.container{padding:12px 8px calc(70px + env(safe-area-inset-bottom))}.pagehead h2{font-size:25px}.messenger{height:calc(100dvh - 130px);min-height:420px;max-height:calc(100dvh - 100px)}.chatmsgs{min-height:0}.chatcompose{display:flex;gap:7px}.chatcompose input{min-width:0}.post,.card{max-width:100%}.toolbar select{max-width:48%}}
+
+
+/* Messenger feature navigation, compact post menu, online presence, replies and media */
+.chatnav{display:flex;gap:5px;margin-top:8px}.chatnav .btn{padding:7px 10px;font-size:12px;border-radius:10px}.chatnav .btn.active{background:var(--accent);color:#fff}.chatitem{position:relative}.chatitem .avatar{position:relative}.chatitem .avatar.online:after{content:"";position:absolute;right:0;bottom:1px;width:10px;height:10px;background:#22a45a;border:2px solid #fff;border-radius:50%}.chat-attachbar{display:flex;align-items:center;gap:7px;padding:6px 12px 0}.chat-attach{width:31px;height:31px;border:1px solid var(--line);border-radius:9px;background:#fff;color:var(--accentDark);display:inline-grid;place-items:center;font-weight:800;cursor:pointer}.reply-preview{padding:7px 12px;background:#fff5fa;border-left:3px solid var(--accent);display:flex;justify-content:space-between;gap:8px;font-size:12px}.reply-preview button{border:0;background:transparent;font-size:20px}.msg{max-width:min(78%,560px)}.msg img{display:block;max-width:100%;max-height:300px;border-radius:10px;margin-top:5px}.msg audio{display:block;max-width:100%;width:260px;margin-top:5px}.msg .reply-quote{border-left:3px solid var(--accent);padding:4px 7px;margin-bottom:5px;background:#fff8fb;border-radius:4px;font-size:11px;color:#78616e}.postmenu .more{width:34px;height:34px;padding:5px;display:grid;place-items:center;font-size:0}.postmenu .more svg{width:17px;height:17px}.postmenu .menu{width:160px}.postmenu .menu button{font-size:12px;padding:8px 9px}
+/* Messenger layout repair: keep composer visible and scroll only messages */
+#messenger.page.active{min-height:0}
+#messenger .pagehead{margin-bottom:12px}
+#messengerBox.messenger{height:calc(100dvh - 205px);min-height:480px;max-height:calc(100dvh - 170px);box-sizing:border-box;padding:0;display:grid;grid-template-columns:300px minmax(0,1fr);align-items:stretch;}
+#messengerBox>.chatlist,#messengerBox>.chatmain{height:100%;min-height:0;max-height:100%;box-sizing:border-box;overflow:hidden}
+#messengerBox>.chatlist{display:flex;flex-direction:column}
+#messengerBox .chatitems{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain}
+#messengerBox>.chatmain{display:flex;flex-direction:column;min-width:0}
+#messengerBox .chathead{flex:0 0 auto;min-height:62px;box-sizing:border-box}
+#messengerBox .chatmsgs{display:flex;flex-direction:column;flex:1 1 0;min-height:0;height:0;overflow-y:auto;overscroll-behavior:contain;box-sizing:border-box}
+#messengerBox .chatmsgs>.empty{margin:auto}
+#messengerBox .chatcompose{display:flex;flex:0 0 auto;position:relative;z-index:2;min-height:64px;box-sizing:border-box;background:var(--card);padding:10px;border-top:1px solid var(--line)}
+#messengerBox .chatcompose input{min-width:0;width:0;flex:1 1 auto;height:44px;box-sizing:border-box}
+#messengerBox .chatcompose .send{flex:0 0 44px;display:grid;place-items:center;cursor:pointer}
+#messengerBox .chatcompose .send:disabled{opacity:.55;cursor:not-allowed}
+#messengerBox .msgrow{flex:0 0 auto}
+@media(max-width:850px){
+ #messengerBox.messenger{height:calc(100dvh - 205px);min-height:420px;max-height:calc(100dvh - 170px);grid-template-columns:minmax(0,1fr)}
+ #messengerBox:not(.chatopen)>.chatmain{display:none}
+ #messengerBox.chatopen>.chatlist{display:none}
+ #messengerBox.chatopen>.chatmain{display:flex}
+}
+@media(max-width:560px){
+ #messengerBox.messenger{height:calc(100dvh - 190px);min-height:380px;max-height:calc(100dvh - 160px);border-radius:14px}
+ #messengerBox .chathead{padding:9px 10px;min-height:56px}
+ #messengerBox .chatmsgs{padding:12px 9px}
+ #messengerBox .chatcompose{padding:8px;min-height:60px;padding-bottom:max(8px,env(safe-area-inset-bottom))}
+ #messengerBox .chatcompose input{font-size:16px}
+}
+
+
+/* Consistent compact post menu */
+.postmenu .menu{width:190px;max-width:calc(100vw - 28px);padding:5px;border-radius:12px}
+.postmenu .menu button{display:flex;align-items:center;gap:9px;min-height:34px;padding:7px 9px;font-size:12px;line-height:1.25;white-space:normal}
+.postmenu .menu button .svgicon,.postmenu .menu button svg{width:16px!important;height:16px!important;max-width:16px;max-height:16px;flex:0 0 16px}
+.postmenu .menu button .svgicon svg{width:16px!important;height:16px!important}
+.postmenu .more{width:32px;height:32px;border-radius:50%;padding:5px}
+.music-search-modal{width:min(620px,96vw);max-height:85vh;overflow:auto}
+.music-search-top{display:flex;gap:8px;align-items:center}
+.music-results{display:grid;gap:8px;margin-top:12px}
+.music-result{display:flex;align-items:center;gap:10px;padding:9px;border:1px solid var(--line);border-radius:12px;background:#fff}
+.music-result img{width:52px;height:52px;border-radius:8px;object-fit:cover;background:#f5edf1}
+.music-result .track-info{flex:1;min-width:0}
+.music-result .track-info strong,.music-result .track-info span{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.music-result .track-info span{font-size:12px;color:var(--muted);margin-top:3px}
+.music-result audio{width:100%;height:30px;margin-top:5px}
+.music-result .btn{padding:7px 10px;font-size:12px;white-space:nowrap}
+@media(max-width:560px){.postmenu .menu{right:0;width:176px}.postmenu .menu button{min-height:36px}.music-result{align-items:flex-start;flex-wrap:wrap}.music-result .track-info{min-width:calc(100% - 70px)}.music-result .btn{margin-left:62px}}
+
+
+/* Navigation recovery: keep Messenger, Notifications and Profile directly reachable on every screen. */
+.navlinks{min-width:0;overflow-x:auto;overflow-y:visible;scrollbar-width:thin;overscroll-behavior-x:contain;white-space:nowrap;align-items:center}
+.navlinks>.navbtn{flex:0 0 auto}
+.navlinks .moreNav{flex:0 0 auto}
+.navright{flex:0 0 auto}
+.navbtn .badge{margin-left:2px}
+@media(max-width:850px){.nav{flex-wrap:wrap;align-items:center}.navlinks{order:3;flex:1 0 100%;width:100%;padding:3px 0 7px;overflow-x:auto;overflow-y:visible}.navright{margin-left:auto}.logo{width:auto}.navlinks>.navbtn{padding:8px 10px;font-size:12px}.moreMenu{position:fixed;top:112px;right:8px;left:auto;width:min(260px,calc(100vw - 16px));max-height:65dvh;overflow:auto}}
+@media(max-width:560px){.navlinks{white-space:nowrap;flex-wrap:nowrap}.nav{min-height:0}.navlinks>.navbtn{flex:0 0 auto}.moreMenu{top:110px!important}}
+
+
+/* Litanya polish: profile viewers, notification status, chat identity, composer and data panels */
+.pagehead{margin-bottom:16px}.pagehead h2{letter-spacing:-.035em}.pagehead p{color:var(--muted);line-height:1.55}
+#profileViewList,#notificationList{display:grid;gap:10px;background:transparent!important;box-shadow:none!important;border:0!important;padding:0!important}
+.view-row,.profile-view-empty,.notification-row,.notification-item{border:1px solid var(--line);background:var(--card);border-radius:16px;padding:14px;box-shadow:0 5px 18px rgba(60,32,48,.045)}
+.view-row{display:flex;align-items:center;gap:12px;cursor:pointer;transition:transform .16s,box-shadow .16s}.view-row:hover{transform:translateY(-1px);box-shadow:0 10px 25px rgba(60,32,48,.09)}
+.view-info{display:flex;flex-direction:column;gap:4px;min-width:0}.view-info strong{font-size:14px}.view-info span{font-size:12px;color:var(--muted)}
+.profile-view-empty{padding:30px 18px;text-align:center;color:var(--muted);background:linear-gradient(135deg,#fff,#fff7fb)!important}
+#modalRoot .modal.profile-modal{padding:0;overflow:hidden}.profile-modal-cover{height:105px;background:linear-gradient(125deg,#f1d7e4,#e8d9ef 52%,#fce7d8)}.profile-modal-body{padding:0 22px 22px;text-align:center}.profile-modal-avatar{width:92px;height:92px;margin:-45px auto 12px;border:5px solid white;border-radius:50%;overflow:hidden;box-shadow:0 5px 18px #3b24331c}.profile-modal-avatar img{width:100%;height:100%;object-fit:cover}.profile-modal-actions{display:flex;gap:9px;justify-content:center;flex-wrap:wrap;margin-top:18px}.profile-modal-actions .btn{min-width:130px}
+.chatitem .avatar,.msgrow .avatar{flex-shrink:0}.msgrow .avatar{width:32px;height:32px;font-size:11px;align-self:flex-end}.msgrow{align-items:flex-end}.msgrow .msg{min-width:0}.msgrow .msg time{display:block;margin-top:5px;font-size:10px;opacity:.7}.chathead .avatar img,.chatitem .avatar img{object-fit:cover}.composer{border:1px solid #e7dce3;box-shadow:0 6px 22px rgba(65,37,52,.06)}.composer .composefoot{border-top:1px solid #e9e1e6}.composer .fb-upload{transition:background .15s,transform .15s}.composer .fb-upload:active{transform:scale(.98)}
+.data-table,.table-card{border-radius:16px;overflow:hidden;border:1px solid var(--line);background:var(--card);box-shadow:0 5px 18px rgba(60,32,48,.045)}.table-card .table-title{padding:15px 16px;background:linear-gradient(120deg,#fff7fb,#fff);border-bottom:1px solid var(--line);font-weight:800}.data-table table{width:100%;border-collapse:collapse}.data-table th{background:#faf4f8;color:#6e5363;font-size:11px;text-transform:uppercase;letter-spacing:.06em;text-align:left}.data-table td,.data-table th{padding:12px;border-bottom:1px solid #f0e8ed}.data-table tr:last-child td{border-bottom:0}.data-table td{font-size:13px}.btn:focus-visible,.navbtn:focus-visible{outline:3px solid #dca9bf;outline-offset:2px}
+@media(max-width:560px){.view-row{padding:12px}.profile-modal-actions .btn{flex:1;min-width:0}.profile-modal-body{padding-left:16px;padding-right:16px}.data-table{overflow-x:auto}.data-table table{min-width:460px}}
+
+/* LitanyaSpace profile navigation and group composer polish */
+.navlinks .navbtn[data-page="profileViews"]{background:linear-gradient(135deg,#fff2f8,#f4edff);border:1px solid #ead8e7;color:#754665;font-weight:750}
+.navlinks .navbtn[data-page="profileViews"].active{background:linear-gradient(135deg,#c86e9f,#8c70bd);color:#fff;box-shadow:0 7px 18px rgba(150,86,130,.23)}
+.post-avatar-link{padding:0;border:0;background:transparent;display:inline-flex;align-self:flex-start;border-radius:50%;cursor:pointer;flex:0 0 auto}.post-avatar-link .avatar{transition:transform .18s,box-shadow .18s}.post-avatar-link:hover .avatar{transform:scale(1.06);box-shadow:0 0 0 3px #f3dce9}
+.group-create-modal{width:min(520px,100%);overflow:hidden;border-radius:24px;box-shadow:0 28px 90px rgba(39,20,34,.28)}
+.group-create-hero{display:flex;align-items:center;gap:13px;padding:22px 22px 19px;background:linear-gradient(125deg,#fff0f7,#f1efff 65%,#eef8ff);border-bottom:1px solid #eee3ec}
+.group-create-icon{width:48px;height:48px;flex:0 0 48px;border-radius:16px;display:grid;place-items:center;background:linear-gradient(135deg,#d884ad,#9d87d5);color:white;font-size:24px;box-shadow:0 7px 17px #d9bdd0}
+.group-create-hero h2{font-size:19px;margin:0;color:#392b38}.group-create-hero p{font-size:12px;margin:5px 0 0;color:#7c6b79}.group-create-hero .icon{margin-left:auto;font-size:25px;border-radius:12px;background:#ffffffb8}
+.group-create-form{padding:22px;display:flex;flex-direction:column;gap:9px}.group-create-form label{font-size:12px;font-weight:800;color:#584353;margin-top:4px}.group-create-form .input{width:100%;box-sizing:border-box;border:1px solid #e7d9e4;border-radius:13px;padding:12px 13px;background:#fff;font:inherit;outline:none;transition:border-color .15s,box-shadow .15s}.group-create-form .input:focus{border-color:#bd79a1;box-shadow:0 0 0 3px #f5e6ef}.group-member-input{resize:vertical;min-height:94px}.group-form-hint{font-size:11px;line-height:1.5;color:#887985;background:#faf6fa;padding:10px 12px;border-radius:10px}.group-form-error{font-size:12px;line-height:1.5;color:#a3264f;min-height:0}.group-form-error:empty{display:none}.group-form-actions{display:flex;justify-content:flex-end;gap:9px;padding-top:6px}.group-form-actions .btn{min-width:115px;justify-content:center}
+@media(max-width:650px){.group-create-hero{padding:17px}.group-create-form{padding:17px}.group-create-modal{border-radius:20px}.navlinks .navbtn[data-page="profileViews"]{order:6}}
+
+
+/* Litanya media + chat polish */
+.video-pick-card{display:flex;align-items:center;gap:12px;padding:12px 14px;border:1px solid #e5e7eb;border-radius:16px;background:linear-gradient(135deg,#fff,#f7f2ff);cursor:pointer;transition:transform .16s,box-shadow .16s}.video-pick-card:hover{transform:translateY(-1px);box-shadow:0 8px 24px #30234b14}.video-pick-icon{width:42px;height:42px;display:grid;place-items:center;border-radius:13px;background:#17151d;color:white}.video-preview{margin-top:10px;padding:10px;border:1px solid var(--line);border-radius:16px;background:#f7f6f9}.video-preview video{display:block;width:100%;max-height:360px;border-radius:12px;background:#111}.post-video-wrap{position:relative;margin:10px 0;border-radius:18px;overflow:hidden;background:#111;box-shadow:0 8px 28px #00000012}.post-video-wrap video{display:block;width:100%;max-height:min(76vh,720px);object-fit:contain;background:#111}.video-caption{padding:9px 12px;background:#19171d;color:#fff;font-size:12px;display:flex;gap:8px;align-items:center}.video-caption .video-chip{background:#34303a;border-radius:999px;padding:4px 8px;color:#f5d8e8}.music-track-head{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:13px;background:linear-gradient(110deg,#fff0f5,#f2efff);border:1px solid #eee0eb;margin:0 0 9px}.music-track-disc{width:34px;height:34px;flex:0 0 auto;border-radius:50%;display:grid;place-items:center;color:white;background:linear-gradient(140deg,#d64e86,#7057c7);box-shadow:0 3px 10px #9e568544}.music-track-meta{min-width:0;flex:1}.music-track-meta strong,.music-track-meta span{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.music-track-meta strong{font-size:13px}.music-track-meta span{font-size:11px;color:var(--muted);margin-top:2px}.chat-typing{min-height:20px;padding:2px 15px 7px;font-size:12px;color:#6c6370;display:flex;align-items:center;gap:7px}.typing-dots{display:inline-flex;gap:3px}.typing-dots i{width:5px;height:5px;border-radius:50%;background:#bd739a;animation:typingPulse 1s infinite ease-in-out}.typing-dots i:nth-child(2){animation-delay:.15s}.typing-dots i:nth-child(3){animation-delay:.3s}@keyframes typingPulse{0%,60%,100%{opacity:.35;transform:translateY(0)}30%{opacity:1;transform:translateY(-3px)}}.msg-receipt{font-size:10px;color:#8a6a9a;text-align:right;margin-top:3px}.chat-compose-wrap{background:#fff}.chat-attach:focus-visible,.send:focus-visible,.video-pick-card:focus-visible{outline:3px solid #d5a1c4;outline-offset:2px}
+@media(max-width:560px){.post-video-wrap video{max-height:62vh}.video-pick-card{padding:10px}.music-track-head{padding:8px 10px}}
+.games-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.game-card{padding:18px;display:flex;flex-direction:column;gap:9px}.game-emoji{width:48px;height:48px;display:grid;place-items:center;border-radius:15px;background:linear-gradient(135deg,#f9e8f1,#eee8ff);font-size:25px}.game-card h3{margin:0}.game-card p{margin:0;color:var(--muted);font-size:13px}.game-prompt{padding:13px;border-radius:13px;background:#fbf5f9;font-weight:700;min-height:54px;display:flex;align-items:center}.game-card .btn{width:100%}.game-choices{display:flex;gap:8px}.game-choices .btn{flex:1}.games-note{margin-top:14px;padding:15px}.games-note p{margin-bottom:0}.comment .avatar,.chatitem .avatar,.msg-avatar-open,.chathead .avatar{cursor:pointer}.comment .avatar{border:0;padding:0;flex-shrink:0}.msg-avatar-open{border:0;padding:0;background:var(--accent2);overflow:hidden}.msg-avatar-open img{width:100%;height:100%;object-fit:cover}.msg-media-open{display:block;cursor:zoom-in}.navlinks{scrollbar-width:none;scroll-snap-type:x mandatory;touch-action:pan-x pan-y;overscroll-behavior-x:contain}.navlinks::-webkit-scrollbar{display:none}.navlinks>.navbtn{scroll-snap-align:start}.navlinks>.navbtn:hover{transform:translateY(-1px)}@media(max-width:650px){.games-grid{grid-template-columns:1fr}.game-card{padding:15px}}
+
+.formrow{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.field{display:flex;flex-direction:column;gap:6px;font-size:12px;font-weight:700}.live-room-card{padding:16px;display:flex;flex-direction:column;gap:9px}.live-room-card h3{margin:0}.live-room-card p{margin:0;color:var(--muted);font-size:13px}.live-player{display:inline-flex;align-items:center;gap:8px;padding:8px 10px;background:#fbf4f8;border-radius:14px;margin:4px}.advice-card{padding:16px;margin-bottom:12px}.advice-meta{font-size:12px;color:var(--muted);display:flex;gap:8px;flex-wrap:wrap}.advice-body{white-space:pre-wrap;overflow-wrap:anywhere;margin:12px 0}.advice-reply{display:flex;gap:8px;margin-top:10px}.advice-reply input{min-width:0;flex:1}.advice-replies{border-top:1px solid var(--line);padding-top:8px;margin-top:10px;font-size:13px}.advice-reply-item{padding:8px 10px;background:#faf5f8;border-radius:10px;margin-top:6px;white-space:pre-wrap;overflow-wrap:anywhere}@media(max-width:560px){.formrow{grid-template-columns:1fr}}
+/* MyDay stories: Instagram/Facebook-inspired, without replacing existing feed features */
+.myday-shell{margin:0 0 16px;padding:14px;background:linear-gradient(135deg,#fff8fc,#f6f1ff);border:1px solid #eeddea;border-radius:20px;box-shadow:0 7px 24px #6e36510a}
+.myday-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}.myday-head h3{margin:0;font-size:17px}.myday-head p{margin:3px 0 0;font-size:11px;color:var(--muted)}
+.myday-row{display:flex;gap:12px;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x proximity;padding:2px 1px 8px;scrollbar-width:none}.myday-row::-webkit-scrollbar{display:none}
+.myday-item{border:0;background:transparent;flex:0 0 78px;width:78px;padding:0;text-align:center;cursor:pointer;scroll-snap-align:start;color:var(--ink)}.myday-ring{width:68px;height:68px;margin:0 auto 6px;padding:3px;border-radius:50%;background:linear-gradient(135deg,#e94f9b,#9a67e8,#ffb45b);display:grid;place-items:center}.myday-ring.seen{background:#c9c3ca}.myday-inner{width:100%;height:100%;border:3px solid white;border-radius:50%;overflow:hidden;background:#f0e6ee;display:grid;place-items:center;font-weight:800}.myday-inner img{width:100%;height:100%;object-fit:cover}.myday-label{display:block;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.myday-add .myday-ring{background:#ead9e7}.myday-plus{font-size:28px;color:#9e4f80}.myday-viewer{position:fixed;inset:0;z-index:100000;background:#120d15ed;display:flex;align-items:center;justify-content:center;padding:16px}.myday-view-card{position:relative;width:min(430px,100%);height:min(780px,92dvh);border-radius:22px;overflow:hidden;background:#211b25;color:white;display:flex;flex-direction:column;box-shadow:0 20px 80px #0008}.myday-progress{height:3px;background:#ffffff44;margin:12px 12px 5px}.myday-progress span{display:block;height:100%;background:#fff;width:100%}.myday-view-head{display:flex;align-items:center;gap:9px;padding:9px 14px}.myday-view-body{flex:1;display:grid;place-items:center;min-height:0;padding:12px;text-align:center;overflow:auto}.myday-view-body img,.myday-view-body video{max-width:100%;max-height:100%;object-fit:contain;border-radius:12px}.myday-view-text{font-size:22px;white-space:pre-wrap;overflow-wrap:anywhere}.myday-close{position:absolute;right:10px;top:15px;border:0;background:#ffffff22;color:#fff;border-radius:50%;width:36px;height:36px;font-size:24px;z-index:2}.myday-composer{display:flex;gap:8px;align-items:center;margin-top:10px}.myday-composer .input{min-width:0}.myday-file{font-size:12px;color:var(--muted)}
+@media(max-width:560px){.myday-shell{padding:12px;border-radius:16px}.myday-item{flex-basis:72px;width:72px}.myday-ring{width:62px;height:62px}}
+
 </style>
 </head>
 <body>
+<div id="uploadingScreen" class="uploading-screen" role="status" aria-live="polite"><div class="uploading-card"><div class="uploading-spinner"></div><strong id="uploadingTitle">Uploading your post…</strong><p id="uploadingDetail">Please keep this page open for a moment.</p></div></div>
 <header class="topbar">
  <div class="nav">
   <div class="logo">Litanya<span>Safespace</span></div>
@@ -108,14 +215,16 @@ textarea{resize:vertical;min-height:100px}.empty{text-align:center;padding:38px;
    <button class="navbtn active" data-page="home"><span class="svgicon" data-icon="home"></span>Home</button>
    <button class="navbtn" data-page="wall"><span class="svgicon" data-icon="heart"></span>Freedom Wall</button>
    <button class="navbtn" data-page="realizations"><span class="svgicon" data-icon="spark"></span>Realizations</button>
-   <button class="navbtn" data-page="messenger"><span class="svgicon" data-icon="message"></span>Messenger</button>
+   <button class="navbtn" data-page="games"><span class="svgicon" data-icon="gamepad-2"></span>Live Games</button>
+   <button class="navbtn" data-page="advice"><span class="svgicon" data-icon="heart-handshake"></span>Need Advice</button>
+   <button class="navbtn" data-page="messenger"><span class="svgicon" data-icon="message"></span>Messenger <span class="badge hidden" id="messageNavBadge">0</span></button>
+   <button class="navbtn" data-page="notifications"><span class="svgicon" data-icon="bell"></span>Notifications <span class="badge hidden" id="notifBadge">0</span></button>
+   <button class="navbtn" data-page="profileViews"><span class="svgicon" data-icon="users"></span>Profile Views <span class="badge hidden" id="profileViewBadge">0</span></button>
+   <button class="navbtn" data-page="profile"><span class="svgicon" data-icon="user"></span>My profile</button>
    <div class="moreNav" id="moreNav">
-    <button class="navbtn moreNavBtn" id="moreNavBtn" type="button"><span class="svgicon" data-icon="more"></span>More</button>
+    <button class="navbtn moreNavBtn" id="moreNavBtn" type="button" aria-expanded="false"><span class="svgicon" data-icon="more"></span>More</button>
     <div class="moreMenu" id="moreMenu">
      <button class="navbtn" data-page="updates"><span class="svgicon" data-icon="megaphone"></span>Updates</button>
-     <button class="navbtn" data-page="notifications"><span class="svgicon" data-icon="bell"></span>Notifications <span class="badge hidden" id="notifBadge">0</span></button>
-     <button class="navbtn" data-page="profileViews"><span class="svgicon" data-icon="user"></span>Profile Views <span class="badge hidden" id="profileViewBadge">0</span></button>
-     <button class="navbtn" data-page="profile"><span class="svgicon" data-icon="user"></span>Profile</button>
     </div>
    </div>
   </div>
@@ -167,11 +276,20 @@ textarea{resize:vertical;min-height:100px}.empty{text-align:center;padding:38px;
 <section class="page" id="wall">
  <div class="pagehead"><h2>Freedom Wall</h2><p>Say something you want the room to hear.</p></div>
  <div class="feed">
+  <section class="myday-shell" aria-label="MyDay stories">
+   <div class="myday-head"><div><h3>MyDay</h3><p>Share a moment that disappears after 24 hours.</p></div><span class="tiny">24h</span></div>
+   <div class="myday-row" id="mydayRow"><button type="button" class="myday-item myday-add" id="mydayAdd"><span class="myday-ring"><span class="myday-inner"><span class="myday-plus">+</span></span></span><span class="myday-label">Add MyDay</span></button><span class="tiny" style="align-self:center">Log in to see and share stories.</span></div>
+   <form id="mydayForm" class="hidden" style="margin-top:10px">
+    <textarea class="input" id="mydayText" rows="2" maxlength="500" placeholder="Share a thought or moment…"></textarea>
+    <div class="myday-composer"><label class="btn secondary" for="mydayMedia">📷 Photo/video</label><input id="mydayMedia" type="file" accept="image/*,video/mp4,video/webm,video/quicktime" hidden><span class="myday-file" id="mydayFileName">Optional media · max 20 MB</span><button class="btn primary" type="submit">Share MyDay</button><button class="btn secondary" id="mydayCancel" type="button">Cancel</button></div>
+    <div class="tiny" style="margin-top:6px">MyDay stories expire after 24 hours. Use only media you have permission to share.</div>
+   </form>
+  </section>
   <div class="toolbar"><input id="wallSearch" class="input search" placeholder="Search posts..."><select id="wallSort"><option value="latest">Latest</option><option value="oldest">Oldest</option><option value="liked">Most liked</option><option value="commented">Most commented</option></select></div>
   <div class="card composer">
    <form id="postForm"><div class="composehead"><div class="avatar" id="postAvatar">?</div><strong id="postUsername">Username</strong></div>
-   <textarea id="postContent" maxlength="3000" required placeholder="What's on your mind?"></textarea>
-   <div class="image-preview hidden" id="postImagePreview"></div><div class="music-preview hidden" id="postMusicPreview"></div>
+   <textarea id="postContent" maxlength="3000" placeholder="What's on your mind?"></textarea>
+   <div class="image-preview hidden" id="postImagePreview"></div><div class="video-preview hidden" id="postVideoPreview"></div><div class="music-preview hidden" id="postMusicPreview"></div>
    <div class="card hidden" id="youtubeMusicPanel" style="margin-top:10px;padding:12px;background:#fcf7fa">
     <div style="display:flex;gap:7px;align-items:center"><input id="youtubeMusicUrl" class="input" placeholder="Paste a YouTube music URL"><button type="button" class="btn secondary" id="youtubeSearchBtn">Search</button></div>
     <div class="tiny" style="margin-top:7px">Search opens YouTube. Use music you have permission to use. The clip plays from your chosen start to end time without downloading the song.</div>
@@ -180,8 +298,7 @@ textarea{resize:vertical;min-height:100px}.empty{text-align:center;padding:38px;
    </div>
    <div class="composefoot">
     <div class="composer-tools">
-     <label class="fb-upload" title="Add a photo"><div class="upload-circle"><span class="svgicon" data-icon="image"></span></div><div><strong>Photo</strong><span>Add a photo to your post</span></div><input id="postImage" type="file" accept="image/*" hidden></label><label class="fb-upload" title="Add music file"><div class="upload-circle">♫</div><div><strong>Music file</strong><span>Upload royalty-free/open music</span></div><input id="postMusic" type="file" accept="audio/*,.mp3,.m4a,.wav,.ogg" hidden></label>
-     <button type="button" class="fb-upload" id="youtubeMusicBtn" title="Use a YouTube music clip"><div class="upload-circle">▶</div><div><strong>YouTube clip</strong><span>Search, choose, then set a short part</span></div></button>
+     <label class="fb-upload" title="Add a photo"><div class="upload-circle"><span class="svgicon" data-icon="image"></span></div><div><strong>Photo</strong><span>Add a photo to your post</span></div><input id="postImage" type="file" accept="image/*" hidden></label><label class="video-pick-card" for="postVideo" title="Add a video"><span class="video-pick-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="13" height="14" rx="3"></rect><path d="m16 10 5-3v10l-5-3z"></path></svg></span><span><strong>Video</strong><span style="display:block;font-size:11px;color:var(--muted)">Share a short video</span></span><input id="postVideo" type="file" accept="video/mp4,video/webm,video/quicktime,video/*" hidden></label><label class="fb-upload" title="Upload and trim an audio file"><div class="upload-circle">♫</div><div><strong>Upload audio</strong><span>Upload and cut a clip up to 60 seconds</span></div><input id="postMusic" type="file" accept="audio/*,.mp3,.m4a,.wav,.ogg" hidden></label>
      <span class="upload-name tiny" id="postImageName"></span>
      <label class="small"><input type="checkbox" id="postAnon"> Post anonymously</label>
     </div>
@@ -219,13 +336,13 @@ textarea{resize:vertical;min-height:100px}.empty{text-align:center;padding:38px;
  <div class="pagehead"><h2>Messenger</h2><p>Private conversations and group chats.</p></div>
  <div class="card messenger" id="messengerBox">
   <aside class="chatlist">
-   <div class="chatlisthead"><input id="peopleSearch" class="input" placeholder="Search people..."><div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap"><button class="btn primary" id="publicChatBtn" type="button">Public Chat</button><button class="btn secondary" id="newGroupBtn" type="button">+ Group</button><button class="btn secondary" id="refreshChats" type="button">↻</button></div></div>
+   <div class="chatlisthead"><input id="peopleSearch" class="input" placeholder="Search people..."><div class="chatnav" role="tablist" aria-label="Messenger navigation"><button class="btn primary" data-chat-filter="all" type="button">Chats</button><button class="btn secondary" data-chat-filter="online" type="button">🟢 Online</button><button class="btn secondary" data-chat-filter="communities" type="button">Communities</button></div><div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap"><button class="btn primary" id="publicChatBtn" type="button">Public Chat</button><button class="btn secondary" id="newGroupBtn" type="button">+ Community / Group</button><button class="btn secondary" id="refreshChats" type="button">↻</button></div></div>
    <div class="chatitems" id="chatItems"><div class="empty">No conversations yet.</div></div>
   </aside>
   <section class="chatmain">
    <div class="chathead"><button class="btn secondary" id="chatBack" style="display:none">←</button><div class="avatar" id="chatAvatar">L</div><div class="grow"><strong id="chatTitle">Litanya Messenger</strong><div class="tiny" id="chatSubtitle">Choose a conversation.</div></div><button class="btn secondary" id="chatInfo">ⓘ</button></div>
-   <div class="chatmsgs" id="chatMessages"><div class="empty">Choose a conversation to begin.</div></div>
-   <form class="chatcompose" id="messageForm"><input id="messageInput" maxlength="4000" placeholder="Type a message..." disabled><button class="send" id="sendBtn" disabled>➤</button></form>
+   <div class="chatmsgs" id="chatMessages"><div class="empty">Choose a conversation to begin.</div></div><div class="chat-typing" id="chatTyping" aria-live="polite"></div>
+   <div id="replyPreview" class="reply-preview hidden"><span id="replyPreviewText"></span><button type="button" id="cancelReply" aria-label="Cancel reply">×</button></div><div class="chat-attachbar"><label class="chat-attach" title="Send image">▧<input id="messageImage" type="file" accept="image/*" hidden></label><label class="chat-attach" title="Send audio file">♫<input id="messageAudio" type="file" accept="audio/*,.mp3,.m4a,.wav,.ogg,.webm" hidden></label><button type="button" class="chat-attach" id="recordVoice" title="Record voice message">●</button><span class="tiny" id="voiceStatus"></span></div><form class="chatcompose" id="messageForm"><input id="messageInput" maxlength="4000" placeholder="Message… use @username to mention" disabled><button class="send" id="sendBtn" disabled>➤</button></form>
   </section>
  </div>
 </section>
@@ -263,6 +380,20 @@ textarea{resize:vertical;min-height:100px}.empty{text-align:center;padding:38px;
   <div><div class="pagehead"><h2>Your posts</h2><p>Everything you shared publicly on Litanya.</p></div><div id="profileFeed"></div></div>
  </div>
 </section>
+<section class="page" id="games"><div class="pagehead"><h2>Live Community Games</h2><p>Create a room, invite friends, see who's joining, and play together in real time.</p></div>
+<div class="card" style="padding:16px;margin-bottom:14px"><h3 style="margin-top:0">Create a game room</h3><div class="formrow"><label class="field">Game<select class="input" id="liveGameType"><option value="affirmation">Words of Affirmation</option><option value="one_word">One Word Check-in</option><option value="one_feeling">One Feeling, Explain</option><option value="feelings_valid">Your Feelings Are Valid</option><option value="you_are_not_alone">You Are Not Alone</option><option value="make_seen">Make Someone Feel Seen</option><option value="kindness_circle">Kindness Circle</option></select></label><label class="field">Room name<input class="input" id="liveRoomName" maxlength="60" placeholder="e.g. Late night hangout"></label></div><div class="formrow" style="margin-top:10px"><label class="field">Players<input class="input" id="liveRoomMax" type="number" min="2" max="20" value="8"></label><label class="field">Room privacy<select class="input" id="liveRoomPrivacy"><option value="public">Public — anyone can join</option><option value="invite">Invite code required</option></select></label></div><button class="btn primary" id="createLiveRoom" style="margin-top:12px">＋ Create room</button><p class="tiny" id="liveGameStatus">Live rooms require the Games SQL setup and Supabase Realtime.</p></div>
+<div class="pagehead"><h3>Rooms you can join</h3><button class="btn secondary" id="refreshLiveRooms">Refresh rooms</button></div><div id="liveRoomsList" class="games-grid"><div class="card games-note">Loading live rooms…</div></div>
+<div class="card hidden" id="liveRoomPanel" style="padding:16px;margin-top:14px"><div style="display:flex;align-items:start;justify-content:space-between;gap:10px"><div><h3 id="liveRoomTitle" style="margin:0">Game room</h3><p class="tiny" id="liveRoomMeta"></p></div><button class="btn secondary" id="leaveLiveRoom">Leave room</button></div><div class="game-prompt" id="liveRoomPrompt" style="margin:12px 0">Waiting for players…</div><div><strong>Players joined</strong><div id="liveRoomPlayers" class="myday-row" style="margin-top:8px"></div></div><div id="liveRoomControls" style="margin-top:14px"></div><div class="tiny" id="liveRoomActivity" style="margin-top:10px" aria-live="polite"></div></div>
+<div class="games-grid" id="gamesGrid" style="margin-top:18px">
+<article class="card game-card"><div class="game-emoji">💗</div><h3>Words of Affirmation</h3><p>Give each other sincere, kind reminders. Everyone can receive support and share encouragement.</p><div class="game-prompt">“You matter, even on the days you don't feel your best.”</div><button class="btn primary" type="button" data-create-kind="affirmation">Start a support room</button></article>
+<article class="card game-card"><div class="game-emoji">☁️</div><h3>One Word Check-in</h3><p>Everyone shares one word for how they're doing. You can pass if you don't want to share.</p><div class="game-prompt">One word for how you feel right now?</div><button class="btn primary" type="button" data-create-kind="one_word">Start a check-in</button></article>
+<article class="card game-card"><div class="game-emoji">🌦️</div><h3>One Feeling, Explain</h3><p>Name a feeling and explain only as much as feels safe. Others listen before responding.</p><div class="game-prompt">“I feel ___, and I think it's because…”</div><button class="btn primary" type="button" data-create-kind="one_feeling">Open a feelings room</button></article>
+<article class="card game-card"><div class="game-emoji">🫶</div><h3>Your Feelings Are Valid</h3><p>A judgment-free circle to check in, listen, and acknowledge what each person is feeling.</p><div class="game-prompt">You don't need to prove your feelings to deserve kindness.</div><button class="btn primary" type="button" data-create-kind="feelings_valid">Join a validation circle</button></article>
+<article class="card game-card"><div class="game-emoji">🪷</div><h3>You Are Not Alone</h3><p>Share a small worry or ask for company. Group members can respond with supportive messages, not fixes unless asked.</p><div class="game-prompt">“I could use some company with…”</div><button class="btn primary" type="button" data-create-kind="you_are_not_alone">Create a support room</button></article>
+<article class="card game-card"><div class="game-emoji">👀</div><h3>Make Someone Feel Seen</h3><p>Take turns sharing what you appreciate, what you heard them say, or a gentle question that helps them feel understood.</p><div class="game-prompt">“Something I want you to know is…”</div><button class="btn primary" type="button" data-create-kind="make_seen">Start a listening circle</button></article>
+<article class="card game-card"><div class="game-emoji">🌻</div><h3>Kindness Circle</h3><p>One person shares; the group replies with empathy, a kind affirmation, or “I hear you.” No judging or unsolicited advice.</p><div class="game-prompt">Choose your response: “I hear you,” “That sounds hard,” or “Would you like advice or just listening?”</div><button class="btn primary" type="button" data-create-kind="kindness_circle">Start a kindness circle</button></article>
+</div></div></section>
+<section class="page" id="advice"><div class="pagehead"><h2>Need Advice?</h2><p>A kind, judgment-free space to ask for perspectives, offer support, and help each other think things through.</p></div><div class="card" style="padding:16px;margin-bottom:14px"><form id="adviceForm"><label class="field">What's on your mind?<textarea class="input" id="adviceBody" rows="4" maxlength="2500" placeholder="Share only what you feel comfortable sharing. Avoid private details like addresses or passwords." required></textarea></label><div class="formrow" style="margin-top:10px"><label class="field">Topic<select class="input" id="adviceTopic"><option>Friendship</option><option>School</option><option>Family</option><option>Confidence</option><option>Relationships</option><option>Stress</option><option>Other</option></select></label><label class="field">Display name<select class="input" id="adviceAnonymous"><option value="false">Show my username</option><option value="true">Post anonymously</option></select></label></div><button class="btn primary" type="submit" style="margin-top:12px">Post for advice</button><p class="tiny">Community members may reply with suggestions. Don't post emergencies or identifying information. Advice here isn't a substitute for trusted adult or professional support.</p></form></div><div class="pagehead"><h3>Community support</h3><button class="btn secondary" id="refreshAdvice">Refresh</button></div><div id="adviceList"><div class="card games-note">Loading advice posts…</div></div></section>
 <section class="page" id="publicProfile"><div style="max-width:800px;margin:auto"><button class="btn secondary" id="publicBack">← Back</button><div id="publicProfileBox" style="margin-top:12px"></div><div id="publicPosts"></div></div></section>
 <section class="page" id="singlePost"><div style="max-width:800px;margin:auto"><button class="btn secondary" id="singleBack">← Back</button><div id="singlePostBox" style="margin-top:12px"></div></div></section>
 </main>
@@ -292,10 +423,8 @@ const SUPABASE_KEY='sb_publishable_1kBhcictacKY7udPWDlZ6A_5vorzbDi';
 const AUTH_EMAIL_DOMAINS=['litanya-safespace.com','litanya.app','litanya-app.net'];
 // Web Push configuration. The public VAPID key is safe to ship to browsers.
 // The matching PRIVATE key stays only in Supabase Edge Function secrets.
-const VAPID_PUBLIC_KEY='BKfmrPxLjOsN9VSgfeT3-iGeJbO9Y5AiQsQ6urZvBbZBNy7klTHvgk9Hz1QJk0dL_iNvSKE7ueuFPlWDRNSSqig';
+const VAPID_PUBLIC_KEY='BGJEZXi2F4sdybATBwPJTaTEIm0lLIKmlRER94k0hjKbD94FIkEhK4p0YuqektlaeXIThjyrvAgYOePYqvK5CxI';
 let pushRegistration=null;
-let pushRegistrationError=null;
-let pushRegistrationPromise=null;
 function base64ToUint8Array(base64){
   const padding='='.repeat((4-base64.length%4)%4);
   const b64=(base64+padding).replace(/-/g,'+').replace(/_/g,'/');
@@ -305,30 +434,9 @@ function base64ToUint8Array(base64){
 function isIOS(){return /iphone|ipad|ipod/i.test(navigator.userAgent)||(/macintosh/i.test(navigator.userAgent)&&navigator.maxTouchPoints>1)}
 function isStandalone(){return window.matchMedia?.('(display-mode: standalone)').matches||window.navigator.standalone===true}
 async function registerPushServiceWorker(){
-  // Reuse one in-flight registration. The page calls this from startup, auth,
-  // status refresh, and the button; concurrent calls can otherwise race on mobile.
-  if(pushRegistration && pushRegistration.active) return pushRegistration;
-  if(pushRegistrationPromise) return pushRegistrationPromise;
-  pushRegistrationError=null;
-  if(!('serviceWorker' in navigator)||!('PushManager' in window)){
-    pushRegistrationError=new Error('This browser does not support Service Worker or PushManager.');
-    return null;
-  }
-  pushRegistrationPromise=(async()=>{
-    try{
-      const reg=await navigator.serviceWorker.register('/sw.js',{scope:'/',updateViaCache:'none'});
-      // Wait for the registration to be ready, but preserve the registration itself
-      // if an unrelated worker state causes ready to reject.
-      await navigator.serviceWorker.ready;
-      pushRegistration=reg;
-      return reg;
-    }catch(e){
-      pushRegistrationError=e;
-      log('Push service worker registration failed',{name:e?.name||'UnknownError',message:e?.message||String(e)});
-      return null;
-    }finally{pushRegistrationPromise=null;}
-  })();
-  return pushRegistrationPromise;
+  if(!('serviceWorker' in navigator)||!('PushManager' in window))return null;
+  try{pushRegistration=await navigator.serviceWorker.register('/sw.js',{scope:'/'});await navigator.serviceWorker.ready;return pushRegistration}
+  catch(e){log('Push service worker registration failed',e);return null}
 }
 async function savePushSubscription(sub){
   const j=sub.toJSON();
@@ -344,51 +452,31 @@ async function enablePushNotifications(){
   }
   const btn=$('enablePushBtn'),status=$('pushStatus'),help=$('pushHelp');
   if(btn)btn.disabled=true;
-  let pushStage='checking device support';
   try{
     if(isIOS()&&!isStandalone()){
       if(help)help.textContent='On iPhone/iPad: add Litanya Safespace to your Home Screen first, open it from there, then tap Enable notifications.';
       toast('For iPhone/iPad, add this site to your Home Screen first.','error',6000);
       return;
     }
-    pushStage='registering service worker';
     const reg=await registerPushServiceWorker();
-    if(!reg){
-      const cause=pushRegistrationError;
-      const detail=cause ? `${cause.name||'Error'}: ${cause.message||String(cause)}` : 'No additional browser error was provided.';
-      throw new Error(`Could not register the notification service worker. ${detail}`);
-    }
-    pushStage='requesting notification permission';
+    if(!reg)throw new Error('Could not register the notification service worker.');
     let permission=Notification.permission;
     if(permission==='default')permission=await Notification.requestPermission();
     if(permission!=='granted'){
       if(status)status.textContent='Notifications are blocked. Allow notifications in your browser/site settings, then try again.';
       return;
     }
-    pushStage='creating browser push subscription';
     let sub=await reg.pushManager.getSubscription();
-    if(!sub){
-      const applicationServerKey=base64ToUint8Array(VAPID_PUBLIC_KEY);
-      if(applicationServerKey.length!==65)throw new Error(`Invalid VAPID public key length (${applicationServerKey.length} bytes; expected 65).`);
-      try{sub=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey});}
-      catch(e){
-        if(e?.name==='AbortError')throw new Error('The browser push service aborted subscription creation. Check that this deployed VAPID public key matches the Supabase VAPID_PUBLIC_KEY secret, then retry in Chrome. Original error: '+(e.message||'AbortError'));
-        throw e;
-      }
-    }
-    pushStage='saving subscription to Supabase';
+    if(!sub)sub=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:base64ToUint8Array(VAPID_PUBLIC_KEY)});
     await savePushSubscription(sub);
     if(status)status.textContent='Phone notifications are enabled on this device.';
     if(help)help.textContent='This device will receive alerts for new Litanya posts while notifications are allowed.';
     if(btn){btn.textContent='Notifications enabled';btn.disabled=true}
     toast('Phone notifications enabled.','success');
   }catch(e){
-    const errorName=e?.name||'UnknownError';
-    const errorMessage=e?.message||String(e)||'No error message available.';
-    // Show actionable diagnostics without logging keys, endpoints, or subscription data.
-    log('Push enable failed', {name:errorName,message:errorMessage});
-    if(status)status.textContent=`Push setup failed while ${pushStage} (${errorName}): ${errorMessage}`;
-    toast(`Push setup failed while ${pushStage} (${errorName}): ${errorMessage}`,'error',10000);
+    log('Push enable failed',e);
+    if(status)status.textContent='Could not enable notifications: '+(e?.message||'unknown error')+'. Check browser permission and Supabase push subscription settings.';
+    toast('Could not enable notifications: '+(e?.message||'unknown error'),'error',7000);
   }finally{if(btn&&!btn.textContent.includes('enabled'))btn.disabled=false}
 }
 async function refreshPushUI(){
@@ -404,6 +492,7 @@ async function refreshPushUI(){
     const reg=await registerPushServiceWorker();const sub=reg?await reg.pushManager.getSubscription():null;
     if(sub){btn.textContent='Notifications enabled';btn.disabled=true;status.textContent='Phone notifications are enabled on this device.'}
     else if(Notification.permission==='denied')status.textContent='Notifications are blocked. Allow them in browser/site settings to enable them again.';
+    else if(Notification.permission==='default')status.textContent='Notifications are not enabled yet. Tap Enable notifications and allow the browser prompt.';
   }catch(_){ }
 }
 
@@ -411,6 +500,8 @@ let client=null, session=null, me=null;
 let activeChat=null, chatChannel=null, liveChannels=[];
 const cache={posts:new Map(),profiles:new Map(),chats:new Map()};
 const $=id=>document.getElementById(id);
+function showUploading(title="Uploading…",detail="Please keep this page open for a moment."){const o=$("uploadingScreen");if(!o)return;$("uploadingTitle").textContent=title;$("uploadingDetail").textContent=detail;o.classList.add("show")}
+function hideUploading(){$("uploadingScreen")?.classList.remove("show")}
 const ICONS={
  home:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M9 21v-6h6v6"/></svg>',
  heart:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 8.6c0 5.5-8.8 11-8.8 11S3.2 14.1 3.2 8.6A4.6 4.6 0 0 1 12 6.3a4.6 4.6 0 0 1 8.8 2.3Z"/></svg>',
@@ -443,19 +534,63 @@ function setPage(id){
   document.querySelectorAll(".page").forEach(x=>x.classList.toggle("active",x.id===id));
   document.querySelectorAll(".navbtn").forEach(x=>x.classList.toggle("active",x.dataset.page===id));
   if(!client)return;
-  if(id==="wall")loadFeed("wall");
+  if(id==="wall"){loadFeed("wall");loadMyDayStories();}
   if(id==="realizations")loadFeed("realization");
   if(id==="updates")loadFeed("update");
   if(id==="profile")loadMyProfile();
   if(id==="notifications"){loadNotifications();refreshPushUI();}
   if(id==="profileViews")loadProfileViews();
   if(id==="messenger")loadChats();
+  if(id==="games")loadLiveRooms();
+  if(id==="advice")loadAdvicePosts();
 }
 window.go=id=>{
-  if(!uid() && ["wall","realizations","updates","messenger","profile","notifications","profileViews"].includes(id)){setPage("authPage");return}
+  if(!uid() && ["wall","realizations","updates","messenger","profile","notifications","profileViews","games","advice"].includes(id)){setPage("authPage");return}
   setPage(id);safeHist("replaceState",{page:id},"","#"+id);window.scrollTo(0,0)
 };
-document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest(".navbtn");if(b&&b.dataset.page){document.getElementById("moreNav")?.classList.remove("open");go(b.dataset.page)}});
+// ---- MyDay stories (24-hour shared stories; requires the SQL table below) ----
+let mydaySelectedFile=null, mydayRows=[];
+function mydayAvatar(p){const n=p?.profiles?.username||p?.username||"User",u=p?.profiles?.avatar_url||p?.avatar_url;return u?`<img src="${attr(u)}" alt="">`:esc(initials(n))}
+async function loadMyDayStories(){
+ const row=$("mydayRow"); if(!row)return;
+ if(!client||!uid()){row.innerHTML='<button type="button" class="myday-item myday-add" id="mydayAdd"><span class="myday-ring"><span class="myday-inner"><span class="myday-plus">+</span></span></span><span class="myday-label">Add MyDay</span></button><span class="tiny" style="align-self:center">Log in to share stories.</span>';bindMydayAdd();return}
+ const r=await client.from("myday_stories").select("*,profiles:user_id(username,avatar_url)").gt("expires_at",new Date().toISOString()).order("created_at",{ascending:false}).limit(80);
+ if(r.error){row.innerHTML='<button type="button" class="myday-item myday-add" id="mydayAdd"><span class="myday-ring"><span class="myday-inner"><span class="myday-plus">+</span></span></span><span class="myday-label">Add MyDay</span></button><span class="tiny" style="align-self:center">Run the MyDay SQL setup to enable shared stories.</span>';bindMydayAdd();return}
+ mydayRows=r.data||[];const own=mydayRows.filter(x=>x.user_id===uid()),others=mydayRows.filter(x=>x.user_id!==uid());
+ row.innerHTML=`<button type="button" class="myday-item myday-add" id="mydayAdd"><span class="myday-ring"><span class="myday-inner"><span class="myday-plus">+</span></span></span><span class="myday-label">${own.length?'Your MyDay':'Add MyDay'}</span></button>`+
+ [...own.slice(0,1),...others].map((st,i)=>`<button type="button" class="myday-item" data-story="${attr(st.id)}"><span class="myday-ring"><span class="myday-inner">${mydayAvatar(st)}</span></span><span class="myday-label">${esc(st.user_id===uid()?"Your MyDay":st.profiles?.username||"User")}</span></button>`).join('');
+ bindMydayAdd();row.querySelectorAll('[data-story]').forEach(b=>b.onclick=()=>openMydayViewer(b.dataset.story));
+}
+function bindMydayAdd(){const b=$("mydayAdd");if(b)b.onclick=()=>{if(!requireLogin())return;$("mydayForm").classList.toggle("hidden");$("mydayText").focus()}}
+$("mydayMedia")?.addEventListener("change",()=>{mydaySelectedFile=$("mydayMedia").files?.[0]||null;$("mydayFileName").textContent=mydaySelectedFile?`${mydaySelectedFile.name} · ${(mydaySelectedFile.size/1024/1024).toFixed(1)} MB`:"Optional media · max 20 MB";if(mydaySelectedFile&&mydaySelectedFile.size>20*1024*1024){toast("MyDay media max size is 20 MB.","error");$("mydayMedia").value="";mydaySelectedFile=null;$("mydayFileName").textContent="Optional media · max 20 MB"}});
+$("mydayCancel")?.addEventListener("click",()=>{$("mydayForm").classList.add("hidden");$("mydayText").value="";$("mydayMedia").value="";mydaySelectedFile=null;$("mydayFileName").textContent="Optional media · max 20 MB"});
+$("mydayForm")?.addEventListener("submit",async e=>{e.preventDefault();if(!requireLogin()||!(await ensureProfile()))return;const text=$("mydayText").value.trim();if(!text&&!mydaySelectedFile){toast("Add a thought or choose a photo/video.","error");return}if(mydaySelectedFile&&mydaySelectedFile.size>20*1024*1024){toast("MyDay media max size is 20 MB.","error");return}let mediaUrl=null,mediaType=null;try{if(mydaySelectedFile){const ext=(mydaySelectedFile.name.split('.').pop()||'jpg').toLowerCase().replace(/[^a-z0-9]/g,'')||'jpg';const path=`${uid()}/myday/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;const up=await client.storage.from('post-images').upload(path,mydaySelectedFile,{cacheControl:'3600',upsert:false,contentType:mydaySelectedFile.type});if(up.error)throw up.error;mediaUrl=client.storage.from('post-images').getPublicUrl(path).data.publicUrl;mediaType=mydaySelectedFile.type.startsWith('video/')?'video':'image'}}catch(err){toast('MyDay upload failed: '+err.message,'error');return}const now=new Date(),expires=new Date(now.getTime()+24*60*60*1000);const r=await client.from('myday_stories').insert({user_id:uid(),content:text,media_url:mediaUrl,media_type:mediaType,created_at:now.toISOString(),expires_at:expires.toISOString()});if(r.error){toast('Could not share MyDay: '+r.error.message,'error');return}$("mydayText").value="";$("mydayMedia").value="";mydaySelectedFile=null;$("mydayFileName").textContent="Optional media · max 20 MB";$("mydayForm").classList.add("hidden");toast("MyDay shared for 24 hours.","success");await loadMyDayStories()});
+function openMydayViewer(id){const start=mydayRows.findIndex(x=>x.id===id);if(start<0)return;let idx=start;const root=document.createElement('div');root.className='myday-viewer';root.innerHTML='<div class="myday-view-card"><button class="myday-close" aria-label="Close">×</button><div class="myday-progress"><span></span></div><div class="myday-view-head"></div><div class="myday-view-body"></div><div style="padding:10px 15px 18px;font-size:12px;color:#ffffffb8" class="myday-time"></div></div>';document.body.appendChild(root);const close=()=>root.remove();root.querySelector('.myday-close').onclick=close;root.onclick=e=>{if(e.target===root)close()};function render(){const st=mydayRows[idx];if(!st){close();return}const name=st.profiles?.username||'User';root.querySelector('.myday-view-head').innerHTML=`<span class="myday-ring" style="width:38px;height:38px;flex:0 0 auto"><span class="myday-inner">${mydayAvatar(st)}</span></span><span><strong>${esc(name)}</strong><div style="font-size:11px;color:#ffffffaa">${esc(ago(st.created_at))}</div></span>`;const body=root.querySelector('.myday-view-body');let media='';if(st.media_url&&st.media_type==='image')media=`<img src="${attr(st.media_url)}" alt="MyDay media">`;if(st.media_url&&st.media_type==='video')media=`<video src="${attr(st.media_url)}" controls autoplay playsinline></video>`;body.innerHTML=(media||'')+(st.content?`<div class="myday-view-text" style="${media?'font-size:16px;margin-top:12px':''}">${esc(st.content)}</div>`:'');root.querySelector('.myday-time').textContent='Expires '+new Date(st.expires_at).toLocaleTimeString('en-PH',{hour:'numeric',minute:'2-digit'});root.querySelector('.myday-progress span').style.width='100%'}render();let sx=null;root.querySelector('.myday-view-card').addEventListener('touchstart',e=>{sx=e.touches[0].clientX},{passive:true});root.querySelector('.myday-view-card').addEventListener('touchend',e=>{if(sx===null)return;const dx=e.changedTouches[0].clientX-sx;sx=null;if(Math.abs(dx)>45){idx=Math.max(0,Math.min(mydayRows.length-1,idx+(dx<0?1:-1)));render()}},{passive:true});document.addEventListener('keydown',function escStory(e){if(e.key==='Escape'){close();document.removeEventListener('keydown',escStory)}})}
+
+// ---- Live multiplayer rooms + Need Advice community page ----
+let liveRoom=null, liveRoomChannel=null, liveRoomPoll=null, livePlayers=[], liveEvents=[];
+let adviceChannel=null;
+const liveGameNames={affirmation:'Words of Affirmation',one_word:'One Word Check-in',one_feeling:'One Feeling, Explain',feelings_valid:'Your Feelings Are Valid',you_are_not_alone:'You Are Not Alone',make_seen:'Make Someone Feel Seen',kindness_circle:'Kindness Circle'};
+function liveStatus(t,err=false){const e=$('liveGameStatus');if(e){e.textContent=t;e.style.color=err?'#b42348':''}}
+async function loadLiveRooms(){const box=$('liveRoomsList');if(!box||!client)return;if(!uid()){box.innerHTML='<div class="card games-note">Log in to create or join live game rooms.</div>';return}box.innerHTML='<div class="card games-note">Finding open rooms…</div>';const r=await client.from('game_rooms').select('id,name,game_type,host_id,invite_code,privacy,max_players,status,created_at,profiles:host_id(username)').eq('status','open').eq('privacy','public').order('created_at',{ascending:false}).limit(40);if(r.error){box.innerHTML='<div class="card games-note">Live rooms are not set up yet. Run the included Litanya Live Games + Advice SQL in Supabase, then refresh.</div>';return}if(!r.data?.length){box.innerHTML='<div class="card games-note">No open rooms yet. Create one and invite your people!</div>';return}const counts=await Promise.all(r.data.map(async room=>{const q=await client.from('game_room_players').select('user_id',{count:'exact',head:true}).eq('room_id',room.id).eq('is_active',true);return [room.id,q.count||0]}));const cm=new Map(counts);box.innerHTML=r.data.map(room=>`<article class="card live-room-card"><div class="game-emoji">🎮</div><h3>${esc(room.name||liveGameNames[room.game_type]||'Game room')}</h3><p>${esc(liveGameNames[room.game_type]||room.game_type)} · Hosted by @${esc(room.profiles?.username||'player')}</p><p>${cm.get(room.id)||0}/${room.max_players} players · ${room.privacy==='invite'?'Invite-only':'Public room'}</p><button class="btn primary" data-join-room="${attr(room.id)}">Join game</button></article>`).join('');box.querySelectorAll('[data-join-room]').forEach(b=>b.onclick=()=>joinLiveRoom(b.dataset.joinRoom))}
+$('gamesGrid')?.querySelectorAll('[data-create-kind]').forEach(b=>b.addEventListener('click',()=>{const kind=b.dataset.createKind;$('liveGameType').value=kind;$('liveRoomName').value=liveGameNames[kind]||'';$('liveRoomName').focus();$('liveGameType').scrollIntoView({behavior:'smooth',block:'center'});liveStatus('Game selected. Choose room privacy, then create the live room.')}));
+$('refreshLiveRooms')?.addEventListener('click',loadLiveRooms);
+$('createLiveRoom')?.addEventListener('click',async()=>{if(!requireLogin()||!(await ensureProfile()))return;const name=$('liveRoomName').value.trim()||liveGameNames[$('liveGameType').value];const max=Math.max(2,Math.min(20,Number($('liveRoomMax').value)||8));const code=Math.random().toString(36).slice(2,8).toUpperCase();const r=await client.from('game_rooms').insert({name,game_type:$('liveGameType').value,host_id:uid(),invite_code:code,privacy:$('liveRoomPrivacy').value,max_players:max,status:'open',state:{turn:0,prompt:({affirmation:'Share one kind affirmation with the group.',one_word:'One word for how you feel right now?',one_feeling:'Name one feeling. Explain only if you want.',feelings_valid:'Your feelings are valid. Share only what feels comfortable.',you_are_not_alone:'What would help you feel less alone right now?',make_seen:'Take turns helping each person feel heard and seen.',kindness_circle:'Listen first. Ask before giving advice.'}[$('liveGameType').value]||'Ready to begin?') }}).select('id').single();if(r.error){liveStatus('Could not create room: '+r.error.message,true);return}liveStatus('Room created! Invite code: '+code);await joinLiveRoom(r.data.id);await loadLiveRooms()});
+async function joinLiveRoom(id){if(!requireLogin())return;let q=await client.from('game_rooms').select('*').eq('id',id).single();if(q.error){toast('Could not open room: '+q.error.message,'error');return}const room=q.data;if(room.privacy==='invite'&&uid()!==room.host_id){const code=prompt('Enter the room invite code:');if(!code||code.trim().toUpperCase()!==room.invite_code){toast('That invite code does not match.','error');return}}const count=await client.from('game_room_players').select('user_id',{count:'exact',head:true}).eq('room_id',id).eq('is_active',true);if((count.count||0)>=room.max_players&&uid()!==room.host_id){toast('This room is full.','error');return}const joined=await client.from('game_room_players').upsert({room_id:id,user_id:uid(),is_active:true,joined_at:new Date().toISOString()},{onConflict:'room_id,user_id'});if(joined.error){toast('Could not join: '+joined.error.message,'error');return}liveRoom=room;$('liveRoomPanel').classList.remove('hidden');$('liveRoomTitle').textContent=room.name;$('liveRoomMeta').textContent=(liveGameNames[room.game_type]||room.game_type)+' · '+(room.privacy==='invite'?'Invite code: '+room.invite_code:'Public room');await refreshLiveRoom();if(liveRoomChannel)client.removeChannel(liveRoomChannel);liveRoomChannel=client.channel('game-room-'+id).on('postgres_changes',{event:'*',schema:'public',table:'game_room_players',filter:'room_id=eq.'+id},refreshLiveRoom).on('postgres_changes',{event:'*',schema:'public',table:'game_room_events',filter:'room_id=eq.'+id},refreshLiveRoom).on('postgres_changes',{event:'UPDATE',schema:'public',table:'game_rooms',filter:'id=eq.'+id},async payload=>{liveRoom=payload.new;renderLiveRoom()}).subscribe();if(liveRoomPoll)clearInterval(liveRoomPoll);liveRoomPoll=setInterval(refreshLiveRoom,7000);$('liveRoomPanel').scrollIntoView({behavior:'smooth',block:'start'})}
+async function refreshLiveRoom(){if(!liveRoom||!client)return;const [players,events,room]=await Promise.all([client.from('game_room_players').select('user_id,is_active,joined_at,profiles:user_id(username,avatar_url)').eq('room_id',liveRoom.id).eq('is_active',true).order('joined_at'),client.from('game_room_events').select('id,user_id,event_type,payload,created_at,profiles:user_id(username)').eq('room_id',liveRoom.id).order('created_at',{ascending:false}).limit(20),client.from('game_rooms').select('*').eq('id',liveRoom.id).single()]);if(players.error||events.error){$('liveRoomActivity').textContent='Room updates need the Live Games SQL/RLS setup.';return}livePlayers=players.data||[];liveEvents=(events.data||[]).reverse();if(room.data)liveRoom=room.data;renderLiveRoom()}
+function renderLiveRoom(){if(!liveRoom)return;$('liveRoomMeta').textContent=`${livePlayers.length}/${liveRoom.max_players} players · ${liveRoom.privacy==='invite'?'Invite code: '+liveRoom.invite_code:'Public room'}`;$('liveRoomPlayers').innerHTML=livePlayers.map(p=>`<div class="live-player"><span class="avatar">${p.profiles?.avatar_url?`<img src="${attr(p.profiles.avatar_url)}" alt="" style="width:28px;height:28px;border-radius:50%;object-fit:cover">`:esc(initials(p.profiles?.username))}</span><span>@${esc(p.profiles?.username||'player')}${p.user_id===liveRoom.host_id?' 👑':''}</span></div>`).join('')||'No players yet';const st=liveRoom.state||{};$('liveRoomPrompt').textContent=st.prompt||'Everyone is in. Start playing!';$('liveRoomActivity').innerHTML=liveEvents.slice(-6).map(ev=>`<div class="advice-reply-item"><strong>@${esc(ev.profiles?.username||'player')}</strong> ${esc(ev.payload?.text||ev.event_type||'joined')}</div>`).join('');const c=$('liveRoomControls');if(liveRoom.game_type==='this_or_that'){c.innerHTML=`<p><strong>Choose your answer</strong></p><div class="game-choices"><button class="btn secondary" data-live-answer="Sunrise 🌅">Sunrise 🌅</button><button class="btn secondary" data-live-answer="Sunset 🌇">Sunset 🌇</button></div>`}else if(liveRoom.game_type==='word_chain'){c.innerHTML=`<p>Last word: <strong>${esc(st.word||'LITANYA')}</strong> · next word starts with <strong>${esc((st.word||'LITANYA').slice(-1).toUpperCase())}</strong></p><div class="advice-reply"><input class="input" id="liveWordInput" placeholder="Your word"><button class="btn primary" id="sendLiveWord">Play</button></div>`;c.querySelector('#sendLiveWord').onclick=submitLiveWord}else if(liveRoom.game_type==='trivia'){c.innerHTML=`<p>Answer the room question</p><div class="advice-reply"><input class="input" id="liveTriviaInput" placeholder="Your answer"><button class="btn primary" id="sendLiveTrivia">Answer</button></div>`;c.querySelector('#sendLiveTrivia').onclick=()=>sendRoomEvent('answer',{text:$('liveTriviaInput').value.trim()})}else if(['affirmation','one_word','one_feeling','feelings_valid','you_are_not_alone','make_seen','kindness_circle'].includes(liveRoom.game_type)){const cfg={affirmation:{label:'Write a kind affirmation for someone in the room',placeholder:'You are worthy of care, even when today is difficult…',button:'Share affirmation'},one_word:{label:'What is your one word today?',placeholder:'One word…',button:'Share my word'},one_feeling:{label:'Name one feeling and explain only if you want',placeholder:'I feel ___ because… (share only what feels safe)',button:'Share my feeling'},feelings_valid:{label:'How are you feeling? Share only what feels comfortable',placeholder:'Right now, I feel…',button:'Check in'},you_are_not_alone:{label:'What would help you feel less alone right now?',placeholder:'I could use someone to listen while I…',button:'Ask for support'},make_seen:{label:'Help someone feel seen: share appreciation or reflect what you heard',placeholder:'Something I want you to know is…',button:'Make someone feel seen'},kindness_circle:{label:'Share a supportive response or ask whether they want advice or listening',placeholder:'I hear you… / That sounds hard… / Would you like advice or listening?',button:'Share kindness'}}[liveRoom.game_type];c.innerHTML=`<label class="field">${cfg.label}<textarea class="input" id="liveSupportInput" rows="3" maxlength="500" placeholder="${cfg.placeholder}"></textarea></label><button class="btn primary" id="sendLiveSupport" style="margin-top:8px">${cfg.button}</button><p class="tiny">Be kind. No one has to share more than they want to.</p>`;c.querySelector('#sendLiveSupport').onclick=()=>sendRoomEvent(liveRoom.game_type,{text:$('liveSupportInput').value.trim()})}else{c.innerHTML=`<p>Share your two truths and a lie with the group.</p><textarea class="input" id="liveTruthInput" rows="3" placeholder="Write three statements..."></textarea><button class="btn primary" id="sendLiveTruth" style="margin-top:8px">Share statements</button>`;c.querySelector('#sendLiveTruth').onclick=()=>sendRoomEvent('statements',{text:$('liveTruthInput').value.trim()})}c.querySelectorAll('[data-live-answer]').forEach(b=>b.onclick=()=>sendRoomEvent('answer',{text:b.dataset.liveAnswer}));}
+async function sendRoomEvent(type,payload){if(!liveRoom||!uid())return;const text=String(payload?.text||'').trim();if(!text){toast('Write or choose an answer first.','error');return}const r=await client.from('game_room_events').insert({room_id:liveRoom.id,user_id:uid(),event_type:type,payload:{text:text.slice(0,500)}});if(r.error){toast('Could not send game action: '+r.error.message,'error');return}if(type==='answer'&&liveRoom.game_type==='this_or_that'){const st={...(liveRoom.state||{}),prompt:`@${me?.username||'Player'} answered ${text}. Everyone choose an answer!`};await client.from('game_rooms').update({state:st}).eq('id',liveRoom.id)}await refreshLiveRoom()}
+async function submitLiveWord(){const el=$('liveWordInput'),word=el.value.trim().toLowerCase().replace(/[^a-z]/g,'');if(!word)return;const st=liveRoom.state||{},last=String(st.word||'LITANYA').toLowerCase();if(word[0]!==last.slice(-1)){toast('Word must start with '+last.slice(-1).toUpperCase(),'error');return}await sendRoomEvent('word',{text:word});const r=await client.from('game_rooms').update({state:{...st,word:word.toUpperCase(),prompt:'Next word starts with '+word.slice(-1).toUpperCase()}}).eq('id',liveRoom.id);if(r.error)toast(r.error.message,'error');else await refreshLiveRoom()}
+$('leaveLiveRoom')?.addEventListener('click',async()=>{if(liveRoom&&uid())await client.from('game_room_players').update({is_active:false}).eq('room_id',liveRoom.id).eq('user_id',uid());if(liveRoomChannel)client.removeChannel(liveRoomChannel);if(liveRoomPoll)clearInterval(liveRoomPoll);liveRoomChannel=null;liveRoomPoll=null;liveRoom=null;$('liveRoomPanel').classList.add('hidden');await loadLiveRooms()});
+// Advice wall: posts and replies are stored in Supabase and refresh for everyone.
+async function loadAdvicePosts(){const box=$('adviceList');if(!box||!client)return;if(!uid()){box.innerHTML='<div class="card games-note">Log in to read or share community advice.</div>';return}const r=await client.from('advice_posts').select('id,user_id,topic,content,is_anonymous,created_at,profiles:user_id(username)').order('created_at',{ascending:false}).limit(60);if(r.error){box.innerHTML='<div class="card games-note">Advice page needs the included Advice SQL setup in Supabase.</div>';return}if(!r.data.length){box.innerHTML='<div class="card games-note">No questions yet. You can be the first to ask for advice.</div>';return}const ids=r.data.map(x=>x.id);const rr=await client.from('advice_replies').select('id,advice_id,user_id,content,created_at,profiles:user_id(username)').in('advice_id',ids).order('created_at');const map={};(rr.data||[]).forEach(x=>(map[x.advice_id]||(map[x.advice_id]=[])).push(x));box.innerHTML=r.data.map(post=>`<article class="card advice-card"><div class="advice-meta"><strong>${post.is_anonymous?'Anonymous':'@'+esc(post.profiles?.username||'member')}</strong><span>· ${esc(post.topic)}</span><span>· ${esc(ago(post.created_at))}</span></div><div class="advice-body">${esc(post.content)}</div><div class="advice-replies"><strong>${(map[post.id]||[]).length} replies</strong>${(map[post.id]||[]).map(x=>`<div class="advice-reply-item"><strong>${esc(x.profiles?.username||'member')}</strong> · ${esc(x.content)}</div>`).join('')}<form class="advice-reply" data-advice-reply="${attr(post.id)}"><input class="input" maxlength="800" placeholder="Offer a kind, helpful suggestion…" required><button class="btn secondary" type="submit">Reply</button></form></div></article>`).join('');box.querySelectorAll('[data-advice-reply]').forEach(form=>form.onsubmit=async e=>{e.preventDefault();const input=form.querySelector('input'),content=input.value.trim();if(!content)return;const z=await client.from('advice_replies').insert({advice_id:form.dataset.adviceReply,user_id:uid(),content});if(z.error){toast(z.error.message,'error');return}await loadAdvicePosts()})}
+$('adviceForm')?.addEventListener('submit',async e=>{e.preventDefault();if(!requireLogin()||!(await ensureProfile()))return;const content=$('adviceBody').value.trim();if(!content)return;const r=await client.from('advice_posts').insert({user_id:uid(),topic:$('adviceTopic').value,content,is_anonymous:$('adviceAnonymous').value==='true'});if(r.error){toast('Could not post: '+r.error.message,'error');return}$('adviceBody').value='';toast('Your advice post is live.','success');loadAdvicePosts()});$('refreshAdvice')?.addEventListener('click',loadAdvicePosts);
+const gameQuestions=["What is one small thing that made you smile today?","What do you wish people understood about you?","If you could relive one ordinary day, which would it be?","What song feels like your current chapter?","What is something you are proud of but rarely mention?","What does a safe space feel like to you?","What is one goal you want a friend to cheer you on for?","What fictional world would you visit for one day?"];
+$("newQuestion")?.addEventListener("click",()=>{$("qotdPrompt").textContent=gameQuestions[Math.floor(Math.random()*gameQuestions.length)]});
+document.querySelectorAll("[data-choice]").forEach(b=>b.addEventListener("click",()=>{$("thisOrThatResult").textContent="You picked: "+b.textContent+" — ask a friend to choose theirs!"}));
+let chainWord="LITANYA";$("wordChainSubmit")?.addEventListener("click",()=>{const input=$("wordChainInput"),word=input.value.trim().toLowerCase().replace(/[^a-z]/g,"");if(!word){$("wordChainStatus").textContent="Type a word first.";return}const required=chainWord.slice(-1).toLowerCase();if(word[0]!==required){$("wordChainStatus").textContent=`Your word must start with “${required.toUpperCase()}”. Try again.`;return}chainWord=word;$("wordChainLast").textContent="Last word: "+word.toUpperCase()+" · Next starts with: "+word.slice(-1).toUpperCase();$("wordChainStatus").textContent="Nice! Send the next turn to a friend.";input.value=""});
+document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest(".navbtn");if(b&&b.dataset.page){document.getElementById("moreNav")?.classList.remove("open");document.getElementById("moreNavBtn")?.setAttribute("aria-expanded","false");go(b.dataset.page)}});
+document.addEventListener("click",e=>{if(!e.target.closest("#moreNav")){document.getElementById("moreNav")?.classList.remove("open");document.getElementById("moreNavBtn")?.setAttribute("aria-expanded","false")}});
 $("moreNavBtn").onclick=e=>{e.preventDefault();e.stopPropagation();const n=$("moreNav");n.classList.toggle("open")};
 document.addEventListener("click",e=>{if(!e.target.closest("#moreNav"))$("moreNav")?.classList.remove("open")});
 paintIcons();
@@ -519,8 +654,26 @@ async function loadMe(){
   if(error){toast(error.message,"error");return null}
   me=data||null; if(me)cache.profiles.set(me.id,me); updateAuthUI(); return me
 }
+let presenceChannel=null,onlineUserIds=new Set(),presenceHeartbeat=null;
+async function startPresence(){
+  if(!client||!uid())return;
+  if(presenceChannel){try{await client.removeChannel(presenceChannel)}catch{}}
+  presenceChannel=client.channel("litanya-presence",{config:{presence:{key:String(uid())}}});
+  presenceChannel.on("presence",{event:"sync"},()=>{
+    const state=presenceChannel.presenceState();
+    const found=new Set();
+    Object.entries(state).forEach(([key,metas])=>{
+      (metas||[]).forEach(meta=>{const id=String(meta.user_id||meta.userId||key||"");if(id && id!==String(uid()))found.add(id)});
+    });
+    onlineUserIds=found;
+    document.querySelectorAll("[data-online-user]").forEach(el=>{const id=String(el.dataset.onlineUser);const on=onlineUserIds.has(id);el.innerHTML=(on?'<i class="online-dot"></i>Active now':'<i class="offline-dot"></i>Offline')});
+    document.querySelectorAll("[data-person]").forEach(el=>{const id=String(el.dataset.person);let badge=el.querySelector(".presence-label");if(!badge){badge=document.createElement("span");badge.className="presence-label tiny";el.querySelector(".chattext")?.appendChild(badge)}if(badge)badge.innerHTML=onlineUserIds.has(id)?'<i class="online-dot"></i>Active now':'<i class="offline-dot"></i>Offline'});
+    if(chatFilter==="online")renderOnlinePeople();
+  });
+  presenceChannel.subscribe(async status=>{if(status==="SUBSCRIBED"){await presenceChannel.track({user_id:String(uid()),online_at:new Date().toISOString(),page:"LitanyaSpace"})}});
+}
 function afterLogin(){
-  updateAuthUI();applyProfileUI();go("home");loadNotifications();loadProfileViewBadge();startRealtime();registerPushServiceWorker();refreshPushUI();
+  updateAuthUI();applyProfileUI();go("home");loadNotifications();loadProfileViewBadge();startRealtime();startPresence();registerPushServiceWorker();refreshPushUI();
 }
 function stopRealtime(){
   liveChannels.forEach(x=>client.removeChannel(x));liveChannels=[];
@@ -715,7 +868,7 @@ async function loadProfileViews(){
   if(!requireLogin())return;
   const box=$("profileViewList"); if(!box)return;
   const r=await client.from("profile_views")
-    .select("id,profile_id,viewer_id,viewed_at,profiles:viewer_id(id,username,avatar_url,bio)")
+    .select("id,profile_id,viewer_id,viewed_at,profiles:viewer_id(id,username,display_name,avatar_url,bio)")
     .eq("profile_id",uid()).order("viewed_at",{ascending:false}).limit(100);
   if(r.error){box.innerHTML=`<div class="profile-view-empty">${esc(r.error.message)}</div>`;return}
   const rows=r.data||[];
@@ -726,10 +879,10 @@ async function loadProfileViews(){
     seen.add(row.viewer_id);unique.push(row);
   }
   box.innerHTML=unique.map(v=>{
-    const p=v.profiles||{}; const name=p.username||"User";
+    const p=v.profiles||{}; const name=p.display_name||p.username||"Litanya member";
     return `<div class="view-row" data-user="${attr(v.viewer_id)}">
       ${avatarHTML(name,p.avatar_url,"avatar")}
-      <div class="view-info"><strong>@${esc(name)}</strong><span>Viewed your profile · ${esc(ago(v.viewed_at))}</span></div>
+      <div class="view-info"><strong>${esc(name)}</strong><span>@${esc(p.username||"user")} · Viewed your profile ${esc(ago(v.viewed_at))}</span></div>
     </div>`;
   }).join("");
   box.querySelectorAll(".view-row").forEach(x=>x.onclick=()=>openPublicProfile(x.dataset.user));
@@ -801,12 +954,13 @@ function musicHTML(p){
 function postCard(p){
   const own=p.user_id===uid(), name=authorName(p), liked=p._liked, comments=p._comments||[],likes=p._likes||[];
   const profileLink=p.is_anonymous?`<strong>${esc(name)}</strong>`:`<strong class="link profile-open" data-user="${attr(p.user_id)}">${esc(name)}</strong>`;
+  const postAvatar=p.is_anonymous?avatarHTML(name,null):`<button type="button" class="post-avatar-link" data-user="${attr(p.user_id)}" aria-label="Open ${attr(name)} profile">${avatarHTML(name,p.avatar_url)}</button>`;
   return `<article class="card post ${p.kind==="update"?"update-card":""}" data-post="${attr(p.id)}">
-  <div class="posthead">${avatarHTML(name,p.is_anonymous?null:p.avatar_url)}<div class="postmeta">${profileLink}<span class="time">${esc(ago(p.created_at))} · ${esc(fmt(p.created_at))}</span></div>
+  <div class="posthead">${postAvatar}<div class="postmeta">${profileLink}<span class="time">${esc(ago(p.created_at))} · ${esc(fmt(p.created_at))}</span></div>
   <div class="postmenu"><button class="more" data-act="menu" title="More"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg></button><div class="menu">
    <button data-act="share"><span class="svgicon" data-icon="arrow"></span> Share / copy link</button><button data-act="save"><span class="svgicon" data-icon="bookmark"></span> Save post</button>${own?'<button data-act="delete" class="danger">Delete post</button>':''}<button data-act="report">Report</button>${own?'':'<button data-act="block-author">Block author</button>'}
   </div></div></div>
-  <div class="postbody">${esc(p.content)}${p.image_url?`<img class="postimg" src="${attr(p.image_url)}" alt="Post image" loading="lazy">`:""}${musicHTML(p)}</div>
+  <div class="postbody">${p.music_url?`<div class="music-track-head"><div class="music-track-disc">♫</div><div class="music-track-meta"><strong>${esc(p.music_name||"Original audio")}</strong><span>Music attached to this post</span></div></div>`:""}${esc(p.content)}${p.image_url?`<img class="postimg" src="${attr(p.image_url)}" alt="Post image" loading="lazy">`:""}${p.video_url?`<div class="post-video-wrap"><video controls playsinline preload="metadata" data-post-video src="${attr(p.video_url)}"></video><div class="video-caption"><span class="video-chip">VIDEO</span><span>Shared on LitanyaSpace</span></div></div>`:""}${musicHTML(p)}</div>
   <div class="actions"><button data-act="like" class="${liked?'active':''}"><span class="svgicon" data-icon="like"></span> ${liked?'Liked':'Like'} ${likes.length||""}</button><button data-act="comment"><span class="svgicon" data-icon="comment"></span> Comment ${comments.length||""}</button><button data-act="save"><span class="svgicon" data-icon="bookmark"></span> Save</button></div>
   <div class="comments">${comments.filter(c=>!c.parent_id).slice(-20).map(c=>commentHTML(c,comments)).join("")}<form class="commentform" data-post="${attr(p.id)}"><input maxlength="1000" placeholder="Write a comment..."><button class="btn secondary">Send</button></form></div>
  </article>`
@@ -815,10 +969,11 @@ function commentHTML(c, allComments=[]){
   const name=c.profiles?.username||c.username||c.display_name||"User";
   const replies=(allComments||[]).filter(x=>String(x.parent_id||"")===String(c.id));
   const own=c.user_id===uid();
+  const profileId=c.user_id||c.profiles?.id||c.author_id||"";
   return `<div class="comment ${c.parent_id?'reply':''}" data-comment="${attr(c.id)}">
-    <div class="avatar">${esc(initials(name))}</div>
+    <button type="button" class="avatar comment-avatar-open" data-user="${attr(profileId)}" aria-label="Open ${attr(name)} profile" style="border:0;padding:0;overflow:hidden;cursor:pointer">${(c.profiles?.avatar_url||c.avatar_url)?`<img src="${attr(c.profiles?.avatar_url||c.avatar_url)}" alt="${attr(name)}" loading="lazy">`:esc(initials(name))}</button>
     <div style="min-width:0;flex:1">
-      <div class="bubble"><strong>${esc(name)}</strong><p>${esc(c.content)}</p></div>
+      <div class="bubble"><strong><button type="button" class="comment-name-open" data-user="${attr(profileId)}" style="border:0;background:none;padding:0;font:inherit;font-weight:800;cursor:pointer">${esc(name)}</button></strong><p>${esc(c.content)}</p></div>
       <div class="commenttools">
         <span>${esc(ago(c.created_at))}</span>
         <button type="button" class="reply-btn" data-reply="${attr(c.id)}">Reply</button>
@@ -839,7 +994,8 @@ function refreshCurrentView(){
   loadFeed(currentFeed())
 }
 function bindPostEvents(box){
-  box.querySelectorAll(".profile-open").forEach(x=>x.onclick=e=>{e.stopPropagation();openPublicProfile(x.dataset.user)});
+  box.querySelectorAll(".comment-avatar-open,.comment-name-open").forEach(x=>{x.onclick=e=>{e.stopPropagation();if(x.dataset.user)openPublicProfile(x.dataset.user)}});
+  box.querySelectorAll(".profile-open,.post-avatar-link").forEach(x=>x.onclick=e=>{e.stopPropagation();openPublicProfile(x.dataset.user)});
   box.querySelectorAll("[data-act=menu]").forEach(x=>x.onclick=e=>{e.stopPropagation();let m=x.closest(".postmenu");document.querySelectorAll(".postmenu.open").forEach(z=>z!==m&&z.classList.remove("open"));m.classList.toggle("open")});
   box.querySelectorAll("[data-act=like]").forEach(x=>x.onclick=async e=>{e.stopPropagation();await toggleLike(x.closest(".post").dataset.post)});
   box.querySelectorAll("[data-act=comment]").forEach(x=>x.onclick=()=>openSinglePost(x.closest(".post").dataset.post));
@@ -932,32 +1088,66 @@ async function blockUser(id){
   if(r.error)toast(r.error.message,"error");else{toast("User blocked.","success");refreshCurrentView()}
 }
 
-const uploadState={post:null,real:null,update:null,postMusic:null,realMusic:null,updateMusic:null,youtubeMusic:null};
+const uploadState={post:null,real:null,update:null,postMusic:null,realMusic:null,updateMusic:null,postVideo:null,youtubeMusic:null};
 function setupImagePicker(inputId,previewId,nameId,stateKey){
-  const input=$(inputId),preview=$(previewId),name=$(nameId);if(!input)return;
-  input.onchange=()=>{
-    const file=input.files?.[0];uploadState[stateKey]=file||null;
-    if(!file){preview.innerHTML="";preview.classList.add("hidden");name.textContent="";return}
+  const input=$(inputId),preview=$(previewId),name=$(nameId);if(!input||!preview)return;
+  const showFile=file=>{
+    uploadState[stateKey]=file||null;
+    if(!file){preview.innerHTML="";preview.classList.add("hidden");if(name)name.textContent="";return}
     if(!file.type.startsWith("image/")){toast("Please choose an image file.","error");input.value="";uploadState[stateKey]=null;return}
     if(file.size>8*1024*1024){toast("Image is too large. Maximum is 8 MB.","error");input.value="";uploadState[stateKey]=null;return}
-    name.textContent=file.name;
+    if(name)name.textContent=file.name;
     const url=URL.createObjectURL(file);
-    preview.innerHTML=`<img src="${url}" alt="Preview"><button type="button" class="iconbtn remove-image" title="Remove picture"><span class="svgicon" data-icon="close"></span></button>`;
-    preview.classList.remove("hidden");paintIcons(preview);
-    preview.querySelector(".remove-image").onclick=()=>{input.value="";uploadState[stateKey]=null;preview.innerHTML="";preview.classList.add("hidden");name.textContent=""};
+    preview.innerHTML=`<img src="${url}" alt="Photo preview"><div class="image-meta"><span>📷 ${esc(file.name)} · ${(file.size/1024/1024).toFixed(2)} MB</span><span>Preview</span></div><div class="image-actions"><button type="button" class="btn secondary replace-image">Change photo</button><button type="button" class="btn secondary remove-image">Remove photo</button></div>`;
+    preview.classList.remove("hidden");
+    preview.querySelector(".replace-image").onclick=()=>input.click();
+    preview.querySelector(".remove-image").onclick=()=>{URL.revokeObjectURL(url);input.value="";showFile(null)};
   };
+  input.onchange=()=>showFile(input.files?.[0]||null);
+}
+function encodeWavBlob(buffer,startSeconds,endSeconds){
+  const rate=buffer.sampleRate,channels=buffer.numberOfChannels;
+  const start=Math.max(0,Math.floor(startSeconds*rate)),end=Math.min(buffer.length,Math.floor(endSeconds*rate));
+  if(end<=start)throw new Error("End time must be later than start time.");
+  const frames=end-start,bytesPerSample=2,dataBytes=frames*channels*bytesPerSample;
+  const out=new ArrayBuffer(44+dataBytes),v=new DataView(out);
+  const write=(o,t)=>{for(let i=0;i<t.length;i++)v.setUint8(o+i,t.charCodeAt(i))};
+  write(0,"RIFF");v.setUint32(4,36+dataBytes,true);write(8,"WAVE");write(12,"fmt ");v.setUint32(16,16,true);v.setUint16(20,1,true);v.setUint16(22,channels,true);v.setUint32(24,rate,true);v.setUint32(28,rate*channels*bytesPerSample,true);v.setUint16(32,channels*bytesPerSample,true);v.setUint16(34,16,true);write(36,"data");v.setUint32(40,dataBytes,true);
+  let offset=44;
+  for(let i=start;i<end;i++)for(let c=0;c<channels;c++){let x=Math.max(-1,Math.min(1,buffer.getChannelData(c)[i]));v.setInt16(offset,x<0?x*32768:x*32767,true);offset+=2}
+  return new Blob([out],{type:"audio/wav"});
 }
 function setupMusicPicker(inputId,previewId,stateKey){
   const input=$(inputId),preview=$(previewId);if(!input||!preview)return;
   input.onchange=()=>{
     const file=input.files?.[0];uploadState[stateKey]=file||null;
     if(!file){preview.innerHTML="";preview.classList.add("hidden");return}
-    if(!file.type.startsWith("audio/")&&!/\.(mp3|m4a|wav|ogg)$/i.test(file.name)){toast("Please choose an audio file.","error");input.value="";uploadState[stateKey]=null;return}
+    if(!file.type.startsWith("audio/")&&!/\.(mp3|m4a|wav|ogg|webm)$/i.test(file.name)){toast("Please choose an audio file.","error");input.value="";uploadState[stateKey]=null;return}
     if(file.size>15*1024*1024){toast("Music file is too large. Maximum is 15 MB.","error");input.value="";uploadState[stateKey]=null;return}
     const url=URL.createObjectURL(file);
-    preview.innerHTML=`<audio controls src="${url}"></audio><button type="button" class="iconbtn remove-music" title="Remove music"><span class="svgicon" data-icon="close"></span></button>`;
-    preview.classList.remove("hidden");paintIcons(preview);
-    preview.querySelector(".remove-music").onclick=()=>{input.value="";uploadState[stateKey]=null;preview.innerHTML="";preview.classList.add("hidden")};
+    preview.innerHTML=`<div style="width:100%;min-width:0"><audio controls preload="metadata" src="${url}" style="width:100%"></audio><div class="tiny" style="margin:7px 0">Trim this audio (seconds). The cut will be saved as a WAV clip.</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><label class="small">Start<input class="input trim-start" type="number" min="0" step=".1" value="0"></label><label class="small">End<input class="input trim-end" type="number" min=".1" step=".1" placeholder="e.g. 20"></label></div><div style="display:flex;gap:7px;flex-wrap:wrap;margin-top:8px"><button type="button" class="btn secondary cut-music">✂ Cut clip</button><button type="button" class="btn secondary remove-music">Remove</button><span class="tiny trim-status" role="status"></span></div></div>`;
+    preview.classList.remove("hidden");
+    const audio=preview.querySelector("audio"),startEl=preview.querySelector(".trim-start"),endEl=preview.querySelector(".trim-end"),status=preview.querySelector(".trim-status");
+    audio.onloadedmetadata=()=>{endEl.placeholder=String(Math.floor(audio.duration)||"20");endEl.value=String(Math.min(20,Math.floor(audio.duration)||20));endEl.max=String(audio.duration||600)};
+    preview.querySelector(".cut-music").onclick=async()=>{
+      const start=Number(startEl.value),end=Number(endEl.value);
+      if(!Number.isFinite(start)||!Number.isFinite(end)||start<0||end<=start||end-start>60){toast("Choose a valid clip up to 60 seconds long.","error");return}
+      if(audio.duration&&end>audio.duration){toast("End time is longer than this audio.","error");return}
+      const cutBtn=preview.querySelector(".cut-music");cutBtn.disabled=true;status.textContent="Cutting audio…";
+      try{
+        const Ctx=window.AudioContext||window.webkitAudioContext;if(!Ctx)throw new Error("Audio trimming is not supported in this browser.");
+        const ctx=new Ctx();const bytes=await file.arrayBuffer();const decoded=await ctx.decodeAudioData(bytes.slice(0));const wav=encodeWavBlob(decoded,start,end);await ctx.close();
+        if(wav.size>15*1024*1024)throw new Error("Trimmed audio is over 15 MB. Choose a shorter clip.");
+        const stem=file.name.replace(/\.[^.]+$/,"").replace(/[^a-z0-9_-]/gi,"_")||"music";
+        const cutFile=new File([wav],stem+"-clip.wav",{type:"audio/wav",lastModified:Date.now()});
+        const oldUrl=audio.src;const newUrl=URL.createObjectURL(cutFile);audio.src=newUrl;audio.load();uploadState[stateKey]=cutFile;
+        startEl.value="0";endEl.value=String(Math.round(end-start));status.textContent="Clip ready to post.";
+        if(oldUrl.startsWith("blob:"))URL.revokeObjectURL(oldUrl);
+        toast("Audio clipped and ready to upload.","success");
+      }catch(err){status.textContent="";toast(err.message||"Could not cut this audio file.","error",5000)}
+      finally{cutBtn.disabled=false}
+    };
+    preview.querySelector(".remove-music").onclick=()=>{input.value="";uploadState[stateKey]=null;preview.innerHTML="";preview.classList.add("hidden");URL.revokeObjectURL(url)};
   };
 }
 async function uploadPostMusic(file){
@@ -969,6 +1159,24 @@ async function uploadPostMusic(file){
   const pub=client.storage.from("post-music").getPublicUrl(path);
   return pub.data.publicUrl;
 }
+async function uploadPostVideo(file){
+  if(!file)return null;
+  if(!file.type.startsWith("video/"))throw new Error("Choose a valid video file.");
+  if(file.size>50*1024*1024)throw new Error("Video is too large. Maximum size is 50 MB.");
+  const ext=(file.name.split(".").pop()||"mp4").toLowerCase().replace(/[^a-z0-9]/g,"")||"mp4";
+  const path=`${uid()}/videos/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
+  const up=await client.storage.from("post-images").upload(path,file,{cacheControl:"3600",upsert:false,contentType:file.type||"video/mp4"});
+  if(up.error)throw up.error;
+  return client.storage.from("post-images").getPublicUrl(path).data.publicUrl;
+}
+const videoInput=$("postVideo");
+if(videoInput)videoInput.addEventListener("change",()=>{
+  const f=videoInput.files?.[0],preview=$("postVideoPreview");uploadState.postVideo=f||null;
+  if(!f){preview.innerHTML="";preview.classList.add("hidden");return}
+  if(!f.type.startsWith("video/")){toast("Please choose a video file.","error");videoInput.value="";uploadState.postVideo=null;return}
+  if(f.size>50*1024*1024){toast("Video is too large. Maximum is 50 MB.","error");videoInput.value="";uploadState.postVideo=null;return}
+  const url=URL.createObjectURL(f);preview.innerHTML=`<video controls playsinline preload="metadata" src="${url}"></video><div class="image-meta"><span>${esc(f.name)} · ${(f.size/1024/1024).toFixed(1)} MB</span><button type="button" class="btn secondary" id="removePostVideo">Remove</button></div>`;preview.classList.remove("hidden");preview.querySelector("#removePostVideo").onclick=()=>{URL.revokeObjectURL(url);videoInput.value="";uploadState.postVideo=null;preview.innerHTML="";preview.classList.add("hidden")};
+});
 async function uploadPostImage(file){
   if(!file)return null;
   const ext=(file.name.split(".").pop()||"jpg").toLowerCase().replace(/[^a-z0-9]/g,"")||"jpg";
@@ -985,9 +1193,27 @@ setupMusicPicker("postMusic","postMusicPreview","postMusic");
 setupMusicPicker("realMusic","realMusicPreview","realMusic");
 setupMusicPicker("updateMusic","updateMusicPreview","updateMusic");
 
+function openMusicSearch(){
+  if(!$('postForm'))return;
+  $('modalRoot').innerHTML=`<div class="modalback"><div class="modal music-search-modal"><div class="modalfoot" style="justify-content:space-between"><div><h2 style="margin:0">Find audio</h2><div class="tiny">Search the Internet Archive for audio you can review and download from its source page.</div></div><button type="button" class="iconbtn" id="closeMusicSearch" aria-label="Close">×</button></div><form id="musicSearchForm" class="music-search-top" style="margin-top:12px"><input id="musicQuery" class="input" maxlength="100" placeholder="Search music, artist, or sound…" required><button class="btn primary" type="submit">Search</button></form><div class="tiny" style="margin-top:8px">Each item has its own usage terms. Check the license on the Archive page before using it. To trim audio, download an allowed MP3, close this window, choose Add music, then use Cut clip.</div><div id="musicResults" class="music-results"><div class="empty">Search for free or public-archive audio to begin.</div></div><div class="modalfoot"><button type="button" class="btn secondary" id="closeMusicSearch2">Done</button></div></div></div>`;
+  const root=$('modalRoot');const close=()=>root.innerHTML='';root.querySelector('#closeMusicSearch').onclick=close;root.querySelector('#closeMusicSearch2').onclick=close;
+  root.querySelector('#musicSearchForm').onsubmit=async e=>{
+    e.preventDefault();const q=root.querySelector('#musicQuery').value.trim();if(!q)return;
+    const out=root.querySelector('#musicResults');out.innerHTML='<div class="loader">Searching audio archives…</div>';
+    try{
+      const url='https://archive.org/advancedsearch.php?q='+encodeURIComponent('('+q+') AND mediatype:(audio)')+'&fl[]=identifier,title,creator,year,licenseurl,description&rows=15&page=1&output=json&sort[]=downloads desc';
+      const resp=await fetch(url);if(!resp.ok)throw new Error('Audio archive search is unavailable right now. Try again later.');
+      const data=await resp.json();const docs=data.response?.docs||[];
+      if(!docs.length){out.innerHTML='<div class="empty">No matching audio found. Try a shorter search phrase.</div>';return}
+      out.innerHTML=docs.map((t,i)=>{const id=String(t.identifier||'');const title=String(t.title||'Untitled audio');const creator=Array.isArray(t.creator)?t.creator.join(', '):(t.creator||'Creator not listed');const lic=String(t.licenseurl||'License not listed — check item page');return `<div class="music-result"><div class="track-info" style="min-width:0;flex:1"><strong>${esc(title)}</strong><span>${esc(creator)}${t.year?' · '+esc(String(t.year)):''}</span><span class="tiny">${esc(lic)}</span><a class="linkbtn" href="https://archive.org/details/${encodeURIComponent(id)}" target="_blank" rel="noopener noreferrer">Open item & download options ↗</a></div><button type="button" class="btn secondary" data-open="${i}">View source</button></div>`}).join('');
+      out.querySelectorAll('[data-open]').forEach(btn=>btn.onclick=()=>{const t=docs[Number(btn.dataset.open)];if(t?.identifier)window.open('https://archive.org/details/'+encodeURIComponent(t.identifier),'_blank','noopener,noreferrer')});
+    }catch(err){out.innerHTML=`<div class="empty">${esc(err.message||'Could not search the audio archive.')}</div>`}
+  };
+}
+$('musicSearchOpen')?.remove();
 function openYouTubeSearch(){
-  const q=prompt("What music do you want to search for on YouTube?");
-  if(q&&q.trim())window.open("https://www.youtube.com/results?search_query="+encodeURIComponent(q.trim()),"_blank","noopener,noreferrer");
+  const q=prompt("Search for a song on YouTube (use music you are allowed to share):");
+  if(q&&q.trim()){const query=encodeURIComponent(q.trim());window.open("https://www.youtube.com/results?search_query="+query,"_blank","noopener,noreferrer");toast("Choose a result, copy its URL, then paste it in the music box and tap Use this clip.","success",5500)}
 }
 function setYouTubeMusic(url){
   const id=youtubeId(url);if(!id){toast("Please paste a valid YouTube video or Shorts link.","error");return false}
@@ -1000,36 +1226,39 @@ function setYouTubeMusic(url){
   $("removeYoutubeMusic").onclick=()=>{uploadState.youtubeMusic=null;$("postMusicPreview").innerHTML="";$("postMusicPreview").classList.add("hidden")};
   return true;
 }
-$("youtubeMusicBtn").onclick=()=>{$("youtubeMusicPanel").classList.toggle("hidden")};
+$("youtubeMusicBtn")?.addEventListener("click",()=>$("youtubeMusicPanel")?.classList.toggle("hidden"));
 $("youtubeSearchBtn").onclick=openYouTubeSearch;
 $("youtubeCancel").onclick=()=>$("youtubeMusicPanel").classList.add("hidden");
 $("youtubeUse").onclick=()=>setYouTubeMusic($("youtubeMusicUrl").value.trim());
 $("postForm").onsubmit=async e=>{
   e.preventDefault();if(!requireLogin()||!(await ensureProfile()))return;
-  const v=$("postContent").value.trim();if(!v)return;
+  const v=$("postContent").value.trim();if(!v&&!uploadState.post&&!uploadState.postVideo&&!uploadState.postMusic&&!uploadState.youtubeMusic){toast("Add text, an image, a video, or audio before posting.","error");return}
   if(moderation(v)){toast("This post contains words that are not allowed.","error");return}
   const anon=$("postAnon").checked;
-  let imageUrl=null,musicUrl=null,musicSource=null,musicStart=null,musicEnd=null,musicName=null;try{imageUrl=await uploadPostImage(uploadState.post);if(uploadState.youtubeMusic){musicUrl=uploadState.youtubeMusic.url;musicSource="youtube";musicStart=uploadState.youtubeMusic.start;musicEnd=uploadState.youtubeMusic.end;musicName="YouTube music clip"}else if(uploadState.postMusic){musicUrl=await uploadPostMusic(uploadState.postMusic);musicSource="upload";musicName=uploadState.postMusic.name}}catch(err){toast("Upload failed: "+err.message,"error");return}
-  const r=await insert("posts",{user_id:uid(),kind:"wall",content:v,display_name:anon?"Anonymous":me.username,avatar_url:anon?null:me.avatar_url||null,is_anonymous:anon,image_url:imageUrl,music_url:musicUrl,music_source:musicSource,music_start:musicStart,music_end:musicEnd,music_name:musicName});
-  if(r.error)toast(r.error.message,"error");else{$("postContent").value="";$("postImage").value="";$("postMusic").value="";uploadState.post=null;uploadState.postMusic=null;uploadState.youtubeMusic=null;$("postImagePreview").innerHTML="";$("postImagePreview").classList.add("hidden");$("postMusicPreview").innerHTML="";$("postMusicPreview").classList.add("hidden");$("youtubeMusicUrl").value="";$("youtubeMusicPanel").classList.add("hidden");$("postImageName").textContent="";toast("Posted.","success");await loadFeed("wall")}
+  showUploading("Uploading your post…","Uploading image or audio and saving your post.");
+  let imageUrl=null,videoUrl=null,musicUrl=null,musicSource=null,musicStart=null,musicEnd=null,musicName=null;try{imageUrl=await uploadPostImage(uploadState.post);videoUrl=await uploadPostVideo(uploadState.postVideo);if(uploadState.youtubeMusic){musicUrl=uploadState.youtubeMusic.url;musicSource=uploadState.youtubeMusic.source||"youtube";musicStart=uploadState.youtubeMusic.start;musicEnd=uploadState.youtubeMusic.end;musicName=uploadState.youtubeMusic.name||"Music clip"}else if(uploadState.postMusic){musicUrl=await uploadPostMusic(uploadState.postMusic);musicSource="upload";musicName=uploadState.postMusic.name}}catch(err){hideUploading();toast("Upload failed: "+err.message,"error");return}
+  const r=await insert("posts",{user_id:uid(),kind:"wall",content:v,display_name:anon?"Anonymous":me.username,avatar_url:anon?null:me.avatar_url||null,is_anonymous:anon,image_url:imageUrl,video_url:videoUrl,music_url:musicUrl,music_source:musicSource,music_start:musicStart,music_end:musicEnd,music_name:musicName});
+  hideUploading();if(r.error)toast(r.error.message,"error");else{$("postContent").value="";$("postImage").value="";$("postMusic").value="";$("postVideo").value="";uploadState.post=null;uploadState.postMusic=null;uploadState.postVideo=null;uploadState.youtubeMusic=null;$("postVideoPreview").innerHTML="";$("postVideoPreview").classList.add("hidden");$("postImagePreview").innerHTML="";$("postImagePreview").classList.add("hidden");$("postMusicPreview").innerHTML="";$("postMusicPreview").classList.add("hidden");$("youtubeMusicUrl").value="";$("youtubeMusicPanel").classList.add("hidden");$("postImageName").textContent="";toast("Posted.","success");await loadFeed("wall")}
 };
 $("realForm").onsubmit=async e=>{
   e.preventDefault();if(!requireLogin()||!(await ensureProfile()))return;
-  const v=$("realContent").value.trim();if(!v)return;
+  const v=$("realContent").value.trim();if(!v&&!uploadState.real&&!uploadState.realMusic){toast("Add text, an image, or audio before posting.","error");return}
   if(moderation(v)){toast("This post contains words that are not allowed.","error");return}
   const anon=$("realAnon").checked;
-  let imageUrl=null,musicUrl=null;try{imageUrl=await uploadPostImage(uploadState.real);musicUrl=await uploadPostMusic(uploadState.realMusic)}catch(err){toast("Upload failed: "+err.message,"error");return}
+  showUploading("Sharing your realization…","Uploading media and saving your post.");
+  let imageUrl=null,musicUrl=null;try{imageUrl=await uploadPostImage(uploadState.real);musicUrl=await uploadPostMusic(uploadState.realMusic)}catch(err){hideUploading();toast("Upload failed: "+err.message,"error");return}
   const r=await insert("posts",{user_id:uid(),kind:"realization",content:v,display_name:anon?"Anonymous":me.username,avatar_url:anon?null:me.avatar_url||null,is_anonymous:anon,image_url:imageUrl,music_url:musicUrl,music_name:uploadState.realMusic?.name||null});
-  if(r.error)toast(r.error.message,"error");else{$("realContent").value="";$("realImage").value="";$("realMusic").value="";uploadState.real=null;uploadState.realMusic=null;$("realImagePreview").innerHTML="";$("realImagePreview").classList.add("hidden");$("realMusicPreview").innerHTML="";$("realMusicPreview").classList.add("hidden");$("realImageName").textContent="";toast("Realization shared.","success");await loadFeed("realization")}
+  hideUploading();if(r.error)toast(r.error.message,"error");else{$("realContent").value="";$("realImage").value="";$("realMusic").value="";uploadState.real=null;uploadState.realMusic=null;$("realImagePreview").innerHTML="";$("realImagePreview").classList.add("hidden");$("realMusicPreview").innerHTML="";$("realMusicPreview").classList.add("hidden");$("realImageName").textContent="";toast("Realization shared.","success");await loadFeed("realization")}
 };
 
 $("updateForm").onsubmit=async e=>{
   e.preventDefault();if(!requireLogin()||!(await ensureProfile()))return;
-  const v=$("updateContent").value.trim();if(!v)return;
+  const v=$("updateContent").value.trim();if(!v&&!uploadState.update&&!uploadState.updateMusic){toast("Add text, an image, or audio before posting.","error");return}
   if(moderation(v)){toast("This update contains words that are not allowed.","error");return}
-  let imageUrl=null,musicUrl=null;try{imageUrl=await uploadPostImage(uploadState.update);musicUrl=await uploadPostMusic(uploadState.updateMusic)}catch(err){toast("Upload failed: "+err.message,"error");return}
+  showUploading("Uploading your update…","Uploading media and saving your post.");
+  let imageUrl=null,musicUrl=null;try{imageUrl=await uploadPostImage(uploadState.update);musicUrl=await uploadPostMusic(uploadState.updateMusic)}catch(err){hideUploading();toast("Upload failed: "+err.message,"error");return}
   const r=await insert("posts",{user_id:uid(),kind:"wall",content:v,display_name:me.username,avatar_url:me.avatar_url||null,is_anonymous:false,image_url:imageUrl,music_url:musicUrl,music_name:uploadState.updateMusic?.name||null});
-  if(r.error)toast(r.error.message,"error");else{$("updateContent").value="";$("updateImage").value="";$("updateMusic").value="";uploadState.update=null;uploadState.updateMusic=null;$("updateImagePreview").innerHTML="";$("updateImagePreview").classList.add("hidden");$("updateMusicPreview").innerHTML="";$("updateMusicPreview").classList.add("hidden");$("updateImageName").textContent="";toast("Update posted.","success");await loadFeed("update")}
+  hideUploading();if(r.error)toast(r.error.message,"error");else{$("updateContent").value="";$("updateImage").value="";$("updateMusic").value="";uploadState.update=null;uploadState.updateMusic=null;$("updateImagePreview").innerHTML="";$("updateImagePreview").classList.add("hidden");$("updateMusicPreview").innerHTML="";$("updateMusicPreview").classList.add("hidden");$("updateImageName").textContent="";toast("Update posted.","success");await loadFeed("update")}
 };
 const debounce=(fn,ms=300)=>{let t;return(...a)=>{clearTimeout(t);t=setTimeout(()=>fn(...a),ms)}};
 $("wallSearch").oninput=debounce(()=>loadFeed("wall"));$("wallSort").onchange=()=>loadFeed("wall");
@@ -1147,12 +1376,13 @@ async function loadChats(){
     (o.data||[]).forEach(x=>cache.chats.set(x.conversation_id,x.profiles));
   }
   rows.sort((a,b)=>a.name==="Public Chat"?-1:b.name==="Public Chat"?1:0);
-  $("chatItems").innerHTML=rows.length?rows.map(c=>`<div class="chatitem ${activeChat===c.id?'active':''}" data-chat="${attr(c.id)}">${avatarHTML(chatName(c),cache.chats.get(c.id)?.avatar_url)}<div class="chattext"><strong>${esc(chatName(c))}</strong><span>${esc(c.name==="Public Chat"?"Everyone · Public community chat":isGroupConversation(c)?"Group conversation":"Private conversation")}</span></div></div>`).join(""):'<div class="empty">No chats yet.</div>';
-  $("chatItems").querySelectorAll(".chatitem").forEach(x=>x.onclick=()=>openChat(x.dataset.chat));
+  $("chatItems").innerHTML=rows.length?rows.map(c=>`<div class="chatitem ${activeChat===c.id?'active':''}" data-chat="${attr(c.id)}" data-chat-type="${attr(c.type||'')}">${avatarHTML(chatName(c),cache.chats.get(c.id)?.avatar_url)}<div class="chattext"><strong>${esc(chatName(c))}</strong><span>${esc(c.name==="Public Chat"?"Everyone · Public community chat":isGroupConversation(c)?"Group conversation":"Private conversation")}</span></div></div>`).join(""):'<div class="empty">No chats yet.</div>';
+  $("chatItems").querySelectorAll(".chatitem").forEach(x=>x.onclick=()=>{if(x.dataset.person){openPublicProfile(x.dataset.person);return}openChat(x.dataset.chat)});if(chatFilter==="communities")setChatFilter("communities");
   $("messengerBox").classList.toggle("chatopen",!!activeChat);
   $("chatBack").style.display=window.innerWidth<=850&&activeChat?"inline-block":"none";
 }
 window.openPeople=()=>{$("peopleSearch").focus()};
+async function openPublicProfile(id){if(!id)return;const r=await client.from("profiles").select("id,username,display_name,bio,avatar_url").eq("id",id).maybeSingle();if(r.error||!r.data){toast("Could not open this profile.","error");return}const p=r.data;recordProfileView(id);const display=p.display_name||p.username||"Litanya member";const avatar=p.avatar_url?`<img src="${attr(p.avatar_url)}" alt="${attr(display)}" loading="lazy">`:esc(initials(display));$("modalRoot").innerHTML=`<div class="modalback" id="publicProfileBackdrop"><div class="modal profile-modal"><div class="profile-modal-cover"></div><div class="modalfoot" style="justify-content:flex-end;padding:12px 16px 0"><button class="btn secondary" id="closePublicProfile" type="button">Close</button></div><div class="profile-modal-body"><div class="profile-modal-avatar">${avatar}</div><h2 style="margin:0 0 4px">${esc(display)}</h2><div class="muted" style="font-size:13px">@${esc(p.username||"user")}</div><p style="margin:14px auto 0;max-width:420px;white-space:pre-wrap">${esc(p.bio||"This member hasn't added a bio yet.")}</p><div class="profile-modal-actions"><button class="btn secondary" id="viewFullProfileBtn" type="button">See profile details</button><button class="btn primary" id="messageProfileBtn" type="button">Message</button></div><div id="profileExtraDetails" class="hidden" style="margin-top:16px;text-align:left;background:#faf6f9;padding:13px;border-radius:13px"><strong>About this member</strong><p style="margin:7px 0 0;font-size:13px;color:var(--muted)">You can view their public profile information here. Private messages and account details remain private.</p></div></div></div></div>`;$("closePublicProfile").onclick=()=>$("modalRoot").innerHTML="";$("publicProfileBackdrop").addEventListener("click",e=>{if(e.target.id==="publicProfileBackdrop")$("modalRoot").innerHTML=""});$("viewFullProfileBtn").onclick=()=>{$("profileExtraDetails").classList.toggle("hidden");$("viewFullProfileBtn").textContent=$("profileExtraDetails").classList.contains("hidden")?"See profile details":"Hide details"};$("messageProfileBtn").onclick=()=>{$("modalRoot").innerHTML="";startDM(id)}}
 function isGroupConversation(c){return String(c?.type||"").toLowerCase()==="group"}
 function isDirectConversation(c){return !!c && !isGroupConversation(c)}
 async function createDirectConversation(other){
@@ -1187,33 +1417,48 @@ $("publicChatBtn").onclick=async()=>{
   const room=await ensurePublicChat();
   if(room){activeChat=null;go("messenger");await openChat(room.id)}
 };
-$("newGroupBtn").onclick=async()=>{
+async function createGroupFromComposer(titleValue, rawValue, root){
+  const title=String(titleValue||"").trim().slice(0,80),raw=String(rawValue||"").trim();
+  const error=root.querySelector("[data-group-error]");
+  const submit=root.querySelector("[data-group-submit]");
+  if(!title||!raw){error.textContent="Add a group name and at least one username.";return}
+  const names=[...new Set(raw.split(/[,,\n]/).map(x=>x.trim().replace(/^@/,"").toLowerCase()).filter(Boolean))];
+  if(!names.length){error.textContent="Enter at least one username.";return}
+  submit.disabled=true;submit.textContent="Creating…";error.textContent="";
+  try{
+    const users=await client.from("profiles").select("id,username").in("username",names);
+    if(users.error)throw new Error("Could not search users: "+users.error.message);
+    const found=users.data||[],foundNames=new Set(found.map(x=>String(x.username).toLowerCase()));
+    const missing=names.filter(n=>!foundNames.has(n));
+    const ids=found.map(x=>x.id).filter(x=>String(x)!==String(uid()));
+    if(missing.length)throw new Error("Username not found: "+missing.map(x=>"@"+x).join(", "));
+    if(!ids.length)throw new Error("Add at least one other person to create a group.");
+    const c=await insert("conversations",{type:"group",name:title,created_by:uid()});
+    if(c.error||!c.data?.id)throw new Error(c.error?.message||"Could not create the group.");
+    const members=[...new Set([uid(),...ids])].map(user_id=>({conversation_id:c.data.id,user_id}));
+    const a=await client.from("conversation_members").insert(members);
+    if(a.error){toast("Group created, but adding members failed: "+a.error.message,"error",7000);return}
+    $("modalRoot").innerHTML="";toast("Group created successfully.","success",3500);await openChat(c.data.id);
+  }catch(err){error.textContent=err.message||"Something went wrong. Please try again.";submit.disabled=false;submit.textContent="Create group"}
+}
+$("newGroupBtn").onclick=()=>{
   if(!requireLogin())return;
-  const title=(prompt("Group name")||"").trim();
-  if(!title)return;
-  const raw=(prompt("Enter the usernames of the people to add, separated by commas")||"").trim();
-  if(!raw){toast("Add at least one username to the group.","error");return}
-  const names=[...new Set(raw.split(",").map(x=>x.trim().toLowerCase()).filter(Boolean))];
-  const users=await client.from("profiles").select("id,username").in("username",names);
-  if(users.error){toast("Could not search users: "+users.error.message,"error",6000);return}
-  const found=users.data||[];
-  const foundNames=new Set(found.map(x=>String(x.username).toLowerCase()));
-  const missing=names.filter(n=>!foundNames.has(n));
-  const ids=found.map(x=>x.id).filter(x=>x!==uid());
-  if(missing.length){toast("Username not found: "+missing.join(", "),"error",6000);return}
-  if(!ids.length){toast("You need to add at least one other person.","error");return}
-  const c=await insert("conversations",{type:"group",name:title.slice(0,80),created_by:uid()});
-  if(c.error){toast("Could not create group: "+c.error.message,"error",6000);return}
-  const memberIds=[uid(),...ids.filter(x=>x!==uid())];
-  const members=[...new Set(memberIds)].map(user_id=>({conversation_id:c.data.id,user_id}));
-  const a=await client.from("conversation_members").insert(members);
-  if(a.error){toast("Group was created, but members could not be added: "+a.error.message,"error",7000);return}
-  toast("Group created successfully.","success",3500);
-  await openChat(c.data.id)
+  $("modalRoot").innerHTML=`<div class="modalback" id="groupModalBackdrop"><div class="modal group-create-modal" role="dialog" aria-modal="true" aria-labelledby="groupCreateTitle"><div class="group-create-hero"><div class="group-create-icon">✦</div><div><h2 id="groupCreateTitle">Create a community chat</h2><p>Bring your people together in one place.</p></div><button class="icon" type="button" id="closeGroupModal" aria-label="Close">×</button></div><form class="group-create-form" id="groupCreateForm"><label for="groupTitle">Community or group name</label><input class="input" id="groupTitle" maxlength="80" required placeholder="e.g. Late Night Thoughts"><label for="groupMembers">Invite usernames</label><textarea class="input group-member-input" id="groupMembers" rows="4" required placeholder="Type usernames separated by commas or new lines"></textarea><div class="group-form-hint">Add at least one other LitanyaSpace member. Use their username, not their display name.</div><div data-group-error class="group-form-error" role="alert"></div><div class="group-form-actions"><button class="btn secondary" id="cancelGroupModal" type="button">Cancel</button><button class="btn primary" data-group-submit type="submit">Create group</button></div></form></div></div>`;
+  const root=$("modalRoot"),close=()=>root.innerHTML="";
+  $("closeGroupModal").onclick=close;$("cancelGroupModal").onclick=close;
+  $("groupModalBackdrop").onclick=e=>{if(e.target.id==="groupModalBackdrop")close()};
+  $("groupCreateForm").onsubmit=e=>{e.preventDefault();createGroupFromComposer($("groupTitle").value,$("groupMembers").value,root)};
+  $("groupTitle").focus();
 };
+let typingChannel=null,typingTimer=null,typingIdle=null;
+function showTyping(names=[]){const box=$("chatTyping");if(!box)return;const unique=[...new Set(names.filter(Boolean))].slice(0,3);box.innerHTML=unique.length?`<span class="typing-dots" aria-hidden="true"><i></i><i></i><i></i></span><span>${esc(unique.length===1?unique[0]+" is typing…":unique.join(", ")+" are typing…")}</span>`:""}
+async function setupTypingChannel(chatId){if(typingChannel){try{await client.removeChannel(typingChannel)}catch{}typingChannel=null}if(!chatId||!uid())return;const names=new Map();typingChannel=client.channel("typing-"+chatId,{config:{broadcast:{self:false}}});typingChannel.on("broadcast",{event:"typing"},payload=>{const d=payload.payload||{};if(!d.user_id||d.user_id===uid())return;if(d.typing)names.set(d.user_id,d.name||"Someone");else names.delete(d.user_id);showTyping([...names.values()]);clearTimeout(typingTimer);typingTimer=setTimeout(()=>{names.clear();showTyping()},3500)});typingChannel.subscribe();}
+function broadcastTyping(isTyping){if(!typingChannel||!me)return;typingChannel.send({type:"broadcast",event:"typing",payload:{user_id:uid(),name:me.display_name||me.username||"Someone",typing:isTyping}}).catch(()=>{});clearTimeout(typingIdle);if(isTyping)typingIdle=setTimeout(()=>broadcastTyping(false),1800)}
+async function markCurrentChatSeen(chatId){if(!chatId||!uid())return;try{const r=await client.from("messages").update({read_at:new Date().toISOString()}).eq("conversation_id",chatId).neq("sender_id",uid()).is("read_at",null);if(r.error&& !/read_at/i.test(r.error.message||""))log("Read receipt update failed",r.error.message)}catch(e){log("Read receipt unavailable",e)}}
 async function openChat(id){
   activeChat=id;
   await loadChats();
+  setupTypingChannel(id).catch(e=>log("Typing channel unavailable",e));
   const c=await client.from("conversations").select("*").eq("id",id).single();
   if(c.error){toast(c.error.message,"error");return}
   const publicRoom=c.data.type==="group" && c.data.name==="Public Chat";
@@ -1223,13 +1468,14 @@ async function openChat(id){
   $("messageInput").disabled=false;
   $("sendBtn").disabled=false;
   const r=await client.from("messages")
-    .select("*,profiles:sender_id(username,avatar_url)")
+    .select("*,profiles:sender_id(username,display_name,avatar_url)")
     .eq("conversation_id",id)
     .is("deleted_at",null)
-    .order("created_at",{ascending:true})
-    .limit(500);
+    .order("created_at",{ascending:false})
+    .limit(120);
   if(r.error){toast(r.error.message,"error");return}
-  renderMessages(r.data||[]);
+  renderMessages((r.data||[]).reverse());
+  markCurrentChatSeen(id);
   if(chatChannel){await client.removeChannel(chatChannel);chatChannel=null}
   // One realtime stream for the entire shared room.
   chatChannel=client.channel("litanya-chat-"+id)
@@ -1244,6 +1490,9 @@ async function openChat(id){
         .maybeSingle();
       appendMessage({...payload.new,profiles:p.data||null});
     })
+    .on("postgres_changes",{event:"UPDATE",schema:"public",table:"messages",filter:"conversation_id=eq."+id},payload=>{
+      const el=$("chatMessages").querySelector(`[data-msg="${CSS.escape(String(payload.new.id))}"]`);if(el&&String(payload.new.sender_id)===String(uid())){let receipt=el.querySelector(".msg-receipt");if(payload.new.read_at){if(!receipt){receipt=document.createElement("div");receipt.className="msg-receipt";el.querySelector(".msg").appendChild(receipt)}receipt.textContent="Seen"}}
+    })
     .subscribe(status=>{
       if(status==="SUBSCRIBED")log("Realtime chat connected:",id);
     });
@@ -1252,26 +1501,57 @@ function renderMessages(rows){$("chatMessages").innerHTML=rows.length?rows.map(m
 function appendMessage(m){
   const box=$("chatMessages");if(box.querySelector(`[data-msg="${CSS.escape(String(m.id))}"]`))return;
   const emp=box.querySelector(".empty");if(emp)emp.remove();
-  box.insertAdjacentHTML("beforeend",messageHTML(m));box.scrollTop=box.scrollHeight
+  box.insertAdjacentHTML("beforeend",messageHTML(m));bindMessageInteractions(box);box.scrollTop=box.scrollHeight
 }
-function messageHTML(m){const mine=m.sender_id===uid();const name=m.profiles?.username||m.profiles?.display_name||"User";return `<div class="msgrow ${mine?'mine':''}" data-msg="${attr(m.id)}">${!mine?avatarHTML(name,m.profiles?.avatar_url):""}<div class="msg">${esc(m.content)}<time>${esc(ago(m.created_at))}</time></div></div>`}
+let touchStartX=0,touchStartY=0;
+$("chatMessages").addEventListener("touchstart",e=>{const row=e.target.closest(".msgrow");if(!row)return;touchStartX=e.touches[0].clientX;touchStartY=e.touches[0].clientY},{passive:true});
+$("chatMessages").addEventListener("touchend",e=>{const row=e.target.closest(".msgrow");if(!row)return;const dx=e.changedTouches[0].clientX-touchStartX,dy=e.changedTouches[0].clientY-touchStartY;if(Math.abs(dx)>55&&Math.abs(dy)<45)beginReply(row)},{passive:true});
+$("chatMessages").addEventListener("dblclick",e=>{const row=e.target.closest(".msgrow");if(row)beginReply(row)});
+function beginReply(row){replyTarget=row.dataset.replytext||"Message";$("replyPreviewText").textContent="Replying to: "+replyTarget;$("replyPreview").classList.remove("hidden");$("messageInput").focus()}
+function messageHTML(m){const mine=String(m.sender_id)===String(uid());const profile=m.profiles||cache.profiles.get(String(m.sender_id))||{};const name=profile.display_name||profile.username||"Litanya member";let raw=String(m.content||""),body="";const reply=raw.startsWith("[reply] ");if(reply){raw=raw.slice(8);const parts=raw.split("\n");body=`<div class="reply-quote">${esc(parts.shift().replace(/^\[reply\]\s*/,""))}</div>${esc(parts.join("\n"))}`}else if(raw.startsWith("[image] ")){const url=raw.slice(8).trim();body=`<button type="button" class="msg-media-open" data-image="${attr(url)}" aria-label="View shared image" style="border:0;padding:0;background:transparent"><img src="${attr(url)}" alt="Shared image" loading="lazy"></button>`}else if(raw.startsWith("[audio] ")){const url=raw.slice(8).trim();body=`<audio controls preload="metadata" src="${attr(url)}"></audio>`}else body=esc(raw);return `<div class="msgrow ${mine?'mine':''}" data-msg="${attr(m.id)}" data-sender="${attr(m.sender_id)}" data-replytext="${attr((profile.username?profile.username+': ':'')+String(m.content||'').slice(0,150))}"><button class="avatar msg-avatar-open" type="button" data-user="${attr(m.sender_id)}" title="Open ${attr(name)} profile">${profile.avatar_url?`<img src="${attr(profile.avatar_url)}" alt="${attr(name)}" loading="lazy">`:esc(initials(name))}</button><div class="msg">${body}<time>${esc(ago(m.created_at))}</time>${mine&&m.read_at?'<div class="msg-receipt">Seen</div>':""}</div></div>`}
+let messageSending=false,replyTarget=null,chatFilter="all",voiceRecorder=null,voiceChunks=[];
+function cancelMessageReply(){replyTarget=null;$("replyPreview").classList.add("hidden");$("replyPreviewText").textContent=""}
+$("cancelReply").onclick=cancelMessageReply;
+$("messageInput").addEventListener("input",()=>broadcastTyping(Boolean($("messageInput").value.trim())));
+$("messageInput").addEventListener("blur",()=>broadcastTyping(false));
+function setChatFilter(filter){chatFilter=filter;document.querySelectorAll("[data-chat-filter]").forEach(b=>{b.classList.toggle("active",b.dataset.chatFilter===filter);b.classList.toggle("primary",b.dataset.chatFilter===filter);b.classList.toggle("secondary",b.dataset.chatFilter!==filter)});if(filter==="online"){renderOnlinePeople()}else if(filter==="communities"){document.querySelectorAll("#chatItems .chatitem").forEach(el=>el.classList.toggle("hidden",!(el.dataset.chatType==="group"||el.dataset.chat==="")))}else{document.querySelectorAll("#chatItems .chatitem").forEach(el=>el.classList.remove("hidden"))}}
+document.querySelectorAll("[data-chat-filter]").forEach(b=>b.onclick=()=>setChatFilter(b.dataset.chatFilter));
+async function renderOnlinePeople(){
+ const r=await client.from("profiles").select("id,username,display_name,avatar_url").neq("id",uid()).limit(100);const people=r.data||[];const online=people.filter(p=>onlineUserIds.has(String(p.id)));
+ $("chatItems").innerHTML=online.length?online.map(p=>`<div class="chatitem person" data-person="${attr(p.id)}">${avatarHTML(p.display_name||p.username,p.avatar_url)}<div class="chattext"><strong>${esc(p.display_name||p.username)}</strong><span>@${esc(p.username)}</span><span class="presence-label tiny"><i class="online-dot"></i>Active now</span></div></div>`).join(""):'<div class="empty">No one is showing as online right now.</div>';
+ $("chatItems").querySelectorAll(".person").forEach(x=>x.onclick=()=>startDM(x.dataset.person));
+}
+async function uploadMessageAttachment(file,kind){
+ if(!file||!uid())return null;const ext=(file.name.split(".").pop()|| (kind==="image"?"jpg":"webm")).toLowerCase().replace(/[^a-z0-9]/g,"")||"bin";
+ const path=`${uid()}/messages/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
+ const up=await client.storage.from("post-images").upload(path,file,{cacheControl:"3600",upsert:false,contentType:file.type||"application/octet-stream"});if(up.error)throw up.error;
+ return client.storage.from("post-images").getPublicUrl(path).data.publicUrl;
+}
+async function sendChatPayload(content){
+ if(!activeChat||!requireLogin())return;const r=await client.from("messages").insert({conversation_id:activeChat,sender_id:uid(),content}).select("*,profiles:sender_id(username,display_name,avatar_url)").single();if(r.error)throw r.error;appendMessage(r.data);return r.data;
+}
+$("messageImage").onchange=async e=>{const f=e.target.files?.[0];if(!f)return;try{toast("Uploading image…");const url=await uploadMessageAttachment(f,"image");await sendChatPayload(`[image] ${url}`);toast("Image sent.","success")}catch(err){toast(err.message||"Could not send image. Check the post-images storage bucket permissions.","error",6000)}finally{e.target.value=""}};
+$("messageAudio").onchange=async e=>{const f=e.target.files?.[0];if(!f)return;try{toast("Uploading audio…");const url=await uploadMessageAttachment(f,"audio");await sendChatPayload(`[audio] ${url}`);toast("Audio sent.","success")}catch(err){toast(err.message||"Could not send audio. Check storage permissions.","error",6000)}finally{e.target.value=""}};
+$("recordVoice").onclick=async()=>{
+ if(!navigator.mediaDevices?.getUserMedia||!window.MediaRecorder){toast("Voice recording needs a supported browser and microphone permission.","error");return}
+ if(voiceRecorder&&voiceRecorder.state==="recording"){voiceRecorder.stop();$("recordVoice").textContent="●";$("voiceStatus").textContent="Saving voice message…";return}
+ try{const stream=await navigator.mediaDevices.getUserMedia({audio:true});voiceChunks=[];voiceRecorder=new MediaRecorder(stream);voiceRecorder.ondataavailable=e=>{if(e.data.size)voiceChunks.push(e.data)};voiceRecorder.onstop=async()=>{stream.getTracks().forEach(t=>t.stop());try{const blob=new Blob(voiceChunks,{type:voiceRecorder.mimeType||"audio/webm"});const file=new File([blob],`voice-${Date.now()}.webm`,{type:blob.type});const url=await uploadMessageAttachment(file,"audio");await sendChatPayload(`[audio] ${url}`);$("voiceStatus").textContent="Voice message sent"}catch(err){toast(err.message||"Voice message failed.","error",6000);$("voiceStatus").textContent=""}};voiceRecorder.start();$("recordVoice").textContent="■";$("voiceStatus").textContent="Recording… tap ■ to send"}catch(err){toast("Microphone permission was denied or unavailable.","error")}
+};
 $("messageForm").onsubmit=async e=>{
   e.preventDefault();
-  if(!activeChat||!requireLogin())return;
-  const v=$("messageInput").value.trim();
+  if(messageSending||!activeChat||!requireLogin())return;
+  let v=$("messageInput").value.trim();
   if(!v)return;
+  if(replyTarget)v=`[reply] ${replyTarget.slice(0,180)}\n${v}`;
   if(moderation(v)){toast("That message contains words that are not allowed.","error");return}
-  const r=await client.from("messages")
-    .insert({conversation_id:activeChat,sender_id:uid(),content:v})
-    .select("*,profiles:sender_id(username,avatar_url)")
-    .single();
-  if(r.error){
-    toast(r.error.message,"error");
-  }else{
-    $("messageInput").value="";
-    // Do not append manually. Realtime delivers this same message to every
-    // connected member, including the sender, and appendMessage de-duplicates.
-  }
+  const sendBtn=$("sendBtn"),input=$("messageInput"),chatId=activeChat;
+  messageSending=true;sendBtn.disabled=true;sendBtn.textContent="…";
+  try{
+    const r=await client.from("messages").insert({conversation_id:chatId,sender_id:uid(),content:v}).select("*,profiles:sender_id(username,display_name,avatar_url)").single();
+    if(r.error)throw r.error;
+    if(activeChat===chatId){input.value="";appendMessage(r.data);cancelMessageReply()}
+  }catch(err){toast(err?.message||"Message failed to send. Please retry.","error",6000)}
+  finally{messageSending=false;sendBtn.textContent="➤";sendBtn.disabled=!activeChat;input.disabled=!activeChat}
 };
 $("chatBack").onclick=()=>{$("messengerBox").classList.remove("chatopen");activeChat=null;loadChats()};
 $("chatInfo").onclick=()=>{if(activeChat)toast("Chat settings can be managed through the group/member controls in the next update.")};
@@ -1283,8 +1563,8 @@ $("peopleSearch").oninput=e=>{
     const q=e.target.value.trim().toLowerCase().replace(/[%,()]/g,"");
     if(!q){loadChats();return}
     const r=await client.from("profiles").select("id,username,display_name,avatar_url").or(`username.ilike.%${q}%,display_name.ilike.%${q}%`).neq("id",uid()).limit(12);
-    $("chatItems").innerHTML=(r.data||[]).map(p=>`<div class="chatitem person" data-person="${attr(p.id)}">${avatarHTML(p.display_name||p.username,p.avatar_url)}<div class="chattext"><strong>${esc(p.display_name||p.username)}</strong><span>@${esc(p.username)}</span></div></div>`).join("")||'<div class="empty">No people found.</div>';
-    $("chatItems").querySelectorAll(".person").forEach(x=>x.onclick=()=>{$("peopleSearch").value="";startDM(x.dataset.person)})
+    $("chatItems").innerHTML=(r.data||[]).map(p=>`<div class="chatitem person" data-person="${attr(p.id)}">${avatarHTML(p.display_name||p.username,p.avatar_url)}<div class="chattext"><strong>${esc(p.display_name||p.username)}</strong><span>@${esc(p.username)}</span><span class="presence-label tiny" data-online-user="${attr(p.id)}"><i class="offline-dot"></i>Offline</span></div></div>`).join("")||'<div class="empty">No people found.</div>';
+    $("chatItems").querySelectorAll(".person").forEach(x=>x.onclick=()=>{const person=x.dataset.person;openPublicProfile(person)})
   },250)
 };
 $("refreshChats").onclick=loadChats;
@@ -1339,26 +1619,39 @@ function startRealtime(){
     toast("Someone viewed your profile.","success");
   }).subscribe();
   const notif=client.channel("litanya-notifs").on("postgres_changes",{event:"INSERT",schema:"public",table:"notifications",filter:"user_id=eq."+uid()},payload=>{
-    loadNotifications();
-    const n=payload.new;
-    toast(n.title||"New notification.","success");
+    loadNotifications();const n=payload.new;toast(n.title||"New notification.","success");
+    if("Notification" in window&&Notification.permission==="granted"&&document.hidden){try{new Notification(n.title||"LitanyaSpace",{body:n.body||"You have a new notification.",icon:"/apple-touch-icon.png"})}catch{}}
   }).subscribe();
-  liveChannels=[postChannel,commentChannel,profileViewsChannel,notif];
+  const messageAlerts=client.channel("litanya-message-alerts").on("postgres_changes",{event:"INSERT",schema:"public",table:"messages"},async payload=>{
+    const m=payload.new;if(!uid()||m.sender_id===uid()||m.conversation_id===activeChat)return;
+    const member=await client.from("conversation_members").select("conversation_id").eq("conversation_id",m.conversation_id).eq("user_id",uid()).maybeSingle();
+    if(!member.data)return;
+    const who=await client.from("profiles").select("username,display_name").eq("id",m.sender_id).maybeSingle();
+    const sender=who.data?.display_name||who.data?.username||"Someone";
+    toast("New message from "+sender,"success",5000);if($("notifBadge")){const n=Number($("notifBadge").textContent||0);$("notifBadge").textContent=String(n+1);$("notifBadge").classList.remove("hidden")}
+    if("Notification" in window&&Notification.permission==="granted"&&document.hidden){try{new Notification("Message from "+sender,{body:String(m.content||"New message").slice(0,140),icon:"/apple-touch-icon.png",tag:"litanya-message-"+m.conversation_id})}catch{}}
+  }).subscribe();
+  liveChannels=[postChannel,commentChannel,profileViewsChannel,notif,messageAlerts];
 }
-const musicObserver=new IntersectionObserver(entries=>{entries.forEach(entry=>{const a=entry.target;if(entry.isIntersecting&&entry.intersectionRatio>=0.65){document.querySelectorAll("audio[data-auto-music]").forEach(x=>{if(x!==a&&!x.paused)x.pause()});a.play().catch(()=>{});}})},{threshold:[0.65]});
+const musicObserver=new IntersectionObserver(entries=>{entries.forEach(entry=>{const a=entry.target;if(entry.isIntersecting&&entry.intersectionRatio>=0.65){document.querySelectorAll("audio[data-auto-music]").forEach(x=>{if(x!==a&&!x.paused)x.pause()});a.play().catch(()=>{});}else if(!entry.isIntersecting&&!a.paused)a.pause();})},{threshold:[0.65]});
+const videoObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{if(!entry.isIntersecting&&entry.target&&!entry.target.paused)entry.target.pause()}),{threshold:.15});
+function observePostVideos(root=document){root.querySelectorAll("video[data-post-video]").forEach(v=>videoObserver.observe(v))}
 function observePostMusic(root=document){root.querySelectorAll("audio[data-auto-music]").forEach(a=>musicObserver.observe(a))}
 const oldBindPostEvents=bindPostEvents;
-bindPostEvents=function(box){oldBindPostEvents(box);observePostMusic(box)};
+bindPostEvents=function(box){oldBindPostEvents(box);observePostMusic(box);observePostVideos(box)};
+document.addEventListener("visibilitychange",()=>{if(!document.hidden&&client&&uid()){loadNotifications();if(activeChat)openChat(activeChat).catch(e=>log("Chat resume failed",e));startPresence()}});
+window.addEventListener("online",()=>{if(client&&uid()){startRealtime();startPresence();if(activeChat)openChat(activeChat).catch(e=>log("Chat reconnect failed",e))}});
 window.addEventListener("popstate",()=>{
   const h=location.hash.slice(1);
   if(h.startsWith("post/"))openSinglePost(decodeURIComponent(h.slice(5)),true).then(()=>setPage("singlePost"));
   else if(h.startsWith("user/"))openPublicProfile(decodeURIComponent(h.slice(5)));
   else go(h||"home")
 });
-$("globalSearchBtn").onclick=()=>{
+$('globalSearchBtn').onclick=()=>{
   if(!requireLogin())return;
-  const q=prompt("Search usernames");
-  if(q){go("messenger");$("peopleSearch").value=q;$("peopleSearch").dispatchEvent(new Event("input"))}
+  $('modalRoot').innerHTML=`<div class="modalback"><div class="modal" style="width:min(560px,96vw);max-height:82vh;overflow:auto"><div class="modalfoot" style="justify-content:space-between"><h2 style="margin:0">Find a profile</h2><button type="button" class="iconbtn" id="closeProfileSearch" aria-label="Close">×</button></div><form id="profileSearchForm" style="display:flex;gap:8px;margin-top:10px"><input class="input" id="profileSearchQuery" maxlength="60" placeholder="Search username…" required><button class="btn primary" type="submit">Search</button></form><div id="profileSearchResults" class="music-results"><div class="empty">Search by username or display name.</div></div></div></div>`;
+  const root=$('modalRoot');root.querySelector('#closeProfileSearch').onclick=()=>root.innerHTML='';
+  root.querySelector('#profileSearchForm').onsubmit=async e=>{e.preventDefault();const q=root.querySelector('#profileSearchQuery').value.trim().replace(/[%,()]/g,'');if(!q)return;const out=root.querySelector('#profileSearchResults');out.innerHTML='<div class="loader">Searching profiles…</div>';const r=await client.from('profiles').select('id,username,display_name,avatar_url,bio').or(`username.ilike.%${q}%,display_name.ilike.%${q}%`).neq('id',uid()).limit(20);if(r.error){out.innerHTML='<div class="empty">Could not search profiles right now.</div>';return}const rows=r.data||[];out.innerHTML=rows.length?rows.map(p=>`<button type="button" class="music-result profile-search-result" data-user="${attr(p.id)}" style="width:100%;text-align:left;cursor:pointer"><span style="display:grid;place-items:center">${avatarHTML(p.display_name||p.username,p.avatar_url)}</span><span class="track-info"><strong>${esc(p.display_name||p.username)}</strong><span>@${esc(p.username)}</span><span>${esc(p.bio||'')}</span></span><span class="btn secondary">View</span></button>`).join(''):'<div class="empty">No profiles found.</div>';out.querySelectorAll('[data-user]').forEach(b=>b.onclick=()=>{const id=b.dataset.user;root.innerHTML='';openPublicProfile(id)})};
 };
 $("modalRoot").addEventListener("click",e=>{if(e.target.classList.contains("modalback"))$("modalRoot").innerHTML=""});
 window.addEventListener("beforeunload",()=>{if(client)stopRealtime()});
@@ -1367,6 +1660,7 @@ window.addEventListener("beforeunload",()=>{if(client)stopRealtime()});
   openSignupScreen();
   if(await initSupabase()){
     await refreshSession();
+    if(session) await loadMyDayStories();
     if(!session){
       const h=location.hash.slice(1);
       if(h==="authPage")setPage("authPage");
@@ -1375,5 +1669,23 @@ window.addEventListener("beforeunload",()=>{if(client)stopRealtime()});
 })();
 })();
 </script>
+<!-- MYDAY SQL SETUP (run once in Supabase SQL Editor):
+create table if not exists public.myday_stories (
+ id uuid primary key default gen_random_uuid(),
+ user_id uuid not null references auth.users(id) on delete cascade,
+ content text not null default '',
+ media_url text,
+ media_type text check (media_type in ('image','video') or media_type is null),
+ created_at timestamptz not null default now(),
+ expires_at timestamptz not null default (now() + interval '24 hours')
+);
+alter table public.myday_stories enable row level security;
+create policy "Authenticated users can view active MyDay stories" on public.myday_stories for select to authenticated using (expires_at > now());
+create policy "Users can create own MyDay stories" on public.myday_stories for insert to authenticated with check (auth.uid() = user_id);
+create policy "Users can delete own MyDay stories" on public.myday_stories for delete to authenticated using (auth.uid() = user_id);
+create index if not exists myday_stories_expires_idx on public.myday_stories (expires_at desc);
+-- Storage bucket post-images must allow image/video MIME types and files up to 20 MB.
+-- Existing video upload + YouTube clip panel are intentionally retained.
+-- -->
 </body>
 </html>
