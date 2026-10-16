@@ -9,10 +9,11 @@
 <meta name="apple-mobile-web-app-title" content="Litanya Safespace">
 <link rel="manifest" href="/manifest.json">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<meta name="litanya-build" content="LITANYASPACE-MYDAY-STORIES-VIEWS-2026-10-14">
+<meta name="litanya-build" content="LITANYA-V3-PWA-IGMESSENGER-2026-10-16">
 <link rel="preconnect" href="https://gmjtpvxwymevjsicbwlh.supabase.co" crossorigin>
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <title>Litanya Safespace</title>
+<script>try{var _t=localStorage.getItem("litanya_theme");if(_t)document.documentElement.dataset.theme=_t;else if(window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches)document.documentElement.dataset.theme="dark"}catch(_){}</script>
 <!-- Cloudflare static site entry: this file must be named index.html. -->
 <style>
 :root{
@@ -208,6 +209,181 @@ html,body{width:100%;max-width:100%;overflow-x:clip}body{min-width:0}.nav,.navli
 .myday-item{border:0;background:transparent;flex:0 0 78px;width:78px;padding:0;text-align:center;cursor:pointer;scroll-snap-align:start;color:var(--ink)}.myday-ring{width:68px;height:68px;margin:0 auto 6px;padding:3px;border-radius:50%;background:linear-gradient(135deg,#e94f9b,#9a67e8,#ffb45b);display:grid;place-items:center}.myday-ring.seen{background:#c9c3ca}.myday-inner{width:100%;height:100%;border:3px solid white;border-radius:50%;overflow:hidden;background:#f0e6ee;display:grid;place-items:center;font-weight:800}.myday-inner img{width:100%;height:100%;object-fit:cover}.myday-label{display:block;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.myday-add .myday-ring{background:#ead9e7}.myday-plus{font-size:28px;color:#9e4f80}.myday-viewer{position:fixed;inset:0;z-index:100000;background:#120d15ed;display:flex;align-items:center;justify-content:center;padding:16px}.myday-view-card{position:relative;width:min(430px,100%);height:min(780px,92dvh);border-radius:22px;overflow:hidden;background:#211b25;color:white;display:flex;flex-direction:column;box-shadow:0 20px 80px #0008}.myday-progress{height:3px;background:#ffffff44;margin:12px 12px 5px}.myday-progress span{display:block;height:100%;background:#fff;width:100%}.myday-view-head{display:flex;align-items:center;gap:9px;padding:9px 14px}.myday-view-body{flex:1;display:grid;place-items:center;min-height:0;padding:12px;text-align:center;overflow:auto}.myday-view-body img,.myday-view-body video{max-width:100%;max-height:100%;object-fit:contain;border-radius:12px}.myday-view-text{font-size:22px;white-space:pre-wrap;overflow-wrap:anywhere}.myday-replies{padding:10px 14px 14px;border-top:1px solid #ffffff22;max-height:155px;overflow:auto}.myday-viewers{padding:9px 14px 12px;border-top:1px solid #ffffff22;max-height:145px;overflow:auto;background:#17121a}.myday-viewer-title{font-size:12px;font-weight:800;margin-bottom:6px;color:#fff}.myday-viewer-person{display:flex;align-items:center;gap:7px;padding:5px 0;font-size:12px;color:#fff}.myday-viewer-person .avatar{width:27px;height:27px;font-size:10px}.myday-view-count{font-size:11px;color:#ffffffc7;margin-left:auto}.myday-reply-item{font-size:12px;line-height:1.4;padding:6px 0;color:#fff}.myday-reply-form{display:flex;gap:7px;padding:8px 12px 14px}.myday-reply-form input{flex:1;min-width:0;background:#ffffff12;color:#fff;border:1px solid #ffffff35;border-radius:18px;padding:10px 12px}.myday-reply-form button{border:0;border-radius:18px;padding:0 14px;background:#e77bb4;color:#fff;font-weight:700}.myday-close{position:absolute;right:10px;top:15px;border:0;background:#ffffff22;color:#fff;border-radius:50%;width:36px;height:36px;font-size:24px;z-index:2}.myday-delete{margin-left:auto;margin-right:42px;border:1px solid #ffb8c5;background:#8e243f;color:#fff;border-radius:16px;padding:7px 10px;font-size:12px;font-weight:800;cursor:pointer}.myday-delete:disabled{opacity:.6;cursor:wait}.myday-composer{display:flex;gap:8px;align-items:center;margin-top:10px}.myday-composer .input{min-width:0}.myday-file{font-size:12px;color:var(--muted)}
 @media(max-width:560px){.myday-shell{padding:12px;border-radius:16px}.myday-item{flex-basis:72px;width:72px}.myday-ring{width:62px;height:62px}}
 
+/* ================= LITANYA V2 — modern UI, dark mode, watch/reels, reactions, app-like mobile ================= */
+:root{--brandgrad:linear-gradient(135deg,#c982a5,#9a6dd7)}
+html[data-theme="dark"]{color-scheme:dark;--bg:#131016;--card:#1c1823;--ink:#efe8ef;--muted:#a79cab;--line:#332b3b;--accent:#cf86b1;--accent2:#3b2735;--accentDark:#eda9d1;--green:#57b47b;--danger:#de6e8a;--shadow:0 10px 32px rgba(0,0,0,.5)}
+html[data-theme="dark"] body{background:linear-gradient(180deg,#171219,#121016);color:var(--ink)}
+html[data-theme="dark"] .topbar{background:rgba(24,19,27,.92);border-bottom-color:var(--line)}
+html[data-theme="dark"] .logo{color:#f4e7f1}
+html[data-theme="dark"] .menu,html[data-theme="dark"] .moreMenu,html[data-theme="dark"] .searchresults{background:var(--card);border-color:var(--line)}
+html[data-theme="dark"] .menu button{background:var(--card);color:var(--ink)}
+html[data-theme="dark"] .menu button:hover,html[data-theme="dark"] .moreMenu .navbtn:hover{background:#2a2331}
+html[data-theme="dark"] .actions button{background:var(--card);color:var(--muted)}
+html[data-theme="dark"] .actions button:hover,html[data-theme="dark"] .actions button.active{background:#2a2130;color:var(--accentDark)}
+html[data-theme="dark"] .bubble{background:#2a2331}
+html[data-theme="dark"] .msg{background:#2a2331;color:var(--ink)}
+html[data-theme="dark"] .chatmsgs{background:linear-gradient(180deg,#1a1520,#171319)}
+html[data-theme="dark"] .chatcompose input{background:#2a2331;color:var(--ink)}
+html[data-theme="dark"] .chathead,html[data-theme="dark"] .chatcompose,html[data-theme="dark"] .chatlisthead,html[data-theme="dark"] #messengerBox .chatcompose{background:var(--card);border-color:var(--line)}
+html[data-theme="dark"] .fb-upload{background:#241e2b;border-color:var(--line)}
+html[data-theme="dark"] .fb-upload:hover{background:#2c2434}
+html[data-theme="dark"] .upload-circle{background:#33263a;color:var(--accentDark)}
+html[data-theme="dark"] .composer{background:var(--card);border-color:var(--line)}
+html[data-theme="dark"] .modal,html[data-theme="dark"] .uploading-card,html[data-theme="dark"] .myday-success-card{background:var(--card);color:var(--ink)}
+html[data-theme="dark"] .modalback,html[data-theme="dark"] .myday-success-backdrop{background:rgba(0,0,0,.66)}
+html[data-theme="dark"] .notice.unread{background:#2a2130}
+html[data-theme="dark"] .sideitem:hover,html[data-theme="dark"] .result:hover,html[data-theme="dark"] .person-row:hover,html[data-theme="dark"] .view-row:hover{background:#2a2130}
+html[data-theme="dark"] .image-preview{background:#221c28;border-color:var(--line)}
+html[data-theme="dark"] .video-preview{background:#191521;border-color:var(--line)}
+html[data-theme="dark"] .reply-preview{background:#2c1f2c}
+html[data-theme="dark"] .music-preview{background:#251e2b}
+html[data-theme="dark"] .data-table th{background:#251f2c;color:#cdbfd0}
+html[data-theme="dark"] .data-table td,html[data-theme="dark"] .data-table th{border-color:#332b3b}
+html[data-theme="dark"] .ytmusic .music-name{background:var(--card);color:var(--ink)}
+html[data-theme="dark"] .myday-shell{background:linear-gradient(135deg,#221a26,#1e1830);border-color:var(--line)}
+html[data-theme="dark"] .music-result{background:var(--card);border-color:var(--line)}
+html[data-theme="dark"] .image-preview img{background:#151119}
+html[data-theme="dark"] ::placeholder{color:#8b8092}
+html[data-theme="dark"] .toast{background:#3a2f40}
+html[data-theme="dark"] .stat{background:#251f2c}
+html[data-theme="dark"] .video-pick-card{background:linear-gradient(135deg,#221c2b,#1d1930);border-color:var(--line)}
+html[data-theme="dark"] .myday-inner{background:#2a2331}
+html[data-theme="dark"] .advice-reply-item{background:#251f2c}
+html[data-theme="dark"] .group-create-modal{background:var(--card)}
+html[data-theme="dark"] .group-create-form .input{background:#241e2b;border-color:var(--line);color:var(--ink)}
+html[data-theme="dark"] .game-prompt{background:#251f2c}
+html[data-theme="dark"] .live-player{background:#251f2c}
+html[data-theme="dark"] .music-track-head{background:linear-gradient(110deg,#2a1f2c,#221f30);border-color:#3b2f42}
+html[data-theme="dark"] .music-search-modal{background:var(--card)}
+html[data-theme="dark"] .searchwrap .searchresults{background:var(--card)}
+html[data-theme="dark"] .profile-modal-cover{filter:brightness(.75)}
+html[data-theme="dark"] .followListBtn{background:#251f2c}
+/* polish + smoothness */
+.card{transition:transform .18s ease,box-shadow .18s ease}
+.post:hover{box-shadow:0 14px 42px rgba(64,38,52,.13)}
+.btn.primary{background:var(--brandgrad);box-shadow:0 6px 18px rgba(170,100,160,.25)}
+.btn.primary:hover{transform:translateY(-1px);filter:brightness(1.04)}
+.btn:active{transform:scale(.98)}
+.iconbtn:hover{transform:translateY(-1px) scale(1.03)}
+#themeToggle{font-size:17px;line-height:1}
+.loader::after{content:"";display:inline-block;width:15px;height:15px;margin-left:9px;border:2.5px solid var(--accent2);border-top-color:var(--accent);border-radius:50%;animation:uploadspin .8s linear infinite;vertical-align:-3px}
+.hero-cta{padding:13px 24px;font-size:16px;border-radius:14px}
+.postimg{transition:filter .2s,transform .2s}
+.postimg:hover{filter:brightness(.96)}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-thumb{background:#d8c2ce;border-radius:20px;border:2px solid transparent;background-clip:content-box}
+html[data-theme="dark"] ::-webkit-scrollbar-thumb{background:#3d3346;border:2px solid transparent;background-clip:content-box}
+.stat-link{cursor:pointer;transition:.15s}.stat-link:hover{background:var(--accent2)}
+.load-more{display:block;width:100%;margin:8px auto 20px;padding:13px;border-radius:14px}
+/* mobile bottom navigation */
+.bottomnav{display:none}
+@media(max-width:850px){
+ .bottomnav{display:flex;position:fixed;left:8px;right:8px;bottom:max(8px,env(safe-area-inset-bottom));z-index:4500;background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:6px;gap:2px}
+ .bnav-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;border:0;background:transparent;color:var(--muted);font-size:10px;font-weight:750;padding:7px 2px 6px;border-radius:14px;position:relative;transition:.15s}
+ .bnav-item svg{width:21px;height:21px}
+ .bnav-item.active{color:var(--accentDark);background:var(--accent2)}
+ .bnav-item .badge{position:absolute;right:16%;top:3px;margin:0}
+ .container{padding-bottom:calc(104px + env(safe-area-inset-bottom))!important}
+ .pagehead{margin-bottom:12px}
+}
+/* chat list previews + unread */
+.chat-side{margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;gap:5px;flex:none}
+.chat-time{font-size:10.5px;color:var(--muted)}
+.chat-unread{background:var(--accent);color:#fff;min-width:19px;height:19px;border-radius:20px;font-size:10.5px;font-weight:800;display:grid;place-items:center;padding:0 5px;box-shadow:0 3px 8px rgba(190,110,160,.4)}
+.chatitem .chattext span.chat-preview{color:var(--muted)}
+/* reaction picker */
+.actions{position:relative}
+.reaction-bar{position:absolute;left:8px;top:-48px;display:flex;gap:1px;padding:5px 8px;background:var(--card);border:1px solid var(--line);border-radius:999px;box-shadow:var(--shadow);opacity:0;transform:translateY(7px) scale(.94);pointer-events:none;transition:.18s;z-index:30}
+.reaction-bar.show,.actions:hover .reaction-bar{opacity:1;transform:none;pointer-events:auto}
+.reaction-bar button{flex:0 0 auto!important;border:0;background:transparent;font-size:21px;line-height:1;padding:5px 6px!important;border-radius:50%;transition:.14s;cursor:pointer}
+.reaction-bar button:hover{transform:scale(1.35) translateY(-2px)}
+.react-emoji{font-size:15px;line-height:1}
+/* image lightbox */
+.lightbox-overlay{position:fixed;inset:0;background:rgba(10,7,12,.93);backdrop-filter:blur(5px);z-index:120000;display:none;align-items:center;justify-content:center;padding:18px}
+.lightbox-overlay.show{display:flex}
+.lightbox-overlay img{max-width:100%;max-height:86dvh;border-radius:16px;box-shadow:0 24px 90px #000c;animation:in .22s ease}
+.lightbox-close{position:absolute;top:14px;right:14px;width:46px;height:46px;border-radius:50%;border:0;background:#ffffff22;color:#fff;font-size:26px;line-height:1;backdrop-filter:blur(6px)}
+.lightbox-actions{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);display:flex;gap:8px}
+/* skeleton loaders */
+.skel{background:linear-gradient(90deg,var(--accent2) 25%,rgba(201,130,165,.28) 42%,var(--accent2) 60%);background-size:400% 100%;animation:skel 1.25s ease infinite;border-radius:10px}
+@keyframes skel{0%{background-position:100% 0}100%{background-position:-100% 0}}
+.skel-card{display:flex;gap:12px;padding:16px;margin:12px 0;align-items:flex-start}
+.skel-avatar{width:44px;height:44px;border-radius:50%;flex:none}
+.skel-line{height:12px;margin:9px 0}
+.skel-tile{padding:0 0 14px;overflow:hidden;margin:0}
+.skel-thumb{height:130px;border-radius:0;margin-bottom:12px}
+.skel-tile .skel-line{margin-left:12px;margin-right:12px}
+/* watch (YouTube-like) */
+.watch-toolbar{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.watch-toolbar .search{flex:1;min-width:180px}
+.watch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px}
+.watch-card{padding:0;overflow:hidden;cursor:pointer;transition:transform .18s,box-shadow .18s}
+.watch-card:hover{transform:translateY(-3px);box-shadow:0 16px 44px rgba(64,38,52,.18)}
+.watch-thumb{position:relative;background:#0f0d12;aspect-ratio:16/9;display:grid;place-items:center;overflow:hidden}
+.watch-thumb video{width:100%;height:100%;object-fit:cover;pointer-events:none}
+.watch-play{position:absolute;inset:0;display:grid;place-items:center;color:#fff;opacity:.92;transition:.18s}
+.watch-card:hover .watch-play{opacity:1;transform:scale(1.08)}
+.watch-play svg{width:54px;height:54px;background:#000000a8;border-radius:50%;padding:14px;box-shadow:0 6px 24px #000a}
+.watch-dur{position:absolute;right:8px;bottom:8px;background:#000000b8;color:#fff;font-size:11px;padding:3px 8px;border-radius:8px}
+.watch-info{display:flex;gap:10px;padding:12px 13px}
+.watch-info .avatar{width:36px;height:36px;font-size:13px}
+.watch-meta{min-width:0;flex:1}
+.watch-meta strong{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:13.5px;line-height:1.35}
+.watch-meta span{display:block;font-size:11.5px;color:var(--muted);margin-top:4px}
+/* reels */
+.reels-shell{max-width:430px;margin:0 auto;height:min(760px,calc(100dvh - 185px));min-height:420px;overflow-y:auto;scroll-snap-type:y mandatory;overscroll-behavior:contain;border-radius:22px;background:#0c0a0f;box-shadow:var(--shadow);position:relative}
+.reels-shell>.loader,.reels-shell>.empty{color:#fff}
+.reel-card{position:relative;height:100%;min-height:100%;scroll-snap-align:start;scroll-snap-stop:always;background:#000;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.reel-video{width:100%;height:100%;object-fit:contain;background:#000;pointer-events:none}
+.reel-tap{position:absolute;inset:0;border:0;background:transparent;z-index:1;cursor:pointer}
+.reel-info{position:absolute;left:14px;right:86px;bottom:16px;z-index:2;color:#fff;display:flex;gap:10px;align-items:flex-end;text-shadow:0 2px 12px #000c}
+.reel-info .avatar{width:38px;height:38px;font-size:14px;border:2px solid #ffffff55}
+.reel-info strong{font-size:13px}
+.reel-info p{margin:5px 0 0;font-size:12.5px;line-height:1.45;max-height:72px;overflow:hidden;overflow-wrap:anywhere}
+.reel-actions{position:absolute;right:10px;bottom:26px;z-index:2;display:flex;flex-direction:column;gap:11px;align-items:center}
+.reel-btn{width:50px;min-height:50px;border:0;border-radius:18px;background:#ffffff1e;backdrop-filter:blur(7px);color:#fff;font-size:19px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;line-height:1;transition:.16s;padding:7px 0}
+.reel-btn:hover{background:#ffffff34;transform:scale(1.07)}
+.reel-btn.active{background:#e0507e66}
+.reel-count{font-size:10px;font-weight:800;margin-top:2px}
+@media(max-width:560px){.watch-grid{grid-template-columns:1fr 1fr;gap:10px}.watch-meta strong{font-size:12px}.reels-shell{height:min(700px,calc(100dvh - 175px));border-radius:16px}}
+/* Keep-the-account banner (temporary account → add password upgrade) */
+.secure-banner{display:flex;align-items:center;gap:12px;padding:12px 16px;margin:0 auto 16px;max-width:1050px;border:1px solid #f0dfb4;background:linear-gradient(90deg,#fff9ec,#fdf1f7)}
+.secure-banner-icon{font-size:22px;flex:none}
+.secure-banner-text{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.secure-banner-text strong{font-size:14px}
+.secure-banner-text span{font-size:12px;color:var(--muted);line-height:1.45}
+.secure-banner-actions{display:flex;gap:8px;flex-wrap:wrap;flex:none}
+html[data-theme="dark"] .secure-banner{background:linear-gradient(90deg,#2b2433,#272130);border-color:#4d3f27}
+@media(max-width:560px){.secure-banner{flex-wrap:wrap}.secure-banner-actions{width:100%}.secure-banner-actions .btn{flex:1}}
+
+/* --- PWA app-shell + IG-style messenger polish (2026-10-16) --- */
+.heart-burst{position:fixed;z-index:9998;pointer-events:none;transform:translate(-50%,-50%);will-change:transform,opacity;animation:litanya-hb .85s cubic-bezier(.2,.9,.3,1.4) forwards}
+@keyframes litanya-hb{0%{transform:translate(-50%,-50%) scale(.15);opacity:0}35%{transform:translate(-50%,-50%) scale(1.18);opacity:1}65%{transform:translate(-50%,-50%) scale(1)}100%{transform:translate(-50%,-72%) scale(1.28);opacity:0}}
+.ptr-indicator{position:fixed;left:50%;top:10px;z-index:4500;display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);border-radius:999px;padding:9px 15px;font-size:12px;font-weight:750;color:var(--accentDark);transform:translate(-50%,-70px);transition:transform .22s ease;pointer-events:none}
+.ptr-indicator.show{transform:translate(-50%,0)}
+.ptr-spin{width:14px;height:14px;border:2px solid #eedce7;border-top-color:var(--accent);border-radius:50%;animation:litanya-ptr .8s linear infinite}
+@keyframes litanya-ptr{to{transform:rotate(360deg)}}
+.chatitem{border-radius:14px;margin:2px 8px;padding:10px 11px;transition:background .15s}
+.chatitem:hover,.chatitem.active{background:linear-gradient(90deg,#fdf2f8,#f6ecf5)}
+.chatitem .avatar{background:linear-gradient(135deg,#e8a7c3,#b97fae);color:#fff;box-shadow:0 0 0 2px #fff,0 0 0 3.5px #f2dce8}
+.chat-dot{width:9px;height:9px;border-radius:50%;background:linear-gradient(135deg,#e8547f,#a86fe0);align-self:center;flex-shrink:0;box-shadow:0 0 0 2px #fff}
+.chat-side{display:flex;flex-direction:column;align-items:flex-end;gap:5px;flex-shrink:0}
+.chat-time{font-size:10px;color:var(--muted)}
+.msg{background:#f2eef1;border-radius:20px 20px 20px 6px;padding:10px 13px;box-shadow:0 2px 10px rgba(70,40,60,.06)}
+.mine .msg{background:linear-gradient(135deg,#c982a5,#a86fc0);color:#fff;border-radius:20px 20px 6px 20px;box-shadow:0 4px 14px rgba(168,111,192,.28)}
+.msgrow .msg{position:relative}
+.msg-heart{position:absolute;bottom:-10px;left:-8px;min-width:21px;height:21px;padding:0 4px;border-radius:999px;background:#fff;box-shadow:0 2px 8px rgba(60,32,48,.28);display:inline-flex;align-items:center;justify-content:center;gap:3px;font-size:11px;line-height:1;z-index:2}
+.msg-heart span{font-size:9px;font-weight:800;color:#873e50}
+.mine .msg-heart{left:auto;right:-8px}
+#messengerBox .chatcompose input{border-radius:24px;background:#f3f0f3;padding:0 16px}
+.send{border-radius:50%;background:linear-gradient(135deg,#c982a5,#a86fc0);box-shadow:0 4px 12px rgba(168,111,192,.35);transition:transform .12s}
+.send:active{transform:scale(.9)}
+.chathead{border-bottom:1px solid var(--line);background:rgba(255,255,255,.92);backdrop-filter:blur(10px)}
+.chathead .avatar{box-shadow:0 0 0 2px #fff,0 0 0 3.5px #f2dce8}
+html[data-theme="dark"] .mine .msg{background:linear-gradient(135deg,#9c5b83,#7d54a5);color:#fff}
+html[data-theme="dark"] .msg-heart{background:#372c40}
+html[data-theme="dark"] .ptr-indicator{background:#241e2b;color:#e6cbdc}
+html[data-theme="dark"] .chatitem:hover,html[data-theme="dark"] .chatitem.active{background:linear-gradient(90deg,#2c2136,#332540)}
 </style>
 </head>
 <body>
@@ -219,6 +395,8 @@ html,body{width:100%;max-width:100%;overflow-x:clip}body{min-width:0}.nav,.navli
    <button class="navbtn active" data-page="home"><span class="svgicon" data-icon="home"></span>Home</button>
    <button class="navbtn" data-page="wall"><span class="svgicon" data-icon="heart"></span>Freedom Wall</button>
    <button class="navbtn" data-page="realizations"><span class="svgicon" data-icon="spark"></span>Realizations</button>
+   <button class="navbtn" data-page="watch"><span class="svgicon" data-icon="play"></span>Watch</button>
+   <button class="navbtn" data-page="reels"><span class="svgicon" data-icon="bolt"></span>Reels</button>
    <button class="navbtn" data-page="games"><span class="svgicon" data-icon="gamepad-2"></span>Live Games</button>
    <button class="navbtn" data-page="advice"><span class="svgicon" data-icon="heart-handshake"></span>Need Advice</button>
    <button class="navbtn" data-page="messenger"><span class="svgicon" data-icon="message"></span>Messenger <span class="badge hidden" id="messageNavBadge">0</span></button>
@@ -229,22 +407,31 @@ html,body{width:100%;max-width:100%;overflow-x:clip}body{min-width:0}.nav,.navli
     <button class="navbtn moreNavBtn" id="moreNavBtn" type="button" aria-expanded="false"><span class="svgicon" data-icon="more"></span>More</button>
     <div class="moreMenu" id="moreMenu">
      <button class="navbtn" data-page="updates"><span class="svgicon" data-icon="megaphone"></span>Updates</button>
+     <button class="navbtn" data-page="saved"><span class="svgicon" data-icon="bookmark"></span>Saved posts</button>
+     <button class="navbtn hidden" id="installAppBtn" type="button"><span class="svgicon" data-icon="install"></span>Install app</button>
+     <button class="navbtn hidden" id="signOutBtn" type="button"><span class="svgicon" data-icon="logout"></span>Sign out</button>
     </div>
    </div>
   </div>
   <div class="navright">
+   <button class="icon" id="themeToggle" title="Switch light/dark mode" aria-label="Switch light/dark mode">🌙</button>
    <button class="icon" id="globalSearchBtn" title="Search"><span class="svgicon" data-icon="search"></span></button>
    <button class="icon" id="authBtn" title="Account" style="display:none" aria-hidden="true">☻</button>
   </div>
  </div>
 </header>
 <main class="container">
+<div class="card secure-banner hidden" id="secureBanner">
+ <div class="secure-banner-icon">🔒</div>
+ <div class="secure-banner-text"><strong id="secureBannerTitle">Keep your account safe</strong><span>This account lives only on this device right now. Add a password so your posts, MyDays, chats, and friends stay yours — even on another phone or browser.</span></div>
+ <div class="secure-banner-actions"><button class="btn primary" id="secureBannerBtn" type="button">Add password</button><button class="btn secondary" id="secureBannerDismiss" type="button">Later</button></div>
+</div>
 <section class="page active" id="home">
  <div class="hero">
   <div class="eyebrow">a gentle corner for you</div>
   <h1>You deserve a safe space.</h1>
   <p>Share what you feel, meet people who listen, write realizations, and have conversations without turning the space into noise.</p>
-  <div id="heroAuth" style="margin-top:22px"><button class="btn primary" style="padding:13px 22px;font-size:16px" onclick="openAuth('signup')">Create a username or nickname</button></div>
+  <div id="heroAuth" style="margin-top:22px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap"><button class="btn primary hero-cta" onclick="openAuth('signup')">Join Litanya Safespace</button><button class="btn secondary hero-cta" onclick="openAuth('login')">Sign in</button></div>
  </div>
  <div class="homegrid">
   <div class="card homecard"><div class="big">♡</div><h3>Freedom Wall</h3><p class="small">Post thoughts, react, comment, save, share, and follow conversations.</p><button class="btn primary" onclick="go('wall')"><span class="svgicon" data-icon="arrow"></span>Open Wall</button></div>
@@ -269,10 +456,14 @@ html,body{width:100%;max-width:100%;overflow-x:clip}body{min-width:0}.nav,.navli
   </div>
   <div class="card authbox hidden" id="signupScreen">
    <h1>Create your account</h1>
-   <p class="muted">Choose the username or nickname you want to use across LitanyaSafespace. Remember your password: there is no email, so it can't be recovered.</p>
+   <p class="muted">Choose your username and a password. There is no email, so remember your password — it can't be recovered.</p>
+   <p class="tiny" style="margin-top:2px">Already used Litanya on another device? Open it there first and tap “Add password” so your old posts come with you.</p>
    <form id="signupForm">
     <div class="formrow"><label class="small">Username or nickname</label><input id="signupUsername" class="input" maxlength="30" placeholder="your username or nickname" autocomplete="username" required></div>
+    <div class="formrow"><label class="small">Password</label><input id="signupPassword" class="input" type="password" minlength="8" placeholder="at least 8 characters" autocomplete="new-password" required></div>
+    <div class="formrow"><label class="small">Confirm password</label><input id="signupPassword2" class="input" type="password" minlength="8" placeholder="repeat your password" autocomplete="new-password" required></div>
     <button class="btn primary" style="width:100%" id="signupSubmit" type="submit">Create an account</button>
+    <div class="switch"><span>Already have an account?</span> <button type="button" class="linkbtn" id="openLogin">Sign in</button></div>
    </form>
   </div>
  </div>
@@ -302,7 +493,7 @@ html,body{width:100%;max-width:100%;overflow-x:clip}body{min-width:0}.nav,.navli
    </div>
    <div class="composefoot">
     <div class="composer-tools">
-     <label class="fb-upload" title="Add a photo"><div class="upload-circle"><span class="svgicon" data-icon="image"></span></div><div><strong>Photo</strong><span>Add a photo to your post</span></div><input id="postImage" type="file" accept="image/*" hidden></label><label class="video-pick-card" for="postVideo" title="Add a video"><span class="video-pick-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="13" height="14" rx="3"></rect><path d="m16 10 5-3v10l-5-3z"></path></svg></span><span><strong>Video</strong><span style="display:block;font-size:11px;color:var(--muted)">Share a short video</span></span><input id="postVideo" type="file" accept="video/mp4,video/webm,video/quicktime,video/*" hidden></label><label class="fb-upload" title="Upload and trim an audio file"><div class="upload-circle">♫</div><div><strong>Upload audio</strong><span>Upload and cut a clip up to 60 seconds</span></div><input id="postMusic" type="file" accept="audio/*,.mp3,.m4a,.wav,.ogg" hidden></label>
+     <label class="fb-upload" title="Add a photo"><div class="upload-circle"><span class="svgicon" data-icon="image"></span></div><div><strong>Photo</strong><span>Add a photo to your post</span></div><input id="postImage" type="file" accept="image/*" hidden></label><label class="video-pick-card" for="postVideo" title="Add a video"><span class="video-pick-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="13" height="14" rx="3"></rect><path d="m16 10 5-3v10l-5-3z"></path></svg></span><span><strong>Video</strong><span style="display:block;font-size:11px;color:var(--muted)">Share a short video</span></span><input id="postVideo" type="file" accept="video/mp4,video/webm,video/quicktime,video/*" hidden></label><label class="fb-upload" title="Upload and trim an audio file"><div class="upload-circle">♫</div><div><strong>Upload audio</strong><span>Upload and cut a clip up to 60 seconds</span></div><input id="postMusic" type="file" accept="audio/*,.mp3,.m4a,.wav,.ogg" hidden></label><button type="button" class="fb-upload" id="youtubeMusicBtn" title="Add a YouTube music clip"><div class="upload-circle">▶</div><div><strong>YouTube clip</strong><span>Paste a YouTube link with start/end</span></div></button><button type="button" class="fb-upload" id="musicSearchOpen" title="Find free archive audio"><div class="upload-circle">⌕</div><div><strong>Find audio</strong><span>Search free Internet Archive audio</span></div></button>
      <span class="upload-name tiny" id="postImageName"></span>
      <label class="small"><input type="checkbox" id="postAnon"> Post anonymously</label>
     </div>
@@ -346,7 +537,7 @@ html,body{width:100%;max-width:100%;overflow-x:clip}body{min-width:0}.nav,.navli
   <section class="chatmain">
    <div class="chathead"><button class="btn secondary" id="chatBack" style="display:none">←</button><div class="avatar" id="chatAvatar">L</div><div class="grow"><strong id="chatTitle">Litanya Messenger</strong><div class="tiny" id="chatSubtitle">Choose a conversation.</div></div><button class="btn secondary" id="chatInfo">ⓘ</button></div>
    <div class="chatmsgs" id="chatMessages"><div class="empty">Choose a conversation to begin.</div></div><div class="chat-typing" id="chatTyping" aria-live="polite"></div>
-   <div id="replyPreview" class="reply-preview hidden"><span id="replyPreviewText"></span><button type="button" id="cancelReply" aria-label="Cancel reply">×</button></div><div class="chat-attachbar"><label class="chat-attach" title="Send image">▧<input id="messageImage" type="file" accept="image/*" hidden></label><label class="chat-attach" title="Send audio file">♫<input id="messageAudio" type="file" accept="audio/*,.mp3,.m4a,.wav,.ogg,.webm" hidden></label><button type="button" class="chat-attach" id="recordVoice" title="Record voice message">●</button><span class="tiny" id="voiceStatus"></span></div><form class="chatcompose" id="messageForm"><input id="messageInput" maxlength="4000" placeholder="Message… use @username to mention" disabled><button class="send" id="sendBtn" disabled>➤</button></form>
+   <div id="replyPreview" class="reply-preview hidden"><span id="replyPreviewText"></span><button type="button" id="cancelReply" aria-label="Cancel reply">×</button></div><div class="chat-attachbar"><label class="chat-attach" title="Send image">▧<input id="messageImage" type="file" accept="image/*" hidden></label><label class="chat-attach" title="Send audio file">♫<input id="messageAudio" type="file" accept="audio/*,.mp3,.m4a,.wav,.ogg,.webm" hidden></label><button type="button" class="chat-attach" id="recordVoice" title="Record voice message">●</button><span class="tiny" id="voiceStatus"></span></div><form class="chatcompose" id="messageForm"><input id="messageInput" maxlength="4000" placeholder="Message… (@username to mention)" disabled><button class="send" id="sendBtn" disabled>➤</button></form>
   </section>
  </div>
 </section>
@@ -379,7 +570,7 @@ html,body{width:100%;max-width:100%;overflow-x:clip}body{min-width:0}.nav,.navli
    <input id="profileImage" type="file" accept="image/*" hidden>
   </label>
   <h2 id="profileName">@username</h2><p id="profileBio" class="muted">No bio yet.</p>
-  <div class="profile-actions"><button class="btn primary" id="editProfile"><span class="svgicon" data-icon="edit"></span>Edit profile</button></div>
+  <div class="profile-actions"><button class="btn primary" id="editProfile"><span class="svgicon" data-icon="edit"></span>Edit profile</button><button class="btn secondary hidden" id="secureAccountBtn" type="button"><span class="svgicon" data-icon="lock"></span>Add password</button></div>
   <div class="stats"><div class="stat"><strong id="statPosts">0</strong><span>Posts</span></div><div class="stat"><strong id="statFollowers">0</strong><span>Followers</span></div><div class="stat"><strong id="statFollowing">0</strong><span>Following</span></div></div></div>
   <div><div class="pagehead"><h2>Your posts</h2><p>Everything you shared publicly on Litanya.</p></div><div id="profileFeed"></div></div>
  </div>
@@ -400,14 +591,35 @@ html,body{width:100%;max-width:100%;overflow-x:clip}body{min-width:0}.nav,.navli
 <section class="page" id="advice"><div class="pagehead"><h2>Need Advice?</h2><p>A kind, judgment-free space to ask for perspectives, offer support, and help each other think things through.</p></div><div class="card" style="padding:16px;margin-bottom:14px"><form id="adviceForm"><label class="field">What's on your mind?<textarea class="input" id="adviceBody" rows="4" maxlength="2500" placeholder="Share only what you feel comfortable sharing. Avoid private details like addresses or passwords." required></textarea></label><div class="formrow" style="margin-top:10px"><label class="field">Topic<select class="input" id="adviceTopic"><option>Friendship</option><option>School</option><option>Family</option><option>Confidence</option><option>Relationships</option><option>Stress</option><option>Other</option></select></label><label class="field">Display name<select class="input" id="adviceAnonymous"><option value="false">Show my username</option><option value="true">Post anonymously</option></select></label></div><button class="btn primary" type="submit" style="margin-top:12px">Post for advice</button><p class="tiny">Community members may reply with suggestions. Don't post emergencies or identifying information. Advice here isn't a substitute for trusted adult or professional support.</p></form></div><div class="pagehead"><h3>Community support</h3><button class="btn secondary" id="refreshAdvice">Refresh</button></div><div id="adviceList"><div class="card games-note">Loading advice posts…</div></div></section>
 <section class="page" id="publicProfile"><div style="max-width:800px;margin:auto"><button class="btn secondary" id="publicBack">← Back</button><div id="publicProfileBox" style="margin-top:12px"></div><div id="publicPosts"></div></div></section>
 <section class="page" id="singlePost"><div style="max-width:800px;margin:auto"><button class="btn secondary" id="singleBack">← Back</button><div id="singlePostBox" style="margin-top:12px"></div></div></section>
+<section class="page" id="watch">
+ <div class="pagehead"><h2>Watch</h2><p>Community videos — tap any video to play it with comments, likes, and shares.</p></div>
+ <div class="watch-toolbar"><input id="watchSearch" class="input search" placeholder="Search videos..."><select id="watchSort"><option value="latest">Latest</option><option value="oldest">Oldest</option><option value="liked">Most liked</option><option value="commented">Most commented</option></select></div>
+ <div id="watchGrid" class="watch-grid"><div class="loader">Loading...</div></div>
+</section>
+<section class="page" id="reels">
+ <div class="pagehead"><h2>Reels</h2><p>Swipe up for the next short video. Tap to play or pause, use the sound button for audio.</p></div>
+ <div class="reels-shell" id="reelsShell"><div class="loader" style="color:#fff">Loading Reels…</div></div>
+</section>
+<section class="page" id="saved">
+ <div class="pagehead"><h2>Saved posts</h2><p>Everything you bookmarked, in one place.</p></div>
+ <div class="feed" id="savedFeed"><div class="loader">Loading...</div></div>
+</section>
 </main>
+<nav class="bottomnav" id="bottomNav" aria-label="Mobile navigation">
+ <button class="bnav-item active" data-page="home" type="button"><span class="svgicon" data-icon="home"></span><span>Home</span></button>
+ <button class="bnav-item" data-page="watch" type="button"><span class="svgicon" data-icon="play"></span><span>Watch</span></button>
+ <button class="bnav-item" data-page="reels" type="button"><span class="svgicon" data-icon="bolt"></span><span>Reels</span></button>
+ <button class="bnav-item" data-page="messenger" type="button"><span class="svgicon" data-icon="message"></span><span>Chats</span><span class="badge hidden" id="messageBottomBadge">0</span></button>
+ <button class="bnav-item" data-page="notifications" type="button"><span class="svgicon" data-icon="bell"></span><span>Alerts</span><span class="badge hidden" id="notifBottomBadge">0</span></button>
+ <button class="bnav-item" data-page="profile" type="button"><span class="svgicon" data-icon="user"></span><span>You</span></button>
+</nav>
 <div id="modalRoot"></div><div class="toastwrap" id="toastWrap"></div>
 <script>
 (() => {
 "use strict";
 // Safe logger: some sandboxes/extensions replace `console` with an incomplete object.
 const log=(...a)=>{try{if(window.console&&typeof console.log==="function")console.log(...a)}catch(_){}};
-log("Litanya Safespace build: PROFILE-VIEWS-PHOTOS-LIKES-2026-10-07");
+log("Litanya Safespace build: LITANYA-V2-WATCH-REELS-DARK-2026-10-16");
 const safeHist=(fn,...a)=>{try{history[fn](...a)}catch(_){}};
 function showFatal(msg){
   try{
@@ -523,7 +735,12 @@ const ICONS={
  like:'<svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.5"><path d="M7 10v10H4V10h3Zm3 10h6.2c1.1 0 2-.8 2.2-1.9l1-6A2.1 2.1 0 0 0 17.3 9H14l.5-3.2A2.4 2.4 0 0 0 12.1 3L10 9.2V20Z"/></svg>',
  comment:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11.5a7.5 7.5 0 0 1-7.8 7.5 8.2 8.2 0 0 1-3.3-.7L4 20l1.7-4.2A7.3 7.3 0 0 1 4 11.5 7.5 7.5 0 0 1 20 11.5Z"/></svg>',
  close:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m6 6 12 12M18 6 6 18"/></svg>',
- bookmark:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18l-6-3-6 3V4Z"/></svg>'
+ play:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5-11-6.5Z"/></svg>',
+ bolt:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z"/></svg>',
+ bookmark:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18l-6-3-6 3V4Z"/></svg>',
+ lock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>',
+ logout:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/></svg>',
+ install:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 21h16"/></svg>'
 };
 function paintIcons(root=document){root.querySelectorAll(".svgicon[data-icon]").forEach(el=>{const k=el.dataset.icon;if(ICONS[k])el.innerHTML=ICONS[k]});}
 
@@ -537,6 +754,7 @@ function fmt(v){return new Date(v).toLocaleString("en-PH",{month:"short",day:"nu
 function setPage(id){
   document.querySelectorAll(".page").forEach(x=>x.classList.toggle("active",x.id===id));
   document.querySelectorAll(".navbtn").forEach(x=>x.classList.toggle("active",x.dataset.page===id));
+  document.querySelectorAll(".bnav-item").forEach(x=>x.classList.toggle("active",x.dataset.page===id));
   if(!client)return;
   if(id==="wall"){loadFeed("wall");loadMyDayStories();}
   if(id==="realizations")loadFeed("realization");
@@ -547,9 +765,12 @@ function setPage(id){
   if(id==="messenger")loadChats();
   if(id==="games")loadLiveRooms();
   if(id==="advice")loadAdvicePosts();
+  if(id==="watch")loadWatch();
+  if(id==="reels")loadReels();
+  if(id==="saved")loadSavedPosts();
 }
 window.go=id=>{
-  if(!uid() && ["wall","realizations","updates","messenger","profile","notifications","profileViews","games","advice"].includes(id)){setPage("authPage");return}
+  if(!uid() && ["wall","realizations","updates","messenger","profile","notifications","profileViews","games","advice","watch","reels","saved"].includes(id)){setPage("authPage");return}
   setPage(id);safeHist("replaceState",{page:id},"","#"+id);window.scrollTo(0,0)
 };
 // ---- MyDay stories (24-hour shared stories; requires the SQL table below) ----
@@ -813,6 +1034,85 @@ async function refreshSession(){
 function updateAuthUI(){
   const b=$("authBtn");if(b)b.style.display="none";
   const ha=$("heroAuth");if(ha)ha.classList.toggle("hidden",!!session);
+  maybeShowSecureBanner();
+}
+// ---- Keep-the-account upgrade (temporary account → add password) --------
+function isAnonSession(){return !!(session&&session.user&&(session.user.is_anonymous===true||(!session.user.email&&!session.user.phone)))}
+function maybeShowSecureBanner(){
+  const el=$("secureBanner");if(!el)return;
+  let dismissed=false;try{dismissed=localStorage.getItem("litanya_secure_dismissed")==="1"}catch(_){}
+  const anon=isAnonSession();
+  const show=anon&&!dismissed;
+  el.classList.toggle("hidden",!show);
+  if(show){const t=$("secureBannerTitle");if(t)t.textContent=`Keep your @${(me&&me.username)||"username"} account safe`}
+  const sb=$("secureAccountBtn");if(sb)sb.classList.toggle("hidden",!anon);
+  const so=$("signOutBtn");if(so)so.classList.toggle("hidden",!session);
+}
+// Attach a password + login identifier to the CURRENT account (same user id), so posts, chats, and friends are never lost.
+async function secureCurrentAccount(username,pass){
+  if(!client && !(await initSupabase()))throw new Error("Not connected to the database yet. Please try again.");
+  if(!session)throw new Error("No active session on this device. Please sign in instead.");
+  if(!isAnonSession())throw new Error("This account already has a password. Use Sign in.");
+  const uname=username.toLowerCase();
+  let r=null,usedDom=null;
+  for(const dom of orderedDomains(uname)){
+    r=await client.auth.updateUser({email:authEmailFor(uname,dom),password:pass});
+    if(r.error && isInvalidEmailErr(r.error))continue;
+    usedDom=dom;break;
+  }
+  if(usedDom)rememberDomain(usedDom,uname);
+  if(r.error)throw r.error;
+  const cur=await client.auth.getSession();
+  if(cur.data&&cur.data.session)session=cur.data.session;
+  if(isAnonSession())throw new Error("The password was saved but the account is still temporary. Owner: turn OFF 'Confirm email' in Supabase → Authentication → Providers → Email.");
+  // Keep the existing profile row untouched (it holds the posts and chats); only create it if it is somehow missing.
+  const prof=await client.from("profiles").select("*").eq("id",uid()).maybeSingle();
+  if(prof.data){me=prof.data;cache.profiles.set(me.id,me)}
+  else if(!prof.error){
+    const ins=await client.from("profiles").upsert({id:uid(),username:uname,display_name:username,bio:"",avatar_url:null},{onConflict:"id"});
+    if(ins.error)toast("Profile could not be saved: "+ins.error.message,"error",7000);
+    await loadMe();
+  }
+  updateAuthUI();applyProfileUI();
+  return true;
+}
+async function openSecureAccountModal(){
+  if(!requireLogin())return;
+  if(!isAnonSession()){toast("Your account already has a password — you can sign in anywhere.","success");return}
+  if(!me)await loadMe();
+  const uname=(me&&me.username)||"";
+  if(!uname){toast("This account has no username yet. Open 'Create an account' and pick one — your posts and chats will stay safe.","error",7000);return}
+  $("modalRoot").innerHTML=`<div class="modalback"><div class="modal" style="width:min(480px,96vw)"><h2 style="margin-top:0">🔒 Add a password</h2><p class="small" style="color:var(--muted);line-height:1.6">Your posts, MyDays, chats, and friends on <strong>@${esc(uname)}</strong> will stay exactly the same. You are only adding a password so this account can follow you to any phone or browser.</p><form id="secureForm"><div class="formrow"><label class="small">New password</label><input class="input" id="securePass" type="password" minlength="8" placeholder="at least 8 characters" autocomplete="new-password" required></div><div class="formrow"><label class="small">Confirm password</label><input class="input" id="securePass2" type="password" minlength="8" placeholder="repeat your password" autocomplete="new-password" required></div><div class="tiny">No email is ever sent. Remember this password — it becomes the key to your account.</div><div class="modalfoot"><button type="button" class="btn secondary" id="secureCancel">Cancel</button><button class="btn primary" type="submit" id="secureSubmit">Secure my account</button></div></form></div></div>`;
+  $("secureCancel").onclick=()=>$("modalRoot").innerHTML="";
+  $("secureForm").onsubmit=async e=>{
+    e.preventDefault();
+    if(!authCooldownGate())return;
+    const b=$("secureSubmit");b.disabled=true;b.textContent="Securing…";
+    try{
+      const p=$("securePass").value,p2=$("securePass2").value;
+      if(p.length<8)throw new Error("Password must be at least 8 characters.");
+      if(p!==p2)throw new Error("The two passwords do not match.");
+      await secureCurrentAccount(uname,p);
+      $("modalRoot").innerHTML="";
+      toast("Account secured! Sign in anywhere with your username and password.","success",5500);
+    }catch(err){authFailToast(err);b.disabled=false;b.textContent="Secure my account"}
+  };
+}
+async function signOutNow(){
+  if(!session){setPage("authPage");openLoginScreen();return}
+  const wasAnon=isAnonSession();
+  if(wasAnon){
+    if(!confirm("This account has NO password yet.\n\nIf you sign out, you will NOT be able to log back in, and your posts, MyDays, and chats will become unreachable.\n\nRecommended: Cancel, then tap Add password first.\n\nSign out anyway?"))return;
+    if(!confirm("Last check — really sign out of the password-less account?"))return;
+  }else if(!confirm("Sign out on this device? You can sign back in anytime with your username and password."))return;
+  try{if(client)await client.auth.signOut()}catch(e){log("Sign out issue",e)}
+  try{stopRealtime()}catch(_){}
+  session=null;me=null;
+  const mn=$("moreNav");if(mn)mn.classList.remove("open");
+  setPage("authPage");openLoginScreen();
+  safeHist("replaceState",{page:"authPage"},"","#authPage");
+  toast(wasAnon?"Signed out. The temporary account is now unreachable.":"Signed out.","success",wasAnon?6000:2600);
+  updateAuthUI();
 }
 async function loadMe(){
   if(!uid())return null;
@@ -839,7 +1139,7 @@ async function startPresence(){
   presenceChannel.subscribe(async status=>{if(status==="SUBSCRIBED"){await presenceChannel.track({user_id:String(uid()),online_at:new Date().toISOString(),page:"LitanyaSpace"})}});
 }
 function afterLogin(){
-  updateAuthUI();applyProfileUI();go("home");loadNotifications();loadProfileViewBadge();startRealtime();startPresence();registerPushServiceWorker();refreshPushUI();
+  updateAuthUI();applyProfileUI();go("wall");loadNotifications();loadProfileViewBadge();startRealtime();startPresence();registerPushServiceWorker();refreshPushUI();refreshMessageBadge();
 }
 function stopRealtime(){
   liveChannels.forEach(x=>client.removeChannel(x));liveChannels=[];
@@ -860,7 +1160,13 @@ function openSignupScreen(){
   $("signupScreen").classList.remove("hidden");
   setTimeout(()=>$("signupUsername")?.focus(),0);
 }
-window.openAuth=m=>{setPage("authPage");openSignupScreen()};
+window.openAuth=m=>{setPage("authPage");m==="login"?openLoginScreen():openSignupScreen()};
+$("openSignup").onclick=()=>openSignupScreen();
+$("openLogin").onclick=()=>openLoginScreen();
+$("secureBannerBtn")?.addEventListener("click",()=>openSecureAccountModal());
+$("secureBannerDismiss")?.addEventListener("click",()=>{try{localStorage.setItem("litanya_secure_dismissed","1")}catch(_){}maybeShowSecureBanner()});
+$("secureAccountBtn")?.addEventListener("click",()=>openSecureAccountModal());
+$("signOutBtn")?.addEventListener("click",()=>signOutNow());
 // ---- Auth (username + password, no email shown to the user) ------------
 function authEmailFor(username,domain){return `${username.toLowerCase()}@${domain}`}
 const isInvalidEmailErr=e=>/email.*(invalid|not valid)|invalid.*email|email_address_invalid/i.test(String(e?.message||e?.code||""));
@@ -881,32 +1187,52 @@ async function ensureProfileAfterAuth(user,username){
   })();
 }
 // Remember which internal domain worked so the next signup/login needs only one request.
-function orderedDomains(){
-  let c=null;try{c=localStorage.getItem("litanya_dom")}catch(_){}
-  return c&&AUTH_EMAIL_DOMAINS.includes(c)?[c,...AUTH_EMAIL_DOMAINS.filter(d=>d!==c)]:AUTH_EMAIL_DOMAINS;
+function orderedDomains(username){
+  let per=null,c=null;
+  if(username){try{per=localStorage.getItem("litanya_dom_u_"+username.toLowerCase())}catch(_){}}
+  try{c=localStorage.getItem("litanya_dom")}catch(_){}
+  const first=[per,c].find(d=>d&&AUTH_EMAIL_DOMAINS.includes(d));
+  return first?[first,...AUTH_EMAIL_DOMAINS.filter(d=>d!==first)]:AUTH_EMAIL_DOMAINS;
 }
-function rememberDomain(d){try{localStorage.setItem("litanya_dom",d)}catch(_){}}
+function rememberDomain(d,username){
+  try{localStorage.setItem("litanya_dom",d)}catch(_){}
+  if(username){try{localStorage.setItem("litanya_dom_u_"+username.toLowerCase(),d)}catch(_){}}
+}
 function friendlyAuthError(err){
   const msg=String(err?.message||err||"");
-  if(/rate limit|too many requests|over_.*_rate_limit/i.test(msg))return "Too many attempts right now. Please wait a few minutes and try again.";
-  if(/already registered|already exists/i.test(msg))return "That username is already taken. Please choose another one or sign in.";
+  if(/over_email_send_rate_limit|email rate limit/i.test(msg))return "Too many confirmation emails were sent. Owner: turn OFF 'Confirm email' in Supabase → Authentication → Providers → Email. Then wait 5–10 minutes and try again.";
+  if(/over_.*_rate_limit|rate limit|too many requests/i.test(msg))return "Too many attempts right now — the login server is cooling down. Please wait 5–10 minutes, then try again. Avoid tapping the button repeatedly.";
+  if(/already registered|already exists/i.test(msg))return "That username is already taken. If it is YOUR old account, open Litanya on the device where you used it before and tap “Add password” — your posts stay safe. Otherwise, sign in or choose another username.";
   if(/Database error saving new user/i.test(msg))return "That username is already taken. Please choose another one.";
   if(/invalid login credentials/i.test(msg))return "Wrong username or password.";
   if(/email.*(invalid|not valid)|invalid.*email/i.test(msg))return "The auth server rejected every internal login address. Owner: edit AUTH_EMAIL_DOMAINS in index.html and use a domain you own.";
   if(/email not confirmed/i.test(msg))return "Owner: turn OFF 'Confirm email' in Supabase → Authentication → Providers → Email.";
   return msg||"Something went wrong. Please try again.";
 }
+// Soft cooldown so rapid retries don't pile up on the auth rate limiter.
+const AUTH_RATE_RE=/over_.*_rate_limit|rate limit|too many requests/i;
+function authCooldownLeft(){let until=0;try{until=Number(localStorage.getItem("litanya_auth_cooldown_until")||0)}catch(_){};return Math.max(0,until-Date.now())}
+function startAuthCooldown(ms=150000){try{localStorage.setItem("litanya_auth_cooldown_until",String(Date.now()+ms))}catch(_){}}
+function authFailToast(err,ms=7000){
+  if(AUTH_RATE_RE.test(String((err&&err.message)||"")))startAuthCooldown();
+  toast(friendlyAuthError(err),"error",ms);
+}
+function authCooldownGate(){
+  const left=authCooldownLeft();
+  if(left>0){toast("Please wait "+Math.ceil(left/1000)+"s before trying again — the login server is cooling down.","error",4000);return false}
+  return true;
+}
 async function finishNewAccount(username,pass){
   if(!client && !(await initSupabase()))throw new Error("Not connected to the database yet. Please try again.");
   // No separate "is the username taken?" request: the unique index + signUp already tell us.
   let r=null,authEmail=null,usedDom=null;
-  for(const dom of orderedDomains()){
+  for(const dom of orderedDomains(username)){
     authEmail=authEmailFor(username,dom);usedDom=dom;
     r=await client.auth.signUp({email:authEmail,password:pass,options:{data:{username,display_name:username}}});
     if(r.error && isInvalidEmailErr(r.error))continue; // domain rejected, try the next one
     break;
   }
-  if(!r.error)rememberDomain(usedDom);
+  if(!r.error)rememberDomain(usedDom,username);
   if(r.error){
     // If a previous attempt already created this user, just sign in.
     const s=await client.auth.signInWithPassword({email:authEmail,password:pass});
@@ -933,6 +1259,7 @@ async function finishNewAccount(username,pass){
 }
 $("loginForm").onsubmit=async e=>{
   e.preventDefault();
+  if(!authCooldownGate())return;
   const btn=$("loginSubmit");btn.disabled=true;btn.textContent="Signing in…";
   try{
     if(!client && !(await initSupabase()))throw new Error("Not connected to the database yet. Please try again.");
@@ -940,11 +1267,24 @@ $("loginForm").onsubmit=async e=>{
     const pass=$("loginPassword").value;
     if(!USERNAME_RE.test(username))throw new Error(USERNAME_MSG);
     if(pass.length<8)throw new Error("Password must be at least 8 characters.");
+    if(isAnonSession()){
+      if(!me)await loadMe();
+      const current=((me&&me.username)||"").toLowerCase();
+      if(current&&current===username){
+        // This device still owns the temporary account: attach the entered password to it and keep all data.
+        await secureCurrentAccount(username,pass);
+        toast("Account secured — your posts and chats are safe. Welcome back!","success",5500);
+        afterLogin();return;
+      }
+      throw new Error(`This device is signed in as @${(me&&me.username)||"another account"}. To use a different account, sign out first from the More menu.`);
+    }
     let r=null;
-    for(const dom of orderedDomains()){
+    for(const dom of orderedDomains(username)){
       r=await client.auth.signInWithPassword({email:authEmailFor(username,dom),password:pass});
-      if(!r.error){rememberDomain(dom);break}
+      if(!r.error){rememberDomain(dom,username);break}
       if(!/invalid login credentials/i.test(r.error.message||"") && !isInvalidEmailErr(r.error))break;
+      let per=null;try{per=localStorage.getItem("litanya_dom_u_"+username)}catch(_){}
+      if(per)break; // account is known on this device — one attempt is enough
     }
     if(r.error)throw r.error;
     session=r.data.session;
@@ -953,26 +1293,37 @@ $("loginForm").onsubmit=async e=>{
     $("loginForm").reset();
     toast("Welcome back.","success");
     afterLogin();
-  }catch(err){toast(friendlyAuthError(err),"error",6000)}
+  }catch(err){authFailToast(err,6000)}
   finally{btn.disabled=false;btn.textContent="Sign in"}
 };
 $("signupForm").onsubmit=async e=>{
   e.preventDefault();
+  if(!authCooldownGate())return;
   const btn=$("signupSubmit");btn.disabled=true;btn.textContent="Entering Litanya…";
   try{
     if(!client && !(await initSupabase()))throw new Error("Not connected to the database yet. Please try again.");
     const username=$("signupUsername").value.trim();
     if(!USERNAME_RE.test(username))throw new Error(USERNAME_MSG);
+    const pass=$("signupPassword").value,pass2=$("signupPassword2").value;
+    if(pass.length<8)throw new Error("Password must be at least 8 characters.");
+    if(pass!==pass2)throw new Error("The two passwords do not match.");
+    if(isAnonSession()){
+      // Keep the data already linked to this device: attach the password to the CURRENT account instead of creating a fresh one.
+      if(!me)await loadMe();
+      const current=((me&&me.username)||"").toLowerCase();
+      if(current&&current!==username.toLowerCase())throw new Error(`This device is already using @${me.username}. To keep its posts and chats, add a password to it instead — or sign out first to create a different account.`);
+      await secureCurrentAccount(username,pass);
+      $("signupForm").reset();
+      toast("Account secured! Your posts and chats stay on @"+username+". You can now sign in anywhere.","success",5500);
+      afterLogin();
+      return;
+    }
     const name=username;
-    // No password/email is requested. Supabase Authentication must have Anonymous sign-in enabled.
-    const a=await client.auth.signInAnonymously({options:{data:{username:name,display_name:name}}});
-    if(a.error)throw a.error;
-    session=a.data.session;
-    await ensureProfileAfterAuth(session.user,name);
-    $("signupForm").reset();
-    toast("Welcome to Litanya!","success",3500);
-    afterLogin();
-  }catch(err){toast(String(err?.message||err||"Could not enter Litanya."),"error",7000)}
+    // Create a username + password account. The internal email is generated and never shown to the user.
+    // finishNewAccount signs the user in, ensures the profile row, resets the form, and runs afterLogin().
+    await finishNewAccount(username,pass);
+    if(!uid())throw new Error("Account created, but sign-in did not finish. Please sign in with your password.");
+  }catch(err){authFailToast(err)}
   finally{btn.disabled=false;btn.textContent="Enter Litanya"}
 };
 function requireLogin(){if(!uid()){setPage("authPage");toast("Please sign in first.","error");return false}return true}
@@ -1086,8 +1437,9 @@ async function loadFeed(kind){
    update:{box:$("updateFeed"),search:$("updateSearch"),sort:$("updateSort")}
   }[kind]||{box:$("wallFeed"),search:$("wallSearch"),sort:$("wallSort")};
   const box=cfg.box,search=cfg.search.value.toLowerCase().trim(),sort=cfg.sort.value;
-  if(!box.children.length||box.querySelector(".loader"))box.innerHTML='<div class="loader">Loading...</div>';
-  let postsReq=client.from("posts").select(POST_SELECT).eq("is_hidden",false).order("created_at",{ascending:sort==="oldest"}).limit(60);
+  if(!box.children.length||box.querySelector(".loader"))box.innerHTML=skeletonCards(3);
+  const limit=feedLimits[kind]||30;
+  let postsReq=client.from("posts").select(POST_SELECT).eq("is_hidden",false).order("created_at",{ascending:sort==="oldest"}).limit(limit);
   if(kind==="realization")postsReq=postsReq.eq("kind","realization");
   else if(kind==="update")postsReq=postsReq.eq("kind","wall");
   else postsReq=postsReq.eq("kind","wall");
@@ -1100,6 +1452,7 @@ async function loadFeed(kind){
   if(sort==="liked")rows.sort((a,b)=>b._likes.length-a._likes.length);
   if(sort==="commented")rows.sort((a,b)=>b._comments.length-a._comments.length);
   box.innerHTML=rows.length?rows.map(postCard).join(""):'<div class="empty">No posts found.</div>';
+  if(rows.length>=limit){box.insertAdjacentHTML("beforeend",'<button type="button" class="btn secondary load-more" id="loadMoreFeed">Show more posts</button>');const lmb=$("loadMoreFeed");if(lmb)lmb.onclick=()=>{feedLimits[kind]=(feedLimits[kind]||30)+30;loadFeed(kind)}}
   paintIcons(box);bindPostEvents(box)
 }
 function authorName(p){return p.is_anonymous?"Anonymous":p.profiles?.username||p.username||p.display_name||"User"}
@@ -1118,16 +1471,20 @@ function musicHTML(p){
   return `<audio class="postaudio" controls preload="metadata" data-auto-music><source src="${attr(p.music_url)}"></audio><div class="music-name">♫ ${esc(p.music_name||"Attached music")}</div>`;
 }
 function postCard(p){
-  const own=p.user_id===uid(), name=authorName(p), liked=p._liked, comments=p._comments||[],likes=p._likes||[];
+  const own=p.user_id===uid(), name=authorName(p), comments=p._comments||[],likes=p._likes||[];
+  const RM={like:{e:"👍",l:"Like"},love:{e:"❤️",l:"Love"},haha:{e:"😂",l:"Haha"},wow:{e:"😮",l:"Wow"},sad:{e:"😢",l:"Sad"},angry:{e:"😠",l:"Angry"}};
+  const mineReaction=(likes.find(x=>x.user_id===uid())||{}).reaction||null;
+  const liked=!!p._liked;
+  const rm=mineReaction?RM[mineReaction]||RM.like:null;
   const profileLink=p.is_anonymous?`<strong>${esc(name)}</strong>`:`<strong class="link profile-open" data-user="${attr(p.user_id)}">${esc(name)}</strong>`;
   const postAvatar=p.is_anonymous?avatarHTML(name,null):`<button type="button" class="post-avatar-link" data-user="${attr(p.user_id)}" aria-label="Open ${attr(name)} profile">${avatarHTML(name,p.avatar_url)}</button>`;
   return `<article class="card post ${p.kind==="update"?"update-card":""}" data-post="${attr(p.id)}">
   <div class="posthead">${postAvatar}<div class="postmeta">${profileLink}<span class="time">${esc(ago(p.created_at))} · ${esc(fmt(p.created_at))}</span></div>
   <div class="postmenu"><button class="more" data-act="menu" title="More"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg></button><div class="menu">
-   <button data-act="share"><span class="svgicon" data-icon="arrow"></span> Share / copy link</button><button data-act="save"><span class="svgicon" data-icon="bookmark"></span> Save post</button>${own?'<button data-act="delete" class="danger">Delete post</button>':''}<button data-act="report">Report</button>${own?'':'<button data-act="block-author">Block author</button>'}
+   <button data-act="share"><span class="svgicon" data-icon="arrow"></span> Share / copy link</button><button data-act="save"><span class="svgicon" data-icon="bookmark"></span> Save post</button>${own?'<button data-act="edit">✎ Edit post</button><button data-act="delete" class="danger">Delete post</button>':''}<button data-act="report">Report</button>${own?'':'<button data-act="block-author">Block author</button>'}
   </div></div></div>
   <div class="postbody">${p.music_url?`<div class="music-track-head"><div class="music-track-disc">♫</div><div class="music-track-meta"><strong>${esc(p.music_name||"Original audio")}</strong><span>Music attached to this post</span></div></div>`:""}${esc(p.content)}${p.image_url?`<img class="postimg" src="${attr(p.image_url)}" alt="Post image" loading="lazy">`:""}${p.video_url?`<div class="post-video-wrap"><video controls playsinline preload="metadata" data-post-video src="${attr(p.video_url)}"></video><div class="video-caption"><span class="video-chip">VIDEO</span><span>Shared on LitanyaSpace</span></div></div>`:""}${musicHTML(p)}</div>
-  <div class="actions"><button data-act="like" class="${liked?'active':''}"><span class="svgicon" data-icon="like"></span> ${liked?'Liked':'Like'} ${likes.length||""}</button><button data-act="comment"><span class="svgicon" data-icon="comment"></span> Comment ${comments.length||""}</button><button data-act="save"><span class="svgicon" data-icon="bookmark"></span> Save</button></div>
+  <div class="actions"><div class="reaction-bar">${Object.entries(RM).map(([k,v])=>`<button type="button" data-react-pick="${k}" title="${v.l}">${v.e}</button>`).join("")}</div><button data-act="like" class="${rm?'active':''}" title="${rm?rm.l:'Like'}">${rm?`<span class="react-emoji">${rm.e}</span> ${rm.l}`:'<span class="svgicon" data-icon="like"></span> Like'} ${likes.length||""}</button><button data-act="comment"><span class="svgicon" data-icon="comment"></span> Comment ${comments.length||""}</button><button data-act="save"><span class="svgicon" data-icon="bookmark"></span> Save</button></div>
   <div class="comments">${comments.filter(c=>!c.parent_id).slice(-20).map(c=>commentHTML(c,comments)).join("")}<form class="commentform" data-post="${attr(p.id)}"><input maxlength="1000" placeholder="Write a comment..."><button class="btn secondary">Send</button></form></div>
  </article>`
 }
@@ -1157,6 +1514,9 @@ function commentHTML(c, allComments=[]){
 function refreshCurrentView(){
   if($("singlePost").classList.contains("active")){const el=$("singlePostBox").querySelector(".post");if(el)openSinglePost(el.dataset.post,true);return}
   if($("profile").classList.contains("active")){loadMyProfile();return}
+  if($("watch")?.classList.contains("active")){loadWatch();return}
+  if($("reels")?.classList.contains("active")){loadReels();return}
+  if($("saved")?.classList.contains("active")){loadSavedPosts();return}
   loadFeed(currentFeed())
 }
 function bindPostEvents(box){
@@ -1204,6 +1564,9 @@ function bindPostEvents(box){
     }
   });
   box.querySelectorAll(".report-comment").forEach(x=>x.onclick=()=>report("comment",x.dataset.comment));
+  box.querySelectorAll("[data-act=edit]").forEach(x=>x.onclick=async e=>{e.stopPropagation();x.closest(".postmenu")?.classList.remove("open");await editPost(x.closest(".post").dataset.post)});
+  box.querySelectorAll(".postimg").forEach(img=>{let tapT=null;img.onclick=e=>{e.stopPropagation();if(tapT){clearTimeout(tapT);tapT=null;const post=img.closest(".post");heartBurstAt(e.clientX,e.clientY);if(post){buzz(18);const p=cache.posts.get(post.dataset.post);if(p&&!p._liked)toggleLike(post.dataset.post)}return}tapT=setTimeout(()=>{tapT=null;openLightbox(img.src,img.alt)},250)}});
+  box.querySelectorAll(".post-video-wrap video").forEach(v=>v.addEventListener("dblclick",e=>{const post=v.closest(".post");if(!post)return;heartBurstAt(e.clientX,e.clientY);buzz(18);const p=cache.posts.get(post.dataset.post);if(p&&!p._liked)toggleLike(post.dataset.post)}));
   box.querySelectorAll(".postbody").forEach(x=>x.onclick=()=>openSinglePost(x.closest(".post").dataset.post));
 }
 document.addEventListener("click",e=>{if(!e.target.closest(".postmenu"))document.querySelectorAll(".postmenu.open").forEach(z=>z.classList.remove("open"))});
@@ -1225,6 +1588,7 @@ async function reloadPost(id){
 }
 async function toggleLike(id){
   if(!requireLogin())return;
+  buzz(14);
   const p=cache.posts.get(id);const was=!!(p&&p._liked);
   if(p){p._liked=!was;p._likes=was?p._likes.filter(x=>x.user_id!==uid()):[...p._likes,{post_id:id,user_id:uid(),reaction:"like"}];rerenderPost(id)} // instant UI
   const r=was?await client.from("post_reactions").delete().eq("post_id",id).eq("user_id",uid()):await client.from("post_reactions").insert({post_id:id,user_id:uid(),reaction:"like"});
@@ -1232,11 +1596,18 @@ async function toggleLike(id){
 }
 async function toggleSave(id){
   if(!requireLogin())return;
+  buzz(10);
   const x=await client.from("bookmarks").select("post_id").eq("post_id",id).eq("user_id",uid()).maybeSingle();
   if(x.data){await client.from("bookmarks").delete().eq("post_id",id).eq("user_id",uid());toast("Removed from saved posts.")}
   else{const r=await client.from("bookmarks").insert({post_id:id,user_id:uid()});if(r.error)toast(r.error.message,"error");else toast("Saved.")}
+  if($("saved")?.classList.contains("active"))loadSavedPosts();
 }
-async function sharePost(id){const url=location.origin+location.pathname+"#post/"+encodeURIComponent(id);try{await navigator.clipboard.writeText(url);toast("Post link copied.","success")}catch{toast(url)}}
+async function sharePost(id){
+  buzz(10);
+  const url=location.origin+location.pathname+"#post/"+encodeURIComponent(id);
+  if(navigator.share){try{await navigator.share({title:"Litanya Safespace",text:"Check out this post on Litanya Safespace",url});return}catch(_){/* user cancelled */}}
+  try{await navigator.clipboard.writeText(url);toast("Post link copied.","success")}catch{toast(url)}
+}
 async function deletePost(id){
   if(!confirm("Delete this post?"))return;
   const r=await client.from("posts").delete().eq("id",id).eq("user_id",uid());
@@ -1376,7 +1747,7 @@ function openMusicSearch(){
     }catch(err){out.innerHTML=`<div class="empty">${esc(err.message||'Could not search the audio archive.')}</div>`}
   };
 }
-$('musicSearchOpen')?.remove();
+$('musicSearchOpen')?.addEventListener('click',openMusicSearch);
 function openYouTubeSearch(){
   const q=prompt("Search for a song on YouTube (use music you are allowed to share):");
   if(q&&q.trim()){const query=encodeURIComponent(q.trim());window.open("https://www.youtube.com/results?search_query="+query,"_blank","noopener,noreferrer");toast("Choose a result, copy its URL, then paste it in the music box and tap Use this clip.","success",5500)}
@@ -1448,7 +1819,7 @@ async function openPublicProfile(id){
     client.from("follows").select("following_id",{count:"exact",head:true}).eq("follower_id",id)
   ]);
   $("publicProfileBox").innerHTML=`<div class="card"><div class="cover"></div><div class="profiletop">${avatarHTML(p.username,p.avatar_url,"bigavatar")}<h2>@${esc(p.username)}</h2><p class="muted">${esc(p.bio||"No bio yet.")}</p>
-  <div class="stats"><div class="stat"><strong>${fc.count||0}</strong><span>Followers</span></div><div class="stat"><strong>${gc.count||0}</strong><span>Following</span></div></div>
+  <div class="stats"><div class="stat stat-link" id="followersStat"><strong>${fc.count||0}</strong><span>Followers</span></div><div class="stat stat-link" id="followingStat"><strong>${gc.count||0}</strong><span>Following</span></div></div>
   <div class="profile-actions"><button class="btn primary" id="followBtn">${following?"Following":"Follow"}</button><button class="btn secondary" id="messageUser">Message</button></div>
   </div></div>`;
   $("followBtn").onclick=async()=>{
@@ -1459,6 +1830,8 @@ async function openPublicProfile(id){
     openPublicProfile(id)
   };
   $("messageUser").onclick=()=>startDM(id);
+  $("followersStat").onclick=()=>openFollowList(id,"followers");
+  $("followingStat").onclick=()=>openFollowList(id,"following");
   const posts=await client.from("posts").select(POST_SELECT).eq("user_id",id).eq("is_hidden",false).eq("is_anonymous",false).order("created_at",{ascending:false}).limit(50);
   const rows=posts.data||[];
   await attachCounts(rows);
@@ -1537,18 +1910,22 @@ async function loadChats(){
   if(r.error){toast(r.error.message,"error");return}
   const rows=(r.data||[]).map(x=>x.conversations).filter(Boolean);
   const dmIds=rows.filter(c=>isDirectConversation(c)).map(c=>c.id);
+  const convIds=rows.map(c=>c.id);
+  const previews=new Map(),unread=new Map();
+  if(convIds.length){const msgs=await client.from("messages").select("conversation_id,sender_id,content,created_at,read_at").in("conversation_id",convIds).is("deleted_at",null).order("created_at",{ascending:false}).limit(400);(msgs.data||[]).forEach(m=>{const key=String(m.conversation_id);if(!previews.has(key))previews.set(key,m);if(String(m.sender_id)!==String(uid())&&!m.read_at)unread.set(key,(unread.get(key)||0)+1)})}
   if(dmIds.length){
     const o=await client.from("conversation_members").select("conversation_id,profiles:user_id(username,avatar_url)").in("conversation_id",dmIds).neq("user_id",uid());
     (o.data||[]).forEach(x=>cache.chats.set(x.conversation_id,x.profiles));
   }
-  rows.sort((a,b)=>a.name==="Public Chat"?-1:b.name==="Public Chat"?1:0);
-  $("chatItems").innerHTML=rows.length?rows.map(c=>`<div class="chatitem ${activeChat===c.id?'active':''}" data-chat="${attr(c.id)}" data-chat-type="${attr(c.type||'')}">${avatarHTML(chatName(c),cache.chats.get(c.id)?.avatar_url)}<div class="chattext"><strong>${esc(chatName(c))}</strong><span>${esc(c.name==="Public Chat"?"Everyone · Public community chat":isGroupConversation(c)?"Group conversation":"Private conversation")}</span></div></div>`).join(""):'<div class="empty">No chats yet.</div>';
+  rows.sort((a,b)=>{if(a.name==="Public Chat")return -1;if(b.name==="Public Chat")return 1;const la=previews.get(String(a.id))?.created_at||a.created_at,lb=previews.get(String(b.id))?.created_at||b.created_at;return new Date(lb)-new Date(la)});
+  $("chatItems").innerHTML=rows.length?rows.map(c=>{const key=String(c.id),lm=previews.get(key),n=unread.get(key)||0,isGrp=isGroupConversation(c);const sub=c.name==="Public Chat"?"Everyone · Public community chat":isGrp?"Group conversation":"Private conversation";let pv=sub;if(lm){let t=String(lm.content||"");if(t.startsWith("[image] "))t="📷 Photo";else if(t.startsWith("[audio] "))t="🎙 Voice message";else if(t.startsWith("[reply] ")){const parts=t.slice(8).split("\n");t="↩ "+parts[0]}t=t.replace(/\r?\n/g," ");if(t.length>46)t=t.slice(0,46)+"…";pv=(String(lm.sender_id)===String(uid())?"You: ":"")+t}return `<div class="chatitem ${activeChat===c.id?'active':''}" data-chat="${attr(c.id)}" data-chat-type="${attr(c.type||'')}">${avatarHTML(chatName(c),cache.chats.get(c.id)?.avatar_url)}<div class="chattext"><strong>${esc(chatName(c))}</strong><span class="chat-preview">${esc(pv)}</span></div><div class="chat-side">${lm?`<span class="chat-time">${esc(ago(lm.created_at))}</span>`:""}${n?`<span class="chat-dot" title="${n} new message${n>1?"s":""}"></span>`:""}</div></div>`}).join(""):'<div class="empty">No chats yet.</div>';
   $("chatItems").querySelectorAll(".chatitem").forEach(x=>x.onclick=()=>{if(x.dataset.person){openPublicProfile(x.dataset.person);return}openChat(x.dataset.chat)});if(chatFilter==="communities")setChatFilter("communities");
+  refreshMessageBadge();
   $("messengerBox").classList.toggle("chatopen",!!activeChat);
   $("chatBack").style.display=window.innerWidth<=850&&activeChat?"inline-block":"none";
 }
 window.openPeople=()=>{$("peopleSearch").focus()};
-async function openPublicProfile(id){if(!id)return;const r=await client.from("profiles").select("id,username,display_name,bio,avatar_url").eq("id",id).maybeSingle();if(r.error||!r.data){toast("Could not open this profile.","error");return}const p=r.data;recordProfileView(id);const display=p.display_name||p.username||"Litanya member";const avatar=p.avatar_url?`<img src="${attr(p.avatar_url)}" alt="${attr(display)}" loading="lazy">`:esc(initials(display));$("modalRoot").innerHTML=`<div class="modalback" id="publicProfileBackdrop"><div class="modal profile-modal"><div class="profile-modal-cover"></div><div class="modalfoot" style="justify-content:flex-end;padding:12px 16px 0"><button class="btn secondary" id="closePublicProfile" type="button">Close</button></div><div class="profile-modal-body"><div class="profile-modal-avatar">${avatar}</div><h2 style="margin:0 0 4px">${esc(display)}</h2><div class="muted" style="font-size:13px">@${esc(p.username||"user")}</div><p style="margin:14px auto 0;max-width:420px;white-space:pre-wrap">${esc(p.bio||"This member hasn't added a bio yet.")}</p><div class="profile-modal-actions"><button class="btn secondary" id="viewFullProfileBtn" type="button">See profile details</button><button class="btn primary" id="messageProfileBtn" type="button">Message</button></div><div id="profileExtraDetails" class="hidden" style="margin-top:16px;text-align:left;background:#faf6f9;padding:13px;border-radius:13px"><strong>About this member</strong><p style="margin:7px 0 0;font-size:13px;color:var(--muted)">You can view their public profile information here. Private messages and account details remain private.</p></div></div></div></div>`;$("closePublicProfile").onclick=()=>$("modalRoot").innerHTML="";$("publicProfileBackdrop").addEventListener("click",e=>{if(e.target.id==="publicProfileBackdrop")$("modalRoot").innerHTML=""});$("viewFullProfileBtn").onclick=()=>{$("profileExtraDetails").classList.toggle("hidden");$("viewFullProfileBtn").textContent=$("profileExtraDetails").classList.contains("hidden")?"See profile details":"Hide details"};$("messageProfileBtn").onclick=()=>{$("modalRoot").innerHTML="";startDM(id)}}
+async function openProfileCard(id){if(!id)return;const r=await client.from("profiles").select("id,username,display_name,bio,avatar_url").eq("id",id).maybeSingle();if(r.error||!r.data){toast("Could not open this profile.","error");return}const p=r.data;recordProfileView(id);const display=p.display_name||p.username||"Litanya member";const avatar=p.avatar_url?`<img src="${attr(p.avatar_url)}" alt="${attr(display)}" loading="lazy">`:esc(initials(display));$("modalRoot").innerHTML=`<div class="modalback" id="publicProfileBackdrop"><div class="modal profile-modal"><div class="profile-modal-cover"></div><div class="modalfoot" style="justify-content:flex-end;padding:12px 16px 0"><button class="btn secondary" id="closePublicProfile" type="button">Close</button></div><div class="profile-modal-body"><div class="profile-modal-avatar">${avatar}</div><h2 style="margin:0 0 4px">${esc(display)}</h2><div class="muted" style="font-size:13px">@${esc(p.username||"user")}</div><p style="margin:14px auto 0;max-width:420px;white-space:pre-wrap">${esc(p.bio||"This member hasn't added a bio yet.")}</p><div class="profile-modal-actions"><button class="btn secondary" id="viewFullProfileBtn" type="button">See profile details</button><button class="btn primary" id="messageProfileBtn" type="button">Message</button></div><div id="profileExtraDetails" class="hidden" style="margin-top:16px;text-align:left;background:#faf6f9;padding:13px;border-radius:13px"><strong>About this member</strong><p style="margin:7px 0 0;font-size:13px;color:var(--muted)">You can view their public profile information here. Private messages and account details remain private.</p></div></div></div></div>`;$("closePublicProfile").onclick=()=>$("modalRoot").innerHTML="";$("publicProfileBackdrop").addEventListener("click",e=>{if(e.target.id==="publicProfileBackdrop")$("modalRoot").innerHTML=""});$("viewFullProfileBtn").onclick=()=>{$("profileExtraDetails").classList.toggle("hidden");$("viewFullProfileBtn").textContent=$("profileExtraDetails").classList.contains("hidden")?"See profile details":"Hide details"};$("messageProfileBtn").onclick=()=>{$("modalRoot").innerHTML="";startDM(id)}}
 function isGroupConversation(c){return String(c?.type||"").toLowerCase()==="group"}
 function isDirectConversation(c){return !!c && !isGroupConversation(c)}
 async function createDirectConversation(other){
@@ -1633,6 +2010,7 @@ async function openChat(id){
   $("chatAvatar").textContent=initials(chatName(c.data));
   $("messageInput").disabled=false;
   $("sendBtn").disabled=false;
+  $("sendBtn").textContent=$("messageInput").value.trim()?"➤":"❤️";
   const r=await client.from("messages")
     .select("*,profiles:sender_id(username,display_name,avatar_url)")
     .eq("conversation_id",id)
@@ -1640,8 +2018,10 @@ async function openChat(id){
     .order("created_at",{ascending:false})
     .limit(120);
   if(r.error){toast(r.error.message,"error");return}
-  renderMessages((r.data||[]).reverse());
-  markCurrentChatSeen(id);
+  const rows=(r.data||[]).reverse();
+  try{const mids=rows.map(m=>m.id).filter(Boolean);if(mids.length){const rx=await client.from("message_reactions").select("message_id,user_id,reaction").in("message_id",mids);if(!rx.error){const byId=new Map();(rx.data||[]).forEach(x=>{const k=String(x.message_id);if(!byId.has(k))byId.set(k,[]);byId.get(k).push(x)});rows.forEach(m=>{m._reactions=byId.get(String(m.id))||[]})}}}catch(e){log("Message reactions unavailable",e)}
+  renderMessages(rows);
+  markCurrentChatSeen(id);refreshMessageBadge();
   if(chatChannel){await client.removeChannel(chatChannel);chatChannel=null}
   // One realtime stream for the entire shared room.
   chatChannel=client.channel("litanya-chat-"+id)
@@ -1688,13 +2068,30 @@ function appendMessage(m){
 let touchStartX=0,touchStartY=0;
 $("chatMessages").addEventListener("touchstart",e=>{const row=e.target.closest(".msgrow");if(!row)return;touchStartX=e.touches[0].clientX;touchStartY=e.touches[0].clientY},{passive:true});
 $("chatMessages").addEventListener("touchend",e=>{const row=e.target.closest(".msgrow");if(!row)return;const dx=e.changedTouches[0].clientX-touchStartX,dy=e.changedTouches[0].clientY-touchStartY;if(Math.abs(dx)>55&&Math.abs(dy)<45)beginReply(row)},{passive:true});
-$("chatMessages").addEventListener("dblclick",e=>{const row=e.target.closest(".msgrow");if(row)beginReply(row)});
+let lastMsgTap={id:null,t:0};
+$("chatMessages").addEventListener("click",e=>{const row=e.target.closest(".msgrow");if(!row)return;if(e.target.closest("button,a,audio,video"))return;const now=Date.now();if(lastMsgTap.id===row.dataset.msg&&now-lastMsgTap.t<330){lastMsgTap={id:null,t:0};if(e.target.closest(".msg"))heartBurstAt(e.clientX,e.clientY,64);toggleMessageHeart(row.dataset.msg,row);return}lastMsgTap={id:row.dataset.msg,t:now}});
+$("chatMessages").addEventListener("contextmenu",e=>{const row=e.target.closest(".msgrow");if(!row)return;e.preventDefault();beginReply(row)});
 function beginReply(row){replyTarget=row.dataset.replytext||"Message";$("replyPreviewText").textContent="Replying to: "+replyTarget;$("replyPreview").classList.remove("hidden");$("messageInput").focus()}
-function messageHTML(m){const mine=String(m.sender_id)===String(uid());const profile=m.profiles||cache.profiles.get(String(m.sender_id))||{};const name=profile.display_name||profile.username||"Litanya member";let raw=String(m.content||""),body="";const reply=raw.startsWith("[reply] ");if(reply){raw=raw.slice(8);const parts=raw.split("\n");body=`<div class="reply-quote">${esc(parts.shift().replace(/^\[reply\]\s*/,""))}</div>${esc(parts.join("\n"))}`}else if(raw.startsWith("[image] ")){const url=raw.slice(8).trim();body=`<button type="button" class="msg-media-open" data-image="${attr(url)}" aria-label="View shared image" style="border:0;padding:0;background:transparent"><img src="${attr(url)}" alt="Shared image" loading="lazy"></button>`}else if(raw.startsWith("[audio] ")){const url=raw.slice(8).trim();body=`<audio controls preload="metadata" src="${attr(url)}"></audio>`}else body=esc(raw);return `<div class="msgrow ${mine?'mine':''}" data-msg="${attr(m.id)}" data-sender="${attr(m.sender_id)}" data-replytext="${attr((profile.username?profile.username+': ':'')+String(m.content||'').slice(0,150))}"><button class="avatar msg-avatar-open" type="button" data-user="${attr(m.sender_id)}" title="Open ${attr(name)} profile">${profile.avatar_url?`<img src="${attr(profile.avatar_url)}" alt="${attr(name)}" loading="lazy">`:esc(initials(name))}</button><div class="msg">${body}<time>${esc(ago(m.created_at))}</time>${mine&&m.read_at?'<div class="msg-receipt">Seen</div>':""}</div></div>`}
+async function toggleMessageHeart(mid,rowEl){
+  if(!mid||!requireLogin())return;
+  const row=rowEl||$("chatMessages").querySelector(`.msgrow[data-msg="${CSS.escape(String(mid))}"]`);if(!row)return;
+  const bubble=row.querySelector(".msg");if(!bubble)return;
+  let badge=bubble.querySelector(".msg-heart");const wasOn=!!badge&&!badge.classList.contains("hidden");
+  if(!badge){badge=document.createElement("div");badge.className="msg-heart";badge.innerHTML="❤️";bubble.appendChild(badge)}
+  badge.classList.toggle("hidden",wasOn);
+  buzz(14);
+  try{
+    const ignore=/does not exist|schema cache|relation|column/i;
+    if(wasOn){const d=await client.from("message_reactions").delete().eq("message_id",mid).eq("user_id",uid());if(d.error&&!ignore.test(d.error.message||""))log("Message unheart failed",d.error.message)}
+    else{const r=await client.from("message_reactions").upsert({message_id:mid,user_id:uid(),reaction:"heart"},{onConflict:"message_id,user_id"});if(r.error&&!ignore.test(r.error.message||""))log("Message heart failed",r.error.message)}
+  }catch(e){log("Message reaction error",e)}
+}
+function messageHTML(m){const mine=String(m.sender_id)===String(uid());const profile=m.profiles||cache.profiles.get(String(m.sender_id))||{};const name=profile.display_name||profile.username||"Litanya member";let raw=String(m.content||""),body="";const reply=raw.startsWith("[reply] ");if(reply){raw=raw.slice(8);const parts=raw.split("\n");body=`<div class="reply-quote">${esc(parts.shift().replace(/^\[reply\]\s*/,""))}</div>${esc(parts.join("\n"))}`}else if(raw.startsWith("[image] ")){const url=raw.slice(8).trim();body=`<button type="button" class="msg-media-open" data-image="${attr(url)}" aria-label="View shared image" style="border:0;padding:0;background:transparent"><img src="${attr(url)}" alt="Shared image" loading="lazy"></button>`}else if(raw.startsWith("[audio] ")){const url=raw.slice(8).trim();body=`<audio controls preload="metadata" src="${attr(url)}"></audio>`}else body=esc(raw);const hx=(m._reactions||[]).filter(x=>x.reaction==="heart");const hxN=hx.length;const mineHx=hx.some(x=>String(x.user_id)===String(uid()));return `<div class="msgrow ${mine?'mine':''}" data-msg="${attr(m.id)}" data-sender="${attr(m.sender_id)}" data-replytext="${attr((profile.username?profile.username+': ':'')+String(m.content||'').slice(0,150))}"><button class="avatar msg-avatar-open" type="button" data-user="${attr(m.sender_id)}" title="Open ${attr(name)} profile">${profile.avatar_url?`<img src="${attr(profile.avatar_url)}" alt="${attr(name)}" loading="lazy">`:esc(initials(name))}</button><div class="msg">${body}<time>${esc(ago(m.created_at))}</time>${mine&&m.read_at?'<div class="msg-receipt">Seen</div>':""}<div class="msg-heart ${hxN?'':'hidden'}"${mineHx?' data-mine="1"':''} title="Heart reaction">❤️${hxN>1?`<span>${hxN}</span>`:""}</div></div></div>`}
 let messageSending=false,replyTarget=null,chatFilter="all",voiceRecorder=null,voiceChunks=[];
 function cancelMessageReply(){replyTarget=null;$("replyPreview").classList.add("hidden");$("replyPreviewText").textContent=""}
 $("cancelReply").onclick=cancelMessageReply;
-$("messageInput").addEventListener("input",()=>broadcastTyping(Boolean($("messageInput").value.trim())));
+$("messageInput").addEventListener("input",()=>{const v=$("messageInput").value;broadcastTyping(Boolean(v.trim()));const b=$("sendBtn");if(b&&!messageSending)b.textContent=v.trim()?"➤":"❤️"});
+$("sendBtn").addEventListener("click",async e=>{const input=$("messageInput");if(!input||input.value.trim())return;e.preventDefault();if(!activeChat||messageSending||!requireLogin())return;const btn=$("sendBtn");messageSending=true;btn.disabled=true;btn.textContent="…";try{await sendChatPayload("❤️");buzz(16)}catch(err){toast(err?.message||"Message failed to send. Please retry.","error",5000)}finally{messageSending=false;btn.textContent=input.value.trim()?"➤":"❤️";btn.disabled=!activeChat}});
 $("messageInput").addEventListener("blur",()=>broadcastTyping(false));
 function setChatFilter(filter){chatFilter=filter;document.querySelectorAll("[data-chat-filter]").forEach(b=>{b.classList.toggle("active",b.dataset.chatFilter===filter);b.classList.toggle("primary",b.dataset.chatFilter===filter);b.classList.toggle("secondary",b.dataset.chatFilter!==filter)});if(filter==="online"){renderOnlinePeople()}else if(filter==="communities"){document.querySelectorAll("#chatItems .chatitem").forEach(el=>el.classList.toggle("hidden",!(el.dataset.chatType==="group"||el.dataset.chat==="")))}else{document.querySelectorAll("#chatItems .chatitem").forEach(el=>el.classList.remove("hidden"))}}
 document.querySelectorAll("[data-chat-filter]").forEach(b=>b.onclick=()=>setChatFilter(b.dataset.chatFilter));
@@ -1733,7 +2130,7 @@ $("messageForm").onsubmit=async e=>{
     if(r.error)throw r.error;
     if(activeChat===chatId){input.value="";appendMessage(r.data);cancelMessageReply()}
   }catch(err){toast(err?.message||"Message failed to send. Please retry.","error",6000)}
-  finally{messageSending=false;sendBtn.textContent="➤";sendBtn.disabled=!activeChat;input.disabled=!activeChat}
+  finally{messageSending=false;sendBtn.textContent=input.value.trim()?"➤":"❤️";sendBtn.disabled=!activeChat;input.disabled=!activeChat}
 };
 $("chatBack").onclick=()=>{$("messengerBox").classList.remove("chatopen");activeChat=null;loadChats()};
 $("chatInfo").onclick=()=>{if(activeChat)toast("Chat settings can be managed through the group/member controls in the next update.")};
@@ -1757,8 +2154,8 @@ async function loadNotifications(){
   if(r.error){toast(r.error.message||"Could not load notifications.","error");return}
   const rows=r.data||[];
   const unread=rows.filter(x=>!x.is_read).length;
-  $("notifBadge").textContent=unread;
-  $("notifBadge").classList.toggle("hidden",!unread);
+  ["notifBadge","notifBottomBadge"].forEach(id=>{const b=$(id);if(!b)return;b.textContent=unread>99?"99+":String(unread);b.classList.toggle("hidden",!unread)});
+  // bottom badge handled above
   $("notificationList").innerHTML=rows.length?rows.map(n=>`<div class="notice ${n.is_read?'':'unread'}" data-notif="${attr(n.id)}">
     <div class="avatar">${n.type==="message"?"✉":n.type==="comment"||n.type==="comment_reply"?"💬":"•"}</div>
     <div class="noticebody"><strong>${esc(n.title||"Notification")}</strong><p>${esc(n.body||"")}</p><span class="tiny">${esc(ago(n.created_at))}</span></div>
@@ -1810,7 +2207,7 @@ function startRealtime(){
     if(!member.data)return;
     const who=await client.from("profiles").select("username,display_name").eq("id",m.sender_id).maybeSingle();
     const sender=who.data?.display_name||who.data?.username||"Someone";
-    toast("New message from "+sender,"success",5000);if($("notifBadge")){const n=Number($("notifBadge").textContent||0);$("notifBadge").textContent=String(n+1);$("notifBadge").classList.remove("hidden")}
+    toast("New message from "+sender,"success",5000);refreshMessageBadge();if($("notifBadge")){const n=Number($("notifBadge").textContent||0);$("notifBadge").textContent=String(n+1);$("notifBadge").classList.remove("hidden")}
     if("Notification" in window&&Notification.permission==="granted"&&document.hidden){try{new Notification("Message from "+sender,{body:String(m.content||"New message").slice(0,140),icon:"/apple-touch-icon.png",tag:"litanya-message-"+m.conversation_id})}catch{}}
   }).subscribe();
   liveChannels=[postChannel,commentChannel,profileViewsChannel,notif,messageAlerts];
@@ -1837,9 +2234,235 @@ $('globalSearchBtn').onclick=()=>{
 };
 $("modalRoot").addEventListener("click",e=>{if(e.target.classList.contains("modalback"))$("modalRoot").innerHTML=""});
 window.addEventListener("beforeunload",()=>{if(client)stopRealtime()});
+// ---- Litanya V2 features: theme, watch, reels, saved, lightbox, reactions ----
+function applyTheme(){
+  let t=null;try{t=localStorage.getItem("litanya_theme")}catch(_){}
+  if(!t)t=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";
+  document.documentElement.dataset.theme=t;
+  const b=$("themeToggle");if(b)b.textContent=t==="dark"?"☀️":"🌙";
+}
+function toggleTheme(){
+  const next=document.documentElement.dataset.theme==="dark"?"light":"dark";
+  document.documentElement.dataset.theme=next;
+  try{localStorage.setItem("litanya_theme",next)}catch(_){}
+  const b=$("themeToggle");if(b)b.textContent=next==="dark"?"☀️":"🌙";
+  toast(next==="dark"?"Dark mode on 🌙":"Light mode on ☀️");
+}
+function skeletonCards(n=3){return Array.from({length:n}).map(()=>'<div class="card skel-card"><div class="skel skel-avatar"></div><div style="flex:1"><div class="skel skel-line" style="width:35%"></div><div class="skel skel-line" style="width:88%"></div><div class="skel skel-line" style="width:60%"></div></div></div>').join("")}
+function skeletonGrid(n=6){return Array.from({length:n}).map(()=>'<div class="card skel-tile"><div class="skel skel-thumb"></div><div class="skel skel-line" style="width:82%"></div><div class="skel skel-line" style="width:45%"></div></div>').join("")}
+const feedLimits={wall:30,realization:30,update:30};
+// Watch (YouTube-like video hub)
+function watchCard(p){
+  const name=authorName(p),likes=(p._likes||[]).length,comments=(p._comments||[]).length;
+  return `<article class="card watch-card" data-watch-open="${attr(p.id)}"><div class="watch-thumb"><video src="${attr(p.video_url)}" preload="metadata" muted playsinline></video><span class="watch-play"><span class="svgicon" data-icon="play"></span></span><span class="watch-dur">${esc(ago(p.created_at))}</span></div><div class="watch-info">${avatarHTML(name,p.profiles?.avatar_url||p.avatar_url)}
+  <div class="watch-meta"><strong>${esc(String(p.content||"").slice(0,90)||"Untitled video")}</strong><span>@${esc(name)} · 👍 ${likes} · 💬 ${comments}</span></div></div></article>`;
+}
+async function loadWatch(){
+  const box=$("watchGrid");if(!box||!client)return;
+  if(!uid()){box.innerHTML='<div class="empty">Log in to browse community videos.</div>';return}
+  const search=($("watchSearch")?.value||"").toLowerCase().trim(),sort=$("watchSort")?.value||"latest";
+  if(!box.querySelector(".watch-card"))box.innerHTML=skeletonGrid(6);
+  const r=await client.from("posts").select(POST_SELECT).eq("is_hidden",false).not("video_url","is",null).order("created_at",{ascending:sort==="oldest"}).limit(60);
+  if(r.error){box.innerHTML=`<div class="card games-note">${esc(r.error.message)}</div>`;return}
+  let rows=(r.data||[]).map(normPost);
+  rows=rows.filter(p=>!search||String(p.content||"").toLowerCase().includes(search)||String(authorName(p)).toLowerCase().includes(search));
+  if(sort==="liked")rows.sort((a,b)=>(b._likes||[]).length-(a._likes||[]).length);
+  if(sort==="commented")rows.sort((a,b)=>(b._comments||[]).length-(a._comments||[]).length);
+  box.innerHTML=rows.length?rows.map(watchCard).join(""):'<div class="empty">No videos yet. Share the first one from the Freedom Wall!</div>';
+  paintIcons(box);
+  box.querySelectorAll("[data-watch-open]").forEach(el=>el.onclick=()=>openSinglePost(el.dataset.watchOpen));
+}
+// Reels (vertical short-video feed)
+let reelsObserver=null;
+function reelCard(p){
+  const name=authorName(p),liked=!!p._liked,likes=(p._likes||[]).length,comments=(p._comments||[]).length;
+  return `<section class="reel-card" data-reel="${attr(p.id)}"><video class="reel-video" src="${attr(p.video_url)}" loop muted playsinline preload="metadata"></video><button type="button" class="reel-tap" data-reel-tap="1" aria-label="Play or pause video"></button><div class="reel-info">${avatarHTML(name,p.profiles?.avatar_url||p.avatar_url)}<div><strong>@${esc(name)}</strong><p>${esc(String(p.content||"").slice(0,140))}</p></div></div><div class="reel-actions"><button type="button" class="reel-btn ${liked?'active':''}" data-reel-like="${attr(p.id)}" title="Like">${liked?"❤️":"🤍"}<span class="reel-count">${likes}</span></button><button type="button" class="reel-btn" data-reel-comment="${attr(p.id)}" title="Comments">💬<span class="reel-count">${comments}</span></button><button type="button" class="reel-btn" data-reel-sound="1" title="Toggle sound">🔇</button><button type="button" class="reel-btn" data-reel-open="${attr(p.id)}" title="Open post">↗</button></div></section>`;
+}
+async function loadReels(){
+  const box=$("reelsShell");if(!box||!client)return;
+  if(!uid()){box.innerHTML='<div class="empty">Log in to watch Reels.</div>';return}
+  box.innerHTML='<div class="loader">Loading Reels…</div>';
+  const r=await client.from("posts").select(POST_SELECT).eq("is_hidden",false).not("video_url","is",null).order("created_at",{ascending:false}).limit(30);
+  if(r.error){box.innerHTML=`<div class="card games-note">${esc(r.error.message)}</div>`;return}
+  const rows=(r.data||[]).map(normPost);
+  if(!rows.length){box.innerHTML='<div class="empty">No Reels yet. Post a video to start the trend!</div>';return}
+  box.innerHTML=rows.map(reelCard).join("");
+  bindReels();
+}
+function bindReels(){
+  const shell=$("reelsShell");if(!shell)return;
+  if(reelsObserver)reelsObserver.disconnect();
+  reelsObserver=new IntersectionObserver(es=>{es.forEach(en=>{const v=en.target;if(en.isIntersecting&&en.intersectionRatio>=.6){v.play().catch(()=>{})}else if(!v.paused)v.pause()})},{threshold:[.6]});
+  shell.querySelectorAll(".reel-video").forEach(v=>reelsObserver.observe(v));
+  shell.querySelectorAll("[data-reel-tap]").forEach(b=>b.onclick=()=>{const v=b.closest(".reel-card").querySelector(".reel-video");if(v.paused)v.play().catch(()=>{});else v.pause()});
+  shell.querySelectorAll("[data-reel-sound]").forEach(b=>b.onclick=()=>{const v=b.closest(".reel-card").querySelector(".reel-video");v.muted=!v.muted;b.textContent=v.muted?"🔇":"🔊"});
+  shell.querySelectorAll("[data-reel-like]").forEach(b=>b.onclick=async()=>{await toggleLike(b.dataset.reelLike);const p=cache.posts.get(b.dataset.reelLike);if(p){b.classList.toggle("active",!!p._liked);const c=b.querySelector(".reel-count");if(c)c.textContent=(p._likes||[]).length}});
+  shell.querySelectorAll("[data-reel-comment]").forEach(b=>b.onclick=()=>openSinglePost(b.dataset.reelComment));
+  shell.querySelectorAll("[data-reel-open]").forEach(b=>b.onclick=()=>openSinglePost(b.dataset.reelOpen));
+}
+// Saved posts page
+async function loadSavedPosts(){
+  const box=$("savedFeed");if(!box||!client)return;
+  if(!uid()){box.innerHTML='<div class="empty">Log in to see your saved posts.</div>';return}
+  box.innerHTML=skeletonCards(3);
+  const marks=await client.from("bookmarks").select("post_id,created_at").eq("user_id",uid()).order("created_at",{ascending:false}).limit(100);
+  if(marks.error){box.innerHTML=`<div class="card games-note">${esc(marks.error.message)}</div>`;return}
+  const ids=(marks.data||[]).map(x=>x.post_id);
+  if(!ids.length){box.innerHTML='<div class="empty">Nothing saved yet. Tap “Save” on any post to keep it here.</div>';return}
+  const r=await client.from("posts").select(POST_SELECT).in("id",ids);
+  if(r.error){box.innerHTML=`<div class="card games-note">${esc(r.error.message)}</div>`;return}
+  const order=new Map(ids.map((id,i)=>[String(id),i]));
+  const rows=(r.data||[]).map(normPost).sort((a,b)=>(order.get(String(a.id))||0)-(order.get(String(b.id))||0));
+  box.innerHTML=rows.length?rows.map(postCard).join(""):'<div class="empty">Nothing saved yet.</div>';
+  paintIcons(box);bindPostEvents(box);
+}
+// Lightbox
+function openLightbox(url,alt=""){
+  let ov=$("lightboxOverlay");
+  if(!ov){
+    ov=document.createElement("div");ov.id="lightboxOverlay";ov.className="lightbox-overlay";
+    ov.innerHTML='<button class="lightbox-close" aria-label="Close">×</button><img alt=""><div class="lightbox-actions"><a class="btn secondary" download target="_blank" rel="noopener noreferrer">Download</a></div>';
+    document.body.appendChild(ov);
+    ov.addEventListener("click",e=>{if(e.target===ov||e.target.classList.contains("lightbox-close"))closeLightbox()});
+    document.addEventListener("keydown",e=>{if(e.key==="Escape")closeLightbox()});
+  }
+  const img=ov.querySelector("img");img.src=url;img.alt=alt||"Post image";
+  const a=ov.querySelector("a");a.href=url;
+  ov.classList.add("show");document.body.style.overflow="hidden";
+}
+function closeLightbox(){const ov=$("lightboxOverlay");if(ov){ov.classList.remove("show");document.body.style.overflow=""}}
+// Edit own post
+async function editPost(id){
+  const p=cache.posts.get(id);if(!p)return;
+  $("modalRoot").innerHTML=`<div class="modalback"><div class="modal" style="width:min(560px,96vw)"><h2 style="margin-top:0">Edit post</h2><form id="editPostForm"><textarea class="input" id="editPostText" rows="6" maxlength="3000">${esc(p.content||"")}</textarea><div class="modalfoot"><button type="button" class="btn secondary" id="editPostCancel">Cancel</button><button class="btn primary" type="submit">Save changes</button></div></form></div></div>`;
+  $("editPostCancel").onclick=()=>$("modalRoot").innerHTML="";
+  $("editPostForm").onsubmit=async e=>{
+    e.preventDefault();
+    const v=$("editPostText").value.trim();
+    if(moderation(v)){toast("That text contains words that are not allowed.","error");return}
+    const r=await client.from("posts").update({content:v}).eq("id",id).eq("user_id",uid());
+    if(r.error){toast(r.error.message,"error");return}
+    p.content=v;$("modalRoot").innerHTML="";rerenderPost(id);toast("Post updated.","success");
+  };
+}
+// Followers / following list modal
+async function openFollowList(userId,mode){
+  const title=mode==="followers"?"Followers":"Following";
+  $("modalRoot").innerHTML=`<div class="modalback"><div class="modal" style="width:min(440px,96vw)"><div class="modalfoot" style="justify-content:space-between"><h2 style="margin:0">${title}</h2><button type="button" class="iconbtn" id="closeFollowList" aria-label="Close">×</button></div><div id="followListBox" class="music-results"><div class="loader">Loading…</div></div></div></div>`;
+  $("closeFollowList").onclick=()=>$("modalRoot").innerHTML="";
+  const q=mode==="followers"
+    ?client.from("follows").select("follower_id,profiles:follower_id(id,username,display_name,avatar_url,bio)").eq("following_id",userId).order("created_at",{ascending:false}).limit(100)
+    :client.from("follows").select("following_id,profiles:following_id(id,username,display_name,avatar_url,bio)").eq("follower_id",userId).order("created_at",{ascending:false}).limit(100);
+  const r=await q;const box=$("followListBox");if(!box)return;
+  if(r.error){box.innerHTML=`<div class="empty">${esc(r.error.message)}</div>`;return}
+  const rows=(r.data||[]).map(x=>x.profiles).filter(Boolean);
+  box.innerHTML=rows.length?rows.map(p=>{const n=p.display_name||p.username||"Member";return `<button type="button" class="music-result" data-user="${attr(p.id)}" style="width:100%;text-align:left;cursor:pointer">${avatarHTML(n,p.avatar_url)}<span class="track-info"><strong>${esc(n)}</strong><span>@${esc(p.username||"user")}</span><span>${esc(p.bio||"")}</span></span></button>`}).join(""):'<div class="empty">No one here yet.</div>';
+  box.querySelectorAll("[data-user]").forEach(b=>b.onclick=()=>{$("modalRoot").innerHTML="";openPublicProfile(b.dataset.user)});
+}
+// Unread message badge (nav + bottom bar)
+async function refreshMessageBadge(){
+  try{
+    if(!uid())return;
+    const mem=await client.from("conversation_members").select("conversation_id").eq("user_id",uid());
+    const ids=(mem.data||[]).map(x=>x.conversation_id);
+    let total=0;
+    if(ids.length){const q=await client.from("messages").select("conversation_id").in("conversation_id",ids).neq("sender_id",uid()).is("read_at",null).is("deleted_at",null).limit(500);total=(q.data||[]).length}
+    ["messageNavBadge","messageBottomBadge"].forEach(id=>{const b=$(id);if(!b)return;b.textContent=total>99?"99+":String(total);b.classList.toggle("hidden",total===0)});
+  }catch(e){log("Message badge refresh failed",e)}
+}
+// Facebook-style reactions (like/love/haha/wow/sad/angry)
+async function setReaction(id,type){
+  if(!requireLogin())return;
+  buzz(14);
+  const p=cache.posts.get(id);if(!p)return;
+  const mine=(p._likes||[]).find(x=>x.user_id===uid());
+  const next=(mine&&mine.reaction===type)?null:type;
+  if(next===null)p._likes=(p._likes||[]).filter(x=>x.user_id!==uid());
+  else if(mine)mine.reaction=next;
+  else p._likes=[...(p._likes||[]),{post_id:id,user_id:uid(),reaction:next}];
+  p._liked=(p._likes||[]).some(x=>x.user_id===uid());
+  rerenderPost(id);
+  let r;
+  if(next===null)r=await client.from("post_reactions").delete().eq("post_id",id).eq("user_id",uid());
+  else if(mine)r=await client.from("post_reactions").update({reaction:next}).eq("post_id",id).eq("user_id",uid());
+  else r=await client.from("post_reactions").insert({post_id:id,user_id:uid(),reaction:next});
+  if(r.error){toast(r.error.message,"error");reloadPost(id)}
+}
+// Wire up V2 interactions once at boot
+function wireV2Features(){
+  $("themeToggle")?.addEventListener("click",toggleTheme);
+  $("watchSearch")?.addEventListener("input",debounce(loadWatch));
+  $("watchSort")?.addEventListener("change",loadWatch);
+  document.querySelectorAll(".bnav-item").forEach(b=>b.addEventListener("click",()=>go(b.dataset.page)));
+  let reactSuppress=false;
+  document.addEventListener("pointerdown",e=>{
+    const like=e.target.closest?e.target.closest('[data-act="like"]'):null;if(!like)return;
+    const bar=like.closest(".actions")?.querySelector(".reaction-bar");if(!bar)return;
+    const t=setTimeout(()=>{bar.classList.add("show");reactSuppress=true;setTimeout(()=>reactSuppress=false,650)},430);
+    const stop=()=>{clearTimeout(t);like.removeEventListener("pointerup",stop);like.removeEventListener("pointerleave",stop);like.removeEventListener("pointercancel",stop)};
+    like.addEventListener("pointerup",stop);like.addEventListener("pointerleave",stop);like.addEventListener("pointercancel",stop);
+  });
+  document.addEventListener("click",e=>{
+    if(reactSuppress&&e.target.closest&&e.target.closest('[data-act="like"]')){e.stopPropagation();e.preventDefault();return}
+    const pick=e.target.closest?e.target.closest("[data-react-pick]"):null;
+    if(pick){const post=pick.closest(".post");if(post)setReaction(post.dataset.post,pick.dataset.react);pick.closest(".reaction-bar")?.classList.remove("show");return}
+    if(!(e.target.closest&&e.target.closest(".reaction-bar")))document.querySelectorAll(".reaction-bar.show").forEach(b=>b.classList.remove("show"));
+  },true);
+}
+// ---- PWA app shell: haptics, heart burst, install, offline, pull-to-refresh ----
+function buzz(ms=12){try{navigator.vibrate&&navigator.vibrate(ms)}catch(_){}}
+function heartBurstAt(x,y,size=92){try{const el=document.createElement("div");el.className="heart-burst";el.style.left=x+"px";el.style.top=y+"px";el.style.fontSize=size+"px";el.textContent="❤️";document.body.appendChild(el);setTimeout(()=>el.remove(),900)}catch(_){}}
+let deferredInstallPrompt=null;
+window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferredInstallPrompt=e;try{$("installAppBtn")?.classList.remove("hidden")}catch(_){}});
+window.addEventListener("appinstalled",()=>{deferredInstallPrompt=null;$("installAppBtn")?.classList.add("hidden");toast("Litanya is installed. Open it from your home screen.","success",6000)});
+(function wireInstallButton(){
+  const b=$("installAppBtn");if(!b)return;
+  try{if(window.matchMedia&&matchMedia("(display-mode: standalone)").matches){b.classList.add("hidden");return}}catch(_){}
+  b.classList.remove("hidden");
+  b.onclick=async()=>{
+    document.querySelectorAll(".postmenu.open").forEach(z=>z.classList.remove("open"));$("moreNav")?.classList.remove("open");
+    if(deferredInstallPrompt){try{deferredInstallPrompt.prompt();const c=await deferredInstallPrompt.userChoice;if(c&&c.outcome==="accepted")toast("Installing Litanya…","success")}catch(_){}deferredInstallPrompt=null;return}
+    toast("To install: open this site in Chrome, tap the browser menu (⋮), then “Install app” or “Add to Home screen”.","info",9000);
+  };
+})();
+window.addEventListener("online",()=>toast("Back online.","success",2500));
+window.addEventListener("offline",()=>toast("You are offline — live updates will resume when the connection returns.","error",4500));
+try{if("serviceWorker" in navigator&&location.protocol!=="file:"){window.addEventListener("load",()=>{navigator.serviceWorker.register("/sw.js").catch(err=>log("Service worker registration failed",err))})}}catch(_){}
+// Pull-to-refresh on feed pages (IG-style)
+(function wirePullToRefresh(){
+  const pages=["wall","realizations","updates","notifications","saved"];
+  const el=document.createElement("div");el.className="ptr-indicator";el.innerHTML='<span class="ptr-spin"></span><span>Refreshing…</span>';
+  document.body.appendChild(el);
+  let startY=null,armed=false,busy=false;
+  const reset=()=>{startY=null;armed=false;el.classList.remove("show")};
+  document.addEventListener("touchstart",e=>{
+    if(busy||e.touches.length!==1||window.scrollY>2)return;
+    if(!pages.some(id=>$(id)&&$(id).classList.contains("active")))return;
+    if(e.target.closest&&e.target.closest(".modalback,.modal,.lightbox-overlay,.chatmsgs,.uploading-screen,.moreMenu,.myday-view"))return;
+    startY=e.touches[0].clientY;armed=false;
+  },{passive:true});
+  document.addEventListener("touchmove",e=>{
+    if(startY===null||busy)return;
+    const dy=e.touches[0].clientY-startY;
+    if(dy<=0||window.scrollY>2){reset();return}
+    if(dy>8&&e.cancelable)e.preventDefault();
+    if(dy>70){armed=true;el.classList.add("show")}
+  },{passive:false});
+  document.addEventListener("touchend",async()=>{
+    if(startY===null)return;
+    const should=armed;reset();
+    if(!should||busy)return;
+    busy=true;el.classList.add("show");
+    const started=Date.now();
+    try{if($("notifications")?.classList.contains("active")&&typeof loadNotifications==="function")await loadNotifications();else await refreshCurrentView()}catch(err){log("Pull-to-refresh failed",err)}
+    const wait=Math.max(0,550-(Date.now()-started));
+    setTimeout(()=>{el.classList.remove("show");busy=false;toast("Refreshed.","success",1800)},wait);
+  },{passive:true});
+  document.addEventListener("touchcancel",reset,{passive:true});
+})();
 // ---- Boot --------------------------------------------------------------
 (async()=>{
-  openSignupScreen();
+  applyTheme();wireV2Features();openSignupScreen();
   if(await initSupabase()){
     await refreshSession();
     if(session) await loadMyDayStories();

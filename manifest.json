@@ -1,25 +1,20 @@
 {
+  "name": "Litanya Safespace",
+  "short_name": "Litanya",
+  "description": "A gentle safe space to share feelings, MyDays, realizations, games, and chats.",
   "id": "/",
-  "name": "LitanyaSpace",
-  "short_name": "LitanyaSpace",
-  "description": "LitanyaSpace community",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#6d5dfc",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "portrait",
+  "background_color": "#fffafd",
+  "theme_color": "#c982a5",
+  "lang": "en",
+  "categories": ["social", "lifestyle"],
   "icons": [
-    {
-      "src": "/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any"
-    }
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
   ]
 }

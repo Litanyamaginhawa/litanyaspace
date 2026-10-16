@@ -1,50 +1,69 @@
-self.addEventListener("push", (event) => {
-  let data = {};
-  try {
-    data = event.data ? event.data.json() : {};
-  } catch {
-    data = {
-      title: "LitanyaSpace",
-      body: event.data ? event.data.text() : "May bagong notification."
-    };
-  }
+/* Litanya Safespace service worker — offline app-shell caching.
+   Bump CACHE version when deploying a big update to refresh stale shells. */
+const CACHE = "litanya-shell-v1";
+const CORE = [
+  "/",
+  "/index.html",
+  "/manifest.json",
+  "/apple-touch-icon.png",
+  "/icon-192.png",
+  "/icon-512.png",
+  "/icon-maskable-512.png",
+  "/favicon-32.png"
+];
 
-  const title = data.title || data.notification?.title || "LitanyaSpace";
-  const options = {
-    body: data.body || data.message || data.notification?.body || "May bagong post!",
-    // Optional: add this image file to the site root if you have it.
-    // Missing icons should not block the notification itself.
-    icon: "/icon-192.png",
-    badge: "/icon-192.png",
-    data: {
-      url: data.url || data.data?.url || "/"
-    }
-  };
-
-  event.waitUntil(self.registration.showNotification(title, options));
+self.addEventListener("install", (event) => {
+  event.waitUntil((async () => {
+    const cache = await caches.open(CACHE);
+    await Promise.allSettled(CORE.map((url) => cache.add(new Request(url, { cache: "reload" }))));
+    self.skipWaiting();
+  })());
 });
 
-self.addEventListener("notificationclick", (event) => {
-  event.notification.close();
-
-  const targetUrl = new URL(
-    event.notification.data?.url || "/",
-    self.location.origin
-  ).href;
-
+self.addEventListener("activate", (event) => {
   event.waitUntil((async () => {
-    const windows = await clients.matchAll({
-      type: "window",
-      includeUncontrolled: true
-    });
+    const keys = await caches.keys();
+    await Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k)));
+    await self.clients.claim();
+  })());
+});
 
-    for (const client of windows) {
-      if (client.url.startsWith(self.location.origin) && "focus" in client) {
-        if ("navigate" in client) await client.navigate(targetUrl);
-        return client.focus();
+self.addEventListener("fetch", (event) => {
+  const req = event.request;
+  if (req.method !== "GET") return;
+
+  let url;
+  try { url = new URL(req.url); } catch (_) { return; }
+
+  // Never intercept Supabase API/realtime or external CDNs — pass through.
+  if (url.origin !== location.origin) return;
+
+  // Page navigations: network-first, fall back to the cached app shell offline.
+  if (req.mode === "navigate") {
+    event.respondWith((async () => {
+      try {
+        const fresh = await fetch(req);
+        const cache = await caches.open(CACHE);
+        cache.put("/index.html", fresh.clone()).catch(() => {});
+        return fresh;
+      } catch (_) {
+        const cache = await caches.open(CACHE);
+        return (await cache.match("/index.html")) || (await cache.match("/")) || Response.error();
       }
-    }
+    })());
+    return;
+  }
 
-    return clients.openWindow(targetUrl);
+  // Same-origin assets: cache-first with background refresh.
+  event.respondWith((async () => {
+    const cache = await caches.open(CACHE);
+    const hit = await cache.match(req);
+    const net = fetch(req)
+      .then((res) => {
+        if (res && res.ok) cache.put(req, res.clone()).catch(() => {});
+        return res;
+      })
+      .catch(() => hit);
+    return hit || net;
   })());
 });

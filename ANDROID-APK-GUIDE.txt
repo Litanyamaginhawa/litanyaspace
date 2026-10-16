@@ -1,0 +1,73 @@
+LITANYA SAFESPACE - TURN THE WEBSITE INTO AN ANDROID APK
+========================================================
+
+Good news: the website is now a full PWA (app manifest + service worker +
+app icons + install button). That means the SAME website becomes an
+Android app - no rewrite needed.
+
+You only need: a browser + your deployed site URL. Nothing to install on
+your PC (no Android Studio, no Java).
+
+--------------------------------------------------------
+STEP 1 - Deploy the new zip first
+--------------------------------------------------------
+1. Cloudflare dashboard -> Workers & Pages -> your Pages project.
+2. Upload ALL files from this zip together (index.html, manifest.json,
+   sw.js, all icon .png files, supabase-schema.sql, README files).
+   The icon files and manifest MUST sit next to index.html at the ROOT.
+3. Open your live site once. In Chrome on your phone you should now see
+   the "Install app" button in the More menu.
+
+--------------------------------------------------------
+STEP 2 - Quick test as an installable app (optional but recommended)
+--------------------------------------------------------
+1. Open your site in Chrome on Android.
+2. Chrome menu (3 dots) -> "Install app" / "Add to Home screen".
+3. Launch it from the home screen - it opens full-screen without the
+   browser bar, exactly like a native app.
+
+--------------------------------------------------------
+STEP 3 - Generate the signed APK (and Play Store AAB)
+--------------------------------------------------------
+1. Go to:  https://www.pwabuilder.com
+2. Type your live site URL (e.g. https://litanya.pages.dev) and click Start.
+3. PWABuilder checks the manifest + service worker (both already done).
+   Click "Package for stores" -> choose Android.
+4. In the Android options:
+   - Package ID: e.g. com.litanya.safespace  (letters/numbers/dots only)
+   - App name: Litanya Safespace
+   - Signing key: choose "Create new" (DOWNLOAD and KEEP the generated
+     signing key file safely - you need it forever to publish updates).
+5. Click "Download Package". You get a zip with:
+   - the signed .apk   -> install directly on phones (allow "Install
+     unknown apps" when the phone asks)
+   - the .aab          -> upload this one to Google Play Console
+   - assetlinks.json   -> needed for the next optional step.
+
+--------------------------------------------------------
+STEP 4 - Optional: remove the browser address bar in the app
+--------------------------------------------------------
+PWABuilder gives you a file named assetlinks.json together with a short
+instruction. It must be reachable at:
+      https://YOURDOMAIN/.well-known/assetlinks.json
+Add it through your site host: upload a folder exactly named
+".well-known" containing assetlinks.json, placed at the ROOT next to
+index.html. After that, reopen the APK - the URL bar disappears
+completely and it looks 100% native.
+
+--------------------------------------------------------
+EVERY FUTURE UPDATE
+--------------------------------------------------------
+- Website changes: re-upload index.html to Cloudflare. The APK updates
+  itself automatically (it loads your live site) - no new APK needed.
+- Only build a new APK if you change the app icon, app name, or want a
+  new version on the Play Store (upload a new .aab there).
+
+TROUBLESHOOTING
+- "Install app" button missing? The site must be opened over HTTPS from
+  the deployed URL (not a local file) in Chrome/Edge on Android.
+- PWABuilder says manifest not found? Make sure manifest.json and the
+  icon PNG files are at the ROOT next to index.html.
+- Offline screen shows old version after an update? Close and reopen the
+  app, or clear the site data once. (The service worker cache version is
+  bumped in sw.js when a big update is deployed.)
