@@ -2616,6 +2616,22 @@ html.smooth-ready .myday-item{transition:transform .2s cubic-bezier(.34,1.56,.64
 html.smooth-ready .myday-item:active{transform:scale(.96)}
 @media (prefers-reduced-motion:reduce){ html.smooth-ready .litanya-ripple{display:none} }
 </style>
+<style>
+/* v2.4d - iTunes audio loading/done indicator */
+.lit-status{position:fixed;top:16px;left:50%;transform:translateX(-50%) translateY(-100%);display:inline-flex;align-items:center;gap:10px;padding:10px 18px;background:#fff;color:#221;border-radius:999px;box-shadow:0 10px 30px rgba(0,0,0,.18),0 2px 6px rgba(0,0,0,.08);font-size:14px;font-weight:600;z-index:9500;opacity:0;transition:transform .32s cubic-bezier(.34,1.56,.64,1),opacity .2s ease;pointer-events:none;max-width:92vw}
+.lit-status.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.lit-status .lit-spin{width:18px;height:18px;border:2.5px solid rgba(201,130,165,.28);border-top-color:#c982a5;border-radius:50%;animation:lit-spin-anim .8s linear infinite;flex-shrink:0}
+@keyframes lit-spin-anim{to{transform:rotate(360deg)}}
+.lit-status.done{background:#2e7d32;color:#fff}
+.lit-status.done .lit-spin{display:none}
+.lit-status.done::before{content:"\2713";font-size:18px;font-weight:900;color:#fff;line-height:1;width:18px;height:18px;display:grid;place-items:center;flex-shrink:0}
+.lit-status.error{background:#c62828;color:#fff}
+.lit-status.error .lit-spin{display:none}
+.lit-status.error::before{content:"\2715";font-size:18px;font-weight:900;color:#fff;line-height:1;width:18px;height:18px;display:grid;place-items:center;flex-shrink:0}
+html[data-theme="dark"] .lit-status{background:#241e2b;color:#e6cbdc}
+html[data-theme="dark"] .lit-status.done{background:#1b5e20;color:#c8e6c9}
+html[data-theme="dark"] .lit-status.error{background:#8b1a1a;color:#ffcdd2}
+</style>
 <div class="audio-picker" id="litanyaAudioPicker"><div class="audio-picker-box"><div class="audio-picker-head"><input id="litanyaAudioQ" placeholder="Search any song (Taylor, Ben&Ben, Drake...)" autocomplete="off"><button id="litanyaAudioClose" aria-label="Close">✕</button></div><div class="audio-results" id="litanyaAudioResults"></div><div class="audio-attachbar"><span>Free · Apple Music previews</span><a href="https://music.apple.com" target="_blank" rel="noopener">Powered by iTunes API</a></div></div></div>
 <script>
 /* v2.2 - iTunes Search audio picker (CORS-open, mainstream songs, no API key). */
@@ -2854,6 +2870,8 @@ html.smooth-ready .reaction-bar button:hover{transform:scale(1.35) translateY(-4
 html.smooth-ready .reaction-bar button:active{transform:scale(1.15)}
 html.smooth-ready .reaction-bar button .react-svg{width:26px;height:26px;display:block;pointer-events:none}
 html.smooth-ready .reaction-bar button.is-mine{background:rgba(201,130,165,.22);box-shadow:inset 0 0 0 2px var(--accent,#c982a5)}
+.react-svg{width:22px;height:22px;display:inline-block;vertical-align:middle;margin-right:4px}
+html.smooth-ready .actions button[data-act="like"].active{color:var(--accent,#c982a5);font-weight:700}
 .litanya-reaction-chip{display:inline-flex;align-items:center;gap:5px;padding:4px 10px 4px 6px;border-radius:999px;background:rgba(201,130,165,.14);border:1px solid rgba(201,130,165,.28);font-size:12px;font-weight:700;color:var(--accentDark,#7a4a6a);cursor:pointer;transition:transform .18s cubic-bezier(.34,1.56,.64,1),background-color .15s}
 .litanya-reaction-chip:hover{background:rgba(201,130,165,.24)}
 .litanya-reaction-chip:active{transform:scale(.94)}
@@ -2890,6 +2908,47 @@ html[data-theme="dark"] .litanya-reaction-chip{color:#e6cbdc;background:rgba(201
   new MutationObserver(upgradeReactionBars).observe(document.body,{childList:true,subtree:true});
 
   /* --- 3) Persistent reaction chip (stays visible near Like button) --- */
+  /* v2.4c: Replace emoji in reacted Like buttons with SVG + live-update on click. */
+  var EMOJI_TO_KEY = {"👍":"like","❤️":"love","😆":"haha","😮":"wow","😢":"sad","😠":"angry","\uD83D\uDC4D":"like","\u2764\uFE0F":"love","\uD83D\uDE06":"haha","\uD83D\uDE2E":"wow","\uD83D\uDE22":"sad","\uD83D\uDE20":"angry"};
+  function reactKeyFromTitle(t){
+    t = String(t||'').toLowerCase();
+    if(t==='like'||t==='love'||t==='haha'||t==='wow'||t==='sad'||t==='angry') return t;
+    return null;
+  }
+  function upgradeLikeButtons(){
+    document.querySelectorAll('.actions button[data-act="like"]').forEach(function(b){
+      var emojiSpan = b.querySelector('.react-emoji');
+      var key = reactKeyFromTitle(b.title) || (emojiSpan && EMOJI_TO_KEY[emojiSpan.textContent.trim()]);
+      if(key && SVG[key] && !b.dataset.litSvgLike){
+        b.dataset.litSvgLike = '1';
+        b.dataset.reactKey = key;
+        b.innerHTML = SVG[key] + '<span class="react-label">' + key.charAt(0).toUpperCase()+key.slice(1) + '</span> <span class="react-count">' + (b.textContent.match(/\d+/)||[''])[0] + '</span>';
+      }
+    });
+  }
+  upgradeLikeButtons();
+  new MutationObserver(upgradeLikeButtons).observe(document.body,{childList:true,subtree:true});
+
+  /* Live-update the Like button to show the picked reaction SVG + label. */
+  document.addEventListener('click', function(e){
+    var pickBtn = e.target.closest('.reaction-bar button[data-react-pick]');
+    if(!pickBtn) return;
+    var key = pickBtn.getAttribute('data-react-pick');
+    var actions = pickBtn.closest('.actions'); if(!actions) return;
+    var likeBtn = actions.querySelector('button[data-act="like"]'); if(!likeBtn) return;
+    var existingCount = (likeBtn.textContent.match(/\d+/)||[''])[0];
+    likeBtn.dataset.reactKey = key;
+    likeBtn.classList.add('active');
+    likeBtn.innerHTML = SVG[key] + '<span class="react-label">' + key.charAt(0).toUpperCase()+key.slice(1) + '</span> <span class="react-count">' + existingCount + '</span>';
+    /* Toggle off if user clicks the same reaction again (matches existing behavior). */
+    var post = pickBtn.closest('[data-post-id], .post');
+    var pid = post && (post.dataset.postId || post.dataset.id);
+    if(pid){
+      try{ localStorage.setItem('litanya.reactions.'+pid, JSON.stringify({reaction:key})); }catch(_){}
+    }
+  }, {passive:true});
+
+  /* --- 3b) (Legacy chip renderer - disabled; the Like button itself now shows the reaction) --- */
   function renderChips(){
     var actions = document.querySelectorAll('.actions');
     actions.forEach(function(a){
@@ -3043,6 +3102,30 @@ html[data-theme="dark"] .litanya-reaction-chip{color:#e6cbdc;background:rgba(201
       });
   }
 
+  /* --- v2.4d: iTunes audio loading/done indicator --- */
+  var litStatusEl = null, litStatusTimer = null;
+  function showLitStatus(msg, kind){
+    if(!litStatusEl){
+      litStatusEl = document.createElement('div');
+      litStatusEl.className = 'lit-status';
+      document.body.appendChild(litStatusEl);
+    }
+    clearTimeout(litStatusTimer);
+    litStatusEl.classList.remove('show','done','error');
+    litStatusEl.innerHTML = '<span class="lit-spin"></span><span class="lit-msg"></span>';
+    litStatusEl.querySelector('.lit-msg').textContent = msg;
+    if(kind==='done') litStatusEl.classList.add('done');
+    else if(kind==='error') litStatusEl.classList.add('error');
+    void litStatusEl.offsetWidth;
+    litStatusEl.classList.add('show');
+    if(kind==='done') litStatusTimer = setTimeout(hideLitStatus, 2200);
+    if(kind==='error') litStatusTimer = setTimeout(hideLitStatus, 3500);
+  }
+  function hideLitStatus(){
+    if(!litStatusEl) return;
+    litStatusEl.classList.remove('show');
+  }
+
   /* Intercept form submits BEFORE the existing handler runs. */
   ['postForm','realForm','updateForm'].forEach(function(fid){
     var f = document.getElementById(fid); if(!f) return;
@@ -3051,17 +3134,16 @@ html[data-theme="dark"] .litanya-reaction-chip{color:#e6cbdc;background:rgba(201
       var att = window.__litanyaAttached;
       if(!att || !att.music_url) return;
       var stateKey = fid==='postForm'?'postMusic':(fid==='realForm'?'realMusic':'updateMusic');
-      /* Block the submit until the iTunes fetch+inject completes. */
       e.preventDefault(); e.stopImmediatePropagation();
-      if(window.__litanyaFlash) __litanyaFlash('Preparing iTunes audio…');
+      showLitStatus('Preparing iTunes audio…');
       injectItunesFile(stateKey, att.music_url, att.music_name).then(function(){
-        /* Now re-fire the submit — the existing handler will see uploadState[stateKey] set. */
-        setTimeout(function(){ f.requestSubmit ? f.requestSubmit() : f.dispatchEvent(new Event('submit',{cancelable:true,bubbles:true})); }, 30);
+        showLitStatus('Ready! Posting now…', 'done');
+        setTimeout(function(){ f.requestSubmit ? f.requestSubmit() : f.dispatchEvent(new Event('submit',{cancelable:true,bubbles:true})); }, 900);
       }).catch(function(err){
         console.error('[Litanya] inject failed:', err);
-        if(window.__litanyaFlash) __litanyaFlash('Could not prepare audio: '+err.message);
+        showLitStatus('Failed: ' + (err.message||err), 'error');
       });
-    }, true);  /* capture phase — runs BEFORE the existing onsubmit */
+    }, true);
   });
 
   console.info('[LitanyaSpace v2.4] SVG reactions, persistent chips, expanded badwords, real composer extended.');
