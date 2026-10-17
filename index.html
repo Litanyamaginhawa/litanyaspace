@@ -1444,7 +1444,19 @@ function moderation(text){
   const t=" "+String(text||"").toLowerCase().normalize("NFKD").replace(/[\u0300-\u036f]/g,"").replace(/[@4]/g,"a").replace(/[3]/g,"e").replace(/[1!]/g,"i").replace(/[0]/g,"o").replace(/[5$]/g,"s").replace(/[^a-z0-9]+/g," ")+" ";
   return bad.some(x=>t.includes(" "+x+" "))
 }
-async function insert(table,row){return client.from(table).insert(row).select().single()}
+async function insert(table,row){
+  // v2.11: fast iTunes attach — write the preview URL straight into posts,
+  // no download/upload. (The old outer window.insert wrapper never installed
+  // because this whole app runs inside an IIFE, so `insert` is local.)
+  if(table==='posts'&&window.__litanyaAttached){
+    const a=window.__litanyaAttached;
+    row=Object.assign({},row,{music_url:a.music_url,music_name:a.music_name,music_source:'itunes',music_start:0,music_end:a.music_end||30});
+    const res=await client.from(table).insert(row).select().single();
+    window.__litanyaAttached=null;
+    return res;
+  }
+  return client.from(table).insert(row).select().single();
+}
 // ---- Feeds -------------------------------------------------------------
 // One request returns posts + their likes + comments (PostgREST embedded relations).
 const POST_SELECT="*,profiles:user_id(username,avatar_url),post_reactions(post_id,user_id,reaction),comments(*,profiles:user_id(username,avatar_url))";
@@ -2223,7 +2235,10 @@ function startRealtime(){
     toast("Someone viewed your profile.","success");
   }).subscribe();
   const notif=client.channel("litanya-notifs").on("postgres_changes",{event:"INSERT",schema:"public",table:"notifications",filter:"user_id=eq."+uid()},payload=>{
-    loadNotifications();const n=payload.new;toast(n.title||"New notification.","success");if(window.__litanyaPing)window.__litanyaPing();
+    const n=payload.new;loadNotifications();
+    // messages have their own dedicated alert below (routes to /messenger with the sender name) — skip here to avoid a duplicate
+    if(n.type==="message")return;
+    toast(n.title||"New notification.","success");if(window.__litanyaPing)window.__litanyaPing();
     if(window.__litanyaNotify && (document.hidden||!document.hasFocus())){window.__litanyaNotify(n.title||"LitanyaSpace", n.body||"You have a new notification.", {tag:"litanya-notif-"+(n.id||Date.now()), url:"/notifications"});}
   }).subscribe();
   const messageAlerts=client.channel("litanya-message-alerts").on("postgres_changes",{event:"INSERT",schema:"public",table:"messages"},async payload=>{
