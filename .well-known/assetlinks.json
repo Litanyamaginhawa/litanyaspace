@@ -1,0 +1,10 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.litanyaspace.app",
+    "sha256_cert_fingerprints": [
+      "D3:6C:A9:E9:76:62:15:CE:00:EE:8C:4F:EB:02:7B:65:1F:41:2F:C6:A0:D2:7C:A9:56:9B:A6:83:A0:F3:49:03"
+    ]
+  }
+}]
