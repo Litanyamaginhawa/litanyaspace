@@ -660,7 +660,7 @@ const SUPABASE_KEY='sb_publishable_1kBhcictacKY7udPWDlZ6A_5vorzbDi';
 const AUTH_EMAIL_DOMAINS=['litanya-safespace.com','litanya.app','litanya-app.net'];
 // Web Push configuration. The public VAPID key is safe to ship to browsers.
 // The matching PRIVATE key stays only in Supabase Edge Function secrets.
-const VAPID_PUBLIC_KEY='BGJEZXi2F4sdybATBwPJTaTEIm0lLIKmlRER94k0hjKbD94FIkEhK4p0YuqektlaeXIThjyrvAgYOePYqvK5CxI';
+const VAPID_PUBLIC_KEY='BDvV_N9w9MWNttQ31sWwtFpgPIqcwffLAmBpKTA5yRvy9kyqLrGJgP2w4_1P88b3l3MOkxIbYv6lfUIpLoe2z20';
 let pushRegistration=null;
 function base64ToUint8Array(base64){
   const padding='='.repeat((4-base64.length%4)%4);
@@ -669,6 +669,8 @@ function base64ToUint8Array(base64){
   for(let i=0;i<raw.length;i++)out[i]=raw.charCodeAt(i);return out;
 }
 function isIOS(){return /iphone|ipad|ipod/i.test(navigator.userAgent)||(/macintosh/i.test(navigator.userAgent)&&navigator.maxTouchPoints>1)}
+function bufToB64Url(buf){const bytes=new Uint8Array(buf);let s='';for(const b of bytes)s+=String.fromCharCode(b);return btoa(s).replace(/=/g,'').replace(/\+/g,'-').replace(/\//g,'_')}
+function vapidKeyMatches(sub){try{const k=sub&&sub.options&&sub.options.applicationServerKey;if(!k)return false;const have=(typeof k==='string')?k:bufToB64Url(k);return have===VAPID_PUBLIC_KEY;}catch(_){return false;}}
 function isStandalone(){return window.matchMedia?.('(display-mode: standalone)').matches||window.navigator.standalone===true}
 async function registerPushServiceWorker(){
   if(!('serviceWorker' in navigator)||!('PushManager' in window))return null;
@@ -704,6 +706,7 @@ async function enablePushNotifications(){
       return;
     }
     let sub=await reg.pushManager.getSubscription();
+    if(sub&&!vapidKeyMatches(sub)){try{await sub.unsubscribe()}catch(_){};sub=null;}
     if(!sub)sub=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:base64ToUint8Array(VAPID_PUBLIC_KEY)});
     await savePushSubscription(sub);
     if(status)status.textContent='Phone notifications are enabled on this device.';
@@ -727,7 +730,8 @@ async function refreshPushUI(){
   if(isIOS()&&!isStandalone())help.textContent='iPhone/iPad: add this website to your Home Screen before enabling notifications.';
   try{
     const reg=await registerPushServiceWorker();const sub=reg?await reg.pushManager.getSubscription():null;
-    if(sub){btn.textContent='Notifications enabled';btn.disabled=true;status.textContent='Phone notifications are enabled on this device.'}
+    if(sub&&vapidKeyMatches(sub)){btn.textContent='Notifications enabled';btn.disabled=true;status.textContent='Phone notifications are enabled on this device.'}
+    else if(sub&&!vapidKeyMatches(sub)){btn.disabled=false;btn.textContent='Enable notifications';if(help)help.textContent='Re-enable notifications to finish updating on this device.';}
     else if(Notification.permission==='denied')status.textContent='Notifications are blocked. Allow them in browser/site settings to enable them again.';
     else if(Notification.permission==='default')status.textContent='Notifications are not enabled yet. Tap Enable notifications and allow the browser prompt.';
   }catch(_){ }
