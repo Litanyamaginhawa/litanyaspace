@@ -2594,21 +2594,21 @@ create index if not exists myday_stories_expires_idx on public.myday_stories (ex
 @keyframes litshimmer{to{transform:translateX(100%)}}
 html[data-theme="dark"] .litshimmer::after{background:linear-gradient(90deg,transparent,rgba(255,255,255,.08),transparent)}
 </style>
-<div class="audio-picker" id="litanyaAudioPicker"><div class="audio-picker-box"><div class="audio-picker-head"><input id="litanyaAudioQ" placeholder="Search songs (Jamendo)..." autocomplete="off"><button id="litanyaAudioClose" aria-label="Close">✕</button></div><div class="audio-results" id="litanyaAudioResults"></div><div class="audio-attachbar"><span>Free · Creative Commons</span><a href="https://dev.jamendo.com/en/accounts/register/" target="_blank" rel="noopener">Setup Jamendo key</a></div></div></div>
+<div class="audio-picker" id="litanyaAudioPicker"><div class="audio-picker-box"><div class="audio-picker-head"><input id="litanyaAudioQ" placeholder="Search any song (Taylor, Ben&Ben, Drake...)" autocomplete="off"><button id="litanyaAudioClose" aria-label="Close">✕</button></div><div class="audio-results" id="litanyaAudioResults"></div><div class="audio-attachbar"><span>Free · Apple Music previews</span><a href="https://music.apple.com" target="_blank" rel="noopener">Powered by iTunes API</a></div></div></div>
 <script>
-/* v2.2 - MP3Juice-style audio selector powered by Jamendo (CORS open). */
+/* v2.2 - iTunes Search audio picker (CORS-open, mainstream songs, no API key). */
 (function(){
-  var JAMENDO_CID = 'PASTE_JAMENDO_CLIENT_ID_HERE';  // <-- free from dev.jamendo.com
   var picker = document.getElementById('litanyaAudioPicker');
   var qInput = document.getElementById('litanyaAudioQ');
   var results= document.getElementById('litanyaAudioResults');
   var closeBtn=document.getElementById('litanyaAudioClose');
   var currentAudio=null, currentLabel=null, activeItem=null;
+  var SEARCH_API = 'https://itunes.apple.com/search';
 
   function openModal(label){
     currentLabel = label;
     picker.classList.add('show');
-    setTimeout(function(){ qInput.focus(); if(!results.dataset.loaded){ doSearch(qInput.value||'calm'); } },40);
+    setTimeout(function(){ qInput.focus(); if(!results.dataset.loaded){ doSearch(qInput.value.trim()); } },40);
   }
   function closeModal(){
     picker.classList.remove('show');
@@ -2621,13 +2621,9 @@ html[data-theme="dark"] .litshimmer::after{background:linear-gradient(90deg,tran
 
   function doSearch(q){
     results.innerHTML = '<div class="audio-empty litshimmer" style="height:60px;background:rgba(0,0,0,.05);border-radius:10px;margin:8px"></div>'.repeat(4);
-    if(JAMENDO_CID.indexOf('PASTE_')>=0){
-      results.innerHTML='<div class="audio-empty">Jamendo key not set.<br/>Pindutin ang <b>Setup Jamendo key</b> sa ibaba, kunin ang free client_id, at i-palitan ang <code>JAMENDO_CID</code> sa source.</div>';
-      return;
-    }
-    var params = new URLSearchParams({client_id:JAMENDO_CID, format:'JSON', audioformat:'mp32', limit:'15', index_mode:'pop'});
-    if(q) params.set('search', q); else params.set('tag','calm');
-    fetch('https://api.jamendo.com/v3.0/tracks/?'+params.toString())
+    if(!q){ results.innerHTML='<div class="audio-empty">Type to search — Taylor Swift, Drake, Ben&Ben, SB19, K-pop, OPM, lahat available.</div>'; return; }
+    var params = new URLSearchParams({term:q, media:'music', entity:'song', limit:'25', country:'PH'});
+    fetch(SEARCH_API+'?'+params.toString())
       .then(function(r){return r.json();})
       .then(function(j){ renderTracks(j.results||[]); })
       .catch(function(e){ results.innerHTML='<div class="audio-empty">Error: '+(e.message||e)+'</div>'; });
@@ -2635,30 +2631,33 @@ html[data-theme="dark"] .litshimmer::after{background:linear-gradient(90deg,tran
 
   function renderTracks(tracks){
     results.dataset.loaded='1';
-    if(!tracks.length){ results.innerHTML='<div class="audio-empty">Walang resulta. Subukan pa.</div>'; return; }
+    if(!tracks.length){ results.innerHTML='<div class="audio-empty">Walang resulta. Subukan ibang pangalan.</div>'; return; }
     results.innerHTML='';
     tracks.forEach(function(t){
+      var art = t.artworkUrl100 ? t.artworkUrl100.replace('100x100','200x200') : '';
       var d=document.createElement('div'); d.className='audio-item';
-      d.innerHTML='<div class="audio-thumb">'+(t.image?'<img src="'+t.image+'" alt="" loading="lazy">':'🎵')+'</div>'+
-        '<div class="audio-meta"><span class="audio-title">'+esc(t.name||'')+'</span><span class="audio-artist">'+esc(t.artist_name||'')+' · '+fmt(t.duration)+'</span></div>'+
+      d.innerHTML='<div class="audio-thumb">'+(art?'<img src="'+art+'" alt="" loading="lazy">':'🎵')+'</div>'+
+        '<div class="audio-meta"><span class="audio-title">'+esc(t.trackName||'')+'</span><span class="audio-artist">'+esc(t.artistName||'')+' · '+esc(t.collectionName||'')+' · '+fmt(t.trackTimeMillis/1000)+'</span></div>'+
         '<button class="audio-preview">▶</button>'+
         '<button class="audio-select">Attach</button>';
       var pv=d.querySelector('.audio-preview');
       pv.onclick=function(e){ e.stopPropagation(); togglePreview(t, pv, d); };
       d.querySelector('.audio-select').onclick=function(){
         attachTrack(t); closeModal();
-        window.__litanyaFlash && __litanyaFlash('Attached: '+t.name);
+        window.__litanyaFlash && __litanyaFlash('Attached: '+t.trackName);
       };
       results.appendChild(d);
     });
   }
 
   function togglePreview(t, btn, item){
-    if(currentAudio && currentAudio._url===t.audio){
+    var url = t.previewUrl;
+    if(!url){ toast('No preview available.'); return; }
+    if(currentAudio && currentAudio._url===url){
       currentAudio.pause(); currentAudio=null; btn.textContent='▶'; item.classList.remove('playing'); return;
     }
     if(currentAudio){ currentAudio.pause(); activeItem && activeItem.classList.remove('playing'); }
-    var a=new Audio(t.audio); a._url=t.audio;
+    var a=new Audio(url); a._url=url;
     a.play().catch(function(){ toast('Preview blocked (may autoplay restriction).'); });
     currentAudio=a; btn.textContent='⏸'; item.classList.add('playing'); activeItem=item;
     a.onended=function(){ btn.textContent='▶'; item.classList.remove('playing'); currentAudio=null; };
@@ -2671,14 +2670,15 @@ html[data-theme="dark"] .litshimmer::after{background:linear-gradient(90deg,tran
     var fileInput = currentLabel.querySelector('input[type=file]');
     var previewBoxId = composer.id.replace(/Form$/i,'') + 'MusicPreview';
     var box = document.getElementById(previewBoxId) || composer.querySelector('.music-preview');
+    var dur = Math.min(30, (t.trackTimeMillis||30000)/1000);
     if(box){
       box.classList.remove('hidden');
-      box.innerHTML='<div class="music-track-head"><div class="music-track-disc">🎵</div><div class="music-track-meta"><strong>'+esc(t.name)+'</strong><span>'+esc(t.artist_name||'')+' · '+fmt(t.duration)+' · Jamendo CC</span></div><button type="button" class="iconbtn" onclick="(function(b){var c=b.closest(\'.music-preview\');c.classList.add(\'hidden\');c.innerHTML=\'\';if(window.__litanyaAttached)window.__litanyaAttached=null;})(this)">✕</button></div>';
+      box.innerHTML='<div class="music-track-head"><div class="music-track-disc">🎵</div><div class="music-track-meta"><strong>'+esc(t.trackName||'')+'</strong><span>'+esc(t.artistName||'')+' · '+fmt(dur)+' · iTunes</span></div><button type="button" class="iconbtn" onclick="(function(b){var c=b.closest(\'.music-preview\');c.classList.add(\'hidden\');c.innerHTML=\'\';if(window.__litanyaAttached)window.__litanyaAttached=null;})(this)">✕</button></div>';
     }
     window.__litanyaAttached = {
-      music_url: t.audio, music_name: t.name, music_source: 'jamendo',
-      music_start: 0, music_end: Math.min(30, t.duration||30),
-      attribution: (t.artist_name||'')+' — '+(t.name||'')
+      music_url: t.previewUrl, music_name: (t.artistName||'')+' — '+(t.trackName||''),
+      music_source: 'itunes', music_start: 0, music_end: dur,
+      attribution: (t.artistName||'')+' — '+(t.trackName||'')+' (Apple Music preview)'
     };
     if(fileInput){
       var realOnchange = fileInput.onchange;
@@ -2720,7 +2720,7 @@ html[data-theme="dark"] .litshimmer::after{background:linear-gradient(90deg,tran
         payload = Object.assign({}, payload, {
           music_url:   window.__litanyaAttached.music_url,
           music_name:  window.__litanyaAttached.music_name,
-          music_source:'jamendo',
+          music_source:'itunes',
           music_start: 0,
           music_end:   window.__litanyaAttached.music_end || 30
         });
