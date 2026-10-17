@@ -1,6 +1,6 @@
 /* Litanya Safespace service worker — offline app-shell caching.
    Bump CACHE version when deploying a big update to refresh stale shells. */
-const CACHE = "litanya-shell-v9";
+const CACHE = "litanya-shell-v10";
 const CORE = [
   "/",
   "/index.html",
@@ -25,6 +25,65 @@ self.addEventListener("activate", (event) => {
     const keys = await caches.keys();
     await Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k)));
     await self.clients.claim();
+  })());
+});
+
+/* ---- v2.7 Web Push: this is what makes iOS(16.4+ installed PWA) + Android
+   background notifications actually display. Without a push listener the
+   payload the Supabase Edge Function sends is delivered but never shown. ---- */
+function parsePush(data) {
+  if (!data) return { title: "Litanya Safespace", body: "May bagong update ka.", url: "/", tag: "litanya" };
+  let p = null;
+  try { p = data.json(); } catch (_) { try { p = { body: data.text() }; } catch (e) { p = {}; } }
+  p = p || {};
+  const opts = p.options || p;
+  return {
+    title: opts.title || p.title || "Litanya Safespace",
+    body: opts.body || p.body || opts.message || "May bagong update ka.",
+    icon: opts.icon || p.icon || "/apple-touch-icon.png",
+    badge: opts.badge || p.badge || "/icon-192.png",
+    tag: opts.tag || p.tag || "litanya-" + Date.now(),
+    url: opts.url || p.url || p.link || "/",
+    data: p.data || opts.data || {}
+  };
+}
+
+self.addEventListener("push", (event) => {
+  const n = parsePush(event.data);
+  event.waitUntil(self.registration.showNotification(n.title, {
+    body: n.body,
+    icon: n.icon,
+    badge: n.badge,
+    tag: n.tag,
+    data: { url: n.url, ...n.data },
+    vibrate: [80, 40, 80],
+    renotify: !!n.tag,
+    lang: "fil"
+  }));
+});
+
+self.addEventListener("notificationclick", (event) => {
+  event.notification.close();
+  const target = (event.notification.data && event.notification.data.url) || "/";
+  event.waitUntil((async () => {
+    const all = await clients.matchAll({ type: "window", includeUncontrolled: true });
+    for (const c of all) {
+      if ("focus" in c) { try { await c.focus(); navigateHash(c, target); return; } catch (_) {} }
+    }
+    if (await clients.openWindow) { const w = await clients.openWindow(target); if (w) navigateHash(w, target); }
+  })());
+});
+
+function navigateHash(client, url) {
+  try {
+    const u = new URL(url, self.location.origin);
+    if (u.origin === self.location.origin) client.postMessage({ type: "litanya-navigate", path: u.pathname + (u.hash || "") });
+  } catch (_) {}
+}
+
+self.addEventListener("pushsubscriptionchange", (event) => {
+  event.waitUntil((async () => {
+    try { await self.registration.pushManager.subscribe({ userVisibleOnly: true }); } catch (_) {}
   })());
 });
 
