@@ -2219,7 +2219,7 @@ function startRealtime(){
     toast("Someone viewed your profile.","success");
   }).subscribe();
   const notif=client.channel("litanya-notifs").on("postgres_changes",{event:"INSERT",schema:"public",table:"notifications",filter:"user_id=eq."+uid()},payload=>{
-    loadNotifications();const n=payload.new;toast(n.title||"New notification.","success");
+    loadNotifications();const n=payload.new;toast(n.title||"New notification.","success");if(window.__litanyaPing)window.__litanyaPing();
     if("Notification" in window&&Notification.permission==="granted"&&document.hidden){try{new Notification(n.title||"LitanyaSpace",{body:n.body||"You have a new notification.",icon:"/apple-touch-icon.png"})}catch{}}
   }).subscribe();
   const messageAlerts=client.channel("litanya-message-alerts").on("postgres_changes",{event:"INSERT",schema:"public",table:"messages"},async payload=>{
@@ -2228,7 +2228,7 @@ function startRealtime(){
     if(!member.data)return;
     const who=await client.from("profiles").select("username,display_name").eq("id",m.sender_id).maybeSingle();
     const sender=who.data?.display_name||who.data?.username||"Someone";
-    toast("New message from "+sender,"success",5000);refreshMessageBadge();if($("notifBadge")){const n=Number($("notifBadge").textContent||0);$("notifBadge").textContent=String(n+1);$("notifBadge").classList.remove("hidden")}
+    toast("New message from "+sender,"success",5000);if(window.__litanyaPing)window.__litanyaPing();refreshMessageBadge();if($("notifBadge")){const n=Number($("notifBadge").textContent||0);$("notifBadge").textContent=String(n+1);$("notifBadge").classList.remove("hidden")}
     if("Notification" in window&&Notification.permission==="granted"&&document.hidden){try{new Notification("Message from "+sender,{body:String(m.content||"New message").slice(0,140),icon:"/apple-touch-icon.png",tag:"litanya-message-"+m.conversation_id})}catch{}}
   }).subscribe();
   liveChannels=[postChannel,commentChannel,profileViewsChannel,notif,messageAlerts];
@@ -3575,6 +3575,101 @@ html[data-theme="dark"] .litanya-reaction-chip{color:#e6cbdc;background:rgba(201
   new MutationObserver(injectInviteCard).observe(document.body,{childList:true,subtree:true});
 
   console.info('[LitanyaSpace v2.6] WePlay-style Live Games: invite card, copy button, waiting screen, live player count, game-ended modal.');
+})();
+</script>
+<style>
+/* v2.7 - iOS smoothness + notification UX */
+html.ios-smooth{-webkit-text-size-adjust:100%;text-size-adjust:100%;overscroll-behavior-y:none}
+html.ios-smooth .page,html.ios-smooth .feedbox,html.ios-smooth .chatlist,html.ios-smooth .messages,html.ios-smooth .scroll,html.ios-smooth [class*=list]{-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+html.ios-smooth body{touch-action:pan-x pan-y}
+html.ios-smooth .topbar{padding-top:env(safe-area-inset-top)}
+html.ios-smooth .bottomnav,html.ios-smooth .bnav{padding-bottom:calc(env(safe-area-inset-bottom) + 8px)}
+html.ios-smooth .composer,html.ios-smooth .chatcomposer,html.ios-smooth form.chatinput{padding-bottom:env(safe-area-inset-bottom)}
+@media (prefers-reduced-motion:reduce){ html.ios-smooth *{scroll-behavior:auto!important} }
+/* Add-to-Home-Screen banner (unlocks iOS push) */
+.lit-a2hs{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom) + 74px);transform:translateX(-50%) translateY(140%);width:min(92vw,440px);background:#fff;color:#241d24;border-radius:20px;box-shadow:0 18px 50px rgba(80,40,60,.28);padding:14px 16px;display:flex;gap:12px;align-items:center;z-index:9600;transition:transform .4s cubic-bezier(.34,1.56,.64,1);border:1.5px solid rgba(201,130,165,.22)}
+.lit-a2hs.show{transform:translateX(-50%) translateY(0)}
+html[data-theme="dark"] .lit-a2hs{background:#241d28;color:#f4eef4;border-color:rgba(201,130,165,.3)}
+.lit-a2hs .ico{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#c982a5,#7c5cb8);display:grid;place-items:center;color:#fff;font-size:22px;flex-shrink:0}
+.lit-a2hs .txt{flex:1;min-width:0}
+.lit-a2hs .txt b{display:block;font-size:14px;margin-bottom:2px}
+.lit-a2hs .txt span{font-size:12px;opacity:.72;line-height:1.35;display:block}
+.lit-a2hs .go{background:var(--accent,#c982a5);color:#fff;border:0;border-radius:12px;padding:9px 14px;font-weight:700;font-size:13px;white-space:nowrap}
+.lit-a2hs .x{background:none;border:0;color:inherit;opacity:.5;font-size:20px;padding:2px 6px;line-height:1}
+</style>
+<script>
+/* v2.7 - iOS detection, sound/haptic ping, Add-to-Home banner, SW push navigation. */
+(function(){
+  var isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent) || (/macintosh/i.test(navigator.userAgent) && navigator.maxTouchPoints>1);
+  var standalone = (window.matchMedia && matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true;
+  if(isIOS){ document.documentElement.classList.add('ios-smooth'); }
+
+  /* --- 1) Audio + haptic ping when a realtime alert arrives (works while app open) --- */
+  var audioCtx=null;
+  function chime(){
+    try{
+      audioCtx = audioCtx || new (window.AudioContext||window.webkitAudioContext)();
+      if(audioCtx.state==='suspended') audioCtx.resume();
+      var t=audioCtx.currentTime;
+      [[880,0],[660,0.12]].forEach(function(n){
+        var o=audioCtx.createOscillator(), g=audioCtx.createGain();
+        o.type='sine'; o.frequency.value=n[0];
+        g.gain.setValueAtTime(0.0001,t+n[1]);
+        g.gain.exponentialRampToValueAtTime(0.16,t+n[1]+0.02);
+        g.gain.exponentialRampToValueAtTime(0.0001,t+n[1]+0.18);
+        o.connect(g).connect(audioCtx.destination); o.start(t+n[1]); o.stop(t+n[1]+0.2);
+      });
+    }catch(_){}
+  }
+  window.__litanyaPing = function(silent){
+    try{ if(navigator.vibrate) navigator.vibrate([60,30,60]); }catch(_){}
+    if(!silent) chime();
+  };
+
+  /* --- 2) Respond to taps on a system notification pushed by the SW --- */
+  if('serviceWorker' in navigator){
+    navigator.serviceWorker.addEventListener('message',function(ev){
+      var d=ev.data; if(d && d.type==='litanya-navigate'){
+        try{ if(d.path && d.path.indexOf('#')>=0){ location.hash = d.path.split('#')[1]; } else { go && go((d.path||'/').replace(/\//g,'')||'wall'); } }catch(_){}
+      }
+    });
+  }
+
+  /* --- 3) Add-to-Home-Screen banner: required to UNLOCK real push on iOS --- */
+  var dismissedKey='litanya.a2hs.dismissed';
+  function bannerDismissed(){ try{return localStorage.getItem(dismissedKey)==='1'}catch(_){return false} }
+  function showBanner(msg, goLabel, onGo){
+    if(document.getElementById('litA2hsBanner') || bannerDismissed()) return;
+    var b=document.createElement('div'); b.id='litA2hsBanner'; b.className='lit-a2hs';
+    b.innerHTML='<div class="ico">⤴︎</div><div class="txt"><b>'+
+      msg.title+'</b><span>'+msg.body+'</span></div>'+
+      (goLabel?'<button type="button" class="go">'+goLabel+'</button>':'')+
+      '<button type="button" class="x" aria-label="Close">×</button>';
+    document.body.appendChild(b);
+    requestAnimationFrame(function(){ b.classList.add('show'); });
+    var close=function(){ b.classList.remove('show'); try{localStorage.setItem(dismissedKey,'1')}catch(_){}; setTimeout(function(){b.remove()},400); };
+    b.querySelector('.x').addEventListener('click',close);
+    var goBtn=b.querySelector('.go'); if(goBtn) goBtn.addEventListener('click',function(){ if(onGo)onGo(close); else close(); });
+  }
+
+  var deferredPrompt=null;
+  window.addEventListener('beforeinstallprompt',function(e){ deferredPrompt=e; });
+
+  function maybePromptInstall(){
+    if(standalone || bannerDismissed()) return;
+    if(isIOS){
+      showBanner({title:'I-install ang Litanya para sa notifications',
+        body:'Sa iPhone/iPad: pindutin ang Share ⬆️ sa Safari, then "Add to Home Screen". Pagka-open mo galing sa Home Screen, pindutin ang Enable notifications — doon gumagana ang tunay na push.'}, null, null);
+    } else if(deferredPrompt){
+      showBanner({title:'I-install ang Litanya Safespace', body:'Gamitin as a real app + makatanggap ng notifications.'}, 'Install', function(close){
+        deferredPrompt.prompt(); close();
+      });
+    }
+  }
+  setTimeout(maybePromptInstall, 6000);
+  window.addEventListener('appinstalled',function(){ try{localStorage.setItem(dismissedKey,'1')}catch(_){} });
+
+  console.info('[LitanyaSpace v2.7] iOS smoothness + Web Push SW wired + install prompt ready.');
 })();
 </script>
 </body>
