@@ -1,6 +1,6 @@
 /* Litanya Safespace service worker — offline app-shell caching.
    Bump CACHE version when deploying a big update to refresh stale shells. */
-const CACHE = "litanya-shell-v12";
+const CACHE = "litanya-shell-v13";
 const CORE = [
   "/",
   "/index.html",
@@ -64,22 +64,21 @@ self.addEventListener("push", (event) => {
 
 self.addEventListener("notificationclick", (event) => {
   event.notification.close();
-  const target = (event.notification.data && event.notification.data.url) || "/";
+  const raw = (event.notification.data && event.notification.data.url) || "/";
+  const route = String(raw).replace(/^\/+/, "").split("?")[0].split("#")[0] || "";
+  const targetUrl = "/" + (route ? "?r=" + encodeURIComponent(route) : "");
   event.waitUntil((async () => {
     const all = await clients.matchAll({ type: "window", includeUncontrolled: true });
     for (const c of all) {
-      if ("focus" in c) { try { await c.focus(); navigateHash(c, target); return; } catch (_) {} }
+      if ("focus" in c) {
+        try { await c.focus(); c.postMessage({ type: "litanya-navigate", route }); return; } catch (_) {}
+      }
     }
-    if (await clients.openWindow) { const w = await clients.openWindow(target); if (w) navigateHash(w, target); }
+    if (clients.openWindow) { await clients.openWindow(targetUrl); }
   })());
 });
 
-function navigateHash(client, url) {
-  try {
-    const u = new URL(url, self.location.origin);
-    if (u.origin === self.location.origin) client.postMessage({ type: "litanya-navigate", path: u.pathname + (u.hash || "") });
-  } catch (_) {}
-}
+self.addEventListener("notificationclose", () => {});
 
 self.addEventListener("pushsubscriptionchange", (event) => {
   event.waitUntil((async () => {
