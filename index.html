@@ -2709,6 +2709,31 @@ html[data-theme="dark"] .litshimmer::after{background:linear-gradient(90deg,tran
   var obs = new MutationObserver(wireLabels);
   obs.observe(document.body,{childList:true,subtree:true});
 
+  /* --- v2.2c: Intercept the "Find audio" (#musicSearchOpen) button ---
+     The original handler opens an Archive.org modal. We hijack it
+     to open our iTunes picker instead, and re-label the button. */
+  function hijackFindAudio(){
+    var btn = document.getElementById('musicSearchOpen');
+    if(!btn || btn.dataset.litanyaHijacked) return;
+    btn.dataset.litanyaHijacked = '1';
+    btn.title = 'Search mainstream songs (iTunes)';
+    var strong = btn.querySelector('strong'); if(strong) strong.textContent = 'Find audio';
+    var spans = btn.querySelectorAll('span');
+    if(spans.length>=2) spans[spans.length-1].textContent = 'Search Taylor, Ben&Ben, Drake, SB19…';
+    btn.addEventListener('click', function(e){
+      e.stopImmediatePropagation();  /* prevent openMusicSearch() from firing */
+      openModal(btn);
+    }, true);
+  }
+  hijackFindAudio();
+  var obs2 = new MutationObserver(hijackFindAudio);
+  obs2.observe(document.body,{childList:true,subtree:true});
+
+  /* --- v2.2d: Also override the global openMusicSearch() as a safety net --- */
+  if (typeof window.openMusicSearch === 'function') {
+    window.openMusicSearch = function(){ openModal(document.getElementById('musicSearchOpen')); };
+  }
+
   qInput && qInput.addEventListener('input', debounce(function(){ doSearch(qInput.value.trim()); },400));
   function debounce(fn,ms){var t;return function(){clearTimeout(t);t=setTimeout(fn,ms);};}
 
