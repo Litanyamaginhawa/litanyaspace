@@ -8,7 +8,7 @@
 //   supabase functions deploy send-notification-push --no-verify-jwt
 //
 // Required Function Secrets (reuse the same ones send-post-push uses):
-//   VAPID_PUBLIC_KEY   = BDvV_N9w9MWNttQ31sWwtFpgPIqcwffLAmBpKTA5yRvy9kyqLrGJgP2w4_1P88b3l3MOkxIbYv6lfUIpLoe2z20
+//   VAPID_PUBLIC_KEY   = BAJGSIM-ksVEAqRaZAsKt8N01abzkImq5RH2TT3OxtbTzBHUUR_OATrCRzGOjMVN9V7DGYi7Frxlb9BS0_PoCQY
 //   VAPID_PRIVATE_KEY  = (paste the matching private key from vapid-keys.txt)
 //   VAPID_SUBJECT      = mailto:admin@litanyaspace.app
 //   PUSH_TRIGGER_SECRET= (any long random string; MUST match the SQL trigger header)
