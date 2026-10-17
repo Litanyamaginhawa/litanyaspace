@@ -2220,7 +2220,7 @@ function startRealtime(){
   }).subscribe();
   const notif=client.channel("litanya-notifs").on("postgres_changes",{event:"INSERT",schema:"public",table:"notifications",filter:"user_id=eq."+uid()},payload=>{
     loadNotifications();const n=payload.new;toast(n.title||"New notification.","success");if(window.__litanyaPing)window.__litanyaPing();
-    if("Notification" in window&&Notification.permission==="granted"&&document.hidden){try{new Notification(n.title||"LitanyaSpace",{body:n.body||"You have a new notification.",icon:"/apple-touch-icon.png"})}catch{}}
+    if(window.__litanyaNotify && (document.hidden||!document.hasFocus())){window.__litanyaNotify(n.title||"LitanyaSpace", n.body||"You have a new notification.", {tag:"litanya-notif-"+(n.id||Date.now()), url:"/notifications"});}
   }).subscribe();
   const messageAlerts=client.channel("litanya-message-alerts").on("postgres_changes",{event:"INSERT",schema:"public",table:"messages"},async payload=>{
     const m=payload.new;if(!uid()||m.sender_id===uid()||m.conversation_id===activeChat)return;
@@ -2229,7 +2229,7 @@ function startRealtime(){
     const who=await client.from("profiles").select("username,display_name").eq("id",m.sender_id).maybeSingle();
     const sender=who.data?.display_name||who.data?.username||"Someone";
     toast("New message from "+sender,"success",5000);if(window.__litanyaPing)window.__litanyaPing();refreshMessageBadge();if($("notifBadge")){const n=Number($("notifBadge").textContent||0);$("notifBadge").textContent=String(n+1);$("notifBadge").classList.remove("hidden")}
-    if("Notification" in window&&Notification.permission==="granted"&&document.hidden){try{new Notification("Message from "+sender,{body:String(m.content||"New message").slice(0,140),icon:"/apple-touch-icon.png",tag:"litanya-message-"+m.conversation_id})}catch{}}
+    if(window.__litanyaNotify && (document.hidden||!document.hasFocus())){window.__litanyaNotify("Message from "+sender, String(m.content||"New message").slice(0,140), {tag:"litanya-msg-"+m.conversation_id, url:"/messenger"});}
   }).subscribe();
   liveChannels=[postChannel,commentChannel,profileViewsChannel,notif,messageAlerts];
 }
@@ -3234,27 +3234,13 @@ html[data-theme="dark"] .litanya-reaction-chip{color:#e6cbdc;background:rgba(201
     litStatusEl.classList.remove('show');
   }
 
-  /* Intercept form submits BEFORE the existing handler runs. */
-  ['postForm','realForm','updateForm'].forEach(function(fid){
-    var f = document.getElementById(fid); if(!f) return;
-    f.addEventListener('submit', function(e){
-      if(e.defaultPrevented) return;
-      var att = window.__litanyaAttached;
-      if(!att || !att.music_url) return;
-      var stateKey = fid==='postForm'?'postMusic':(fid==='realForm'?'realMusic':'updateMusic');
-      e.preventDefault(); e.stopImmediatePropagation();
-      showLitStatus('Preparing iTunes audio…');
-      injectItunesFile(stateKey, att.music_url, att.music_name).then(function(){
-        showLitStatus('Ready! Posting now…', 'done');
-        setTimeout(function(){ f.requestSubmit ? f.requestSubmit() : f.dispatchEvent(new Event('submit',{cancelable:true,bubbles:true})); }, 900);
-      }).catch(function(err){
-        console.error('[Litanya] inject failed:', err);
-        showLitStatus('Failed: ' + (err.message||err), 'error');
-      });
-    }, true);
-  });
+  /* v2.8: REMOVED the slow download+upload interceptor. The iTunes preview
+     URL is now streamed directly by the post audio player via the fast
+     insert() wrapper (music_url = iTunes CDN link). No fetch, no upload,
+     so posting with music is instant. The old v2.4b path (injectItunesFile)
+     is left defined but no longer hooked, as a dead-code safety net. */
 
-  console.info('[LitanyaSpace v2.4] SVG reactions, persistent chips, expanded badwords, real composer extended.');
+  console.info('[LitanyaSpace v2.8] iTunes attach is instant (URL streamed, no upload).');
 })();
 </script>
 <script>
@@ -3624,6 +3610,28 @@ html[data-theme="dark"] .lit-a2hs{background:#241d28;color:#f4eef4;border-color:
   window.__litanyaPing = function(silent){
     try{ if(navigator.vibrate) navigator.vibrate([60,30,60]); }catch(_){}
     if(!silent) chime();
+  };
+
+  /* --- 1b) Cross-platform system notification (Android + iOS-installed) ---
+     Prefers the service worker registration.showNotification (survives page
+     backgrounding on Android, works on iOS 16.4+ installed PWA), then falls
+     back to the page Notification constructor. */
+  window.__litanyaNotify = function(title, body, o){
+    o = o || {};
+    if(!('Notification' in window) || Notification.permission !== 'granted') return;
+    var opts = {
+      body: body || '', icon: '/apple-touch-icon.png', badge: '/icon-192.png',
+      tag: o.tag || ('litanya-' + Date.now()), data: { url: o.url || '/' },
+      vibrate: [80,40,80], renotify: true, lang: 'fil'
+    };
+    var fallback = function(){ try{ new Notification(title, opts); }catch(_){ } };
+    try{
+      if(navigator.serviceWorker && navigator.serviceWorker.getRegistration){
+        navigator.serviceWorker.getRegistration('/').then(function(reg){
+          if(reg && reg.showNotification){ reg.showNotification(title, opts); } else { fallback(); }
+        }).catch(fallback);
+      } else { fallback(); }
+    }catch(_){ fallback(); }
   };
 
   /* --- 2) Respond to taps on a system notification pushed by the SW --- */
