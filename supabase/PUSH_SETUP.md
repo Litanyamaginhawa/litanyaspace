@@ -25,20 +25,24 @@ supabase functions deploy send-notification-push --no-verify-jwt
 
 ### Set the secrets the function needs
 
-> Fresh VAPID keypair generated for this project (the old private key was lost).
-> Because the key rotated, every user must **re-enable notifications once** — the
-> app now auto-detects the stale subscription and re-subscribes.
+> These are **already set** in the project (deployed via the Supabase API).
+> The VAPID keys were **rotated twice** — the first pair was lost, and the
+> second pair had to be replaced because a private key was accidentally left
+> in this file. Treat `VAPID_PRIVATE_KEY` as a **secret**: never commit it here.
+> Because the key rotated, every user must **re-enable notifications once** —
+> the app auto-detects the stale subscription and re-subscribes.
 
 ```bash
 supabase secrets set \
-  VAPID_PUBLIC_KEY=BDvV_N9w9MWNttQ31sWwtFpgPIqcwffLAmBpKTA5yRvy9kyqLrGJgP2w4_1P88b3l3MOkxIbYv6lfUIpLoe2z20 \
-  VAPID_PRIVATE_KEY=pA_4V-mIwm0e3dTK499nd13wA-JIqSNNavX9MehK8WE \
+  VAPID_PUBLIC_KEY=<current public key, see app config> \
+  VAPID_PRIVATE_KEY=<KEEP SECRET - not stored in this repo> \
   VAPID_SUBJECT=mailto:admin@litanyaspace.app \
   PUSH_TRIGGER_SECRET=<a long random string you invent>
 ```
 
-> **Also update `send-post-push`** with the SAME new `VAPID_PUBLIC_KEY` +
-> `VAPID_PRIVATE_KEY`, otherwise post-push will use the old (dead) key.
+> The `VAPID_PUBLIC_KEY` above must match the constant in `index.html`.
+> **Keep `send-post-push` on the SAME VAPID keypair**, otherwise post-push
+> will use the old (dead) key.
 
 > You can also set these without CLI: **Dashboard → Project → Edge Functions →
 > Manage secrets → New secret**.
