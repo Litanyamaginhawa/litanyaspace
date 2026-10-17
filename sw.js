@@ -1,6 +1,6 @@
 /* Litanya Safespace service worker — offline app-shell caching.
    Bump CACHE version when deploying a big update to refresh stale shells. */
-const CACHE = "litanya-shell-v1";
+const CACHE = "litanya-shell-v2";
 const CORE = [
   "/",
   "/index.html",
