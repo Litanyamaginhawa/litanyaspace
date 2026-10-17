@@ -2922,7 +2922,7 @@ html[data-theme="dark"] .litanya-reaction-chip{color:#e6cbdc;background:rgba(201
       if(key && SVG[key] && !b.dataset.litSvgLike){
         b.dataset.litSvgLike = '1';
         b.dataset.reactKey = key;
-        b.innerHTML = SVG[key] + '<span class="react-label">' + key.charAt(0).toUpperCase()+key.slice(1) + '</span> <span class="react-count">' + (b.textContent.match(/\d+/)||[''])[0] + '</span>';
+        b.innerHTML = SVG[key] + '<span class="react-label">Like</span> <span class="react-count">' + (b.textContent.match(/\d+/)||[''])[0] + '</span>';
       }
     });
   }
@@ -2939,7 +2939,7 @@ html[data-theme="dark"] .litanya-reaction-chip{color:#e6cbdc;background:rgba(201
     var existingCount = (likeBtn.textContent.match(/\d+/)||[''])[0];
     likeBtn.dataset.reactKey = key;
     likeBtn.classList.add('active');
-    likeBtn.innerHTML = SVG[key] + '<span class="react-label">' + key.charAt(0).toUpperCase()+key.slice(1) + '</span> <span class="react-count">' + existingCount + '</span>';
+    likeBtn.innerHTML = SVG[key] + '<span class="react-label">Like</span> <span class="react-count">' + existingCount + '</span>';
     /* Toggle off if user clicks the same reaction again (matches existing behavior). */
     var post = pickBtn.closest('[data-post-id], .post');
     var pid = post && (post.dataset.postId || post.dataset.id);
