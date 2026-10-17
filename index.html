@@ -2632,6 +2632,59 @@ html[data-theme="dark"] .lit-status{background:#241e2b;color:#e6cbdc}
 html[data-theme="dark"] .lit-status.done{background:#1b5e20;color:#c8e6c9}
 html[data-theme="dark"] .lit-status.error{background:#8b1a1a;color:#ffcdd2}
 </style>
+<style>
+/* v2.5 - Messenger redesign (Litanya-themed, unique) + record button fix + supportive reactions */
+#messengerBox{background:linear-gradient(180deg,#faf1f7 0%,#fff 220px,#fff 100%)}
+html[data-theme="dark"] #messengerBox{background:linear-gradient(180deg,#1a1420 0%,#221a28 220px,#221a28 100%)}
+#messengerBox .chathead{background:linear-gradient(135deg,#c982a5 0%,#a86fc0 60%,#7c5cb8 100%);color:#fff;border-bottom:0;padding:14px 18px;box-shadow:0 4px 18px rgba(168,111,192,.22);position:relative;z-index:2}
+#messengerBox .chathead .avatar,#messengerBox .chathead strong{color:#fff}
+#messengerBox .chathead .tiny,#messengerBox .chathead small{color:rgba(255,255,255,.82)}
+#messengerBox .chathead .iconbtn{color:#fff;background:rgba(255,255,255,.16)}
+#messengerBox .chathead .iconbtn:hover{background:rgba(255,255,255,.28)}
+#messengerBox .chatlist{background:rgba(255,255,255,.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+html[data-theme="dark"] #messengerBox .chatlist{background:rgba(36,30,43,.55)}
+#messengerBox .chatmsgs{background:radial-gradient(ellipse at top,rgba(201,130,165,.05),transparent 60%),radial-gradient(ellipse at bottom,rgba(168,111,192,.04),transparent 60%);padding:14px 16px 8px}
+#messengerBox .msg{background:#fff;border:1px solid rgba(201,130,165,.14);border-radius:22px 22px 22px 8px;padding:10px 14px;box-shadow:0 2px 10px rgba(140,80,110,.08);color:#2a1a26;font-size:14.5px;line-height:1.45}
+#messengerBox .mine .msg{background:linear-gradient(135deg,#c982a5 0%,#a86fc0 100%);color:#fff;border-color:transparent;border-radius:22px 22px 8px 22px;box-shadow:0 4px 16px rgba(168,111,192,.32)}
+#messengerBox .chat-attachbar{padding:8px 12px 4px;display:flex;gap:10px;align-items:center;justify-content:flex-start;background:transparent;border:0}
+#messengerBox .chat-attach{width:42px;height:42px;min-width:42px;min-height:42px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:#fff;border:1.5px solid rgba(201,130,165,.32);color:#a56a87;font-size:18px;cursor:pointer;transition:transform .22s cubic-bezier(.34,1.56,.64,1),background-color .15s,border-color .15s;user-select:none;-webkit-tap-highlight-color:transparent;pointer-events:auto}
+#messengerBox .chat-attach:hover{background:rgba(201,130,165,.12);border-color:#c982a5;transform:scale(1.06)}
+#messengerBox .chat-attach:active{transform:scale(.94)}
+#messengerBox #recordVoice{background:#fff;color:#c982a5;border-color:rgba(201,130,165,.4);font-size:14px;line-height:1;padding:0}
+#messengerBox #recordVoice.recording{background:#e53935;color:#fff;border-color:#e53935;animation:litpulse 1.4s ease-in-out infinite}
+@keyframes litpulse{0%,100%{box-shadow:0 0 0 0 rgba(229,57,53,.5)}50%{box-shadow:0 0 0 8px rgba(229,57,53,0)}}
+#messengerBox .chatcompose{padding:8px 12px 12px;background:rgba(255,255,255,.7);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-top:1px solid rgba(201,130,165,.14);display:flex;gap:8px;align-items:center}
+html[data-theme="dark"] #messengerBox .chatcompose{background:rgba(36,30,43,.7);border-top-color:rgba(201,130,165,.16)}
+#messengerBox #messageInput{flex:1;min-width:0;border:1.5px solid rgba(201,130,165,.22);border-radius:999px;padding:10px 16px;font-size:14.5px;background:#fff;color:#2a1a26;transition:border-color .15s,box-shadow .15s}
+#messengerBox #messageInput:focus{outline:none;border-color:#c982a5;box-shadow:0 0 0 3px rgba(201,130,165,.16)}
+#messengerBox .send{width:42px;height:42px;min-width:42px;border-radius:50%;background:linear-gradient(135deg,#c982a5,#a86fc0);color:#fff;border:0;font-size:18px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 12px rgba(168,111,192,.32);transition:transform .22s cubic-bezier(.34,1.56,.64,1),box-shadow .15s}
+#messengerBox .send:hover{transform:scale(1.08) rotate(-8deg);box-shadow:0 6px 18px rgba(168,111,192,.4)}
+#messengerBox .send:active{transform:scale(.94)}
+#messengerBox .send:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none}
+/* Litanya supportive reactions bar (long-press a message) */
+.lit-react-bar{position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%) scale(.85);display:flex;gap:2px;padding:5px 8px;background:#fff;border-radius:999px;box-shadow:0 8px 24px rgba(60,32,48,.22),0 2px 6px rgba(0,0,0,.08);opacity:0;pointer-events:none;transition:opacity .18s ease,transform .22s cubic-bezier(.34,1.56,.64,1);z-index:50;white-space:nowrap}
+.lit-react-bar.show{opacity:1;transform:translateX(-50%) scale(1);pointer-events:auto}
+.lit-react-bar button{width:34px;height:34px;border:0;background:transparent;border-radius:50%;font-size:18px;cursor:pointer;display:grid;place-items:center;transition:transform .18s cubic-bezier(.34,1.56,.64,1),background-color .12s}
+.lit-react-bar button:hover{transform:scale(1.35) translateY(-3px);background:rgba(201,130,165,.14)}
+.lit-react-bar button:active{transform:scale(1.15)}
+.lit-react-bar button svg{width:22px;height:22px}
+/* Crisis help button */
+.lit-crisis{position:absolute;top:50%;right:14px;transform:translateY(-50%);width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#ff8a65,#e57373);color:#fff;border:0;font-size:22px;display:grid;place-items:center;cursor:pointer;box-shadow:0 6px 20px rgba(229,115,115,.4);z-index:3;transition:transform .22s cubic-bezier(.34,1.56,.64,1)}
+.lit-crisis:hover{transform:translateY(-50%) scale(1.08)}
+.lit-crisis:active{transform:translateY(-50%) scale(.94)}
+/* Vanish mode toggle */
+.lit-vanish{padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.22);color:#fff;border:1.5px solid rgba(255,255,255,.4);font-size:12px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:background-color .15s}
+.lit-vanish.on{background:#fff;color:#a86fc0;border-color:#fff}
+.lit-vanish .dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.6)}
+.lit-vanish.on .dot{background:#a86fc0;animation:litpulse2 1.6s ease-in-out infinite}
+@keyframes litpulse2{0%,100%{opacity:1}50%{opacity:.4}}
+/* Vanish-mode banner */
+.lit-vanish-banner{padding:8px 14px;background:linear-gradient(90deg,rgba(168,111,192,.14),rgba(201,130,165,.08));border-top:1px solid rgba(168,111,192,.2);color:#7c5cb8;font-size:12px;font-weight:600;text-align:center}
+html[data-theme="dark"] .lit-vanish-banner{color:#d4b3e0;background:linear-gradient(90deg,rgba(168,111,192,.18),rgba(201,130,165,.1))}
+/* Check-in button in chat head */
+.lit-checkin{padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.22);color:#fff;border:1.5px solid rgba(255,255,255,.4);font-size:12px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:background-color .15s}
+.lit-checkin:hover{background:rgba(255,255,255,.36)}
+</style>
 <div class="audio-picker" id="litanyaAudioPicker"><div class="audio-picker-box"><div class="audio-picker-head"><input id="litanyaAudioQ" placeholder="Search any song (Taylor, Ben&Ben, Drake...)" autocomplete="off"><button id="litanyaAudioClose" aria-label="Close">✕</button></div><div class="audio-results" id="litanyaAudioResults"></div><div class="audio-attachbar"><span>Free · Apple Music previews</span><a href="https://music.apple.com" target="_blank" rel="noopener">Powered by iTunes API</a></div></div></div>
 <script>
 /* v2.2 - iTunes Search audio picker (CORS-open, mainstream songs, no API key). */
@@ -3147,6 +3200,178 @@ html[data-theme="dark"] .litanya-reaction-chip{color:#e6cbdc;background:rgba(201
   });
 
   console.info('[LitanyaSpace v2.4] SVG reactions, persistent chips, expanded badwords, real composer extended.');
+})();
+</script>
+<script>
+/* v2.5 - Messenger: supportive reactions, vanish mode, crisis help, check-in. */
+(function(){
+  /* Litanya-specific supportive reaction SVGs (not generic emoji). */
+  var LIT_SVG = {
+    hug:      '<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" fill="#f8bbd0"/><path d="M7 14c1.5 2.5 8.5 2.5 10 0" stroke="#880e4f" stroke-width="1.6" fill="none" stroke-linecap="round"/><path d="M6 11c1-1 2.5-1 3.5 0M14.5 11c1-1 2.5-1 3.5 0" stroke="#880e4f" stroke-width="1.8" stroke-linecap="round" fill="none"/><path d="M4 17c2 1 4 1 5 0M20 17c-2 1-4 1-5 0" stroke="#ad1457" stroke-width="1.4" stroke-linecap="round" fill="none"/></svg>',
+    strength: '<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" fill="#ffe0b2"/><path d="M7 16c2 1 8 1 10 0" stroke="#bf360c" stroke-width="1.6" fill="none" stroke-linecap="round"/><path d="M6 10l3 2 3-3 3 3 3-2" stroke="#bf360c" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="8.5" cy="13" r=".9" fill="#bf360c"/><circle cx="15.5" cy="13" r=".9" fill="#bf360c"/></svg>',
+    here:     '<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" fill="#b3e5fc"/><path d="M7 16c2 1.5 8 1.5 10 0" stroke="#01579b" stroke-width="1.6" fill="none" stroke-linecap="round"/><circle cx="8.5" cy="10" r="1.2" fill="#01579b"/><circle cx="15.5" cy="10" r="1.2" fill="#01579b"/><path d="M12 19l-2-3h4z" fill="#0288d1"/></svg>',
+    proud:    '<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" fill="#d1c4e9"/><path d="M6 14c1.5-1 3.5-1 5 0M13 14c1.5-1 3.5-1 5 0" stroke="#4527a0" stroke-width="1.8" stroke-linecap="round" fill="none"/><path d="M7 17c2 1.5 8 1.5 10 0" stroke="#4527a0" stroke-width="1.6" fill="none" stroke-linecap="round"/><path d="M12 4l1 2 2 .3-1.5 1.5.4 2.2-1.9-1-1.9 1 .4-2.2L9 6.3l2-.3z" fill="#7e57c2"/></svg>',
+    pray:     '<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" fill="#fff9c4"/><path d="M12 4v10M8 8h8" stroke="#f57f17" stroke-width="2.2" stroke-linecap="round"/><path d="M8 18c1.5-1 6.5-1 8 0" stroke="#f57f17" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg>',
+    heart:    '<svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.5-9A5.5 5.5 0 0 1 12 6.5 5.5 5.5 0 0 1 21.5 12c-2 4.4-9.5 9-9.5 9z" fill="#e94b6a" stroke="#a8213d" stroke-width="1.2"/></svg>'
+  };
+  var LIT_LABELS = {hug:'Hug', strength:'Strength', here:'I\'m here', proud:'Proud of you', pray:'Praying', heart:'Love'};
+
+  /* Inject a floating reaction bar on long-press of any message bubble. */
+  var activeBar = null, pressTimer = null, pressStart = 0;
+  function showLitReactBar(msgEl, x, y){
+    hideLitReactBar();
+    var bar = document.createElement('div');
+    bar.className = 'lit-react-bar show';
+    bar.innerHTML = Object.keys(LIT_SVG).map(function(k){
+      return '<button type="button" data-lit-react="'+k+'" title="'+LIT_LABELS[k]+'">'+LIT_SVG[k]+'</button>';
+    }).join('');
+    msgEl.style.position = 'relative';
+    msgEl.appendChild(bar);
+    bar.addEventListener('click', function(e){
+      var b = e.target.closest('[data-lit-react]'); if(!b) return;
+      var k = b.getAttribute('data-lit-react');
+      applyLitReaction(msgEl, k);
+      hideLitReactBar();
+    });
+    activeBar = bar;
+  }
+  function hideLitReactBar(){ if(activeBar){ activeBar.remove(); activeBar=null; } }
+  function applyLitReaction(msgEl, key){
+    var existing = msgEl.querySelector('.msg-heart');
+    if(existing) existing.remove();
+    var chip = document.createElement('span');
+    chip.className = 'msg-heart';
+    chip.innerHTML = '<span style="display:inline-block;width:14px;height:14px;vertical-align:middle">'+LIT_SVG[key]+'</span>';
+    chip.title = LIT_LABELS[key];
+    msgEl.appendChild(chip);
+    /* Persist locally (per message id if available). */
+    var mid = msgEl.dataset.msgId || msgEl.closest('[data-msg-id]')?.dataset.msgId;
+    if(mid){ try{ localStorage.setItem('litanya.msgReact.'+mid, key); }catch(_){} }
+    if(window.__litanyaFlash) __litanyaFlash('Reacted: ' + LIT_LABELS[key]);
+  }
+  /* Restore saved reactions on render. */
+  function restoreLitReactions(){
+    document.querySelectorAll('.msgrow .msg[data-msg-id], .msgrow .msg').forEach(function(m){
+      var mid = m.dataset.msgId || m.closest('[data-msg-id]')?.dataset.msgId;
+      if(!mid) return;
+      var saved = null; try{ saved = localStorage.getItem('litanya.msgReact.'+mid); }catch(_){}
+      if(saved && LIT_SVG[saved] && !m.querySelector('.msg-heart')){
+        var chip = document.createElement('span');
+        chip.className = 'msg-heart';
+        chip.innerHTML = '<span style="display:inline-block;width:14px;height:14px;vertical-align:middle">'+LIT_SVG[saved]+'</span>';
+        chip.title = LIT_LABELS[saved];
+        m.appendChild(chip);
+      }
+    });
+  }
+  new MutationObserver(restoreLitReactions).observe(document.body,{childList:true,subtree:true});
+
+  /* Long-press detection on .msg elements. */
+  document.addEventListener('pointerdown', function(e){
+    var msg = e.target.closest('.msg'); if(!msg) return;
+    pressStart = Date.now();
+    pressTimer = setTimeout(function(){ showLitReactBar(msg, e.clientX, e.clientY); }, 480);
+  }, {passive:true});
+  document.addEventListener('pointerup', function(){ clearTimeout(pressTimer); }, {passive:true});
+  document.addEventListener('pointercancel', function(){ clearTimeout(pressTimer); }, {passive:true});
+  document.addEventListener('pointermove', function(e){
+    if(pressTimer && (Date.now()-pressStart > 220)){ clearTimeout(pressTimer); pressTimer=null; }
+  }, {passive:true});
+  document.addEventListener('click', function(e){
+    if(activeBar && !e.target.closest('.lit-react-bar')) hideLitReactBar();
+  }, {passive:true});
+
+  /* --- Crisis help button (PH hotlines) --- */
+  var CRISIS_HTML = '<div class="lit-crisis-modal" style="max-width:420px;width:100%;background:#fff;border-radius:20px;padding:22px;box-shadow:0 20px 60px rgba(0,0,0,.35);color:#2a1a26"><h3 style="margin:0 0 8px;color:#c62828">Need help now?</h3><p style="margin:0 0 14px;font-size:14px;line-height:1.5">Kung ikaw o kakilala mo ay nasa crisis, tumawag o mag-text ngayon:</p><ul style="list-style:none;padding:0;margin:0;font-size:14px;line-height:1.9"><li>📞 <b>NCMH Crisis Hotline:</b> 1553 (toll-free, 24/7)</li><li>📞 <b>Hopeline PH:</b> (02) 804-HOPE / 0917-558-HOPE</li><li>📞 <b>Emergency:</b> 911</li><li>💬 <b>In Touch Crisis Line:</b> 0917-800-1173</li></ul><p style="margin:14px 0 0;font-size:12px;opacity:.7">Hindi ka nag-iisa. May taong handang tumulong.</p><button class="btn secondary" style="margin-top:14px;width:100%" onclick="this.closest(\'.lit-crisis-modal\').parentElement.remove()">Isara</button></div>';
+  function openCrisisModal(){
+    var back = document.createElement('div');
+    back.style.cssText='position:fixed;inset:0;background:rgba(20,10,20,.72);display:flex;align-items:center;justify-content:center;z-index:9500;padding:16px;animation:litanya-fade-in .2s ease';
+    back.innerHTML = CRISIS_HTML;
+    back.addEventListener('click', function(e){ if(e.target===back) back.remove(); });
+    document.body.appendChild(back);
+  }
+
+  /* --- Vanish mode (client-side auto-delete after 60s) --- */
+  var vanishOn = false;
+  function toggleVanish(){
+    vanishOn = !vanishOn;
+    var btn = document.getElementById('litVanishBtn');
+    if(btn){ btn.classList.toggle('on', vanishOn); btn.querySelector('.lit-vanish-label').textContent = vanishOn?'Vanish ON':'Vanish'; }
+    var banner = document.getElementById('litVanishBanner');
+    if(!banner && vanishOn){
+      banner = document.createElement('div');
+      banner.id = 'litVanishBanner'; banner.className = 'lit-vanish-banner';
+      banner.textContent = '🔒 Vanish mode: messages disappear 60s after reading';
+      var msgs = document.querySelector('#messengerBox .chatmsgs');
+      if(msgs) msgs.parentNode.insertBefore(banner, msgs);
+    } else if(banner && !vanishOn){ banner.remove(); }
+    if(vanishOn) startVanishTimer();
+  }
+  function startVanishTimer(){
+    setInterval(function(){
+      if(!vanishOn) return;
+      var cutoff = Date.now() - 60000;
+      document.querySelectorAll('#messengerBox .msgrow[data-ts]').forEach(function(r){
+        if(Number(r.dataset.ts) < cutoff && !r.dataset.vanished){
+          r.dataset.vanished = '1';
+          r.style.transition='opacity .5s,transform .5s'; r.style.opacity='0'; r.style.transform='scale(.9)';
+          setTimeout(function(){ r.remove(); }, 520);
+        }
+      });
+    }, 10000);
+  }
+
+  /* --- Check-in button (sends a pre-crafted supportive message) --- */
+  function sendCheckIn(){
+    var input = document.getElementById('messageInput');
+    if(!input || input.disabled){ if(window.__litanyaFlash) __litanyaFlash('Pumili muna ng conversation.'); return; }
+    var msgs = ['Kumusta? Nandito lang ako kung kailangan mo.','Hello! Miss kita. Okay ka lang ba?','Check-in lang 😊 Kung anong kailangan mo, nandito ako.','Thinking of you today. 💜'];
+    input.value = msgs[Math.floor(Math.random()*msgs.length)];
+    input.dispatchEvent(new Event('input',{bubbles:true}));
+    if(window.__litanyaFlash) __litanyaFlash('Check-in message ready — i-send mo na!');
+  }
+
+  /* --- Inject the new buttons into the chat header --- */
+  function injectChatHeaderButtons(){
+    var head = document.querySelector('#messengerBox .chathead');
+    if(!head || head.dataset.litV5) return;
+    head.dataset.litV5 = '1';
+    head.style.position = 'relative';
+    /* Crisis button */
+    var crisis = document.createElement('button');
+    crisis.type='button'; crisis.className='lit-crisis'; crisis.title='Crisis help / hotlines';
+    crisis.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor" style="width:22px;height:22px"><path d="M12 21s-7.5-4.6-9.5-9A5.5 5.5 0 0 1 12 6.5 5.5 5.5 0 0 1 21.5 12c-2 4.4-9.5 9-9.5 9z"/><path d="M12 8v6M9 11h6" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>';
+    crisis.addEventListener('click', openCrisisModal);
+    head.appendChild(crisis);
+    /* Vanish toggle */
+    var vanish = document.createElement('button');
+    vanish.type='button'; vanish.className='lit-vanish'; vanish.id='litVanishBtn';
+    vanish.innerHTML = '<span class="dot"></span><span class="lit-vanish-label">Vanish</span>';
+    vanish.addEventListener('click', toggleVanish);
+    head.appendChild(vanish);
+    /* Check-in button */
+    var checkin = document.createElement('button');
+    checkin.type='button'; checkin.className='lit-checkin'; checkin.title='Send a supportive check-in message';
+    checkin.innerHTML = '💜 <span>Check-in</span>';
+    checkin.addEventListener('click', sendCheckIn);
+    head.appendChild(checkin);
+  }
+  if(document.readyState==='complete') injectChatHeaderButtons();
+  else window.addEventListener('load', function(){ injectChatHeaderButtons(); setTimeout(injectChatHeaderButtons, 1500); });
+  new MutationObserver(injectChatHeaderButtons).observe(document.body,{childList:true,subtree:true});
+
+  /* --- Fix: #recordVoice button was too easy to mis-tap --- */
+  var rec = document.getElementById('recordVoice');
+  if(rec){
+    rec.title = 'Hold to record voice message (tap to stop)';
+    rec.textContent = '🎙';  /* mic icon instead of plain dot */
+    rec.style.fontSize = '16px';
+    rec.addEventListener('pointerdown', function(){ rec.classList.add('recording'); });
+    rec.addEventListener('pointerup',   function(){ rec.classList.remove('recording'); });
+    rec.addEventListener('pointercancel', function(){ rec.classList.remove('recording'); });
+  }
+
+  console.info('[LitanyaSpace v2.5] Messenger redesigned: supportive reactions, vanish mode, crisis help, check-in, record button fixed.');
 })();
 </script>
 </body>
