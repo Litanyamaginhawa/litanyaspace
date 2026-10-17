@@ -2594,6 +2594,28 @@ create index if not exists myday_stories_expires_idx on public.myday_stories (ex
 @keyframes litshimmer{to{transform:translateX(100%)}}
 html[data-theme="dark"] .litshimmer::after{background:linear-gradient(90deg,transparent,rgba(255,255,255,.08),transparent)}
 </style>
+<style>
+/* v2.3 - Native app button smoothness (iOS/Android feel) */
+html.smooth-ready{-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+html.smooth-ready button,html.smooth-ready .btn,html.smooth-ready .navbtn,html.smooth-ready .iconbtn,html.smooth-ready .fb-upload,html.smooth-ready .upload-circle,html.smooth-ready .video-pick-card,html.smooth-ready .reaction-btn,html.smooth-ready .reaction-bar button,html.smooth-ready [role="button"]{-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none;touch-action:manipulation;position:relative;overflow:hidden;transform:translateZ(0);will-change:transform;-webkit-backface-visibility:hidden;backface-visibility:hidden;font-synthesis-weight:none}
+html.smooth-ready .btn,html.smooth-ready .navbtn,html.smooth-ready .iconbtn,html.smooth-ready .fb-upload{transition:transform .18s cubic-bezier(.34,1.56,.64,1),background-color .16s ease,box-shadow .2s ease,border-color .16s ease,color .16s ease}
+html.smooth-ready .btn:active,html.smooth-ready .navbtn:active,html.smooth-ready .iconbtn:active,html.smooth-ready .fb-upload:active,html.smooth-ready .upload-circle:active,html.smooth-ready .video-pick-card:active,html.smooth-ready .reaction-btn:active{transform:scale(.955) translateZ(0);transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.08s}
+html.smooth-ready .btn:focus-visible,html.smooth-ready .navbtn:focus-visible,html.smooth-ready .iconbtn:focus-visible{outline:2px solid var(--accent,#c982a5);outline-offset:2px;border-radius:inherit}
+html.smooth-ready .btn:focus:not(:focus-visible),html.smooth-ready .navbtn:focus:not(:focus-visible),html.smooth-ready .iconbtn:focus:not(:focus-visible){outline:none}
+html.smooth-ready .navbtn{min-height:44px;min-width:44px}
+html.smooth-ready .iconbtn,html.smooth-ready .btn{min-height:36px}
+html.smooth-ready .btn.primary{box-shadow:0 2px 8px rgba(201,130,165,.28)}
+html.smooth-ready .btn.primary:active{box-shadow:0 1px 3px rgba(201,130,165,.18)}
+html.smooth-ready .navbtn.active{transform:translateY(-1px) scale(1.02)}
+.litanya-ripple{position:absolute;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.55) 0%,rgba(255,255,255,.2) 40%,transparent 70%);transform:scale(0);animation:litanya-ripple-anim .55s cubic-bezier(.4,0,.2,1);pointer-events:none;z-index:1}
+@keyframes litanya-ripple-anim{to{transform:scale(3.5);opacity:0}}
+html.smooth-ready .card{transition:transform .25s cubic-bezier(.34,1.56,.64,1),box-shadow .2s ease}
+html.smooth-ready .card:hover{transform:translateY(-1px)}
+html.smooth-ready .msg{transition:transform .2s cubic-bezier(.34,1.56,.64,1),background-color .16s ease}
+html.smooth-ready .myday-item{transition:transform .2s cubic-bezier(.34,1.56,.64,1)}
+html.smooth-ready .myday-item:active{transform:scale(.96)}
+@media (prefers-reduced-motion:reduce){ html.smooth-ready .litanya-ripple{display:none} }
+</style>
 <div class="audio-picker" id="litanyaAudioPicker"><div class="audio-picker-box"><div class="audio-picker-head"><input id="litanyaAudioQ" placeholder="Search any song (Taylor, Ben&Ben, Drake...)" autocomplete="off"><button id="litanyaAudioClose" aria-label="Close">✕</button></div><div class="audio-results" id="litanyaAudioResults"></div><div class="audio-attachbar"><span>Free · Apple Music previews</span><a href="https://music.apple.com" target="_blank" rel="noopener">Powered by iTunes API</a></div></div></div>
 <script>
 /* v2.2 - iTunes Search audio picker (CORS-open, mainstream songs, no API key). */
@@ -2776,6 +2798,52 @@ html[data-theme="dark"] .litshimmer::after{background:linear-gradient(90deg,tran
   ['postForm','realForm','updateForm'].forEach(injectAttachedIntoPayload);
 
   console.info('[LitanyaSpace v2.2] audio picker + deep virtualization ready.');
+})();
+</script>
+<script>
+/* v2.3 - Native app button smoothness: ripple + spring press feedback. */
+(function(){
+  function addRipple(e){
+    var btn = e.target.closest('.btn, .navbtn, .iconbtn, .fb-upload, .reaction-btn, .upload-circle, .video-pick-card');
+    if(!btn) return;
+    if(btn.disabled) return;
+    var rect = btn.getBoundingClientRect();
+    var size = Math.max(rect.width, rect.height);
+    var ripple = document.createElement('span');
+    ripple.className = 'litanya-ripple';
+    ripple.style.width = ripple.style.height = size + 'px';
+    ripple.style.left = (e.clientX - rect.left - size/2) + 'px';
+    ripple.style.top  = (e.clientY - rect.top  - size/2) + 'px';
+    btn.appendChild(ripple);
+    setTimeout(function(){ ripple.remove(); }, 600);
+  }
+  document.addEventListener('pointerdown', addRipple, {passive:true});
+
+  /* Prevent iOS double-tap zoom on buttons. */
+  var lastTap = 0;
+  document.addEventListener('touchend', function(e){
+    var now = Date.now();
+    if(now - lastTap < 320 && e.target.closest('.btn, .navbtn, .iconbtn, .fb-upload')){
+      e.preventDefault();
+    }
+    lastTap = now;
+  }, {passive:false});
+
+  /* Smooth page transitions when switching nav tabs. */
+  var currentPage = document.querySelector('.page:not(.hidden)');
+  if(currentPage) currentPage.classList.add('page-enter-active');
+  var style = document.createElement('style');
+  style.textContent = '.page-enter-active{animation:pageIn .28s cubic-bezier(.34,1.56,.64,1) both}@keyframes pageIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}';
+  document.head.appendChild(style);
+  document.addEventListener('click', function(e){
+    var nav = e.target.closest('.navbtn[data-page]');
+    if(!nav) return;
+    var pid = nav.getAttribute('data-page');
+    var page = document.getElementById(pid) || document.querySelector('.'+pid);
+    if(page){ page.classList.remove('page-enter-active'); void page.offsetWidth; page.classList.add('page-enter-active'); }
+  }, {passive:true});
+
+  console.info('[LitanyaSpace v2.3] native-app button smoothness ready. Ripples, spring press, page transitions active.');
 })();
 </script>
 </body>
