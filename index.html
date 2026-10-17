@@ -2846,5 +2846,226 @@ html.smooth-ready .myday-item:active{transform:scale(.96)}
   console.info('[LitanyaSpace v2.3] native-app button smoothness ready. Ripples, spring press, page transitions active.');
 })();
 </script>
+<style>
+/* v2.4 - SVG reaction picker + persistent reaction chip */
+html.smooth-ready .reaction-bar{padding:6px 8px;gap:2px;background:var(--card,#fff);border:1px solid var(--line,#eee);border-radius:999px;box-shadow:0 6px 24px rgba(0,0,0,.16)}
+html.smooth-ready .reaction-bar button{width:38px;height:38px;padding:0!important;display:grid;place-items:center;border-radius:50%;background:transparent;border:0;cursor:pointer;transition:transform .22s cubic-bezier(.34,1.56,.64,1),background-color .15s ease}
+html.smooth-ready .reaction-bar button:hover{transform:scale(1.35) translateY(-4px);background:rgba(201,130,165,.14)}
+html.smooth-ready .reaction-bar button:active{transform:scale(1.15)}
+html.smooth-ready .reaction-bar button .react-svg{width:26px;height:26px;display:block;pointer-events:none}
+html.smooth-ready .reaction-bar button.is-mine{background:rgba(201,130,165,.22);box-shadow:inset 0 0 0 2px var(--accent,#c982a5)}
+.litanya-reaction-chip{display:inline-flex;align-items:center;gap:5px;padding:4px 10px 4px 6px;border-radius:999px;background:rgba(201,130,165,.14);border:1px solid rgba(201,130,165,.28);font-size:12px;font-weight:700;color:var(--accentDark,#7a4a6a);cursor:pointer;transition:transform .18s cubic-bezier(.34,1.56,.64,1),background-color .15s}
+.litanya-reaction-chip:hover{background:rgba(201,130,165,.24)}
+.litanya-reaction-chip:active{transform:scale(.94)}
+.litanya-reaction-chip .react-svg{width:18px;height:18px}
+.litanya-reaction-chip .chip-count{font-variant-numeric:tabular-nums}
+.litanya-reaction-chip .chip-label{opacity:.85;font-weight:600}
+html[data-theme="dark"] .litanya-reaction-chip{color:#e6cbdc;background:rgba(201,130,165,.16);border-color:rgba(201,130,165,.32)}
+</style>
+<script>
+/* v2.4 - Custom SVG reactions, persistent chip, expanded badwords, real composer audio/video. */
+(function(){
+  /* --- 1) Custom SVG reaction icons (not emoji) --- */
+  var SVG = {
+    like:  '<svg class="react-svg" viewBox="0 0 24 24" fill="none" stroke="#c982a5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 10v11h10.2a2 2 0 0 0 2-1.7l1.2-7.2a2 2 0 0 0-2-2.4H13.5l.9-4.1a2 2 0 0 0-2-2.5L7 10z" fill="#f4d5e1"/><path d="M7 10H3v11h4"/></svg>',
+    love:  '<svg class="react-svg" viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.5-9A5.5 5.5 0 0 1 12 6.5 5.5 5.5 0 0 1 21.5 12c-2 4.4-9.5 9-9.5 9z" fill="#e94b6a" stroke="#a8213d" stroke-width="1.2"/></svg>',
+    haha:  '<svg class="react-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#fbb040" stroke="#c78a1e" stroke-width="1.2"/><path d="M6 13c1.5 3.5 4 5 6 5s4.5-1.5 6-5" stroke="#5a3a10" stroke-width="1.8" fill="#fff" stroke-linecap="round"/><path d="M7 9l3 1M17 9l-3 1" stroke="#5a3a10" stroke-width="2" stroke-linecap="round"/></svg>',
+    wow:   '<svg class="react-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#f7c948" stroke="#c79a1e" stroke-width="1.2"/><ellipse cx="12" cy="16" rx="2.5" ry="3.5" fill="#5a3a10"/><ellipse cx="8.5" cy="9.5" rx="1.2" ry="2" fill="#5a3a10"/><ellipse cx="15.5" cy="9.5" rx="1.2" ry="2" fill="#5a3a10"/></svg>',
+    sad:   '<svg class="react-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#7cb8f0" stroke="#4a7ba8" stroke-width="1.2"/><path d="M7 17c1.5-2.5 4-3.5 5-3.5s3.5 1 5 3.5" stroke="#22405c" stroke-width="1.8" fill="none" stroke-linecap="round"/><path d="M8 9l3 1.5M16 9l-3 1.5" stroke="#22405c" stroke-width="1.8" stroke-linecap="round"/><path d="M8 12c0 2 1 3 1 3" stroke="#4a90d9" stroke-width="1.5" stroke-linecap="round"/></svg>',
+    angry: '<svg class="react-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#e85a4f" stroke="#a5332a" stroke-width="1.2"/><path d="M7 17c2-1.5 8-1.5 10 0" stroke="#5a1a14" stroke-width="1.8" fill="none" stroke-linecap="round"/><path d="M6 8l4 2.5M18 8l-4 2.5" stroke="#5a1a14" stroke-width="2.2" stroke-linecap="round"/></svg>'
+  };
+  window.__litanyaReactSVG = SVG;
+
+  /* --- 2) Patch existing .reaction-bar buttons to use SVG instead of emoji --- */
+  function upgradeReactionBars(){
+    var bars = document.querySelectorAll('.reaction-bar');
+    bars.forEach(function(bar){
+      bar.querySelectorAll('button[data-react-pick]').forEach(function(b){
+        var k = b.getAttribute('data-react-pick');
+        if(SVG[k] && !b.dataset.litSvg){ b.innerHTML = SVG[k]; b.dataset.litSvg='1'; b.title = k.charAt(0).toUpperCase()+k.slice(1); }
+      });
+    });
+  }
+  upgradeReactionBars();
+  new MutationObserver(upgradeReactionBars).observe(document.body,{childList:true,subtree:true});
+
+  /* --- 3) Persistent reaction chip (stays visible near Like button) --- */
+  function renderChips(){
+    var actions = document.querySelectorAll('.actions');
+    actions.forEach(function(a){
+      var likeBtn = a.querySelector('button[data-react], .btn-like, [data-action="like"]');
+      if(!likeBtn || likeBtn.dataset.chipDone) return;
+      likeBtn.dataset.chipDone = '1';
+      var post = a.closest('[data-post-id], .post');
+      var pid = post && (post.dataset.postId || post.dataset.id);
+      var mine = null, count = 0;
+      try{
+        var stored = JSON.parse(localStorage.getItem('litanya.reactions.'+(pid||''))||'null');
+        if(stored){ mine = stored.reaction; count = stored.count||1; }
+      }catch(_){}
+      if(mine){
+        var chip = document.createElement('span');
+        chip.className = 'litanya-reaction-chip';
+        chip.innerHTML = (SVG[mine]||'') + '<span class="chip-label">'+mine.charAt(0).toUpperCase()+mine.slice(1)+'</span>';
+        likeBtn.parentNode.insertBefore(chip, likeBtn.nextSibling);
+      }
+    });
+  }
+  renderChips();
+  new MutationObserver(renderChips).observe(document.body,{childList:true,subtree:true});
+
+  /* Save reaction to localStorage when user clicks a reaction button. */
+  document.addEventListener('click', function(e){
+    var b = e.target.closest('.reaction-bar button[data-react-pick]');
+    if(!b) return;
+    var k = b.getAttribute('data-react-pick');
+    var post = b.closest('[data-post-id], .post');
+    var pid = post && (post.dataset.postId || post.dataset.id);
+    if(pid){
+      try{ localStorage.setItem('litanya.reactions.'+pid, JSON.stringify({reaction:k, count:1})); }catch(_){}
+    }
+    /* Update all bars for this post to show the "mine" state. */
+    document.querySelectorAll('.reaction-bar button[data-react-pick]').forEach(function(x){
+      x.classList.toggle('is-mine', x===b);
+    });
+  }, {passive:true});
+
+  /* --- 4) Expanded badwords + combinations --- */
+  var EXTRA_BAD = [
+    /* Filipino/Tagalog profanity */
+    "putang ina","ptg","ptangina","pukangina","puke","poki","pekeng","kingina","kengina","ninang","lintik","bulol","burl","gagu","gago","gaga","ulul","ulol","olol",
+    "tarantado","tarantada","punyeta","pakyu","pak shet","pakshet","palpat",
+    "tanga","bobo","boba","bobong","bobito","utak utakan",
+    "engot","engkanto","diskurso","diskursera","maldita","maldito","malda",
+    "siraulo","sira ulo","sira-ulo","palamunin",
+    "inutil","walanghiya","walang hiya","walang kwenta","walang kwarta","wala kang kwenta","wala kang hiya",
+    /* English profanity */
+    "fuck","fucking","fucked","motherfucker","motherfucking","bullshit","shit","shitty","bitch","bitching","asshole","ass whole","dick","dickhead","dicky","pussy","cunt","slut","whore","bastard","dumbass","jackass","nigga","nigger","faggot","retarded",
+    /* Acronyms */
+    "wtf","stfu","smdh","lmao","smh",
+    /* Combos / variations */
+    "gago ka","gago po","putangina mo","putang inamo","puta ka","puta ng","pota","pottangina","pottaina","pottakina","pottakapasi","pistikusi","tangina","tang ina","tangina mo"
+  ];
+  /* Merge with existing list (dedup). */
+  if (typeof window.moderation === 'function') {
+    var _origMod = window.moderation;
+    window.moderation = function(text){
+      if(_origMod(text)) return true;
+      var t = " " + String(text||"").toLowerCase()
+        .normalize("NFKD").replace(/[\u0300-\u036f]/g,"")
+        .replace(/[@4]/g,"a").replace(/[3]/g,"e").replace(/[1!|]/g,"i").replace(/[0]/g,"o").replace(/[5$]/g,"s").replace(/[^a-z0-9]+/g," ") + " ";
+      for(var i=0;i<EXTRA_BAD.length;i++){
+        var w = EXTRA_BAD[i].toLowerCase().replace(/[^a-z0-9]+/g," ").trim();
+        if(!w) continue;
+        if(t.indexOf(" "+w+" ")>=0) return true;
+      }
+      return false;
+    };
+  }
+
+  /* --- 5) Add Find audio + Video buttons to Realization composer --- */
+  function wireRealComposer(){
+    var realForm = document.getElementById('realForm');
+    if(!realForm) return;
+    var tools = realForm.querySelector('.composer-tools');
+    if(!tools || tools.dataset.litExtended) return;
+    tools.dataset.litExtended = '1';
+
+    /* Find audio button (iTunes). */
+    var findBtn = document.createElement('button');
+    findBtn.type = 'button'; findBtn.className = 'fb-upload'; findBtn.id = 'realMusicSearchOpen';
+    findBtn.title = 'Search mainstream songs (iTunes)';
+    findBtn.innerHTML = '<div class="upload-circle">⌕</div><div><strong>Find audio</strong><span>Search Taylor, Ben&Ben, Drake…</span></div>';
+    findBtn.addEventListener('click', function(e){
+      e.preventDefault();
+      var picker = document.getElementById('litanyaAudioPicker');
+      var results = document.getElementById('litanyaAudioResults');
+      if(picker){
+        /* Temporarily point the picker at the real composer. */
+        var evt = new CustomEvent('litanya:openAudio', {detail:{target:findBtn, form:realForm, previewId:'realMusicPreview'}});
+        document.dispatchEvent(evt);
+        picker.classList.add('show');
+        var q = document.getElementById('litanyaAudioQ'); if(q) q.focus();
+        if(results && !results.dataset.loaded){ var e2 = new Event('input'); q && q.dispatchEvent(e2); }
+      }
+    });
+    tools.appendChild(findBtn);
+
+    /* Video button. */
+    var vidLab = document.createElement('label');
+    vidLab.className = 'fb-upload'; vidLab.title = 'Add a video';
+    vidLab.setAttribute('for','realVideo');
+    vidLab.innerHTML = '<div class="upload-circle">▶</div><div><strong>Video</strong><span>Share a short video</span></div><input id="realVideo" type="file" accept="video/*" hidden>';
+    tools.appendChild(vidLab);
+
+    /* Hook video upload to existing uploadState.realVideo (if any) or create new. */
+    var vidInput = document.getElementById('realVideo');
+    if(vidInput){
+      vidInput.addEventListener('change', function(e){
+        var f = e.target.files && e.target.files[0];
+        if(!f) return;
+        if(!uploadState) return;
+        uploadState.realVideo = f;
+        var prev = realForm.querySelector('.image-preview');
+        if(prev){
+          prev.classList.remove('hidden');
+          prev.innerHTML = '<video src="'+URL.createObjectURL(f)+'" controls style="width:100%;max-height:300px;border-radius:10px"></video><div class="tiny">'+(f.name||'Video')+' · '+Math.round(f.size/1024/1024*10)/10+' MB</div>';
+        }
+      });
+    }
+
+    /* When audio picker attaches, route to realMusicPreview. */
+    document.addEventListener('litanya:openAudio', function(e){
+      /* The v2.2 picker uses currentLabel; we set it via a global. */
+      window.__litanyaCurrentAudioTarget = e.detail;
+    });
+  }
+  /* Wait for DOM + main script to settle. */
+  if(document.readyState==='complete') wireRealComposer();
+  else window.addEventListener('load', wireRealComposer);
+
+  /* --- v2.4b: Synthesize a File from the iTunes preview URL and inject it
+     into uploadState so the existing uploadPostMusic() pipeline works. --- */
+  function sanitize(s){ return String(s||'').toLowerCase().replace(/[^a-z0-9]+/g,'_').replace(/^_|_$/g,'').slice(0,60) || 'track'; }
+  function injectItunesFile(stateKey, url, name){
+    return fetch(url)
+      .then(function(r){ if(!r.ok) throw new Error('iTunes fetch failed '+r.status); return r.blob(); })
+      .then(function(blob){
+        var fname = sanitize(name) + '.m4a';
+        var file = new File([blob], fname, {type:'audio/mp4'});
+        /* uploadState is a top-level var in the main script → accessible via window */
+        var st = window.uploadState || (typeof uploadState !== 'undefined' ? uploadState : null);
+        if(!st){ console.warn('[Litanya] uploadState not found'); return; }
+        st[stateKey] = file;
+        /* Also clear __litanyaAttached so the insert() wrapper doesn't double-fire. */
+        window.__litanyaAttached = null;
+        console.info('[Litanya] iTunes file injected as', fname, '('+Math.round(blob.size/1024)+' KB)');
+      });
+  }
+
+  /* Intercept form submits BEFORE the existing handler runs. */
+  ['postForm','realForm','updateForm'].forEach(function(fid){
+    var f = document.getElementById(fid); if(!f) return;
+    f.addEventListener('submit', function(e){
+      if(e.defaultPrevented) return;
+      var att = window.__litanyaAttached;
+      if(!att || !att.music_url) return;
+      var stateKey = fid==='postForm'?'postMusic':(fid==='realForm'?'realMusic':'updateMusic');
+      /* Block the submit until the iTunes fetch+inject completes. */
+      e.preventDefault(); e.stopImmediatePropagation();
+      if(window.__litanyaFlash) __litanyaFlash('Preparing iTunes audio…');
+      injectItunesFile(stateKey, att.music_url, att.music_name).then(function(){
+        /* Now re-fire the submit — the existing handler will see uploadState[stateKey] set. */
+        setTimeout(function(){ f.requestSubmit ? f.requestSubmit() : f.dispatchEvent(new Event('submit',{cancelable:true,bubbles:true})); }, 30);
+      }).catch(function(err){
+        console.error('[Litanya] inject failed:', err);
+        if(window.__litanyaFlash) __litanyaFlash('Could not prepare audio: '+err.message);
+      });
+    }, true);  /* capture phase — runs BEFORE the existing onsubmit */
+  });
+
+  console.info('[LitanyaSpace v2.4] SVG reactions, persistent chips, expanded badwords, real composer extended.');
+})();
+</script>
 </body>
 </html>
