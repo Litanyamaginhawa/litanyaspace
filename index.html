@@ -3639,12 +3639,34 @@ html[data-theme="dark"] .lit-a2hs{background:#241d28;color:#f4eef4;border-color:
   };
 
   /* --- 2) Respond to taps on a system notification pushed by the SW --- */
+  var ROUTE_MAP = { messenger:'messenger', notifications:'notifications', wall:'wall',
+                    comments:'wall', myday:'wall', reels:'reels', games:'games', profile:'profile',
+                    advice:'advice', watch:'watch', saved:'saved', home:'home' };
+  function navigateRoute(r){
+    r = String(r||'').replace(/^[\/?#]+/,'').split('?')[0].split('#')[0];
+    var page = ROUTE_MAP[r] || 'wall';
+    try{ if(typeof go==='function') go(page); else if(typeof setPage==='function') setPage(page); }catch(_){}
+  }
   if('serviceWorker' in navigator){
     navigator.serviceWorker.addEventListener('message',function(ev){
-      var d=ev.data; if(d && d.type==='litanya-navigate'){
-        try{ if(d.path && d.path.indexOf('#')>=0){ location.hash = d.path.split('#')[1]; } else { go && go((d.path||'/').replace(/\//g,'')||'wall'); } }catch(_){}
-      }
+      var d=ev.data; if(d && d.type==='litanya-navigate'){ navigateRoute(d.route); }
     });
+  }
+
+  /* --- 2b) Cold-start deep link: opened from a notification via /?r=route --- */
+  function readRouteParam(){
+    try{ var m=location.search.match(/[?&]r=([^&]+)/); if(!m) return null;
+         var r=decodeURIComponent(m[1]);
+         var url=location.pathname + location.hash; history.replaceState({}, '', url);
+         return r; }catch(_){ return null; }
+  }
+  var pendingRoute=readRouteParam();
+  if(pendingRoute){
+    var attempts=0;
+    var t=setInterval(function(){ attempts++;
+      if(typeof go==='function' && document.querySelector('.page')){ clearInterval(t); navigateRoute(pendingRoute); }
+      else if(attempts>25){ clearInterval(t); }
+    }, 300);
   }
 
   /* --- 3) Add-to-Home-Screen banner: required to UNLOCK real push on iOS --- */
