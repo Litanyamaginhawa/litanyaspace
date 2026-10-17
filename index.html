@@ -2685,6 +2685,61 @@ html[data-theme="dark"] .lit-vanish-banner{color:#d4b3e0;background:linear-gradi
 .lit-checkin{padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.22);color:#fff;border:1.5px solid rgba(255,255,255,.4);font-size:12px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:background-color .15s}
 .lit-checkin:hover{background:rgba(255,255,255,.36)}
 </style>
+<style>
+/* v2.6 - WePlay-style Live Games redesign */
+#games{background:radial-gradient(ellipse at top,rgba(168,111,192,.08),transparent 60%),radial-gradient(ellipse at bottom right,rgba(201,130,165,.06),transparent 60%)}
+#games .pagehead h2{font-size:32px;font-weight:900;background:linear-gradient(135deg,#c982a5 0%,#a86fc0 50%,#7c5cb8 100%);-webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:-.5px}
+#games .pagehead p{font-size:15px;opacity:.75}
+#gamesGrid,#liveRoomsList{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin-top:18px}
+#gamesGrid .game-card,#liveRoomsList .game-card,#liveRoomsList .card.game-folder{position:relative;padding:22px 18px 18px;border-radius:22px;background:linear-gradient(145deg,#fff 0%,#faf1f7 100%);border:1.5px solid rgba(201,130,165,.14);box-shadow:0 4px 18px rgba(140,80,110,.08);overflow:hidden;transition:transform .28s cubic-bezier(.34,1.56,.64,1),box-shadow .22s ease;display:flex;flex-direction:column;gap:8px;min-height:170px}
+html[data-theme="dark"] #gamesGrid .game-card,html[data-theme="dark"] #liveRoomsList .game-card{background:linear-gradient(145deg,#2a2232 0%,#251f2c 100%);border-color:rgba(201,130,165,.22)}
+#gamesGrid .game-card::before,#liveRoomsList .game-card::before{content:"";position:absolute;top:-40px;right:-40px;width:120px;height:120px;background:radial-gradient(circle,rgba(201,130,165,.18),transparent 70%);pointer-events:none}
+#gamesGrid .game-card:hover,#liveRoomsList .game-card:hover{transform:translateY(-6px) scale(1.02);box-shadow:0 14px 32px rgba(140,80,110,.18)}
+#gamesGrid .game-card h3,#liveRoomsList .game-card h3{margin:0 0 4px;font-size:17px;font-weight:800;color:#2a1a26}
+html[data-theme="dark"] #gamesGrid .game-card h3{color:#e6cbdc}
+#gamesGrid .game-card p,#liveRoomsList .game-card p{margin:0;font-size:13px;line-height:1.5;opacity:.75;flex:1}
+#gamesGrid .game-emoji,#liveRoomsList .game-emoji{width:54px;height:54px;font-size:28px;background:linear-gradient(135deg,#c982a5,#a86fc0);color:#fff;border-radius:16px;display:grid;place-items:center;box-shadow:0 4px 12px rgba(168,111,192,.32);margin-bottom:6px}
+#gamesGrid .game-actions,#liveRoomsList .game-actions{display:flex;gap:6px;margin-top:auto;padding-top:10px}
+#gamesGrid .btn,#liveRoomsList .btn{font-size:12px;padding:8px 14px;border-radius:999px;font-weight:700}
+/* Live player badge on room cards */
+.lit-room-badge{position:absolute;top:12px;right:12px;display:inline-flex;align-items:center;gap:5px;padding:4px 10px;background:rgba(46,125,50,.92);color:#fff;border-radius:999px;font-size:11px;font-weight:800;box-shadow:0 2px 8px rgba(0,0,0,.18);z-index:2}
+.lit-room-badge .pulse{width:7px;height:7px;border-radius:50%;background:#8bc34a;animation:litpulse2 1.4s ease-in-out infinite}
+/* WePlay-style room panel */
+#liveRoomPanel.live-room-fullscreen{position:fixed;inset:0;background:linear-gradient(160deg,#2a1a3a 0%,#3d2050 45%,#5d2a6e 100%);color:#fff;z-index:8500;padding:0;overflow-y:auto;border:0;border-radius:0;box-shadow:none}
+#liveRoomPanel .live-room-inner{max-width:680px;margin:0 auto;padding:24px 20px 40px}
+#liveRoomPanel h3{font-size:26px;font-weight:900;margin:0 0 4px;background:linear-gradient(135deg,#ffd6e8,#d4b3e0);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lit-invite-card{margin:16px 0;padding:18px;border-radius:18px;background:rgba(255,255,255,.08);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1.5px solid rgba(255,255,255,.16);display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.lit-invite-card .lit-invite-label{font-size:11px;font-weight:800;letter-spacing:1.4px;color:rgba(255,255,255,.55);text-transform:uppercase;margin-bottom:4px}
+.lit-invite-card .lit-invite-code{font-family:'Courier New',monospace;font-size:32px;font-weight:900;letter-spacing:6px;color:#fff;text-shadow:0 2px 12px rgba(201,130,165,.5)}
+.lit-invite-copy{margin-left:auto;padding:10px 18px;border-radius:999px;background:linear-gradient(135deg,#c982a5,#a86fc0);color:#fff;border:0;font-weight:800;font-size:13px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;box-shadow:0 4px 14px rgba(168,111,192,.4);transition:transform .22s cubic-bezier(.34,1.56,.64,1)}
+.lit-invite-copy:hover{transform:scale(1.05)}
+.lit-invite-copy:active{transform:scale(.94)}
+.lit-invite-copy.copied{background:linear-gradient(135deg,#43a047,#2e7d32)}
+/* Waiting screen */
+.lit-waiting{text-align:center;padding:32px 20px}
+.lit-waiting h4{font-size:22px;font-weight:900;margin:0 0 8px;background:linear-gradient(135deg,#ffd6e8,#d4b3e0);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lit-waiting p{font-size:14px;opacity:.8;margin:0 0 22px;line-height:1.55}
+.lit-waiting .lit-spinner{width:64px;height:64px;margin:0 auto 22px;border-radius:50%;border:3px solid rgba(255,255,255,.16);border-top-color:#c982a5;animation:lit-spin-anim 1.1s cubic-bezier(.65,.05,.36,1) infinite;position:relative}
+.lit-waiting .lit-spinner::after{content:"";position:absolute;inset:8px;border-radius:50%;border:2px solid rgba(255,255,255,.08);border-bottom-color:#a86fc0;animation:lit-spin-anim 1.6s cubic-bezier(.65,.05,.36,1) infinite reverse}
+/* Live players avatars row */
+#liveRoomPlayers{display:flex;flex-wrap:wrap;gap:8px}
+#liveRoomPlayers .avatar,#liveRoomPlayers .player-chip{background:linear-gradient(135deg,#c982a5,#a86fc0)!important;color:#fff!important;border:2px solid rgba(255,255,255,.32);box-shadow:0 2px 8px rgba(0,0,0,.2);animation:litanya-player-in .42s cubic-bezier(.34,1.56,.64,1) both}
+@keyframes litanya-player-in{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:scale(1)}}
+.lit-player-count{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;background:rgba(255,255,255,.14);border-radius:999px;font-size:12px;font-weight:700;margin-top:8px}
+/* Game prompt card */
+#liveRoomPrompt{background:rgba(255,255,255,.08);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1.5px solid rgba(255,255,255,.16);border-radius:18px;padding:18px;font-size:16px;line-height:1.55;color:#fff}
+/* Hide games grid when in active room */
+body.in-live-room #gamesGrid,body.in-live-room #liveRoomsList,body.in-live-room .pagehead,body.in-live-room #liveRoomPanel:not(.live-room-fullscreen){display:none}
+body.in-live-room #games{background:transparent}
+/* Game ended modal */
+.lit-game-ended{position:fixed;inset:0;background:rgba(20,10,20,.88);display:flex;align-items:center;justify-content:center;z-index:9600;padding:16px;animation:litanya-fade-in .3s ease}
+.lit-game-ended-card{max-width:420px;width:100%;background:linear-gradient(145deg,#fff,#faf1f7);border-radius:24px;padding:32px 24px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.35);color:#2a1a26}
+html[data-theme="dark"] .lit-game-ended-card{background:linear-gradient(145deg,#2a2232,#251f2c);color:#e6cbdc}
+.lit-game-ended-card .emoji{font-size:56px;margin-bottom:12px;display:block;animation:litanya-player-in .6s cubic-bezier(.34,1.56,.64,1) .2s both}
+.lit-game-ended-card h3{margin:0 0 8px;font-size:24px;font-weight:900;background:linear-gradient(135deg,#c982a5,#a86fc0);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lit-game-ended-card p{margin:0 0 18px;font-size:14px;opacity:.8;line-height:1.5}
+.lit-game-ended-card .btn{padding:12px 28px;border-radius:999px;font-weight:800;font-size:14px}
+</style>
 <div class="audio-picker" id="litanyaAudioPicker"><div class="audio-picker-box"><div class="audio-picker-head"><input id="litanyaAudioQ" placeholder="Search any song (Taylor, Ben&Ben, Drake...)" autocomplete="off"><button id="litanyaAudioClose" aria-label="Close">✕</button></div><div class="audio-results" id="litanyaAudioResults"></div><div class="audio-attachbar"><span>Free · Apple Music previews</span><a href="https://music.apple.com" target="_blank" rel="noopener">Powered by iTunes API</a></div></div></div>
 <script>
 /* v2.2 - iTunes Search audio picker (CORS-open, mainstream songs, no API key). */
@@ -3372,6 +3427,154 @@ html[data-theme="dark"] .litanya-reaction-chip{color:#e6cbdc;background:rgba(201
   }
 
   console.info('[LitanyaSpace v2.5] Messenger redesigned: supportive reactions, vanish mode, crisis help, check-in, record button fixed.');
+})();
+</script>
+<script>
+/* v2.6 - WePlay-style Live Games: invite card, copy button, waiting screen, game-ended auto-hide. */
+(function(){
+  /* --- 1) Inject the invite code card into the room panel --- */
+  function injectInviteCard(){
+    var panel = document.getElementById('liveRoomPanel');
+    if(!panel || panel.querySelector('.lit-invite-card')) return;
+    var inner = panel.querySelector('.live-room-inner'); if(!inner) return;
+    var card = document.createElement('div');
+    card.className = 'lit-invite-card';
+    card.innerHTML = '<div><div class="lit-invite-label">Invite Code</div><div class="lit-invite-code" id="litInviteCodeText">------</div></div>'+
+      '<button type="button" class="lit-invite-copy" id="litInviteCopyBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg><span>Copy</span></button>';
+    /* Insert right after the title row. */
+    var firstDiv = inner.querySelector(':scope > div');
+    if(firstDiv && firstDiv.nextSibling) inner.insertBefore(card, firstDiv.nextSibling);
+    else inner.insertBefore(card, inner.firstChild);
+    /* Copy handler. */
+    var btn = card.querySelector('#litInviteCopyBtn');
+    btn.addEventListener('click', function(){
+      var code = (document.getElementById('litInviteCodeText').textContent||'').trim();
+      if(!code || code==='------'){ return; }
+      copyToClipboard(code);
+      btn.classList.add('copied');
+      var span = btn.querySelector('span'); var old = span.textContent;
+      span.textContent = 'Copied!';
+      setTimeout(function(){ btn.classList.remove('copied'); span.textContent = old; }, 1800);
+    });
+  }
+  function copyToClipboard(text){
+    if(navigator.clipboard && window.isSecureContext){ navigator.clipboard.writeText(text); return; }
+    var ta = document.createElement('textarea'); ta.value = text; ta.style.cssText='position:fixed;left:-9999px';
+    document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); }catch(_){}
+    ta.remove();
+  }
+  /* Update invite code text when liveRoom is populated. */
+  function syncInviteCode(){
+    var el = document.getElementById('litInviteCodeText'); if(!el) return;
+    var code = (window.liveRoom && window.liveRoom.invite_code) || '';
+    el.textContent = code || '------';
+  }
+  setInterval(syncInviteCode, 800);
+
+  /* --- 2) Replace the "Waiting for players…" prompt with a WePlay-style waiting screen --- */
+  function enhanceWaitingScreen(){
+    var prompt = document.getElementById('liveRoomPrompt'); if(!prompt) return;
+    var txt = (prompt.textContent||'').toLowerCase();
+    var isWaiting = txt.indexOf('waiting')>=0 || txt.indexOf('player')>=0;
+    if(isWaiting && !prompt.querySelector('.lit-waiting')){
+      prompt.innerHTML = '<div class="lit-waiting"><div class="lit-spinner"></div><h4>Waiting for players…</h4><p>I-share ang invite code sa mga ka-Litanya. Makakasali sila gamit ang code na ito.</p></div>';
+    }
+  }
+  setInterval(enhanceWaitingScreen, 1500);
+
+  /* --- 3) Add live player count badge --- */
+  function updatePlayerCount(){
+    var playersEl = document.getElementById('liveRoomPlayers'); if(!playersEl) return;
+    var count = playersEl.querySelectorAll('.avatar, .player-chip').length;
+    var badge = playersEl.parentNode.querySelector('.lit-player-count');
+    if(!badge){
+      badge = document.createElement('div'); badge.className = 'lit-player-count';
+      playersEl.parentNode.appendChild(badge);
+    }
+    badge.innerHTML = '<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#8bc34a;animation:litpulse2 1.4s infinite"></span> ' + count + ' player' + (count===1?'':'s') + ' in room';
+  }
+  setInterval(updatePlayerCount, 1200);
+
+  /* --- 4) Hide the games grid when entering a room --- */
+  function watchRoomPanel(){
+    var panel = document.getElementById('liveRoomPanel'); if(!panel) return;
+    var observer = new MutationObserver(function(){
+      var active = panel.classList.contains('live-room-fullscreen') || !panel.classList.contains('hidden');
+      document.body.classList.toggle('in-live-room', active && !panel.classList.contains('hidden'));
+    });
+    observer.observe(panel, {attributes:true, attributeFilter:['class']});
+  }
+  watchRoomPanel();
+
+  /* --- 5) Game-ended modal + auto-remove room from display --- */
+  function showGameEndedModal(message){
+    var back = document.createElement('div');
+    back.className = 'lit-game-ended';
+    back.innerHTML = '<div class="lit-game-ended-card"><span class="emoji">🌸</span><h3>Game Complete</h3><p>'+(message||'Salamat sa paglahok! Ang mga salita at ngiti niyo ay nakatulong sa iba.')+'</p><button class="btn primary" type="button" id="litEndedClose">Back to Games</button></div>';
+    document.body.appendChild(back);
+    back.querySelector('#litEndedClose').addEventListener('click', function(){
+      back.remove();
+      document.body.classList.remove('in-live-room');
+      /* Reload the rooms list to remove the ended room. */
+      if(typeof loadLiveRooms === 'function') loadLiveRooms();
+    });
+  }
+  /* Watch for finishLocalRoom calls (the existing function that ends the game). */
+  if(typeof window.finishLocalRoom === 'function' && !window.__litFinishWrapped){
+    var _origFinish = window.finishLocalRoom;
+    window.finishLocalRoom = function(message){
+      showGameEndedModal(message);
+      /* Delay the original cleanup so the modal can be seen. */
+      setTimeout(function(){ _origFinish(message); }, 150);
+      /* Also update the room status to 'ended' in DB so it disappears from open rooms. */
+      if(window.liveRoom && window.liveRoom.id){
+        try{ client.from('game_rooms').update({status:'ended'}).eq('id', window.liveRoom.id); }catch(_){}
+      }
+    };
+    window.__litFinishWrapped = true;
+  }
+
+  /* --- 6) Add LIVE badge + player count to room cards --- */
+  function decorateRoomCards(){
+    document.querySelectorAll('#liveRoomsList [data-join-room]').forEach(function(btn){
+      var card = btn.closest('.game-card, .card'); if(!card || card.querySelector('.lit-room-badge')) return;
+      var badge = document.createElement('div');
+      badge.className = 'lit-room-badge';
+      badge.innerHTML = '<span class="pulse"></span> LIVE';
+      card.appendChild(badge);
+    });
+  }
+  new MutationObserver(decorateRoomCards).observe(document.body,{childList:true,subtree:true});
+
+  /* --- 7) Add copy button next to invite code in the meta line --- */
+  function injectMetaCopy(){
+    var meta = document.getElementById('liveRoomMeta'); if(!meta || meta.querySelector('.lit-meta-copy')) return;
+    var btn = document.createElement('button');
+    btn.type='button'; btn.className='lit-meta-copy';
+    btn.style.cssText='margin-left:8px;padding:2px 8px;border-radius:999px;background:rgba(255,255,255,.18);color:#fff;border:1px solid rgba(255,255,255,.3);font-size:11px;cursor:pointer;font-weight:700';
+    btn.textContent='📋 Copy code';
+    btn.addEventListener('click', function(){
+      var code = (window.liveRoom && window.liveRoom.invite_code) || '';
+      if(code){ copyToClipboard(code); btn.textContent='✓ Copied!'; setTimeout(function(){ btn.textContent='📋 Copy code'; }, 1800); }
+    });
+    meta.appendChild(btn);
+  }
+  setInterval(injectMetaCopy, 1500);
+
+  /* --- 8) Ensure create-room auto-joins + shows invite card immediately --- */
+  var _origCreate = document.getElementById('createLiveRoom');
+  if(_origCreate){
+    _origCreate.addEventListener('click', function(){
+      setTimeout(function(){ injectInviteCard(); syncInviteCode(); }, 800);
+    });
+  }
+
+  /* Initial wiring. */
+  injectInviteCard();
+  new MutationObserver(injectInviteCard).observe(document.body,{childList:true,subtree:true});
+
+  console.info('[LitanyaSpace v2.6] WePlay-style Live Games: invite card, copy button, waiting screen, live player count, game-ended modal.');
 })();
 </script>
 </body>
