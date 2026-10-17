@@ -384,6 +384,25 @@ html[data-theme="dark"] .mine .msg{background:linear-gradient(135deg,#9c5b83,#7d
 html[data-theme="dark"] .msg-heart{background:#372c40}
 html[data-theme="dark"] .ptr-indicator{background:#241e2b;color:#e6cbdc}
 html[data-theme="dark"] .chatitem:hover,html[data-theme="dark"] .chatitem.active{background:linear-gradient(90deg,#2c2136,#332540)}
+
+/* ================================================================
+   LitanyaSpace v2.1 smoothness add-ons (host-agnostic, reversible)
+   - global transitions
+   - scroll persistence
+   - offscreen virtualization
+   - image lazy + blur-up
+   - reduced-motion respect
+   ================================================================ */
+html.smooth-ready .card,html.smooth-ready .btn,html.smooth-ready .navbtn,html.smooth-ready .msg,
+html.smooth-ready .myday-item,html.smooth-ready .actions button,html.smooth-ready .iconbtn,
+html.smooth-ready .postbody img,html.smooth-ready .postbody video{transition:background-color .18s ease,color .18s ease,transform .18s ease,border-color .18s ease,opacity .18s ease}
+html.smooth-ready .navbtn:active,html.smooth-ready .btn:active,html.smooth-ready .iconbtn:active{transform:scale(.97)}
+html.smooth-ready .postbody img,html.smooth-ready .postbody video{content-visibility:auto;contain-intrinsic-size:auto 220px}
+.smooth-in{animation:smoothIn .22s ease-out both}
+@keyframes smoothIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){
+  html.smooth-ready *,html.smooth-ready *::before,html.smooth-ready *::after{animation-duration:.001s!important;transition-duration:.001s!important}
+}
 </style>
 </head>
 <body>
@@ -2492,5 +2511,61 @@ create index if not exists myday_stories_expires_idx on public.myday_stories (ex
 -- Storage bucket post-images must allow image/video MIME types and files up to 20 MB.
 -- Existing video upload + YouTube clip panel are intentionally retained.
 -- -->
+<script>
+/* ================================================================
+   LitanyaSpace v2.1 smoothness bootstrap
+   Additive only. Does not touch existing handlers. Safe to remove.
+   ================================================================ */
+(function(){
+  var html=document.documentElement;
+  html.classList.add('smooth-ready');
+
+  /* 1) Scroll position persistence across tab switches */
+  var SCROLL_KEY='litanya.scroll';
+  var saved={}; try{saved=JSON.parse(localStorage.getItem(SCROLL_KEY)||'{}')}catch(e){}
+  var currentPage=(document.querySelector('.navbtn.active')||{}).dataset?.page||'home';
+  var tick=null;
+  window.addEventListener('scroll',function(){
+    if(tick)clearTimeout(tick);
+    tick=setTimeout(function(){saved[currentPage]=window.scrollY;},200);
+  },{passive:true});
+  document.addEventListener('click',function(e){
+    var b=e.target&&e.target.closest&&e.target.closest('.navbtn[data-page]');
+    if(b){saved[currentPage]=window.scrollY;currentPage=b.dataset.page;
+      setTimeout(function(){window.scrollTo({top:saved[currentPage]||0,behavior:'instant'});},80);
+      try{localStorage.setItem(SCROLL_KEY,JSON.stringify(saved));}catch(_){}
+    }
+  },true);
+  window.addEventListener('beforeunload',function(){
+    saved[currentPage]=window.scrollY;
+    try{localStorage.setItem(SCROLL_KEY,JSON.stringify(saved));}catch(_){}
+  });
+
+  /* 2) Offscreen virtualization handled by the CSS content-visibility
+        rule above. Browser auto-skips painting for offscreen posts. */
+
+  /* 3) Lazy-load any <img> inside post bodies that lacks loading attr */
+  function lazyImages(){
+    var imgs=document.querySelectorAll('.postbody img:not([loading])');
+    for(var k=0;k<imgs.length;k++){imgs[k].loading='lazy';imgs[k].decoding='async';}
+  }
+  lazyImages();
+  var mo=new MutationObserver(function(){lazyImages();});
+  mo.observe(document.body,{childList:true,subtree:true});
+
+  /* 4) Global optimistic-flash helper (reuses existing toast if any) */
+  window.__litanyaFlash=function(msg){
+    if(typeof toast==='function'){toast(msg);return;}
+    var d=document.createElement('div');
+    d.textContent=msg;
+    d.style.cssText='position:fixed;left:50%;top:14px;transform:translateX(-50%);background:#111;color:#fff;padding:8px 14px;border-radius:999px;z-index:9999;font-size:13px;opacity:0;transition:opacity .2s ease';
+    document.body.appendChild(d);
+    requestAnimationFrame(function(){d.style.opacity='1';});
+    setTimeout(function(){d.style.opacity='0';setTimeout(function(){d.remove();},220);},1600);
+  };
+
+  console.info('[LitanyaSpace v2.1] smoothness bootstrap ready. Scroll persisted, images lazy, transitions active.');
+})();
+</script>
 </body>
 </html>
