@@ -405,6 +405,155 @@ html.smooth-ready .card .loader,html.smooth-ready .skel-card *{content-visibilit
 @media (prefers-reduced-motion:reduce){
   html.smooth-ready *,html.smooth-ready *::before,html.smooth-ready *::after{animation-duration:.001s!important;transition-duration:.001s!important}
 }
+
+/* ================================================================
+   LitanyaSpace v2.14 UI glow-up — buttons, tags, chips, menus
+   (polish layer only: no layout/size changes, fully reversible)
+   ================================================================ */
+@property --glowangle{syntax:'<angle>';inherits:false;initial-value:0deg}
+.btn{position:relative;overflow:hidden;transition:transform .16s ease,box-shadow .2s ease,filter .2s ease,background-color .18s ease}
+.btn.primary{background:linear-gradient(135deg,#d18fb2,#c982a5 45%,#a86fc0);color:#fff;box-shadow:0 6px 18px rgba(170,99,150,.35),inset 0 1px 0 rgba(255,255,255,.28);text-shadow:0 1px 2px rgba(90,40,70,.25)}
+.btn.primary:hover:not(:disabled){filter:brightness(1.06);box-shadow:0 10px 26px rgba(170,99,150,.45),inset 0 1px 0 rgba(255,255,255,.3);transform:translateY(-1px)}
+.btn.primary:active:not(:disabled){transform:translateY(0) scale(.97);box-shadow:0 3px 10px rgba(170,99,150,.3)}
+.btn.primary::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.35) 48%,transparent 62%);transform:translateX(-120%);transition:none;pointer-events:none}
+.btn.primary:hover:not(:disabled)::after{animation:btnShine .7s ease}
+@keyframes btnShine{to{transform:translateX(120%)}}
+.btn.secondary{background:linear-gradient(180deg,#fff,#f6eef3);color:#654d59;border:1px solid #e9dbe4;box-shadow:0 2px 8px rgba(120,80,105,.08)}
+.btn.secondary:hover:not(:disabled){background:linear-gradient(180deg,#fdf6f9,#f3e4ec);border-color:#dcbbcf;transform:translateY(-1px);box-shadow:0 6px 16px rgba(120,80,105,.14)}
+.btn.secondary:active:not(:disabled){transform:scale(.97)}
+.btn.danger{background:linear-gradient(135deg,#ffe3e9,#f8d3dd);color:#a63d55;border:1px solid #f3c4d0;box-shadow:0 2px 8px rgba(180,70,95,.12)}
+.btn.danger:hover:not(:disabled){background:linear-gradient(135deg,#fbd6df,#f6c6d4);transform:translateY(-1px)}
+.btn:focus-visible,.navbtn:focus-visible,.iconbtn:focus-visible,.icon:focus-visible,.linkbtn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+/* nav pills */
+.navbtn{transition:background .18s ease,color .18s ease,box-shadow .18s ease,transform .12s ease}
+.navbtn:hover{transform:translateY(-1px)}
+.navbtn.active{background:linear-gradient(135deg,#c982a5,#a86fc0);color:#fff;box-shadow:0 5px 14px rgba(160,100,160,.35);text-shadow:0 1px 2px rgba(80,40,70,.25)}
+.moreMenu .navbtn.active{border-radius:10px}
+/* badges pop */
+.badge{background:linear-gradient(135deg,#e5607f,#c94a6b);box-shadow:0 2px 8px rgba(217,88,114,.5);border:1.5px solid #fff;font-weight:900;animation:badgePop .35s ease}
+@keyframes badgePop{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}
+/* gradient text links */
+.linkbtn{background:linear-gradient(90deg,#b56a92,#8f5cb8);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:900;position:relative;transition:filter .15s}
+.linkbtn:hover{filter:brightness(1.15);text-decoration:none}
+.linkbtn::after{content:"";position:absolute;left:0;right:100%;bottom:-1px;height:2px;border-radius:2px;background:linear-gradient(90deg,#c982a5,#a86fc0);transition:right .22s ease}
+.linkbtn:hover::after{right:0}
+/* post action bar */
+.actions button{transition:background .16s ease,color .16s ease,transform .1s ease}
+.actions button:hover{background:linear-gradient(180deg,#fdf5f9,#f8ecf3)!important;color:var(--accentDark)}
+.actions button:active{transform:scale(.94)}
+.actions button.active{background:linear-gradient(180deg,#fbeff5,#f5e2ef)!important;color:var(--accentDark);font-weight:900;position:relative}
+.actions button.active::after{content:"";position:absolute;left:22%;right:22%;bottom:5px;height:3px;border-radius:3px;background:linear-gradient(90deg,#c982a5,#a86fc0)}
+/* icon buttons */
+.iconbtn,.icon{transition:background .18s ease,color .18s ease,transform .16s ease,box-shadow .18s ease}
+.iconbtn:hover,.icon:hover{background:linear-gradient(135deg,#c982a5,#a86fc0);color:#fff;transform:translateY(-2px);box-shadow:0 7px 16px rgba(165,105,155,.35)}
+.iconbtn:active,.icon:active{transform:scale(.92)}
+/* dropdown menus: frosted */
+.menu,.moreMenu{background:rgba(255,255,255,.92);backdrop-filter:blur(14px);border:1px solid #eedfe8;box-shadow:0 14px 40px rgba(80,45,66,.16);animation:menuIn .16s ease}
+@keyframes menuIn{from{opacity:0;transform:translateY(-5px) scale(.98)}to{opacity:1;transform:none}}
+.menu button{transition:background .13s ease,transform .13s ease}
+.menu button:hover{background:linear-gradient(90deg,#faf0f6,#f3e4ef);transform:translateX(2px)}
+/* inputs: glow focus */
+.input,textarea,select{transition:border-color .16s ease,box-shadow .2s ease,background .16s ease}
+.input:focus,textarea:focus,select:focus{border-color:#cf92b6;box-shadow:0 0 0 4px rgba(201,130,165,.16),0 0 22px rgba(168,111,192,.12)}
+/* modal + toast glass */
+.modalback{background:rgba(30,23,28,.42);backdrop-filter:blur(7px)}
+.modal{border:1px solid #f0e2eb;box-shadow:0 24px 80px rgba(35,20,30,.35)}
+.toast{background:linear-gradient(135deg,#3a3140,#2c2530);box-shadow:0 10px 34px rgba(30,20,28,.4);border:1px solid rgba(255,255,255,.09);animation:toastIn .25s cubic-bezier(.2,.9,.3,1.2)}
+.toast.ok{background:linear-gradient(135deg,#4f7a5b,#3e664b)}
+.toast.err{background:linear-gradient(135deg,#93485d,#7c3a4d)}
+@keyframes toastIn{from{opacity:0;transform:translateY(14px) scale(.94)}to{opacity:1;transform:none}}
+/* stats + hero */
+.stat strong{background:linear-gradient(120deg,#b56a92,#8f5cb8);-webkit-background-clip:text;background-clip:text;color:transparent;font-size:17px}
+.stat{transition:transform .15s ease,box-shadow .15s ease}
+.stat:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(120,80,105,.12)}
+.hero h1{background:linear-gradient(120deg,#8c5f74 10%,#c982a5 55%,#9a6dd7 95%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.eyebrow{background:linear-gradient(90deg,#c982a5,#9a6dd7);-webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:3px}
+/* chat bubbles */
+.mine .msg{background:linear-gradient(135deg,#c982a5,#a86fc0);box-shadow:0 3px 12px rgba(168,111,192,.3)}
+.msg:not(.mine .msg){box-shadow:0 1px 5px rgba(60,32,48,.06)}
+.send{transition:transform .14s ease,box-shadow .2s ease,filter .2s}
+.send:hover:not(:disabled){filter:brightness(1.08);box-shadow:0 7px 18px rgba(168,111,192,.5)}
+.send:active:not(:disabled){transform:scale(.88)}
+/* bottom nav glow */
+.bnav-item{transition:color .15s ease,transform .15s ease}
+.bnav-item:active{transform:scale(.9)}
+/* music/chip buttons keep compact */
+.music-result .btn,.chatnav .btn{border-radius:999px}
+/* dark theme refinements */
+html[data-theme="dark"] .btn.primary{background:linear-gradient(135deg,#a4608a,#7d54a5);box-shadow:0 6px 18px rgba(120,70,120,.45),inset 0 1px 0 rgba(255,255,255,.14)}
+html[data-theme="dark"] .btn.secondary{background:linear-gradient(180deg,#272030,#221b2a);color:#e2d3de;border-color:#3b2f44;box-shadow:0 2px 10px rgba(0,0,0,.3)}
+html[data-theme="dark"] .btn.secondary:hover:not(:disabled){border-color:#5a4365;filter:brightness(1.12)}
+html[data-theme="dark"] .btn.danger{background:linear-gradient(135deg,#43222e,#3a1e28);color:#f0a8bb;border-color:#5a2e3e}
+html[data-theme="dark"] .navbtn.active{background:linear-gradient(135deg,#9c5b83,#7d54a5)}
+html[data-theme="dark"] .linkbtn{background:linear-gradient(90deg,#e2a3c8,#c29ce8);-webkit-background-clip:text;background-clip:text}
+html[data-theme="dark"] .stat strong{background:linear-gradient(120deg,#e2a3c8,#b796e8);-webkit-background-clip:text;background-clip:text}
+html[data-theme="dark"] .hero h1{background:linear-gradient(120deg,#f0d4e4 10%,#d99cc0 55%,#b796e8 95%);-webkit-background-clip:text;background-clip:text}
+html[data-theme="dark"] .menu,html[data-theme="dark"] .moreMenu{background:rgba(30,24,37,.94);border-color:#3b2f44}
+html[data-theme="dark"] .menu button:hover{background:linear-gradient(90deg,#2e2438,#342a40)}
+html[data-theme="dark"] .actions button.active::after{background:linear-gradient(90deg,#cf86b1,#9a6dd7)}
+
+/* ================================================================
+   LitanyaSpace v2.15 — messenger cleanup, Active-Now pills, media polish
+   ================================================================ */
+/* header action group: replaces the old absolute/overlapping layout */
+.lit-head-actions{display:flex;align-items:center;gap:6px;margin-left:auto;flex:none}
+.lit-crisis{position:relative;top:auto;right:auto;transform:none;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.18);border:1.5px solid rgba(255,255,255,.38);color:#fff;display:grid;place-items:center;cursor:pointer;padding:0;transition:transform .14s ease,background .16s ease}
+.lit-crisis:hover{transform:scale(1.1);background:rgba(255,255,255,.32)}
+.lit-crisis:active{transform:scale(.9)}
+.lit-vanish,.lit-checkin{padding:5px 10px;font-size:11px}
+/* Active-now pill in chat header + chat list */
+.chat-pres{display:inline-flex;align-items:center;font-size:10.5px;font-weight:800;margin-top:2px;padding:2px 9px;border-radius:999px;background:rgba(255,255,255,.16);color:rgba(255,255,255,.9);line-height:1.6}
+.chat-pres.on{background:rgba(56,190,110,.22);color:#eafff2}
+.chat-pres .online-dot,.chat-pres .offline-dot{margin-right:5px}
+.chat-pres .online-dot{background:#4ade80;box-shadow:0 0 0 2px rgba(74,222,128,.35);animation:presPulse 2s ease-in-out infinite}
+@keyframes presPulse{50%{box-shadow:0 0 0 4px rgba(74,222,128,.15)}}
+.presence-label{display:inline-flex;align-items:center;font-size:10px;font-weight:700;color:var(--muted)}
+.presence-label .online-dot{background:#38a169}
+/* green dot for the Online filter tab */
+.dotg{display:inline-block;width:8px;height:8px;border-radius:50%;background:#38a169;margin-right:5px;box-shadow:0 0 0 2px rgba(56,161,105,.2)}
+/* chatlist head: tidy rows */
+.chatlisthead{background:linear-gradient(180deg,#fdf7fa,#fbf2f7);border-bottom:1px solid var(--line)}
+.chat-actions-row{display:flex;gap:6px;margin-top:8px;align-items:center}
+.chat-actions-row .btn{padding:7px 11px;font-size:12px;border-radius:999px}
+.chat-actions-row .icononly{flex:none;width:32px;height:32px;padding:0;border-radius:50%;font-size:14px}
+/* chat items: cleaner + presence aware */
+.chatitem{border-radius:14px;margin:3px 6px;padding:10px 11px;transition:background .15s ease,transform .12s ease,box-shadow .15s ease;position:relative}
+.chatitem:hover{background:linear-gradient(90deg,#fbf1f7,#f6e9f2);transform:translateX(2px)}
+.chatitem.active{background:linear-gradient(90deg,#f7e6f0,#efe0f5);box-shadow:inset 3px 0 0 var(--accent)}
+.chatitem .avatar{box-shadow:0 0 0 2px #fff,0 2px 8px rgba(120,80,105,.18)}
+/* chat area + composer */
+.chatmsgs{background:linear-gradient(180deg,#fffdfd,#fbf4f8)}
+.chat-attachbar{display:flex;align-items:center;gap:8px;padding:6px 12px 0}
+.chat-attach{width:34px;height:34px;display:grid;place-items:center;border-radius:50%;background:#f6edf2;color:#8a5f79;font-size:15px;cursor:pointer;transition:background .15s,transform .12s,box-shadow .15s;border:0}
+.chat-attach:hover{background:linear-gradient(135deg,#c982a5,#a86fc0);color:#fff;transform:translateY(-1px);box-shadow:0 5px 12px rgba(168,111,192,.3)}
+#recordVoice{color:#c0506e}
+#recordVoice.rec{background:#e05c7a;color:#fff;animation:litpulse2 1.4s ease-in-out infinite}
+.chatcompose{padding:9px 12px 12px}
+.chatcompose input{border:1px solid var(--line);background:#fff;box-shadow:inset 0 1px 4px rgba(80,50,70,.05);transition:border-color .15s,box-shadow .2s}
+.chatcompose input:focus{border-color:#cf92b6;box-shadow:0 0 0 3px rgba(201,130,165,.14)}
+.msg{box-shadow:0 1px 6px rgba(60,32,48,.07)}
+.reply-preview{border-radius:12px;background:linear-gradient(90deg,#fbf1f7,#f6e9f2);border-left:3px solid var(--accent)}
+.chat-typing{font-size:11px;color:var(--accentDark);font-weight:700;padding:2px 14px}
+/* media polish: photos, videos, music embeds */
+.postimg{border:1px solid #f0e2eb;box-shadow:0 6px 18px rgba(80,45,66,.10);transition:filter .2s ease,box-shadow .2s ease}
+.postimg:hover{filter:saturate(1.06) brightness(1.01);box-shadow:0 10px 26px rgba(80,45,66,.16)}
+.postbody video{width:100%;max-height:560px;border-radius:14px;margin-top:10px;display:block;background:#1a141a;box-shadow:0 6px 18px rgba(30,20,28,.25)}
+.ytmusic{border:1px solid #e8d9e4;border-radius:16px;box-shadow:0 8px 22px rgba(80,45,66,.14)}
+.music-preview{background:linear-gradient(90deg,#fdf7fa,#f9f0f6);border-color:#eedbe7}
+.postaudio{box-shadow:0 3px 12px rgba(80,45,66,.10)}
+.image-preview{border:1px solid #eedcea;background:linear-gradient(180deg,#fbf6f9,#f4eaf0);border-radius:16px;box-shadow:inset 0 1px 0 #fff,0 4px 14px rgba(80,45,66,.08)}
+.image-preview .image-actions button{border-radius:999px;transition:transform .12s,box-shadow .15s}
+.image-preview .image-actions button:hover{transform:translateY(-1px);box-shadow:0 4px 10px rgba(120,80,105,.18)}
+/* dark mode messenger touches */
+html[data-theme="dark"] .chatlisthead{background:linear-gradient(180deg,#211a29,#1d1724)}
+html[data-theme="dark"] .chatitem:hover{background:linear-gradient(90deg,#2b2135,#332540)}
+html[data-theme="dark"] .chatitem.active{background:linear-gradient(90deg,#382743,#2f2340);box-shadow:inset 3px 0 0 var(--accent)}
+html[data-theme="dark"] .chatmsgs{background:linear-gradient(180deg,#181320,#161120)}
+html[data-theme="dark"] .chat-attach{background:#2b2233;color:#d8b7cc}
+html[data-theme="dark"] .chatcompose input{background:#241d2c;border-color:#3b2f44;color:var(--ink);box-shadow:none}
+html[data-theme="dark"] .chat-pres{background:rgba(255,255,255,.1)}
+html[data-theme="dark"] .postimg{border-color:#3b2f44;box-shadow:0 6px 18px rgba(0,0,0,.35)}
+html[data-theme="dark"] .image-preview{background:linear-gradient(180deg,#241d2c,#1f1927);border-color:#3b2f44}
 </style>
 </head>
 <body>
@@ -552,11 +701,11 @@ html.smooth-ready .card .loader,html.smooth-ready .skel-card *{content-visibilit
  <div class="pagehead"><h2>Messenger</h2><p>Private conversations and group chats.</p></div>
  <div class="card messenger" id="messengerBox">
   <aside class="chatlist">
-   <div class="chatlisthead"><input id="peopleSearch" class="input" placeholder="Search people..."><div class="chatnav" role="tablist" aria-label="Messenger navigation"><button class="btn primary" data-chat-filter="all" type="button">Chats</button><button class="btn secondary" data-chat-filter="online" type="button">🟢 Online</button><button class="btn secondary" data-chat-filter="communities" type="button">Communities</button></div><div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap"><button class="btn primary" id="publicChatBtn" type="button">Public Chat</button><button class="btn secondary" id="newGroupBtn" type="button">+ Community / Group</button><button class="btn secondary" id="refreshChats" type="button">↻</button></div></div>
+   <div class="chatlisthead"><input id="peopleSearch" class="input" placeholder="Search people..."><div class="chatnav" role="tablist" aria-label="Messenger navigation"><button class="btn primary" data-chat-filter="all" type="button">Chats</button><button class="btn secondary" data-chat-filter="online" type="button"><span class="dotg"></span>Online</button><button class="btn secondary" data-chat-filter="communities" type="button">Communities</button></div><div class="chat-actions-row"><button class="btn primary" id="publicChatBtn" type="button">🌐 Public Chat</button><button class="btn secondary" id="newGroupBtn" type="button">+ Group</button><button class="btn secondary icononly" id="refreshChats" type="button" title="Refresh chats" aria-label="Refresh chats">↻</button></div></div>
    <div class="chatitems" id="chatItems"><div class="empty">No conversations yet.</div></div>
   </aside>
   <section class="chatmain">
-   <div class="chathead"><button class="btn secondary" id="chatBack" style="display:none">←</button><div class="avatar" id="chatAvatar">L</div><div class="grow"><strong id="chatTitle">Litanya Messenger</strong><div class="tiny" id="chatSubtitle">Choose a conversation.</div></div><button class="btn secondary" id="chatInfo">ⓘ</button></div>
+   <div class="chathead"><button class="btn secondary" id="chatBack" style="display:none">←</button><div class="avatar" id="chatAvatar">L</div><div class="grow"><strong id="chatTitle">Litanya Messenger</strong><div class="tiny" id="chatSubtitle">Choose a conversation.</div><span class="chat-pres" id="chatPresence"></span></div></div>
    <div class="chatmsgs" id="chatMessages"><div class="empty">Choose a conversation to begin.</div></div><div class="chat-typing" id="chatTyping" aria-live="polite"></div>
    <div id="replyPreview" class="reply-preview hidden"><span id="replyPreviewText"></span><button type="button" id="cancelReply" aria-label="Cancel reply">×</button></div><div class="chat-attachbar"><label class="chat-attach" title="Send image">▧<input id="messageImage" type="file" accept="image/*" hidden></label><label class="chat-attach" title="Send audio file">♫<input id="messageAudio" type="file" accept="audio/*,.mp3,.m4a,.wav,.ogg,.webm" hidden></label><button type="button" class="chat-attach" id="recordVoice" title="Record voice message">●</button><span class="tiny" id="voiceStatus"></span></div><form class="chatcompose" id="messageForm"><input id="messageInput" maxlength="4000" placeholder="Message… (@username to mention)" disabled><button class="send" id="sendBtn" disabled>➤</button></form>
   </section>
@@ -1158,7 +1307,20 @@ async function loadMe(){
   if(error){toast(error.message,"error");return null}
   me=data||null; if(me)cache.profiles.set(me.id,me); updateAuthUI(); return me
 }
-let presenceChannel=null,onlineUserIds=new Set(),presenceHeartbeat=null;
+let presenceChannel=null,onlineUserIds=new Set(),presenceHeartbeat=null,activeChatPartner=null;
+function updateHeaderPresence(){
+  const el=$("chatPresence");if(!el)return;
+  if(!activeChat){el.innerHTML="";el.className="chat-pres";return}
+  if(activeChatPartner){
+    const on=onlineUserIds.has(activeChatPartner);
+    el.className="chat-pres"+(on?" on":"");
+    el.innerHTML=on?'<i class="online-dot"></i>Active now':'<i class="offline-dot"></i>Offline';
+  }else{
+    const n=onlineUserIds.size;
+    el.className="chat-pres"+(n?" on":"");
+    el.innerHTML=n?'<i class="online-dot"></i>'+n+' online now':'';
+  }
+}
 async function startPresence(){
   if(!client||!uid())return;
   if(presenceChannel){try{await client.removeChannel(presenceChannel)}catch{}}
@@ -1173,6 +1335,7 @@ async function startPresence(){
     document.querySelectorAll("[data-online-user]").forEach(el=>{const id=String(el.dataset.onlineUser);const on=onlineUserIds.has(id);el.innerHTML=(on?'<i class="online-dot"></i>Active now':'<i class="offline-dot"></i>Offline')});
     document.querySelectorAll("[data-person]").forEach(el=>{const id=String(el.dataset.person);let badge=el.querySelector(".presence-label");if(!badge){badge=document.createElement("span");badge.className="presence-label tiny";el.querySelector(".chattext")?.appendChild(badge)}if(badge)badge.innerHTML=onlineUserIds.has(id)?'<i class="online-dot"></i>Active now':'<i class="offline-dot"></i>Offline'});
     if(chatFilter==="online")renderOnlinePeople();
+    updateHeaderPresence();
   });
   presenceChannel.subscribe(async status=>{if(status==="SUBSCRIBED"){await presenceChannel.track({user_id:String(uid()),online_at:new Date().toISOString(),page:"LitanyaSpace"})}});
 }
@@ -2058,6 +2221,12 @@ async function openChat(id){
   $("chatTitle").textContent=chatName(c.data);
   $("chatSubtitle").textContent=publicRoom?"Everyone · Public community chat":c.data.type==="group"?"Group conversation":"Private conversation";
   $("chatAvatar").textContent=initials(chatName(c.data));
+  // v2.15: header presence — track the other person in a DM; groups show online count
+  activeChatPartner=null;
+  if(c.data.type!=="group"&&!publicRoom){
+    try{const mem=await client.from("conversation_members").select("user_id").eq("conversation_id",id).neq("user_id",uid()).limit(1);if(mem.data&&mem.data[0])activeChatPartner=String(mem.data[0].user_id)}catch(e){log("Presence partner lookup failed",e)}
+  }
+  updateHeaderPresence();
   $("messageInput").disabled=false;
   $("sendBtn").disabled=false;
   $("sendBtn").textContent=$("messageInput").value.trim()?"➤":"❤️";
@@ -2183,7 +2352,6 @@ $("messageForm").onsubmit=async e=>{
   finally{messageSending=false;sendBtn.textContent=input.value.trim()?"➤":"❤️";sendBtn.disabled=!activeChat;input.disabled=!activeChat}
 };
 $("chatBack").onclick=()=>{$("messengerBox").classList.remove("chatopen");activeChat=null;loadChats()};
-$("chatInfo").onclick=()=>{if(activeChat)toast("Chat settings can be managed through the group/member controls in the next update.")};
 let peopleTimer=null;
 $("peopleSearch").oninput=e=>{
   clearTimeout(peopleTimer);
@@ -3410,24 +3578,28 @@ html[data-theme="dark"] .litanya-reaction-chip{color:#e6cbdc;background:rgba(201
     if(!head || head.dataset.litV5) return;
     head.dataset.litV5 = '1';
     head.style.position = 'relative';
+    /* v2.15: all actions live in one tidy group on the right — no absolute-position overlaps */
+    var grp = document.createElement('div');
+    grp.className = 'lit-head-actions';
+    head.appendChild(grp);
     /* Crisis button */
     var crisis = document.createElement('button');
     crisis.type='button'; crisis.className='lit-crisis'; crisis.title='Crisis help / hotlines';
-    crisis.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor" style="width:22px;height:22px"><path d="M12 21s-7.5-4.6-9.5-9A5.5 5.5 0 0 1 12 6.5 5.5 5.5 0 0 1 21.5 12c-2 4.4-9.5 9-9.5 9z"/><path d="M12 8v6M9 11h6" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>';
+    crisis.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor" style="width:18px;height:18px"><path d="M12 21s-7.5-4.6-9.5-9A5.5 5.5 0 0 1 12 6.5 5.5 5.5 0 0 1 21.5 12c-2 4.4-9.5 9-9.5 9z"/><path d="M12 8v6M9 11h6" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>';
     crisis.addEventListener('click', openCrisisModal);
-    head.appendChild(crisis);
+    grp.appendChild(crisis);
     /* Vanish toggle */
     var vanish = document.createElement('button');
     vanish.type='button'; vanish.className='lit-vanish'; vanish.id='litVanishBtn';
     vanish.innerHTML = '<span class="dot"></span><span class="lit-vanish-label">Vanish</span>';
     vanish.addEventListener('click', toggleVanish);
-    head.appendChild(vanish);
+    grp.appendChild(vanish);
     /* Check-in button */
     var checkin = document.createElement('button');
     checkin.type='button'; checkin.className='lit-checkin'; checkin.title='Send a supportive check-in message';
     checkin.innerHTML = '💜 <span>Check-in</span>';
     checkin.addEventListener('click', sendCheckIn);
-    head.appendChild(checkin);
+    grp.appendChild(checkin);
   }
   if(document.readyState==='complete') injectChatHeaderButtons();
   else window.addEventListener('load', function(){ injectChatHeaderButtons(); setTimeout(injectChatHeaderButtons, 1500); });
