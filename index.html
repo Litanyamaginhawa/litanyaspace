@@ -318,6 +318,39 @@ html[data-theme="dark"] .react-stack i{background:#2b2331;border-color:#3b3143}
 .notice .notice-avatar .avatar{width:40px;height:40px;font-size:14px;transition:transform .16s,box-shadow .16s}
 .notice .notice-avatar:hover .avatar{transform:scale(1.07);box-shadow:0 0 0 3px #f3dce9}
 .notice{align-items:center}
+/* v2.16c reaction summary + user choice sheet + group member picker */
+.react-summary{display:flex;align-items:center;gap:7px;padding:9px 16px 1px;font-size:12.5px;color:var(--muted)}
+.react-summary .react-stack{margin-right:0}
+.react-summary .react-stack i{width:21px;height:21px;font-size:13px}
+.rs-sep{color:#cfc4cc}
+.rs-link{cursor:pointer;font-weight:750;color:var(--accentDark)}
+.rs-link:hover{text-decoration:underline}
+.person-open{margin-left:auto;align-self:center;color:#c4b6c0;font-size:20px;font-weight:900;flex:none;padding-left:6px}
+.user-actions{width:min(340px,100%);text-align:center;padding:24px 18px 12px;border-radius:22px}
+.user-actions .avatar{width:66px;height:66px;font-size:23px;margin:0 auto 10px;box-shadow:0 0 0 3px #fff,0 0 0 6px var(--accent2);cursor:pointer}
+.ua-name{display:block;font-size:16px}
+.ua-handle{display:block;color:var(--muted);font-size:12px;margin-top:2px}
+.ua-pres{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:800;margin:9px 0 16px;padding:4px 12px;border-radius:999px;background:#f3f0f2;color:var(--muted)}
+.ua-pres.on{background:#e9f7ee;color:#2f7d46}
+.ua-btns{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.ua-btns .btn{justify-content:center;padding:12px}
+.ua-cancel{display:block;width:100%;margin-top:9px;border:0;background:transparent;color:var(--muted);font-weight:800;padding:10px;border-radius:12px;cursor:pointer}
+.ua-cancel:hover{background:#f6f2f4}
+html[data-theme="dark"] .ua-cancel:hover{background:#2b2331}
+.group-picker{max-height:230px;overflow:auto;border:1px solid var(--line);border-radius:14px;padding:5px;background:#fdfafc;display:flex;flex-direction:column;gap:2px}
+.gp-row{display:flex;align-items:center;gap:9px;padding:7px 8px;border-radius:11px;cursor:pointer;font-size:13px!important;font-weight:600!important;color:var(--ink)!important;margin-top:0!important}
+.gp-row:hover{background:#faf3f7}
+.gp-row.on{background:var(--accent2)}
+.gp-row input[type=checkbox]{width:17px;height:17px;accent-color:var(--accent);flex:none;margin:0}
+.gp-row .avatar{width:32px;height:32px;font-size:12px}
+.gp-name{display:flex;flex-direction:column;min-width:0}
+.gp-name span{font-size:11px;color:var(--muted);font-weight:600}
+.group-selected{display:flex;flex-wrap:wrap;gap:6px}
+.group-selected:empty{display:none}
+.gp-chip{display:inline-flex;padding:5px 11px;border-radius:999px;background:linear-gradient(135deg,#d18fb2,#a86fc0);color:#fff;font-size:12px;font-weight:750;box-shadow:0 3px 9px rgba(168,111,192,.3)}
+html[data-theme="dark"] .group-picker{background:#241e2b}
+html[data-theme="dark"] .gp-row:hover{background:#2c2136}
+html[data-theme="dark"] .gp-row.on{background:#332540}
 /* image lightbox */
 .lightbox-overlay{position:fixed;inset:0;background:rgba(10,7,12,.93);backdrop-filter:blur(5px);z-index:120000;display:none;align-items:center;justify-content:center;padding:18px}
 .lightbox-overlay.show{display:flex}
@@ -1719,6 +1752,7 @@ function postCard(p){
    <button data-act="share"><span class="svgicon" data-icon="arrow"></span> Share / copy link</button><button data-act="save"><span class="svgicon" data-icon="bookmark"></span> Save post</button>${own?'<button data-act="edit">✎ Edit post</button><button data-act="delete" class="danger">Delete post</button>':''}<button data-act="report">Report</button>${own?'':'<button data-act="block-author">Block author</button>'}
   </div></div></div>
   <div class="postbody">${esc(p.content)}${p.image_url?`<img class="postimg" src="${attr(p.image_url)}" alt="Post image" loading="lazy">`:""}${p.video_url?`<div class="post-video-wrap"><video controls playsinline preload="metadata" data-post-video src="${attr(p.video_url)}"></video><div class="video-caption"><span class="video-chip">VIDEO</span><span>Shared on LitanyaSpace</span></div></div>`:""}${musicHTML(p)}</div>
+  ${likes.length?`<div class="react-summary"><span class="react-stack">${topR.map(e=>`<i>${e}</i>`).join("")}</span><span>${likes.length} reaction${likes.length>1?"s":""}</span>${comments.length?`<span class="rs-sep">·</span><span class="rs-link" data-act="comment">${comments.length} comment${comments.length>1?"s":""}</span>`:""}</div>`:""}
   <div class="actions"><div class="reaction-bar">${Object.entries(RM).map(([k,v])=>`<button type="button" data-react-pick="${k}" title="${v.l}">${v.e}</button>`).join("")}</div><button data-act="like" class="${rm?'active':''}" title="${rm?rm.l:'Like'}">${rm?`<span class="react-emoji">${rm.e}</span> ${rm.l}`:(topR.length?`<span class="react-stack">${topR.map(e=>`<i>${e}</i>`).join("")}</span> Like`:'<span class="svgicon" data-icon="like"></span> Like')} ${likes.length||""}</button><button data-act="comment"><span class="svgicon" data-icon="comment"></span> Comment ${comments.length||""}</button><button data-act="save"><span class="svgicon" data-icon="bookmark"></span> Save</button></div>
   <div class="comments">${comments.filter(c=>!c.parent_id).slice(-20).map(c=>commentHTML(c,comments)).join("")}<form class="commentform" data-post="${attr(p.id)}"><input maxlength="1000" placeholder="Write a comment..."><button class="btn secondary">Send</button></form></div>
  </article>`
@@ -2143,7 +2177,7 @@ async function loadChats(){
   await ensurePublicChat();
   const r=await client.from("conversation_members").select("conversation_id,conversations(id,type,name,created_at)").eq("user_id",uid()).order("joined_at",{ascending:false});
   if(r.error){toast(r.error.message,"error");return}
-  const rows=(r.data||[]).map(x=>x.conversations).filter(Boolean);
+  const rows=[...new Map((r.data||[]).map(x=>x.conversations).filter(Boolean).map(c=>[String(c.id),c])).values()];
   const dmIds=rows.filter(c=>isDirectConversation(c)).map(c=>c.id);
   const convIds=rows.map(c=>c.id);
   const previews=new Map(),unread=new Map();
@@ -2164,7 +2198,7 @@ async function openProfileCard(id){if(!id)return;const r=await client.from("prof
 function isGroupConversation(c){return String(c?.type||"").toLowerCase()==="group"}
 function isDirectConversation(c){return !!c && !isGroupConversation(c)}
 async function createDirectConversation(other){
-  const types=["dm","private","direct","one_to_one"];
+  const types=["direct","dm","private","one_to_one"];
   let lastError=null;
   for(const type of types){
     const c=await insert("conversations",{type,name:null,created_by:uid()});
@@ -2175,8 +2209,11 @@ async function createDirectConversation(other){
   }
   return {error:lastError||new Error("Could not create private conversation.")};
 }
+let dmStarting=false;
 async function startDM(other){
-  if(!requireLogin()||other===uid())return;
+  if(!requireLogin()||other===uid()||dmStarting)return;
+  dmStarting=true;
+  try{
   const existing=await client.from("conversation_members").select("conversation_id,conversations(id,type,name)").eq("user_id",uid());
   if(existing.error){toast(existing.error.message,"error");return}
   for(const x of (existing.data||[])){
@@ -2190,43 +2227,70 @@ async function startDM(other){
   const m=await client.from("conversation_members").insert(members);
   if(m.error){toast("Could not add the members: "+m.error.message,"error",7000);return}
   go("messenger");await openChat(c.data.id)
+  }finally{dmStarting=false}
+}
+// v2.16c: choice sheet when tapping a person — message them or view their profile
+async function openUserActions(id,name,avatar){
+  if(!id||!requireLogin())return;
+  let display=String(name||""),av=avatar||null,uname="";
+  if(!display){
+    let p=cache.profiles.get(id);
+    if(!p){const r=await client.from("profiles").select("id,username,display_name,avatar_url").eq("id",id).maybeSingle();if(r.error){toast(r.error.message,"error");return}p=r.data}
+    if(!p){toast("Member not found.","error");return}
+    display=p.display_name||p.username||"Member";av=p.avatar_url||null;uname=p.username||""
+  }
+  const on=onlineUserIds.has(String(id));
+  $("modalRoot").innerHTML=`<div class="modalback" id="uaBackdrop"><div class="modal user-actions" role="dialog" aria-modal="true"><div class="avatar" id="uaAvatar">${av?`<img src="${attr(av)}" alt="">`:esc(initials(display))}</div><strong class="ua-name">${esc(display)}</strong>${uname?`<span class="ua-handle">@${esc(uname)}</span>`:""}<span class="ua-pres${on?" on":""}">${on?'<i class="online-dot"></i>Active now':'<i class="offline-dot"></i>Offline'}</span><div class="ua-btns"><button class="btn secondary" id="uaView" type="button">👤 View profile</button><button class="btn primary" id="uaMsg" type="button">✉ Message</button></div><button class="ua-cancel" id="uaClose" type="button">Cancel</button></div></div>`;
+  const close=()=>{$("modalRoot").innerHTML=""};
+  $("uaClose").onclick=close;
+  $("uaBackdrop").onclick=e=>{if(e.target.id==="uaBackdrop")close()};
+  $("uaAvatar").onclick=()=>{close();openPublicProfile(id)};
+  $("uaView").onclick=()=>{close();openPublicProfile(id)};
+  $("uaMsg").onclick=()=>{close();startDM(id)};
 }
 $("publicChatBtn").onclick=async()=>{
   const room=await ensurePublicChat();
   if(room){activeChat=null;go("messenger");await openChat(room.id)}
 };
-async function createGroupFromComposer(titleValue, rawValue, root){
-  const title=String(titleValue||"").trim().slice(0,80),raw=String(rawValue||"").trim();
+// v2.16c: group creation now uses a tap-to-select member picker (no typing usernames).
+async function createGroupFromComposer(titleValue, idsIn, root){
+  const title=String(titleValue||"").trim().slice(0,80);
+  const ids=[...new Set((idsIn||[]).map(String))].filter(x=>x&&x!==String(uid()));
   const error=root.querySelector("[data-group-error]");
   const submit=root.querySelector("[data-group-submit]");
-  if(!title||!raw){error.textContent="Add a group name and at least one username.";return}
-  const names=[...new Set(raw.split(/[,,\n]/).map(x=>x.trim().replace(/^@/,"").toLowerCase()).filter(Boolean))];
-  if(!names.length){error.textContent="Enter at least one username.";return}
+  if(!title){error.textContent="Add a group name first.";return}
+  if(!ids.length){error.textContent="Pick at least one member from the list below.";return}
+  if(ids.length>50){error.textContent="You can invite up to 50 members at once.";return}
   submit.disabled=true;submit.textContent="Creating…";error.textContent="";
   try{
-    const users=await client.from("profiles").select("id,username").in("username",names);
-    if(users.error)throw new Error("Could not search users: "+users.error.message);
-    const found=users.data||[],foundNames=new Set(found.map(x=>String(x.username).toLowerCase()));
-    const missing=names.filter(n=>!foundNames.has(n));
-    const ids=found.map(x=>x.id).filter(x=>String(x)!==String(uid()));
-    if(missing.length)throw new Error("Username not found: "+missing.map(x=>"@"+x).join(", "));
-    if(!ids.length)throw new Error("Add at least one other person to create a group.");
     const c=await insert("conversations",{type:"group",name:title,created_by:uid()});
     if(c.error||!c.data?.id)throw new Error(c.error?.message||"Could not create the group.");
-    const members=[...new Set([uid(),...ids])].map(user_id=>({conversation_id:c.data.id,user_id}));
+    const members=[uid(),...ids].map(user_id=>({conversation_id:c.data.id,user_id}));
     const a=await client.from("conversation_members").insert(members);
-    if(a.error){toast("Group created, but adding members failed: "+a.error.message,"error",7000);return}
-    $("modalRoot").innerHTML="";toast("Group created successfully.","success",3500);await openChat(c.data.id);
+    if(a.error){await client.from("conversations").delete().eq("id",c.data.id);throw new Error("Group removed — adding members failed: "+a.error.message)}
+    $("modalRoot").innerHTML="";toast("Group created successfully.","success",3500);chatFilter="all";await openChat(c.data.id);
   }catch(err){error.textContent=err.message||"Something went wrong. Please try again.";submit.disabled=false;submit.textContent="Create group"}
 }
-$("newGroupBtn").onclick=()=>{
+let gpAll=[],gpSel=new Set();
+function gpChips(){const box=$("groupChips");if(!box)return;box.innerHTML=[...gpSel].map(id=>{const p=gpAll.find(x=>String(x.id)===id);return `<span class="gp-chip">${esc(p?(p.display_name||p.username||"Member"):"Member")}</span>`}).join("")}
+function gpRender(){
+  const listEl=$("groupMemberList");if(!listEl)return;
+  const q=String($("groupMemberSearch")?.value||"").trim().toLowerCase();
+  const list=gpAll.filter(p=>!q||String(p.username||"").toLowerCase().includes(q)||String(p.display_name||"").toLowerCase().includes(q));
+  listEl.innerHTML=list.length?list.map(p=>{const id=String(p.id),on=gpSel.has(id);return `<label class="gp-row${on?" on":""}"><input type="checkbox" data-gp="${attr(p.id)}"${on?" checked":""}>${avatarHTML(p.display_name||p.username,p.avatar_url)}<span class="gp-name"><strong>${esc(p.display_name||p.username)}</strong><span>@${esc(p.username||"user")}</span></span></label>`}).join(""):'<div class="empty">No people found.</div>';
+  listEl.querySelectorAll("[data-gp]").forEach(c=>c.onchange=()=>{const id=String(c.dataset.gp);if(c.checked){if(gpSel.size>=50){c.checked=false;toast("You can invite up to 50 members at once.","error");return}gpSel.add(id)}else gpSel.delete(id);c.closest(".gp-row")?.classList.toggle("on",c.checked);gpChips()})
+}
+$("newGroupBtn").onclick=async()=>{
   if(!requireLogin())return;
-  $("modalRoot").innerHTML=`<div class="modalback" id="groupModalBackdrop"><div class="modal group-create-modal" role="dialog" aria-modal="true" aria-labelledby="groupCreateTitle"><div class="group-create-hero"><div class="group-create-icon">✦</div><div><h2 id="groupCreateTitle">Create a community chat</h2><p>Bring your people together in one place.</p></div><button class="icon" type="button" id="closeGroupModal" aria-label="Close">×</button></div><form class="group-create-form" id="groupCreateForm"><label for="groupTitle">Community or group name</label><input class="input" id="groupTitle" maxlength="80" required placeholder="e.g. Late Night Thoughts"><label for="groupMembers">Invite usernames</label><textarea class="input group-member-input" id="groupMembers" rows="4" required placeholder="Type usernames separated by commas or new lines"></textarea><div class="group-form-hint">Add at least one other LitanyaSpace member. Use their username, not their display name.</div><div data-group-error class="group-form-error" role="alert"></div><div class="group-form-actions"><button class="btn secondary" id="cancelGroupModal" type="button">Cancel</button><button class="btn primary" data-group-submit type="submit">Create group</button></div></form></div></div>`;
+  gpSel=new Set();gpAll=[];
+  $("modalRoot").innerHTML=`<div class="modalback" id="groupModalBackdrop"><div class="modal group-create-modal" role="dialog" aria-modal="true" aria-labelledby="groupCreateTitle"><div class="group-create-hero"><div class="group-create-icon">✦</div><div><h2 id="groupCreateTitle">Create a community chat</h2><p>Bring your people together in one place.</p></div><button class="icon" type="button" id="closeGroupModal" aria-label="Close">×</button></div><form class="group-create-form" id="groupCreateForm"><label for="groupTitle">Community or group name</label><input class="input" id="groupTitle" maxlength="80" required placeholder="e.g. Late Night Thoughts"><label for="groupMemberSearch">Invite members</label><input class="input" id="groupMemberSearch" placeholder="Search name or @username..." autocomplete="off"><div class="group-selected" id="groupChips"></div><div class="group-picker" id="groupMemberList"><div class="loader">Loading people…</div></div><div class="group-form-hint">Tap the checkboxes to invite members — no typing needed.</div><div data-group-error class="group-form-error" role="alert"></div><div class="group-form-actions"><button class="btn secondary" id="cancelGroupModal" type="button">Cancel</button><button class="btn primary" data-group-submit type="submit">Create group</button></div></form></div></div>`;
   const root=$("modalRoot"),close=()=>root.innerHTML="";
   $("closeGroupModal").onclick=close;$("cancelGroupModal").onclick=close;
   $("groupModalBackdrop").onclick=e=>{if(e.target.id==="groupModalBackdrop")close()};
-  $("groupCreateForm").onsubmit=e=>{e.preventDefault();createGroupFromComposer($("groupTitle").value,$("groupMembers").value,root)};
+  $("groupMemberSearch").oninput=()=>gpRender();
+  $("groupCreateForm").onsubmit=e=>{e.preventDefault();createGroupFromComposer($("groupTitle").value,[...gpSel],root)};
   $("groupTitle").focus();
+  try{const r=await client.from("profiles").select("id,username,display_name,avatar_url").neq("id",uid()).limit(300);if(r.error)throw new Error(r.error.message);gpAll=r.data||[];gpRender()}catch(err){$("groupMemberList").innerHTML=`<div class="empty">${esc(err.message||"Could not load members.")}</div>`}
 };
 let typingChannel=null,typingTimer=null,typingIdle=null;
 function showTyping(names=[]){const box=$("chatTyping");if(!box)return;const unique=[...new Set(names.filter(Boolean))].slice(0,3);box.innerHTML=unique.length?`<span class="typing-dots" aria-hidden="true"><i></i><i></i><i></i></span><span>${esc(unique.length===1?unique[0]+" is typing…":unique.join(", ")+" are typing…")}</span>`:""}
@@ -2234,6 +2298,9 @@ async function setupTypingChannel(chatId){if(typingChannel){try{await client.rem
 function broadcastTyping(isTyping){if(!typingChannel||!me)return;typingChannel.send({type:"broadcast",event:"typing",payload:{user_id:uid(),name:me.display_name||me.username||"Someone",typing:isTyping}}).catch(()=>{});clearTimeout(typingIdle);if(isTyping)typingIdle=setTimeout(()=>broadcastTyping(false),1800)}
 async function markCurrentChatSeen(chatId){if(!chatId||!uid())return;try{const r=await client.from("messages").update({read_at:new Date().toISOString()}).eq("conversation_id",chatId).neq("sender_id",uid()).is("read_at",null);if(r.error&& !/read_at/i.test(r.error.message||""))log("Read receipt update failed",r.error.message)}catch(e){log("Read receipt unavailable",e)}}
 async function openChat(id){
+  // v2.16c: opening a chat while the Online tab is active used to leave chatFilter==="online",
+  // so every presence sync re-rendered the people list on top of the chat list (double display).
+  if(chatFilter==="online")setChatFilter("all");
   activeChat=id;
   await loadChats();
   setupTypingChannel(id).catch(e=>log("Typing channel unavailable",e));
@@ -2338,8 +2405,8 @@ function setChatFilter(filter){chatFilter=filter;document.querySelectorAll("[dat
 document.querySelectorAll("[data-chat-filter]").forEach(b=>b.onclick=()=>setChatFilter(b.dataset.chatFilter));
 async function renderOnlinePeople(){
  const r=await client.from("profiles").select("id,username,display_name,avatar_url").neq("id",uid()).limit(100);const people=r.data||[];const online=people.filter(p=>onlineUserIds.has(String(p.id)));
- $("chatItems").innerHTML=online.length?online.map(p=>`<div class="chatitem person" data-person="${attr(p.id)}">${avatarHTML(p.display_name||p.username,p.avatar_url)}<div class="chattext"><strong>${esc(p.display_name||p.username)}</strong><span>@${esc(p.username)}</span><span class="presence-label tiny"><i class="online-dot"></i>Active now</span></div></div>`).join(""):'<div class="empty">No one is showing as online right now.</div>';
- $("chatItems").querySelectorAll(".person").forEach(x=>x.onclick=()=>startDM(x.dataset.person));
+ $("chatItems").innerHTML=online.length?online.map(p=>`<div class="chatitem person" data-person="${attr(p.id)}" data-name="${attr(p.display_name||p.username||'')}" data-av="${attr(p.avatar_url||'')}">${avatarHTML(p.display_name||p.username,p.avatar_url)}<div class="chattext"><strong>${esc(p.display_name||p.username)}</strong><span>@${esc(p.username)}</span><span class="presence-label tiny"><i class="online-dot"></i>Active now</span></div><span class="person-open" aria-hidden="true">›</span></div>`).join(""):'<div class="empty">No one is showing as online right now.</div>';
+ $("chatItems").querySelectorAll(".person").forEach(x=>x.onclick=()=>openUserActions(x.dataset.person,x.dataset.name,x.dataset.av||null));
 }
 async function uploadMessageAttachment(file,kind){
  if(!file||!uid())return null;const ext=(file.name.split(".").pop()|| (kind==="image"?"jpg":"webm")).toLowerCase().replace(/[^a-z0-9]/g,"")||"bin";
@@ -2382,8 +2449,8 @@ $("peopleSearch").oninput=e=>{
     const q=e.target.value.trim().toLowerCase().replace(/[%,()]/g,"");
     if(!q){loadChats();return}
     const r=await client.from("profiles").select("id,username,display_name,avatar_url").or(`username.ilike.%${q}%,display_name.ilike.%${q}%`).neq("id",uid()).limit(12);
-    $("chatItems").innerHTML=(r.data||[]).map(p=>`<div class="chatitem person" data-person="${attr(p.id)}">${avatarHTML(p.display_name||p.username,p.avatar_url)}<div class="chattext"><strong>${esc(p.display_name||p.username)}</strong><span>@${esc(p.username)}</span><span class="presence-label tiny" data-online-user="${attr(p.id)}"><i class="offline-dot"></i>Offline</span></div></div>`).join("")||'<div class="empty">No people found.</div>';
-    $("chatItems").querySelectorAll(".person").forEach(x=>x.onclick=()=>{const person=x.dataset.person;openPublicProfile(person)})
+    $("chatItems").innerHTML=(r.data||[]).map(p=>`<div class="chatitem person" data-person="${attr(p.id)}" data-name="${attr(p.display_name||p.username||'')}" data-av="${attr(p.avatar_url||'')}">${avatarHTML(p.display_name||p.username,p.avatar_url)}<div class="chattext"><strong>${esc(p.display_name||p.username)}</strong><span>@${esc(p.username)}</span><span class="presence-label tiny" data-online-user="${attr(p.id)}"><i class="offline-dot"></i>Offline</span></div><span class="person-open" aria-hidden="true">›</span></div>`).join("")||'<div class="empty">No people found.</div>';
+    $("chatItems").querySelectorAll(".person").forEach(x=>x.onclick=()=>openUserActions(x.dataset.person,x.dataset.name,x.dataset.av||null))
   },250)
 };
 $("refreshChats").onclick=loadChats;
@@ -3245,45 +3312,14 @@ html[data-theme="dark"] .litanya-reaction-chip{color:#e6cbdc;background:rgba(201
   new MutationObserver(upgradeReactionBars).observe(document.body,{childList:true,subtree:true});
 
   /* --- 3) Persistent reaction chip (stays visible near Like button) --- */
-  /* v2.4c: Replace emoji in reacted Like buttons with SVG + live-update on click. */
-  var EMOJI_TO_KEY = {"👍":"like","❤️":"love","😆":"haha","😮":"wow","😢":"sad","😠":"angry","\uD83D\uDC4D":"like","\u2764\uFE0F":"love","\uD83D\uDE06":"haha","\uD83D\uDE2E":"wow","\uD83D\uDE22":"sad","\uD83D\uDE20":"angry"};
-  function reactKeyFromTitle(t){
-    t = String(t||'').toLowerCase();
-    if(t==='like'||t==='love'||t==='haha'||t==='wow'||t==='sad'||t==='angry') return t;
-    return null;
-  }
-  function upgradeLikeButtons(){
-    document.querySelectorAll('.actions button[data-act="like"]').forEach(function(b){
-      var emojiSpan = b.querySelector('.react-emoji');
-      var key = reactKeyFromTitle(b.title) || (emojiSpan && EMOJI_TO_KEY[emojiSpan.textContent.trim()]);
-      if(key && SVG[key] && !b.dataset.litSvgLike){
-        b.dataset.litSvgLike = '1';
-        b.dataset.reactKey = key;
-        b.innerHTML = SVG[key] + '<span class="react-label">Like</span> <span class="react-count">' + (b.textContent.match(/\d+/)||[''])[0] + '</span>';
-      }
-    });
-  }
+  /* v2.16c: upgradeLikeButtons + the live-update override are DISABLED.
+     They rewrote every Like button right after render (hardcoding the word
+     "Like" and wiping the emoji/reaction-stack), which is why reacting only
+     bumped the count. postCard() is now the single authoritative renderer. */
+  function upgradeLikeButtons(){}
   upgradeLikeButtons();
-  new MutationObserver(upgradeLikeButtons).observe(document.body,{childList:true,subtree:true});
 
-  /* Live-update the Like button to show the picked reaction SVG + label. */
-  document.addEventListener('click', function(e){
-    var pickBtn = e.target.closest('.reaction-bar button[data-react-pick]');
-    if(!pickBtn) return;
-    var key = pickBtn.getAttribute('data-react-pick');
-    var actions = pickBtn.closest('.actions'); if(!actions) return;
-    var likeBtn = actions.querySelector('button[data-act="like"]'); if(!likeBtn) return;
-    var existingCount = (likeBtn.textContent.match(/\d+/)||[''])[0];
-    likeBtn.dataset.reactKey = key;
-    likeBtn.classList.add('active');
-    likeBtn.innerHTML = SVG[key] + '<span class="react-label">Like</span> <span class="react-count">' + existingCount + '</span>';
-    /* Toggle off if user clicks the same reaction again (matches existing behavior). */
-    var post = pickBtn.closest('[data-post-id], .post');
-    var pid = post && (post.dataset.postId || post.dataset.id);
-    if(pid){
-      try{ localStorage.setItem('litanya.reactions.'+pid, JSON.stringify({reaction:key})); }catch(_){}
-    }
-  }, {passive:true});
+  /* Live-update removed (v2.16c): setReaction() already rerenders the post with the picked reaction. */
 
   /* --- 3b) (Legacy chip renderer - disabled; the Like button itself now shows the reaction) --- */
   function renderChips(){
