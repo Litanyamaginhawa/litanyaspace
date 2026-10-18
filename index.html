@@ -298,6 +298,13 @@ html[data-theme="dark"] ::-webkit-scrollbar-thumb{background:#3d3346;border:2px 
 .reaction-bar button{flex:0 0 auto!important;border:0;background:transparent;font-size:21px;line-height:1;padding:5px 6px!important;border-radius:50%;transition:.14s;cursor:pointer}
 .reaction-bar button:hover{transform:scale(1.35) translateY(-2px)}
 .react-emoji{font-size:15px;line-height:1}
+/* v2.16 reaction stack near Like + notification type icons */
+.react-stack{display:inline-flex;align-items:center;margin-right:3px}
+.react-stack i{font-style:normal;font-size:13px;line-height:1;width:20px;height:20px;display:grid;place-items:center;border-radius:50%;background:#fff;border:1px solid var(--line);box-shadow:0 1px 3px rgba(60,32,48,.18);margin-right:-7px}
+.react-stack i+ i{margin-right:-7px}
+.actions button[data-act="like"]{gap:5px}
+.notice .avatar.notif-emoji{font-size:18px}
+html[data-theme="dark"] .react-stack i{background:#2b2331;border-color:#3b3143}
 /* image lightbox */
 .lightbox-overlay{position:fixed;inset:0;background:rgba(10,7,12,.93);backdrop-filter:blur(5px);z-index:120000;display:none;align-items:center;justify-content:center;padding:18px}
 .lightbox-overlay.show{display:flex}
@@ -1689,6 +1696,8 @@ function postCard(p){
   const mineReaction=(likes.find(x=>x.user_id===uid())||{}).reaction||null;
   const liked=!!p._liked;
   const rm=mineReaction?RM[mineReaction]||RM.like:null;
+  const rCounts={};likes.forEach(x=>{const k=x.reaction||"like";rCounts[k]=(rCounts[k]||0)+1});
+  const topR=Object.keys(rCounts).sort((a,b)=>rCounts[b]-rCounts[a]).slice(0,3).map(k=>(RM[k]||RM.like).e);
   const profileLink=p.is_anonymous?`<strong>${esc(name)}</strong>`:`<strong class="link profile-open" data-user="${attr(p.user_id)}">${esc(name)}</strong>`;
   const postAvatar=p.is_anonymous?avatarHTML(name,null):`<button type="button" class="post-avatar-link" data-user="${attr(p.user_id)}" aria-label="Open ${attr(name)} profile">${avatarHTML(name,p.avatar_url)}</button>`;
   return `<article class="card post ${p.kind==="update"?"update-card":""}" data-post="${attr(p.id)}">
@@ -1697,7 +1706,7 @@ function postCard(p){
    <button data-act="share"><span class="svgicon" data-icon="arrow"></span> Share / copy link</button><button data-act="save"><span class="svgicon" data-icon="bookmark"></span> Save post</button>${own?'<button data-act="edit">✎ Edit post</button><button data-act="delete" class="danger">Delete post</button>':''}<button data-act="report">Report</button>${own?'':'<button data-act="block-author">Block author</button>'}
   </div></div></div>
   <div class="postbody">${p.music_url?`<div class="music-track-head"><div class="music-track-disc">♫</div><div class="music-track-meta"><strong>${esc(p.music_name||"Original audio")}</strong><span>Music attached to this post</span></div></div>`:""}${esc(p.content)}${p.image_url?`<img class="postimg" src="${attr(p.image_url)}" alt="Post image" loading="lazy">`:""}${p.video_url?`<div class="post-video-wrap"><video controls playsinline preload="metadata" data-post-video src="${attr(p.video_url)}"></video><div class="video-caption"><span class="video-chip">VIDEO</span><span>Shared on LitanyaSpace</span></div></div>`:""}${musicHTML(p)}</div>
-  <div class="actions"><div class="reaction-bar">${Object.entries(RM).map(([k,v])=>`<button type="button" data-react-pick="${k}" title="${v.l}">${v.e}</button>`).join("")}</div><button data-act="like" class="${rm?'active':''}" title="${rm?rm.l:'Like'}">${rm?`<span class="react-emoji">${rm.e}</span> ${rm.l}`:'<span class="svgicon" data-icon="like"></span> Like'} ${likes.length||""}</button><button data-act="comment"><span class="svgicon" data-icon="comment"></span> Comment ${comments.length||""}</button><button data-act="save"><span class="svgicon" data-icon="bookmark"></span> Save</button></div>
+  <div class="actions"><div class="reaction-bar">${Object.entries(RM).map(([k,v])=>`<button type="button" data-react-pick="${k}" title="${v.l}">${v.e}</button>`).join("")}</div><button data-act="like" class="${rm?'active':''}" title="${rm?rm.l:'Like'}">${rm?`<span class="react-emoji">${rm.e}</span> ${rm.l}`:(topR.length?`<span class="react-stack">${topR.map(e=>`<i>${e}</i>`).join("")}</span> Like`:'<span class="svgicon" data-icon="like"></span> Like')} ${likes.length||""}</button><button data-act="comment"><span class="svgicon" data-icon="comment"></span> Comment ${comments.length||""}</button><button data-act="save"><span class="svgicon" data-icon="bookmark"></span> Save</button></div>
   <div class="comments">${comments.filter(c=>!c.parent_id).slice(-20).map(c=>commentHTML(c,comments)).join("")}<form class="commentform" data-post="${attr(p.id)}"><input maxlength="1000" placeholder="Write a comment..."><button class="btn secondary">Send</button></form></div>
  </article>`
 }
@@ -2374,8 +2383,9 @@ async function loadNotifications(){
   const unread=rows.filter(x=>!x.is_read).length;
   ["notifBadge","notifBottomBadge"].forEach(id=>{const b=$(id);if(!b)return;b.textContent=unread>99?"99+":String(unread);b.classList.toggle("hidden",!unread)});
   // bottom badge handled above
+  const NICON={message:"✉",comment:"💬",comment_reply:"💬",like:"👍",reaction:"👍",follow:"👥",post:"📣",myday_reply:"🌅",profile_view:"👀"};
   $("notificationList").innerHTML=rows.length?rows.map(n=>`<div class="notice ${n.is_read?'':'unread'}" data-notif="${attr(n.id)}">
-    <div class="avatar">${n.type==="message"?"✉":n.type==="comment"||n.type==="comment_reply"?"💬":"•"}</div>
+    <div class="avatar notif-emoji">${NICON[n.type]||"•"}</div>
     <div class="noticebody"><strong>${esc(n.title||"Notification")}</strong><p>${esc(n.body||"")}</p><span class="tiny">${esc(ago(n.created_at))}</span></div>
   </div>`).join(""):'<div class="empty">No notifications.</div>';
   $("notificationList").querySelectorAll(".notice").forEach(x=>x.onclick=()=>openNotification(rows.find(n=>String(n.id)===String(x.dataset.notif))));
