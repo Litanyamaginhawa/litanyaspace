@@ -305,6 +305,19 @@ html[data-theme="dark"] ::-webkit-scrollbar-thumb{background:#3d3346;border:2px 
 .actions button[data-act="like"]{gap:5px}
 .notice .avatar.notif-emoji{font-size:18px}
 html[data-theme="dark"] .react-stack i{background:#2b2331;border-color:#3b3143}
+/* v2.16 Spotify-style audio card */
+.audio-card{display:flex;gap:12px;align-items:center;margin-top:10px;padding:12px;border-radius:16px;background:linear-gradient(135deg,#2e2138,#3c2745 55%,#4b2d4a);box-shadow:0 10px 26px rgba(45,25,45,.28)}
+.audio-cover{width:86px;height:86px;border-radius:12px;object-fit:cover;flex:none;background:#1d1622;box-shadow:0 6px 16px rgba(0,0,0,.35)}
+.audio-cover-art{display:grid;place-items:center;font-size:32px;color:#fff;background:linear-gradient(135deg,#c982a5,#a86fc0)}
+.audio-info{flex:1;min-width:0}
+.audio-info strong{display:block;color:#fff;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.audio-info>span{display:block;color:rgba(255,255,255,.65);font-size:11px;margin:2px 0 8px}
+.audio-info audio{width:100%;height:36px;border-radius:10px}
+.music-track-disc img{width:100%;height:100%;object-fit:cover;border-radius:inherit}
+.notice .notice-avatar{border:0;background:none;padding:0;flex:none;cursor:pointer;border-radius:50%;align-self:center}
+.notice .notice-avatar .avatar{width:40px;height:40px;font-size:14px;transition:transform .16s,box-shadow .16s}
+.notice .notice-avatar:hover .avatar{transform:scale(1.07);box-shadow:0 0 0 3px #f3dce9}
+.notice{align-items:center}
 /* image lightbox */
 .lightbox-overlay{position:fixed;inset:0;background:rgba(10,7,12,.93);backdrop-filter:blur(5px);z-index:120000;display:none;align-items:center;justify-content:center;padding:18px}
 .lightbox-overlay.show{display:flex}
@@ -1633,7 +1646,7 @@ async function insert(table,row){
   // because this whole app runs inside an IIFE, so `insert` is local.)
   if(table==='posts'&&window.__litanyaAttached){
     const a=window.__litanyaAttached;
-    row=Object.assign({},row,{music_url:a.music_url,music_name:a.music_name,music_source:'itunes',music_start:0,music_end:a.music_end||30});
+    row=Object.assign({},row,{music_url:a.music_url,music_name:a.music_name,music_source:'itunes',music_start:0,music_end:a.music_end||30,music_image:a.music_image||null});
     const res=await client.from(table).insert(row).select().single();
     window.__litanyaAttached=null;
     return res;
@@ -1688,7 +1701,7 @@ function musicHTML(p){
     const q=new URLSearchParams({start:String(st),autoplay:"1",mute:"1",playsinline:"1"});if(en>st)q.set("end",String(en));
     return `<div class="ytmusic"><iframe src="https://www.youtube.com/embed/${encodeURIComponent(id)}?${q.toString()}" title="Music clip" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe><div class="music-name">♫ ${esc(p.music_name||"YouTube music clip")} · ${st}s${en>st?"–"+en+"s":""}</div></div>`;
   }
-  return `<audio class="postaudio" controls preload="metadata" data-auto-music><source src="${attr(p.music_url)}"></audio><div class="music-name">♫ ${esc(p.music_name||"Attached music")}</div>`;
+  return `<div class="audio-card">${p.music_image?`<img class="audio-cover" src="${attr(p.music_image)}" alt="" loading="lazy">`:`<div class="audio-cover audio-cover-art">♫</div>`}<div class="audio-info"><strong>${esc(p.music_name||"Attached music")}</strong><span>Now playing · LitanyaSpace</span><audio class="postaudio" controls preload="metadata" data-auto-music src="${attr(p.music_url)}"></audio></div></div>`;
 }
 function postCard(p){
   const own=p.user_id===uid(), name=authorName(p), comments=p._comments||[],likes=p._likes||[];
@@ -1705,7 +1718,7 @@ function postCard(p){
   <div class="postmenu"><button class="more" data-act="menu" title="More"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg></button><div class="menu">
    <button data-act="share"><span class="svgicon" data-icon="arrow"></span> Share / copy link</button><button data-act="save"><span class="svgicon" data-icon="bookmark"></span> Save post</button>${own?'<button data-act="edit">✎ Edit post</button><button data-act="delete" class="danger">Delete post</button>':''}<button data-act="report">Report</button>${own?'':'<button data-act="block-author">Block author</button>'}
   </div></div></div>
-  <div class="postbody">${p.music_url?`<div class="music-track-head"><div class="music-track-disc">♫</div><div class="music-track-meta"><strong>${esc(p.music_name||"Original audio")}</strong><span>Music attached to this post</span></div></div>`:""}${esc(p.content)}${p.image_url?`<img class="postimg" src="${attr(p.image_url)}" alt="Post image" loading="lazy">`:""}${p.video_url?`<div class="post-video-wrap"><video controls playsinline preload="metadata" data-post-video src="${attr(p.video_url)}"></video><div class="video-caption"><span class="video-chip">VIDEO</span><span>Shared on LitanyaSpace</span></div></div>`:""}${musicHTML(p)}</div>
+  <div class="postbody">${esc(p.content)}${p.image_url?`<img class="postimg" src="${attr(p.image_url)}" alt="Post image" loading="lazy">`:""}${p.video_url?`<div class="post-video-wrap"><video controls playsinline preload="metadata" data-post-video src="${attr(p.video_url)}"></video><div class="video-caption"><span class="video-chip">VIDEO</span><span>Shared on LitanyaSpace</span></div></div>`:""}${musicHTML(p)}</div>
   <div class="actions"><div class="reaction-bar">${Object.entries(RM).map(([k,v])=>`<button type="button" data-react-pick="${k}" title="${v.l}">${v.e}</button>`).join("")}</div><button data-act="like" class="${rm?'active':''}" title="${rm?rm.l:'Like'}">${rm?`<span class="react-emoji">${rm.e}</span> ${rm.l}`:(topR.length?`<span class="react-stack">${topR.map(e=>`<i>${e}</i>`).join("")}</span> Like`:'<span class="svgicon" data-icon="like"></span> Like')} ${likes.length||""}</button><button data-act="comment"><span class="svgicon" data-icon="comment"></span> Comment ${comments.length||""}</button><button data-act="save"><span class="svgicon" data-icon="bookmark"></span> Save</button></div>
   <div class="comments">${comments.filter(c=>!c.parent_id).slice(-20).map(c=>commentHTML(c,comments)).join("")}<form class="commentform" data-post="${attr(p.id)}"><input maxlength="1000" placeholder="Write a comment..."><button class="btn secondary">Send</button></form></div>
  </article>`
@@ -2380,15 +2393,20 @@ async function loadNotifications(){
   let r=await client.from("notifications").select("*").eq("user_id",uid()).order("created_at",{ascending:false}).limit(100);
   if(r.error){toast(r.error.message||"Could not load notifications.","error");return}
   const rows=r.data||[];
+  // v2.16: resolve actor profiles so every notification shows who caused it
+  const actorIds=[...new Set(rows.map(n=>n.actor_id).filter(Boolean).map(String))];
+  const actorMap=new Map();
+  if(actorIds.length){const a=await client.from("profiles").select("id,username,display_name,avatar_url").in("id",actorIds);if(!a.error)(a.data||[]).forEach(p=>actorMap.set(String(p.id),p))}
   const unread=rows.filter(x=>!x.is_read).length;
   ["notifBadge","notifBottomBadge"].forEach(id=>{const b=$(id);if(!b)return;b.textContent=unread>99?"99+":String(unread);b.classList.toggle("hidden",!unread)});
   // bottom badge handled above
   const NICON={message:"✉",comment:"💬",comment_reply:"💬",like:"👍",reaction:"👍",follow:"👥",post:"📣",myday_reply:"🌅",profile_view:"👀"};
-  $("notificationList").innerHTML=rows.length?rows.map(n=>`<div class="notice ${n.is_read?'':'unread'}" data-notif="${attr(n.id)}">
-    <div class="avatar notif-emoji">${NICON[n.type]||"•"}</div>
+  $("notificationList").innerHTML=rows.length?rows.map(n=>{const actor=actorMap.get(String(n.actor_id||""));const head=actor?`<button type="button" class="notice-avatar" data-notif-user="${attr(actor.id)}" title="Open ${attr(actor.display_name||actor.username||'profile')}">${avatarHTML(actor.display_name||actor.username,actor.avatar_url)}</button>`:`<div class="avatar notif-emoji">${NICON[n.type]||"•"}</div>`;return `<div class="notice ${n.is_read?'':'unread'}" data-notif="${attr(n.id)}">
+    ${head}
     <div class="noticebody"><strong>${esc(n.title||"Notification")}</strong><p>${esc(n.body||"")}</p><span class="tiny">${esc(ago(n.created_at))}</span></div>
-  </div>`).join(""):'<div class="empty">No notifications.</div>';
+  </div>`}).join(""):'<div class="empty">No notifications.</div>';
   $("notificationList").querySelectorAll(".notice").forEach(x=>x.onclick=()=>openNotification(rows.find(n=>String(n.id)===String(x.dataset.notif))));
+  $("notificationList").querySelectorAll("[data-notif-user]").forEach(b=>b.onclick=e=>{e.stopPropagation();openPublicProfile(b.dataset.notifUser)});
 }
 async function openNotification(n){
   if(!n)return;
@@ -3027,13 +3045,14 @@ html[data-theme="dark"] .lit-game-ended-card{background:linear-gradient(145deg,#
     var previewBoxId = composer.id.replace(/Form$/i,'') + 'MusicPreview';
     var box = document.getElementById(previewBoxId) || composer.querySelector('.music-preview');
     var dur = Math.min(30, (t.trackTimeMillis||30000)/1000);
+    var artBig = t.artworkUrl100 ? t.artworkUrl100.replace('100x100','500x500') : '';
     if(box){
       box.classList.remove('hidden');
-      box.innerHTML='<div class="music-track-head"><div class="music-track-disc">🎵</div><div class="music-track-meta"><strong>'+esc(t.trackName||'')+'</strong><span>'+esc(t.artistName||'')+' · '+fmt(dur)+' · iTunes</span></div><button type="button" class="iconbtn" onclick="(function(b){var c=b.closest(\'.music-preview\');c.classList.add(\'hidden\');c.innerHTML=\'\';if(window.__litanyaAttached)window.__litanyaAttached=null;})(this)">✕</button></div>';
+      box.innerHTML='<div class="music-track-head"><div class="music-track-disc">'+(artBig?'<img src="'+artBig+'" alt="" loading="lazy">':'🎵')+'</div><div class="music-track-meta"><strong>'+esc(t.trackName||'')+'</strong><span>'+esc(t.artistName||'')+' · '+fmt(dur)+' · iTunes</span></div><button type="button" class="iconbtn" onclick="(function(b){var c=b.closest(\'.music-preview\');c.classList.add(\'hidden\');c.innerHTML=\'\';if(window.__litanyaAttached)window.__litanyaAttached=null;})(this)">✕</button></div>';
     }
     window.__litanyaAttached = {
       music_url: t.previewUrl, music_name: (t.artistName||'')+' — '+(t.trackName||''),
-      music_source: 'itunes', music_start: 0, music_end: dur,
+      music_source: 'itunes', music_start: 0, music_end: dur, music_image: artBig,
       attribution: (t.artistName||'')+' — '+(t.trackName||'')+' (Apple Music preview)'
     };
     if(fileInput){
