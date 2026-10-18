@@ -1079,17 +1079,30 @@ async function secureCurrentAccount(username,pass){
   if(!session)throw new Error("No active session on this device. Please sign in instead.");
   if(!isAnonSession())throw new Error("This account already has a password. Use Sign in.");
   const uname=username.toLowerCase();
-  let r=null,usedDom=null;
+  // v2.13: attach email+password through the secure-account Edge Function (service-role
+  // admin API). client.auth.updateUser() trips GoTrue's deliverability check on our
+  // internal @litanya domains AND sends confirmation emails that hit the 2/min free-tier
+  // rate limit ("too many email confirmations"). The admin path sends no email at all.
+  let lastErr=null,usedDom=null;
   for(const dom of orderedDomains(uname)){
-    r=await client.auth.updateUser({email:authEmailFor(uname,dom),password:pass});
-    if(r.error && isInvalidEmailErr(r.error))continue;
-    usedDom=dom;break;
+    usedDom=dom;
+    let resp=null;
+    try{
+      resp=await fetch(SUPABASE_URL+"/functions/v1/secure-account",{method:"POST",headers:{"Content-Type":"application/json",apikey:SUPABASE_KEY,Authorization:"Bearer "+session.access_token},body:JSON.stringify({email:authEmailFor(uname,dom),password:pass})});
+    }catch(e){lastErr=new Error("Network problem while securing the account: "+e.message);break}
+    const j=await resp.json().catch(()=>({}));
+    if(resp.ok&&j.ok){lastErr=null;break}
+    lastErr=new Error(j.error||("secure-account failed with HTTP "+resp.status));
+    if(/invalid email format|too short/i.test(String(j.error||"")))continue; // try next domain
+    break; // auth/server errors: another domain won't help
   }
+  if(lastErr)throw lastErr;
   if(usedDom)rememberDomain(usedDom,uname);
-  if(r.error)throw r.error;
-  const cur=await client.auth.getSession();
-  if(cur.data&&cur.data.session)session=cur.data.session;
-  if(isAnonSession())throw new Error("The password was saved but the account is still temporary. Owner: turn OFF 'Confirm email' in Supabase → Authentication → Providers → Email.");
+  // Replace the temporary session with a fresh login using the new credentials.
+  const s=await client.auth.signInWithPassword({email:authEmailFor(uname,usedDom),password:pass});
+  if(s.error)throw s.error;
+  session=s.data.session;
+  if(isAnonSession())throw new Error("The password was saved but the account is still temporary. Owner: check the secure-account Edge Function in Supabase.");
   // Keep the existing profile row untouched (it holds the posts and chats); only create it if it is somehow missing.
   const prof=await client.from("profiles").select("*").eq("id",uid()).maybeSingle();
   if(prof.data){me=prof.data;cache.profiles.set(me.id,me)}
@@ -1225,7 +1238,7 @@ function rememberDomain(d,username){
 }
 function friendlyAuthError(err){
   const msg=String(err?.message||err||"");
-  if(/over_email_send_rate_limit|email rate limit/i.test(msg))return "Too many confirmation emails were sent. Owner: turn OFF 'Confirm email' in Supabase → Authentication → Providers → Email. Then wait 5–10 minutes and try again.";
+  if(/over_email_send_rate_limit|email rate limit|too many.*email|email confirmation/i.test(msg))return "Too many confirmation emails were sent. Owner: in Supabase → Authentication → Sign In / Up → Email, turn OFF 'Confirm email' AND 'Secure email change' (also 'Secure password change' and 'Secure account recovery' if visible). Then wait 5–10 minutes and try again.";
   if(/over_.*_rate_limit|rate limit|too many requests/i.test(msg))return "Too many attempts right now — the login server is cooling down. Please wait 5–10 minutes, then try again. Avoid tapping the button repeatedly.";
   if(/already registered|already exists/i.test(msg))return "That username is already taken. If it is YOUR old account, open Litanya on the device where you used it before and tap “Add password” — your posts stay safe. Otherwise, sign in or choose another username.";
   if(/Database error saving new user/i.test(msg))return "That username is already taken. Please choose another one.";
