@@ -78,7 +78,9 @@ Deno.serve(async (req: Request) => {
         { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } });
     }
 
-    const payload = JSON.stringify({ title, body, url, icon: "/apple-touch-icon.png" });
+    // v2.16: use the actor's avatar as the push icon when the trigger provides one.
+    const icon = typeof rec.icon === "string" && /^https?:\/\//i.test(rec.icon) ? rec.icon : "/apple-touch-icon.png";
+    const payload = JSON.stringify({ title, body, url, icon });
     let sent = 0, failed = 0;
     await Promise.allSettled(
       subs.map(async (s: any) => {
