@@ -2721,7 +2721,7 @@ function wireV2Features(){
   document.addEventListener("click",e=>{
     if(reactSuppress&&e.target.closest&&e.target.closest('[data-act="like"]')){e.stopPropagation();e.preventDefault();return}
     const pick=e.target.closest?e.target.closest("[data-react-pick]"):null;
-    if(pick){const post=pick.closest(".post");if(post)setReaction(post.dataset.post,pick.dataset.react);pick.closest(".reaction-bar")?.classList.remove("show");return}
+    if(pick){const post=pick.closest(".post");if(post)setReaction(post.dataset.post,pick.dataset.reactPick);pick.closest(".reaction-bar")?.classList.remove("show");return}
     if(!(e.target.closest&&e.target.closest(".reaction-bar")))document.querySelectorAll(".reaction-bar.show").forEach(b=>b.classList.remove("show"));
   },true);
 }
